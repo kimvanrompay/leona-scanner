@@ -84,6 +84,8 @@ func main() {
 	r.HandleFunc("/api/webhook", h.HandleWebhook).Methods("POST")
 	r.HandleFunc("/api/lead/engineer", h.HandleEngineerLeadMagnet).Methods("POST")
 	r.HandleFunc("/api/lead/lawyer", h.HandleLawyerLeadMagnet).Methods("POST")
+	r.HandleFunc("/api/lead/checklist", h.HandleChecklistDownload).Methods("POST")
+	r.HandleFunc("/checklists", h.HandleChecklistPage).Methods("GET")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
