@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRA Kennisbank | Embedded Linux Compliance | LEONA</title>
+    <meta name="description" content="Complete kennisbank over EU Cyber Resilience Act compliance voor embedded Linux. Yocto, Buildroot, Debian. Kernel EOL, BusyBox, GPL-3.0.">
+    
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://leona-cravit.be/kennisbank">
+    <meta property="og:title" content="CRA Kennisbank voor Embedded Linux Engineers">
+    <meta property="og:description" content="Kernel EOL detectie. BusyBox security. GPL-3.0 licenties. SBOM generatie. Alles over CRA compliance.">
+    <meta property="og:image" content="https://leona-cravit.be/static/og-kennisbank.jpg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#0033A0',
+                        'brand-blue-light': '#4169E1',
+                    },
+                    fontFamily: {
+                        'display': ['Funnel Display', 'sans-serif'],
+                        'sans': ['Switzer', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between py-4">
+                <a href="/" class="font-display text-2xl font-bold text-brand-blue hover:text-blue-800 transition-colors">LEONA & CRAVIT</a>
+                <div class="hidden md:flex items-center gap-8 text-sm">
+                    <a href="/insights" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Inzichten</a>
+                    <a href="/kennisbank" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Kennisbank</a>
+                    <a href="/free-report" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Gratis Rapport</a>
+                    <a href="/#scanner" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Scanner</a>
+                    <a href="/#pricing" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Tarieven</a>
+                    <a href="/#contact" class="bg-brand-blue text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-800 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue-light py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="max-w-4xl">
+                <div class="text-white/70 text-sm font-semibold uppercase tracking-wider mb-4">
+                    Kennisbank
+                </div>
+                <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+                    CRA-vereisten<br/>
+                    voor Linux<br/>
+                    Embedded Systemen
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 leading-relaxed max-w-2xl">
+                    Vertaling van juridische compliance naar concrete technische implementatie voor uw Linux-distributie. Elk artikel is LinkedIn-ready en direct deelbaar.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Article 1 -->
+                <article class="group bg-gradient-to-br from-gray-50 to-white rounded-3xl ring-1 ring-gray-200 hover:ring-brand-blue transition-all p-8 cursor-pointer">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded-full uppercase">CRA Artikel 10</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full uppercase">Kritiek</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 group-hover:text-brand-blue transition-colors leading-tight">
+                        End-of-Life<br/>
+                        Kernel Detectie
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Verouderde Linux-kernels zijn de nummer één oorzaak van CRA non-compliance. Automatische EOL detectie voor Yocto, Buildroot en Debian.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        Yocto / OpenEmbedded • Buildroot • Debian Embedded
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="group bg-gradient-to-br from-gray-50 to-white rounded-3xl ring-1 ring-gray-200 hover:ring-brand-blue transition-all p-8 cursor-pointer">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded-full uppercase">CRA Annex I, Part II(1)</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full uppercase">BusyBox</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 group-hover:text-brand-blue transition-colors leading-tight">
+                        Onveilige Protocollen<br/>
+                        in Embedded Linux
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        CRA verbiedt "known exploitable vulnerabilities". Telnet en FTP in BusyBox vallen hieronder. Detectie en remediatie strategieën.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        Telnet • FTP • rlogin • BusyBox applets
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="group bg-gradient-to-br from-gray-50 to-white rounded-3xl ring-1 ring-gray-200 hover:ring-brand-blue transition-all p-8 cursor-pointer">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded-full uppercase">CRA Artikel 14</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full uppercase">Licenties</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 group-hover:text-brand-blue transition-colors leading-tight">
+                        GPL-3.0<br/>
+                        Copyleft Risico's
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        GPL-3.0 in uw kernel-module kan uw proprietary code "besmetten". Complete gids voor automotive HMI en custom drivers.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        Qt • Kernel Modules • Automotive • Tivoization
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="group bg-gradient-to-br from-gray-50 to-white rounded-3xl ring-1 ring-gray-200 hover:ring-brand-blue transition-all p-8 cursor-pointer">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded-full uppercase">CRA Artikel 14</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full uppercase">SBOM</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 group-hover:text-brand-blue transition-colors leading-tight">
+                        SBOM Generatie<br/>
+                        CycloneDX vs SPDX
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        De CRA vereist een "Software Bill of Materials". Praktische gids voor SBOM generatie per Linux-distributie met concrete voorbeelden.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        SPDX 2.3 • CycloneDX • CPE • PURL
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="group bg-gradient-to-br from-gray-50 to-white rounded-3xl ring-1 ring-gray-200 hover:ring-brand-blue transition-all p-8 cursor-pointer">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded-full uppercase">US Executive Order 14028</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full uppercase">International</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 group-hover:text-brand-blue transition-colors leading-tight">
+                        SBOM Requirements<br/>
+                        Federale Aanbestedingen
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Executive Order 14028 vereist SBOMs voor alle software aan de US federale overheid. Impact op wereldwijde supply chains en B2B verwachtingen.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        NIST Framework • Federal Procurement • Supply Chain
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="group bg-gradient-to-br from-gray-50 to-white rounded-3xl ring-1 ring-gray-200 hover:ring-brand-blue transition-all p-8 cursor-pointer">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-bold rounded-full uppercase">Technical Deep Dive</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full uppercase">Yocto</span>
+                    </div>
+                    <h2 class="font-display text-3xl font-bold text-gray-900 mb-4 group-hover:text-brand-blue transition-colors leading-tight">
+                        Yocto SPDX 2.3<br/>
+                        Native Generatie
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Yocto Kirkstone (4.0+) heeft built-in SPDX support. Complete gids voor create-spdx inherit en BitBake integratie.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        BitBake • local.conf • INHERIT • SPDX_PRETTY
+                    </div>
+                </article>
+            </div>
+
+            <!-- Social Sharing CTA -->
+            <div class="mt-16 bg-gradient-to-r from-brand-blue to-brand-blue-light rounded-3xl p-8 md:p-12 text-white text-center">
+                <h3 class="font-display text-3xl md:text-4xl font-bold mb-4">
+                    Deel deze kennis met uw netwerk
+                </h3>
+                <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                    Elk artikel is geoptimaliseerd voor LinkedIn sharing. Help uw collega's met CRA compliance door deze kennisbank te delen.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://leona-cravit.be/kennisbank" target="_blank" class="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-blue font-bold rounded-xl hover:bg-gray-100 transition-all shadow-xl">
+                        Deel op LinkedIn
+                    </a>
+                    <a href="/free-report" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-all">
+                        Scan Uw SBOM Gratis
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">VERKEN</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/kennisbank" class="hover:text-white transition-colors">Kennisbank</a></li>
+                        <li><a href="/insights" class="hover:text-white transition-colors">Inzichten</a></li>
+                        <li><a href="/#scanner" class="hover:text-white transition-colors">Scanner</a></li>
+                        <li><a href="/#pricing" class="hover:text-white transition-colors">Tarieven</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">CONNECT</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/#contact" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="mailto:support@leona-cravit.be" class="hover:text-white transition-colors">Email</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">LEGAL</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Notice</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">SUBSCRIBE</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Ontvang inzichten van<br/>LEONA & CRAVIT
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">
+                    © 2026 LEONA & CRAVIT. CRA Compliance Consulting. Resultaten uit het verleden bieden geen garantie voor toekomstige resultaten.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

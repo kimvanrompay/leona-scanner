@@ -82,6 +82,21 @@ func (h *HTTPHandlerV2) HandleInsights(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// HandleKennisbank serves the knowledge base index page
+func (h *HTTPHandlerV2) HandleKennisbank(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/kennisbank.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
 // HandleFreeReport serves the free CRA readiness report landing page
 func (h *HTTPHandlerV2) HandleFreeReport(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/free-report.html")
