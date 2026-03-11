@@ -18,14 +18,14 @@ Add these settings to your `.env` file:
 
 ```bash
 # SMTP Configuration (Netim)
-SMTP_HOST=smtp.netim.com
-SMTP_PORT=587
+SMTP_HOST=mail1.netim.hosting
+SMTP_PORT=465
 SMTP_USER=support@leona-cravit.be
 SMTP_PASS=your_email_password_here
 SMTP_FROM=support@leona-cravit.be
 ```
 
-**Note:** If Netim uses a different SMTP host (like `mail.leona-cravit.be` or `smtp.leona-cravit.be`), replace `smtp.netim.com` with the correct value from your control panel.
+**Note:** Netim uses SSL/TLS on port 465 (not STARTTLS on 587).
 
 ### Step 3: Test Email Delivery
 
@@ -63,25 +63,13 @@ Check your inbox for the email with subject: **"Jouw meta-leona CRA Validator La
 
 ### Common Netim SMTP Settings
 
-Try these if the defaults don't work:
-
-**Option 1: Standard SMTP with STARTTLS**
+**Official Netim Settings (from your panel):**
 ```bash
-SMTP_HOST=smtp.netim.com
-SMTP_PORT=587
-```
-
-**Option 2: SSL/TLS**
-```bash
-SMTP_HOST=smtp.netim.com
+SMTP_HOST=mail1.netim.hosting
 SMTP_PORT=465
 ```
 
-**Option 3: Custom domain SMTP**
-```bash
-SMTP_HOST=mail.leona-cravit.be
-SMTP_PORT=587
-```
+This uses **SSL/TLS** (not STARTTLS). The Go code is already configured for this.
 
 ### What Gets Sent?
 

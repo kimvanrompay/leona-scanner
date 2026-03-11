@@ -107,7 +107,7 @@ func (h *HTTPHandlerV2) HandleLawyerLeadMagnet(w http.ResponseWriter, r *http.Re
 // sendEngineerEmail sends the meta-leona layer to engineers
 func (h *HTTPHandlerV2) sendEngineerEmail(to string) error {
 	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := 587
+	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
 	smtpFrom := "support@leona-cravit.be"
@@ -203,7 +203,7 @@ bitbake core-image-minimal
 // sendLawyerEmail sends the Annex I template to lawyers
 func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
 	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := 587
+	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
 	smtpFrom := "support@leona-cravit.be"
