@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier Geactiveerd | LEONA & CRAVIT</title>
+    <meta name="description" content="Uw Technical Construction File is gereed voor download.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300&display=swap');
+        body {
+            font-family: 'IBM Plex Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-[#F9F9F7] antialiased">
+    
+    <!-- Success Page -->
+    <div class="min-h-screen py-20 px-6">
+        <div class="max-w-3xl mx-auto">
+            
+            <!-- Header -->
+            <header class="border-b border-[#E5E5E1] pb-10 mb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-light text-[#1A1A1A] tracking-tight">Dossier Geactiveerd</h1>
+                        <p class="text-sm text-[#4A4A4A] mt-1">Betaling ontvangen en verwerkt</p>
+                    </div>
+                </div>
+                <p class="text-sm text-[#4A4A4A] font-mono uppercase tracking-widest">Project ID: {{.ProjectID}}</p>
+                <p class="text-xs text-[#6A6A6A] mt-2">Factuur verzonden naar: {{.Email}}</p>
+            </header>
+
+            <!-- Live Generation Status -->
+            <div id="status-engine" class="mb-12">
+                <div class="bg-white border border-[#E5E5E1] p-6 shadow-sm">
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-4">Finaliseringsproces</p>
+                    
+                    <!-- HTMX will replace this with live logs -->
+                    <div hx-get="/api/generation-status/{{.ProjectID}}" 
+                         hx-trigger="load, every 2s" 
+                         hx-swap="innerHTML"
+                         class="space-y-2 font-mono text-xs text-[#4A4A4A]">
+                        <p class="opacity-80">[INFO] Parsing SBOM components...</p>
+                        <p class="opacity-60">[INFO] Generating CRA Annex I mapping...</p>
+                        <p class="opacity-40">[INFO] Cross-referencing CVE database...</p>
+                        <p class="opacity-20">[INFO] Building remediation scripts...</p>
+                    </div>
+                    
+                    <div class="mt-6 bg-gray-100 rounded-full h-1 overflow-hidden">
+                        <div class="bg-green-600 h-full animate-pulse" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                
+                <!-- PDF Download -->
+                <a href="/api/download/pdf/{{.ProjectID}}" 
+                   class="group block p-8 bg-white border border-[#E5E5E1] hover:border-[#1A1A1A] transition-all hover:shadow-lg">
+                    <div class="flex items-start justify-between mb-4">
+                        <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM8 18v-2h8v2H8zm0-4v-2h8v2H8zm0-4V8h3v2H8z"/>
+                        </svg>
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">45 Pagina's</span>
+                    </div>
+                    <h3 class="text-lg font-medium text-[#1A1A1A] mb-2">Technical Construction File</h3>
+                    <p class="text-xs text-[#4A4A4A] leading-relaxed mb-4">
+                        Het volledige juridische bewijslast dossier voor CE/CRA conformiteit. Inclusief Annex I mapping, CVE-traceability en compliance matrix.
+                    </p>
+                    <span class="inline-block text-[10px] font-bold tracking-widest border-b border-[#1A1A1A] pb-1 group-hover:border-b-2 transition-all">
+                        DOWNLOAD PDF
+                    </span>
+                </a>
+
+                <!-- Yocto Fix Pack -->
+                <a href="/api/download/fixes/{{.ProjectID}}" 
+                   class="group block p-8 bg-white border border-[#E5E5E1] hover:border-[#1A1A1A] transition-all hover:shadow-lg">
+                    <div class="flex items-start justify-between mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.89 3L14.85 3.4L11.11 21L9.15 20.6L12.89 3M19.59 12L16 8.41V5.58L22.42 12L16 18.41V15.58L19.59 12M1.58 12L8 5.58V8.41L4.41 12L8 15.58V18.41L1.58 12Z"/>
+                        </svg>
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">.ZIP</span>
+                    </div>
+                    <h3 class="text-lg font-medium text-[#1A1A1A] mb-2">Yocto Fix-Pack</h3>
+                    <p class="text-xs text-[#4A4A4A] leading-relaxed mb-4">
+                        Bevat de <code class="bg-gray-100 px-1 py-0.5 rounded text-[11px]">meta-leona-fix</code> layer met alle .bbappends om uw build direct te harden volgens CRA-eisen.
+                    </p>
+                    <span class="inline-block text-[10px] font-bold tracking-widest border-b border-[#1A1A1A] pb-1 group-hover:border-b-2 transition-all">
+                        DOWNLOAD LAYER
+                    </span>
+                </a>
+
+            </div>
+
+            <!-- Hardware Attestation Kit -->
+            <div class="bg-gradient-to-br from-gray-50 to-white border border-[#E5E5E1] rounded-lg p-8 mb-12">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-medium text-[#1A1A1A] mb-2">On-Premise Hardware Attestation</h3>
+                        <p class="text-xs text-[#4A4A4A] leading-relaxed mb-4">
+                            Voor volledige NIS2/CER compliance moet u uw hardware-security valideren. Download het attestation script en voer het uit op uw target device.
+                        </p>
+                        <a href="/api/download/attestation-script" 
+                           class="inline-flex items-center gap-2 text-xs font-medium text-purple-600 hover:text-purple-800 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download leona-audit.sh
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What's Included -->
+            <div class="bg-white border border-[#E5E5E1] rounded-lg p-8 mb-12">
+                <h3 class="text-lg font-medium text-[#1A1A1A] mb-6 border-b border-[#E5E5E1] pb-4">Wat is inbegrepen in uw dossier</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-[#4A4A4A]">
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>Executive Summary (NL + EN)</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>CRA Annex I Artikel-per-artikel Mapping</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>CVE-to-Component Traceability</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>GPL License Risk Analysis</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>Remediation Roadmap (Yocto/Buildroot)</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>Cross-Framework Attestation (CER/NIS2)</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>LEONA Conformiteitsverklaring</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <span class="text-green-600 mt-0.5">✓</span>
+                        <span>Officiële BTW-factuur</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="bg-blue-50 border border-blue-100 rounded-lg p-6 mb-12">
+                <h3 class="text-sm font-medium text-blue-900 mb-3">📋 Volgende Stappen</h3>
+                <ol class="space-y-2 text-xs text-blue-800">
+                    <li class="flex items-start gap-2">
+                        <span class="font-bold">1.</span>
+                        <span>Download het Technical Construction File en deel het met uw juridisch adviseur</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="font-bold">2.</span>
+                        <span>Implementeer de remediatie-scripts uit de Yocto Fix-Pack</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="font-bold">3.</span>
+                        <span>Voer het hardware attestation script uit op uw productie-device</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="font-bold">4.</span>
+                        <span>Upload de attestation-resultaten naar uw dashboard voor finalisering</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Support -->
+            <div class="text-center mb-12">
+                <p class="text-xs text-[#6A6A6A] mb-4">Vragen over uw dossier?</p>
+                <a href="mailto:support@leona-cravit.be?subject=Support voor Project {{.ProjectID}}" 
+                   class="inline-flex items-center gap-2 text-sm font-medium text-[#1A1A1A] hover:text-blue-600 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    support@leona-cravit.be
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <footer class="text-center border-t border-[#E5E5E1] pt-8">
+                <p class="text-[11px] text-gray-400 font-serif italic">
+                    LEONA & CRAVIT: Uw partner in continuïteit en conformiteit.
+                </p>
+                <p class="text-[10px] text-gray-400 mt-2">
+                    © 2026 LEONA & CRAVIT • leona-cravit.be
+                </p>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>
