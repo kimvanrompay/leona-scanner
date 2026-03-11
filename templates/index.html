@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automatische CRA Compliance Scanner | 60 sec Rapport | LEONA</title>
-    <meta name="description" content="Upload uw SBOM. Ontvang binnen 60 seconden een volledig CRA compliance rapport. Geen consultants. Pure SaaS. 499 EUR vs 15 miljoen boetes.">
+    <title>LEONA V-Assessor™ | Automated Technical Construction File Generator | CRA Compliance</title>
+    <meta name="description" content="Geautomatiseerde CRA compliance engineering voor embedded Linux. Geen oppervlakkige scan, maar diepgaande binaire en broncode validatie van uw Yocto-distributie.">
     
     <!-- Open Graph / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://leona-cravit.be/">
-    <meta property="og:title" content="Automatische CRA Compliance Scanner voor Embedded Linux">
-    <meta property="og:description" content="Upload SBOM → 60 sec rapport. Geen consultants. Pure SaaS. 499 EUR. CRA deadline: 11 september 2026.">
+    <meta property="og:title" content="LEONA V-Assessor™ | Technical Construction File Generator">
+    <meta property="og:description" content="Automated CRA compliance engineering. Bitbake layer inspection, binary provenance tracking, multi-framework attestation (CRA/CER/NIS2).">
     <meta property="og:image" content="https://leona-cravit.be/static/og-image.jpg">
     
     <!-- Twitter -->
@@ -73,13 +73,13 @@
     <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between py-4">
-                <a href="/" class="font-display text-2xl font-bold text-brand-blue hover:text-blue-800 transition-colors">LEONA & CRAVIT</a>
+                <a href="/" class="font-display text-2xl font-bold text-brand-blue hover:text-blue-800 transition-colors">LEONA V-ASSESSOR™</a>
                 <div class="hidden md:flex items-center gap-8 text-sm">
+                    <a href="#validation" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Validatie</a>
+                    <a href="#assessor" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">V-Assessor™</a>
                     <a href="/insights" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Inzichten</a>
                     <a href="#knowledge" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Kennisbank</a>
                     <a href="/free-report" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Gratis Rapport</a>
-                    <a href="#scanner" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Scanner</a>
-                    <a href="#pricing" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Tarieven</a>
                     <a href="#contact" class="bg-brand-blue text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-800 transition-colors">Contact</a>
                 </div>
             </div>
@@ -98,44 +98,212 @@
                         CRA Verplichte Rapportage: 11 September 2026 - Nog 6 maanden
                     </span>
                     <h1 class="font-display text-5xl/[1.1] font-bold tracking-tight text-white sm:text-7xl/[1.1] md:text-8xl/[1.05] max-w-5xl">
-                        Automatische CRA Compliance Scanner voor Embedded Linux
+                        Automated CRA Compliance<br/>
+                        Engineering voor<br/>
+                        Embedded Linux
                     </h1>
                 </div>
                 
-                <!-- Agitate -->
+                <!-- Value Proposition -->
                 <p class="mt-8 max-w-3xl text-xl/8 text-white/90 sm:text-2xl/9">
-                    Upload uw SBOM. Ontvang binnen 60 seconden een volledig CRA compliance rapport. <strong class="text-white">Geen consultants. Geen weken wachten. Pure SaaS.</strong>
+                    Geen oppervlakkige scan, maar een <strong class="text-white">diepgaande binaire en broncode validatie</strong> van uw volledige Yocto-distributie.
                 </p>
                 
-                <!-- Solution -->
-                <p class="mt-6 max-w-3xl text-xl/8 font-medium text-white sm:text-2xl/9">
-                    De EU Cyber Resilience Act is nu van kracht. Verplichte rapportage vanaf september 2026. Wij automatiseren uw compliance in minuten, niet maanden.
+                <!-- Technical Depth -->
+                <p class="mt-6 max-w-3xl text-lg/8 text-white/80">
+                    Bitbake layer inspection • Binary provenance tracking • Automated Annex I mapping • Cross-framework attestation (CRA/CER/NIS2)
                 </p>
                 
                 <div class="mt-12 flex flex-col gap-x-6 gap-y-4 sm:flex-row">
-                    <a href="#scanner" class="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-brand-blue hover:bg-gray-100 transition-all shadow-lg">
-                        Scan Linux SBOM nu
+                    <a href="#assessor" class="inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-brand-blue hover:bg-gray-100 transition-all shadow-lg">
+                        Start V-Assessor™
                     </a>
-                    <a href="#insights" class="inline-flex items-center justify-center rounded-xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white hover:bg-white/10 transition-all">
-                        Linux CRA Voorbeelden
+                    <a href="#validation" class="inline-flex items-center justify-center rounded-xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white hover:bg-white/10 transition-all">
+                        Validatie Parameters
                     </a>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Technical Validation Parameters Section -->
+    <section id="validation" class="bg-white py-24 md:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider">Technische Diepgang</div>
+            <h2 class="mt-2 font-display text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-6xl leading-tight">
+                De Drie Pilaren<br/>
+                van Kwaliteit
+            </h2>
+            <p class="mt-6 text-lg text-gray-600 max-w-3xl leading-relaxed">
+                De V-Assessor™ analyseert niet alleen de SBOM, maar valideert uw volledige build-omgeving tegen de Annex I security-eisen. Elke binary wordt getraceerd naar zijn bronlicentie en CVE-geschiedenis.
+            </p>
+
+            <div class="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
+                <!-- Pillar 1 -->
+                <div class="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center">
+                            <span class="text-white font-black text-lg">1</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-gray-900">Bitbake Layer Inspection</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Wij analyseren niet alleen de SBOM, maar valideren uw <code class="bg-white px-2 py-1 rounded text-sm">.bb</code> recipes en <code class="bg-white px-2 py-1 rounded text-sm">local.conf</code> tegen de Annex I security-eisen.
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        Detecteert: Onveilige <code class="bg-white px-1 rounded text-xs">IMAGE_FEATURES</code>, missing <code class="bg-white px-1 rounded text-xs">SECURITY_CFLAGS</code>, outdated layers
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center">
+                            <span class="text-white font-black text-lg">2</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-gray-900">Binary Provenance Tracking</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Elke binary in uw image wordt getraceerd naar zijn bronlicentie en CVE-geschiedenis. Essentieel voor de juridische bewijslast onder de Cyber Resilience Act.
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        Gebruikt: NVD API 2.0, <code class="bg-white px-1 rounded text-xs">cve-check.bbclass</code>, SPDX relationship mapping
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center">
+                            <span class="text-white font-black text-lg">3</span>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-gray-900">Automated Annex I Mapping</h3>
+                    </div>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Onze engine vertaalt technische configuraties (zoals Secure Boot, Read-Only FS en Signed Updates) direct naar de wettelijke artikelen 3.1 t/m 3.6.
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        Valideert: dm-verity, ima-evm-rootfs, SECURITY_LDFLAGS, kernel lockdown
+                    </p>
+                </div>
+            </div>
+
+            <!-- Validation Parameters Table -->
+            <div class="mt-20 bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-8 md:p-12">
+                <h3 class="font-display text-2xl font-bold text-gray-900 mb-8">Validatie Parameters Matrix</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-300">
+                                <th class="text-left py-4 px-4 font-bold text-gray-900">Validatie Parameter</th>
+                                <th class="text-left py-4 px-4 font-bold text-gray-900">Juridische Relevantie (CRA)</th>
+                                <th class="text-left py-4 px-4 font-bold text-gray-900">Technisch Instrument (Yocto)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-gray-900">CVE Backporting Audit</td>
+                                <td class="py-4 px-4 text-gray-700">Art. 10: Vulnerability handling</td>
+                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">cve-check.bbclass</code> + NVD API 2.0</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-gray-900">Hardened Toolchain</td>
+                                <td class="py-4 px-4 text-gray-700">Art. 3.1: Security by design</td>
+                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">SECURITY_CFLAGS</code> & <code class="bg-white px-2 py-1 rounded text-xs">_LDFLAGS</code> audit</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-gray-900">License Compliance</td>
+                                <td class="py-4 px-4 text-gray-700">Art. 18: Technical documentation</td>
+                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">COPYLEFT_COMPLIANCE</code> validatie</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-gray-900">Integrity Checks</td>
+                                <td class="py-4 px-4 text-gray-700">Art. 3.2: Protection against tampering</td>
+                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">dm-verity</code> & <code class="bg-white px-2 py-1 rounded text-xs">ima-evm-rootfs</code> detectie</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-Framework Compliance Section -->
+    <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24 md:py-32 text-white">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="text-sm/6 font-semibold text-blue-400 uppercase tracking-wider">Multi-Framework Attestation</div>
+            <h2 class="mt-2 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl leading-tight">
+                De "Vanta" voor<br/>
+                Embedded Linux
+            </h2>
+            <p class="mt-6 text-lg text-gray-300 max-w-3xl leading-relaxed">
+                De V-Assessor™ valideert uw systeem tegen de drie belangrijkste Europese kaders voor de maakindustrie. Eén scan, drie compliance-dossiers.
+            </p>
+
+            <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+                <!-- CRA -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        </div>
+                        <h3 class="font-display text-xl font-bold">CRA</h3>
+                    </div>
+                    <p class="text-gray-300 mb-2 font-semibold">Cyber Resilience Act</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Productveiligheid & Security-by-Design. Verplicht voor CE-markering vanaf september 2026.
+                    </p>
+                </div>
+
+                <!-- CER -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        </div>
+                        <h3 class="font-display text-xl font-bold">CER</h3>
+                    </div>
+                    <p class="text-gray-300 mb-2 font-semibold">Critical Entities Resilience</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Kritieke Entiteiten & Fysieke Weerbaarheid. Cruciaal voor infrastructuur-gerelateerde machines.
+                    </p>
+                </div>
+
+                <!-- NIS2 -->
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M13 7H7v6h6V7z"/><path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/></svg>
+                        </div>
+                        <h3 class="font-display text-xl font-bold">NIS2</h3>
+                    </div>
+                    <p class="text-gray-300 mb-2 font-semibold">Network and Information Security 2</p>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Supply Chain Security & Incident Reporting. Vereist door uw klanten in energiesector en zorg.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white/10 border border-white/20 rounded-2xl p-8 backdrop-blur">
+                <p class="text-white/90 text-lg leading-relaxed">
+                    <strong class="text-white">Waarom dit belangrijk is:</strong> Uw klanten vragen niet alleen om CRA-compliance. Zij opereren onder NIS2 (kritieke infrastructuur) en CER (fysieke security). Door alle drie de frameworks te dekken, wordt uw product onmisbaar in hun supply chain.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Bento Section -->
     <main>
         <div class="bg-gradient-to-b from-white from-50% to-gray-50 py-24 md:py-32">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider">Pure SaaS Platform</div>
+                <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider">Technical Construction File</div>
                 <h2 class="mt-2 font-display text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-6xl leading-tight">
-                    60 seconden<br/>
-                    van upload<br/>
-                    tot volledig rapport
+                    Van SBOM<br/>
+                    tot volledig<br/>
+                    juridisch dossier
                 </h2>
                 <p class="mt-6 text-lg text-gray-600 max-w-2xl leading-relaxed">
-                    Geen consultants. Geen weken wachten. Upload uw Yocto SPDX, Buildroot CSV of Debian manifest en ontvang direct uw CRA compliance analyse. Automatische kernel EOL detectie, BusyBox security audit en GPL-3.0 conflict checking.
+                    Geen consultants. Geen weken wachten. Upload uw Yocto SPDX, Buildroot CSV of Debian manifest en ontvang uw gevalideerd Technisch Constructiedossier voor de CE-markering.
                 </p>
 
                 <div class="mt-16 grid grid-cols-1 gap-4 sm:mt-20 lg:grid-cols-6 lg:grid-rows-2">
@@ -195,11 +363,12 @@
         </div>
     </main>
 
-    <!-- Scanner Section -->
-    <section id="scanner" class="py-16 md:py-24 bg-gray-50">
+    <!-- V-Assessor Section -->
+    <section id="assessor" class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">Upload uw Linux manifest.json</h2>
-            <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-2xl mx-auto">De CRA eist dat uw Linux-kernel CVE-vrij is. Is uw Yocto-build klaar voor de audit?</p>
+            <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider mb-4">Diagnostische Scan</div>
+            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">Start V-Assessor™ Validatie</h2>
+            <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-2xl mx-auto">Upload uw SBOM en ontvang binnen 60 seconden een eerste analyse. Het volledige Technisch Constructiedossier wordt na validatie beschikbaar gesteld.</p>
             
             <!-- Upload Zone -->
             <div id="scanner-zone" class="max-w-2xl mx-auto">
@@ -292,8 +461,8 @@
         </div>
     </header>
 
-    <!-- Results Section -->
-    <section id="results" class="max-w-7xl mx-auto px-6 py-12"></section>
+    <!-- Assessment Results Section -->
+    <section id="results" class="max-w-7xl mx-auto px-6 py-12 bg-white"></section>
 
     <!-- Notable Matters Section -->
     <section id="insights" class="py-16 md:py-24 bg-white">
@@ -1079,10 +1248,10 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
             <div class="border-t border-white/10 pt-12 xl:grid xl:grid-cols-3 xl:gap-8">
                 <div>
                     <div class="flex flex-col">
-                        <span class="font-display text-2xl font-bold text-white">LEONA & CRAVIT</span>
-                        <span class="text-xs text-gray-400 mt-1">Linux Embedded Operational Network Assessor</span>
+                        <span class="font-display text-2xl font-bold text-white">LEONA V-ASSESSOR™</span>
+                        <span class="text-xs text-gray-400 mt-1">Validation & Verification for Embedded Linux</span>
                         <p class="text-sm text-gray-400 mt-4">Wij zijn geen advocatenkantoor. Wij zijn uw technische paralegal.</p>
-                        <p class="text-sm text-gray-400 mt-2">Consultancy duurt weken en kost duizenden euro's. LEONA geeft u CRA-bewijs in 60 seconden. Automatisch. Schaalbaar. Direct bruikbaar voor uw juridisch dossier.</p>
+                        <p class="text-sm text-gray-400 mt-2">Traditionele consultancy duurt weken en kost duizenden euro's. De V-Assessor™ genereert uw Technisch Constructiedossier in 60 seconden. Automatisch. Schaalbaar. Direct bruikbaar voor uw CE-markering.</p>
                     </div>
                 </div>
                 <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
