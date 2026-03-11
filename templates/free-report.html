@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gratis CRA Readiness Rapport | LEONA & CRAVIT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#0033A0',
+                        'brand-blue-light': '#4169E1',
+                    },
+                    fontFamily: {
+                        'display': ['Funnel Display', 'sans-serif'],
+                        'sans': ['Switzer', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white antialiased">
+    <!-- Navigation - Davis Polk style -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between py-4">
+                <a href="/" class="font-display text-2xl font-bold text-brand-blue hover:text-blue-800 transition-colors">LEONA & CRAVIT</a>
+                <div class="hidden md:flex items-center gap-8 text-sm">
+                    <a href="/insights" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Inzichten</a>
+                    <a href="/#knowledge" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Kennisbank</a>
+                    <a href="/free-report" class="text-brand-blue font-semibold border-b-2 border-brand-blue pb-1">Gratis Rapport</a>
+                    <a href="/#scanner" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Scanner</a>
+                    <a href="/#pricing" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Tarieven</a>
+                    <a href="/#contact" class="bg-brand-blue text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-800 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue-light py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-block px-4 py-2 bg-yellow-400 rounded-full text-gray-900 text-sm font-bold mb-6">
+                        🎁 100% GRATIS • GEEN CREDITCARD VEREIST
+                    </div>
+                    <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                        Uw Volledige CRA Readiness Rapport
+                    </h1>
+                    <p class="text-2xl text-white/90 leading-relaxed mb-8">
+                        Upload uw Linux SBOM en ontvang binnen 3 minuten een <strong class="text-white">professioneel 15-pagina PDF-rapport</strong> dat u nergens anders krijgt.
+                    </p>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                        <h3 class="text-white font-bold text-lg mb-3">✅ Wat u krijgt:</h3>
+                        <ul class="space-y-2 text-white/90">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span><strong>Executive Summary</strong> voor uw management</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span><strong>Kernel EOL Risk Assessment</strong> met specifieke versie aanbevelingen</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span><strong>BusyBox Security Audit</strong> (Telnet/FTP detectie)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span><strong>GPL-3.0 License Conflict Detection</strong></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span><strong>Gap Analysis</strong> tegen CRA Annex I artikelen</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-5 h-5 text-yellow-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <span><strong>Actionable Remediation Roadmap</strong> met tijdlijnen</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sample Report Preview -->
+                <div class="hidden lg:block">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+                        <div class="relative bg-white rounded-2xl shadow-2xl p-8 ring-1 ring-gray-200">
+                            <div class="flex items-center gap-3 mb-6 pb-6 border-b border-gray-200">
+                                <div class="w-12 h-12 bg-brand-blue rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+                                </div>
+                                <div>
+                                    <div class="font-display text-xl font-bold text-gray-900">CRA Readiness Report</div>
+                                    <div class="text-sm text-gray-500">Voorbeeld Product BV • Maart 2026</div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-green-50 rounded-xl p-4 border border-green-200">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-semibold text-gray-700">Compliance Score</span>
+                                        <span class="text-2xl font-bold text-green-600">78%</span>
+                                    </div>
+                                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                        <div class="h-full bg-green-500" style="width: 78%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between text-sm">
+                                        <span class="text-gray-600">✅ Kernel binnen LTS support</span>
+                                        <span class="text-green-600 font-semibold">Compliant</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm">
+                                        <span class="text-gray-600">⚠️ BusyBox Telnet gedetecteerd</span>
+                                        <span class="text-orange-600 font-semibold">Actie Vereist</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm">
+                                        <span class="text-gray-600">✅ SBOM traceability compleet</span>
+                                        <span class="text-green-600 font-semibold">Compliant</span>
+                                    </div>
+                                    <div class="flex items-center justify-between text-sm">
+                                        <span class="text-gray-600">🚨 GPL-3.0 conflict (Qt)</span>
+                                        <span class="text-red-600 font-semibold">Kritiek</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-blue-50 rounded-xl p-4 border border-blue-200 mt-6">
+                                    <div class="text-xs font-bold text-blue-900 uppercase mb-2">Dit rapport bevat:</div>
+                                    <ul class="text-xs text-blue-800 space-y-1">
+                                        <li>• 15 pagina's diepgaande analyse</li>
+                                        <li>• Management-ready slides</li>
+                                        <li>• Specifieke remediatie stappen</li>
+                                        <li>• CRA artikel mapping</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Genereer Uw Gratis Rapport Nu
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Upload uw Linux SBOM (Yocto, Buildroot, Debian) en ontvang direct uw rapport per email
+                </p>
+            </div>
+
+            <form id="upload-form" 
+                  hx-post="/api/scan" 
+                  hx-encoding="multipart/form-data" 
+                  hx-target="#results"
+                  hx-indicator="#loading"
+                  class="relative">
+                
+                <div class="bg-white rounded-3xl p-8 md:p-12 ring-1 ring-gray-200 shadow-lg">
+                    <!-- Email Input -->
+                    <div class="mb-8">
+                        <label for="email" class="block text-sm font-semibold text-gray-900 mb-2">
+                            Email Adres <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               required
+                               placeholder="uw.naam@bedrijf.nl"
+                               class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 outline-none transition-all text-lg">
+                        <p class="text-sm text-gray-500 mt-2">
+                            📧 Uw rapport wordt binnen 3 minuten naar dit adres gestuurd
+                        </p>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="border-2 border-dashed border-brand-blue/30 rounded-2xl p-12 bg-blue-50/30 hover:border-brand-blue cursor-pointer transition-all group">
+                        <input type="file" 
+                               name="sbom" 
+                               id="file-upload" 
+                               accept=".json,.xml,.spdx,.cdx"
+                               required
+                               class="hidden" 
+                               onchange="document.getElementById('file-name').textContent = this.files[0]?.name || 'Geen bestand geselecteerd'">
+                        
+                        <label for="file-upload" class="cursor-pointer block">
+                            <div class="flex flex-col items-center gap-4">
+                                <svg class="w-16 h-16 text-brand-blue group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <div class="text-center">
+                                    <p class="text-gray-900 text-xl font-bold mb-2">Upload uw SBOM-bestand</p>
+                                    <p class="text-sm text-gray-600 mb-3">Yocto SPDX, CycloneDX, Buildroot CSV of Debian manifest</p>
+                                    <p id="file-name" class="text-sm text-gray-500">Geen bestand geselecteerd</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="submit" 
+                            class="mt-8 w-full bg-gradient-to-r from-brand-blue to-brand-blue-light hover:from-blue-800 hover:to-blue-700 text-white font-bold py-5 px-8 rounded-xl transition-all text-lg shadow-xl">
+                        <span id="loading" class="htmx-indicator">
+                            <svg class="animate-spin inline h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                        📄 Genereer Mijn Gratis Rapport
+                    </button>
+
+                    <p class="text-center text-sm text-gray-500 mt-4">
+                        Geen creditcard vereist • 100% gratis • Rapport binnen 3 minuten
+                    </p>
+                </div>
+            </form>
+
+            <div id="results" class="mt-8"></div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-center font-display text-2xl font-bold text-gray-900 mb-12">
+                Waarom 200+ embedded engineers ons vertrouwen
+            </h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-blue rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-2">Yocto Native</h4>
+                    <p class="text-gray-600">Direct support voor Yocto SPDX 2.3 JSON zonder conversie</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-blue rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-2">Linux Specialist</h4>
+                    <p class="text-gray-600">Kernel EOL detectie voor alle major distros</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-blue rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-2">100% Private</h4>
+                    <p class="text-gray-600">Uw SBOM wordt niet opgeslagen of gedeeld</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Davis Polk style -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">VERKEN</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/#knowledge" class="hover:text-white transition-colors">Kennisbank</a></li>
+                        <li><a href="/insights" class="hover:text-white transition-colors">Inzichten</a></li>
+                        <li><a href="/#scanner" class="hover:text-white transition-colors">Scanner</a></li>
+                        <li><a href="/#pricing" class="hover:text-white transition-colors">Tarieven</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">CONNECT</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/#contact" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="mailto:support@leona-cravit.be" class="hover:text-white transition-colors">Email</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">LEGAL</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Notice</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">SUBSCRIBE</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Ontvang inzichten van<br/>LEONA & CRAVIT
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">
+                    © 2026 LEONA & CRAVIT. CRA Compliance Consulting. Resultaten uit het verleden bieden geen garantie voor toekomstige resultaten.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -74,6 +74,7 @@ func main() {
 	// Routes
 	r.HandleFunc("/", h.HandleIndex).Methods("GET")
 	r.HandleFunc("/insights", h.HandleInsights).Methods("GET")
+	r.HandleFunc("/free-report", h.HandleFreeReport).Methods("GET")
 	r.HandleFunc("/free-audit", h.HandleFreeAudit).Methods("GET")
 	r.HandleFunc("/api/scan", h.HandleScan).Methods("POST")
 	r.HandleFunc("/api/checkout/tier1", h.HandleCheckoutTier1).Methods("POST")
