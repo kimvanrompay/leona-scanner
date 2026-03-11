@@ -82,6 +82,8 @@ func main() {
 	r.HandleFunc("/api/checkout/tier2", h.HandleCheckoutTier2).Methods("POST")
 	r.HandleFunc("/api/checkout/tier3", h.HandleCheckoutTier3).Methods("POST")
 	r.HandleFunc("/api/webhook", h.HandleWebhook).Methods("POST")
+	r.HandleFunc("/api/lead/engineer", h.HandleEngineerLeadMagnet).Methods("POST")
+	r.HandleFunc("/api/lead/lawyer", h.HandleLawyerLeadMagnet).Methods("POST")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)

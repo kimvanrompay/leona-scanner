@@ -1,0 +1,84 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "operating-system",
+      "name": "core-image-minimal",
+      "version": "1.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "linux-yocto",
+      "version": "5.10.100",
+      "cpe": "cpe:2.3:o:linux:linux_kernel:5.10.100:*:*:*:*:*:*:*",
+      "purl": "pkg:generic/linux-yocto@5.10.100",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "busybox",
+      "version": "1.35.0",
+      "cpe": "cpe:2.3:a:busybox:busybox:1.35.0:*:*:*:*:*:*:*",
+      "purl": "pkg:generic/busybox@1.35.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "glibc",
+      "version": "2.37",
+      "cpe": "cpe:2.3:a:gnu:glibc:2.37:*:*:*:*:*:*:*",
+      "purl": "pkg:generic/glibc@2.37",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "openssl",
+      "version": "3.0.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "custom-driver",
+      "version": "",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "proprietary-lib"
+    }
+  ]
+}
