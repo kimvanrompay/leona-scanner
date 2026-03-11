@@ -88,7 +88,7 @@
 
     <!-- Hero Section with Visual Demo -->
     <header class="bg-gray-900">
-        <div class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-950/10">
+        <div class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-950/20">
             <div class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
                 
                 <!-- Left Column: Value Proposition -->
@@ -96,38 +96,49 @@
                     <div class="mx-auto max-w-2xl">
                         <div class="max-w-lg">
                             <!-- Logo -->
-                            <div class="flex items-center gap-x-3">
-                                <div class="h-10 w-10 bg-indigo-500 rounded flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                            <div class="flex items-center gap-x-4">
+                                <div class="h-10 w-10 bg-indigo-500 rounded-sm flex items-center justify-center shadow-lg shadow-indigo-500/30">
                                     <span class="text-white font-bold text-xl">L</span>
                                 </div>
                                 <span class="text-white font-semibold text-xl tracking-tight">LEONA & CRAVIT</span>
                             </div>
                             
-                            <!-- Badge -->
+                            <!-- Status Badge -->
                             <div class="mt-24 sm:mt-32 lg:mt-16">
                                 <a href="#" class="inline-flex space-x-6">
-                                    <span class="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-inset ring-indigo-500/25">CRA Compliance</span>
+                                    <span class="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-inset ring-indigo-500/25">CRA Compliance Status</span>
                                     <span class="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                                        <span>Nu live: v2.4 (Maart 2026)</span>
-                                        <svg viewBox="0 0 20 20" fill="currentColor" class="size-5 text-gray-500">
-                                            <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
-                                        </svg>
+                                        <span class="animate-pulse text-red-400">●</span>
+                                        <span>6 maanden tot deadline (11 sept 2026)</span>
                                     </span>
                                 </a>
                             </div>
                             
                             <!-- Headline -->
                             <h1 class="mt-10 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                                Uw Yocto Build.<br/>CRA Gecertificeerd.
+                                Beveilig uw<br/>markttoegang.
                             </h1>
                             <p class="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">
-                                Genereer in 60 seconden een volledig Technisch Constructiedossier. Geen consultancy-trajecten, enkel geautomatiseerde compliance voor de Vlaamse machinebouw.
+                                LEONA & CRAVIT helpt de machinebouw bij het bouwen van een schaalbaar security-programma. Wij automatiseren uw Technisch Constructiedossier, zodat uw engineering-team kan blijven innoveren.
                             </p>
                             
                             <!-- CTAs -->
                             <div class="mt-10 flex items-center gap-x-6">
-                                <a href="#assessor" class="rounded-md bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Start Gratis Scan</a>
-                                <a href="#validation" class="text-sm/6 font-semibold text-white tracking-wide">Voor Advocaten <span aria-hidden="true">→</span></a>
+                                <a href="#assessor" class="rounded-md bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 transition-all">Start Gratis Scan</a>
+                                <a href="#validation" class="text-sm/6 font-semibold text-white">Voor Advocaten & Auditors <span aria-hidden="true">→</span></a>
+                            </div>
+
+                            <!-- Timeline Milestones -->
+                            <div class="mt-16 grid grid-cols-1 gap-4 border-t border-white/10 pt-10">
+                                <p class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold">Kritieke Mijlpalen</p>
+                                <div class="flex justify-between text-xs text-gray-400">
+                                    <span>Dec 2024: CRA In werking</span>
+                                    <span class="text-green-500">✓ Voltooid</span>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-200 font-bold">
+                                    <span>Sept 2026: Verplichte rapportage</span>
+                                    <span class="text-red-400">In aantocht</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,67 +153,66 @@
                             <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
                                 <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
                                     
-                                    <!-- PDF Preview -->
+                                    <!-- Audit Dashboard Preview -->
                                     <div class="w-screen overflow-hidden rounded-tl-xl bg-[#F9F9F7]">
                                         <!-- File Tabs -->
                                         <div class="flex bg-[#E5E5E1]/50 ring-1 ring-black/5">
                                             <div class="-mb-px flex text-[10px] font-mono uppercase tracking-widest text-gray-500">
-                                                <div class="border-b border-r border-b-white/20 border-r-black/5 bg-white px-4 py-2 text-gray-900">v-assessor-audit.pdf</div>
-                                                <div class="border-r border-black/5 px-4 py-2 opacity-50">compliance_matrix.json</div>
+                                                <div class="border-b border-r border-b-white/20 border-r-black/5 bg-white px-4 py-2 text-gray-900 italic">V-Assessor™ Readiness Audit</div>
+                                                <div class="px-4 py-2 opacity-50">Technical_Construction_File.pdf</div>
                                             </div>
                                         </div>
                                         
-                                        <!-- PDF Content -->
+                                        <!-- Audit Content -->
                                         <div class="px-8 pb-14 pt-10 font-serif text-[#1A1A1A]">
-                                            <!-- Header -->
+                                            <!-- Header with Score -->
                                             <div class="flex justify-between items-start mb-10 border-b border-gray-200 pb-6">
                                                 <div>
-                                                    <h2 class="text-2xl font-normal italic">LEONA & CRAVIT Report</h2>
-                                                    <p class="text-[10px] font-sans uppercase tracking-[0.2em] text-gray-500 mt-1">Audit ID: 2026-X84-Yo</p>
+                                                    <h2 class="text-2xl font-normal italic tracking-tight">LEONA & CRAVIT Validation</h2>
+                                                    <p class="text-[10px] font-sans uppercase tracking-[0.2em] text-gray-500 mt-1">Status: Audit in Progress</p>
                                                 </div>
-                                                <div class="flex flex-col items-end">
-                                                    <span class="text-[9px] font-sans font-bold text-red-600 bg-red-50 px-2 py-0.5 border border-red-100 uppercase">Risk Level: High</span>
+                                                <div class="h-12 w-12 rounded-full border-4 border-red-100 flex items-center justify-center">
+                                                    <span class="text-xs font-sans font-bold text-red-600">65%</span>
                                                 </div>
                                             </div>
 
-                                            <!-- Compliance Cards -->
-                                            <div class="space-y-6">
-                                                <div class="grid grid-cols-2 gap-4">
-                                                    <div class="p-3 bg-white border border-gray-100 rounded-sm">
-                                                        <p class="text-[9px] font-sans text-gray-400 uppercase">CRA Section 3.1</p>
-                                                        <p class="text-sm mt-1">Kernel Hardening</p>
-                                                        <p class="text-[10px] text-red-500 font-bold mt-1 tracking-tight">FAILED: LTS Support Expired</p>
-                                                    </div>
-                                                    <div class="p-3 bg-white border border-gray-100 rounded-sm">
-                                                        <p class="text-[9px] font-sans text-gray-400 uppercase">SBOM Integrity</p>
-                                                        <p class="text-sm mt-1">CycloneDX Validatie</p>
-                                                        <p class="text-[10px] text-green-600 font-bold mt-1 tracking-tight">PASSED: v1.5 Detected</p>
+                                            <!-- Audit Categories -->
+                                            <div class="grid grid-cols-1 gap-y-6">
+                                                <!-- Green: SBOM Transparency -->
+                                                <div class="group relative bg-white border border-gray-100 p-4 transition-all hover:shadow-md">
+                                                    <p class="text-[9px] font-sans font-bold text-green-600 uppercase">Transparantie</p>
+                                                    <p class="text-sm font-sans mt-1">Directe SBOM-validatie (CycloneDX 1.5)</p>
+                                                    <div class="mt-3 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
+                                                        <div class="h-full bg-green-500 w-[100%]"></div>
                                                     </div>
                                                 </div>
 
-                                                <!-- Locked Section -->
-                                                <div class="relative mt-8 group cursor-pointer">
-                                                    <div class="opacity-30 blur-[1px] space-y-4 select-none">
-                                                        <div class="h-24 bg-white border border-gray-100 p-4">
-                                                            <p class="text-[9px] font-sans text-gray-400 uppercase">NIS2 / CER Supply Chain Attestatie</p>
-                                                            <div class="mt-2 space-y-2">
-                                                                <div class="h-1.5 w-3/4 bg-gray-200 rounded"></div>
-                                                                <div class="h-1.5 w-1/2 bg-gray-200 rounded"></div>
-                                                            </div>
-                                                        </div>
+                                                <!-- Red: Vulnerability Management -->
+                                                <div class="group relative bg-white border border-gray-100 p-4 transition-all hover:shadow-md">
+                                                    <p class="text-[9px] font-sans font-bold text-red-600 uppercase">Risico-beheer</p>
+                                                    <p class="text-sm font-sans mt-1">Vulnerability Management & CVE-Remediëring</p>
+                                                    <div class="mt-3 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
+                                                        <div class="h-full bg-red-400 w-[45%]"></div>
                                                     </div>
-                                                    
+                                                </div>
+
+                                                <!-- Locked: Multi-Framework -->
+                                                <div class="relative group cursor-pointer">
+                                                    <div class="opacity-20 blur-[1.5px] bg-white border border-gray-100 p-4">
+                                                        <p class="text-[9px] font-sans font-bold text-gray-400 uppercase">Vertrouwen</p>
+                                                        <p class="text-sm font-sans mt-1">CRA, NIS2 & CER Attestatie Matrix</p>
+                                                    </div>
                                                     <div class="absolute inset-0 flex items-center justify-center">
-                                                        <div class="bg-gray-900 px-6 py-3 rounded-sm shadow-2xl transition group-hover:bg-indigo-600">
-                                                            <span class="text-white text-[10px] font-bold uppercase tracking-widest">Unlock Full Technical File</span>
+                                                        <div class="bg-gray-900 text-white text-[9px] font-bold uppercase tracking-widest px-4 py-2 shadow-2xl group-hover:bg-indigo-600 transition">
+                                                            Unlock Construction File
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <!-- Footer -->
-                                            <div class="mt-12 text-[9px] text-gray-400 font-sans text-center border-t border-gray-100 pt-4">
-                                                © 2026 LEONA. Gevalideerd conform de Cyber Resilience Act (EU 2024/2847).
+                                            <!-- Footer Note -->
+                                            <div class="mt-10 text-[9px] text-gray-400 font-sans leading-relaxed">
+                                                * Upload uw Yocto bom.json en ontvang binnen 60 seconden uw volledige audit-rapportage.
                                             </div>
                                         </div>
                                     </div>
