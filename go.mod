@@ -13,8 +13,10 @@ require (
 )
 
 require (
+	github.com/VictorAvelar/mollie-api-go/v3 v3.14.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/f-amaral/go-async v0.3.0 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/hhrutter/lzw v1.0.0 // indirect
 	github.com/hhrutter/tiff v1.0.1 // indirect
 	github.com/johnfercher/go-tree v1.0.5 // indirect
