@@ -24,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -49,6 +50,20 @@
         }
         html, body {
             min-height: 100%;
+        }
+        /* HTMX indicator: show when htmx request is in progress */
+        .htmx-indicator {
+            display: none;
+        }
+        .htmx-request .htmx-indicator,
+        .htmx-request.htmx-indicator {
+            display: block;
+        }
+        /* Progress bar animation */
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
         }
     </style>
 </head>
@@ -186,13 +201,15 @@
             <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">Upload uw Linux manifest.json</h2>
             <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-2xl mx-auto">De CRA eist dat uw Linux-kernel CVE-vrij is. Is uw Yocto-build klaar voor de audit?</p>
             
-            <!-- Upload Section -->
-                <div id="scanner" class="max-w-2xl mx-auto">
-                    <form id="upload-form" 
-                          hx-post="/api/scan" 
+            <!-- Upload Zone -->
+            <div id="scanner-zone" class="max-w-2xl mx-auto">
+                <!-- Upload UI -->
+                <div id="upload-ui">
+                    <form hx-post="/api/scan" 
                           hx-encoding="multipart/form-data" 
-                          hx-target="#results"
-                          hx-indicator="#loading"
+                          hx-target="#scanner-zone"
+                          hx-swap="innerHTML"
+                          hx-indicator="#scan-loading"
                           class="relative">
                         
                         <div class="border-2 border-dashed border-brand-blue/30 rounded-4xl p-12 md:p-16 bg-white ring-1 ring-brand-blue/10 transition-all hover:border-brand-blue cursor-pointer group">
@@ -201,7 +218,7 @@
                                    id="file-upload" 
                                    accept=".json,.xml,.spdx,.cdx"
                                    class="hidden" 
-                                   onchange="document.getElementById('file-name').textContent = this.files[0]?.name || 'Geen bestand geselecteerd'">
+                                   onchange="this.form.requestSubmit(); document.getElementById('scan-status').textContent = 'Parsing SBOM metadata...'">
                             
                             <label for="file-upload" class="cursor-pointer block">
                                 <div class="flex flex-col items-center gap-6">
@@ -209,26 +226,52 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                                     </svg>
                                     <div>
-                                        <p class="text-gray-900 text-xl md:text-2xl font-bold">Upload uw SBOM-bestand</p>
-                                        <p class="text-sm md:text-base text-gray-600 mt-3">CycloneDX of SPDX formaat</p>
-                                        <p id="file-name" class="text-sm text-gray-500 mt-6">Geen bestand geselecteerd</p>
+                                        <p class="text-gray-900 text-xl md:text-2xl font-bold">Sleep uw <span class="text-brand-blue">bom.json</span> hier</p>
+                                        <p class="text-sm md:text-base text-gray-600 mt-3">of klik om te uploaden</p>
+                                        <p class="text-xs text-gray-500 mt-4">CycloneDX, SPDX, Yocto manifest</p>
                                     </div>
                                 </div>
                             </label>
                         </div>
-
-                        <button type="submit" 
-                                class="mt-8 w-full bg-brand-blue hover:bg-blue-800 text-white font-bold py-5 md:py-6 px-8 rounded-xl transition-all text-lg shadow-lg">
-                            <span id="loading" class="htmx-indicator">
-                                <svg class="animate-spin inline h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                            </span>
-                            Beveilig uw markttoelating
-                        </button>
                     </form>
                 </div>
+
+                <!-- Loading Theater (hidden by default, shown by HTMX) -->
+                <div id="scan-loading" class="htmx-indicator hidden">
+                    <div class="bg-white rounded-4xl shadow-2xl border-2 border-brand-blue p-12 text-center">
+                        <div class="flex flex-col items-center gap-6">
+                            <!-- Animated Scanner Icon -->
+                            <div class="relative w-20 h-20">
+                                <div class="absolute inset-0 border-4 border-brand-blue/20 rounded-full"></div>
+                                <div class="absolute inset-0 border-4 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
+                                <svg class="absolute inset-0 w-full h-full p-4 text-brand-blue" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            
+                            <!-- Status Messages -->
+                            <div class="space-y-2">
+                                <p class="text-xl font-bold text-gray-900">LEONA analyseert uw build...</p>
+                                <p id="scan-status" class="text-sm font-mono text-brand-blue animate-pulse">Parsing Yocto layers...</p>
+                            </div>
+                            
+                            <!-- Technical Progress Bar -->
+                            <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                <div class="bg-gradient-to-r from-brand-blue to-blue-400 h-full animate-pulse" style="width: 100%; animation: progress 3s ease-in-out infinite;"></div>
+                            </div>
+                            
+                            <!-- Technical Steps -->
+                            <div class="text-left text-xs text-gray-600 space-y-1 font-mono">
+                                <p class="opacity-100 transition-opacity">✓ SBOM format validated</p>
+                                <p class="opacity-80 transition-opacity delay-300">✓ Checking Annex I requirements...</p>
+                                <p class="opacity-60 transition-opacity delay-500">✓ Kernel EOL detection...</p>
+                                <p class="opacity-40 transition-opacity delay-700">→ Mapping CVEs to components...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
                 <!-- Trust Indicators -->
                 <div class="mt-12 flex flex-wrap justify-center gap-6 md:gap-12 text-sm md:text-base text-gray-600">
@@ -952,6 +995,62 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
         </div>
     </section>
 
+    <!-- Lead Magnets for Engineers & Lawyers -->
+    <section class="bg-gradient-to-br from-indigo-700 via-indigo-600 to-blue-700 py-16 md:py-24">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-4xl font-bold text-white mb-4">
+                    Voor Engineers en Juristen
+                </h2>
+                <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                    Onze bijdrage aan een veiligere Vlaamse maakindustrie. Geen verplichtingen, gewoon vakmanschap.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 items-start">
+                <!-- Engineer Lead Magnet -->
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl ring-1 ring-white/20 hover:bg-white/15 transition-all">
+                    <h3 class="text-white text-2xl font-display font-bold mb-4">Voor de Engineers</h3>
+                    <p class="text-indigo-100 leading-relaxed mb-6">
+                        Geen zin in papierwerk? Download onze gratis <span class="font-mono bg-indigo-900/50 px-2 py-1 rounded text-white">meta-leona</span> sample layer en valideer je Yocto recipes direct in de terminal. Automatische CRA-checks tijdens je BitBake build.
+                    </p>
+                    <form class="flex flex-col sm:flex-row gap-4" action="/api/lead/engineer" method="POST">
+                        <input type="email" name="email" placeholder="uw@email.be" class="flex-auto rounded-xl border-0 bg-white/5 px-4 py-3 text-white placeholder:text-white/60 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-white text-sm" required>
+                        <button type="submit" class="flex-none rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all">
+                            Ontvang Layer
+                        </button>
+                    </form>
+                    <p class="text-xs text-white/60 mt-3">
+                        Inclusief: CRA-check.bbclass, kernel EOL validator, BusyBox audit recipe
+                    </p>
+                </div>
+
+                <!-- Lawyer Lead Magnet -->
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl ring-1 ring-white/20 hover:bg-white/15 transition-all">
+                    <h3 class="text-white text-2xl font-display font-bold mb-4">Voor de Juristen</h3>
+                    <p class="text-indigo-100 leading-relaxed mb-6">
+                        Maak je cliënten sneller CRA-ready. Download ons gratis <span class="underline">Annex I Mapping Template</span> en koppel juridische eisen direct aan technische bewijslast. Excel-based, ready voor je advies-dossiers.
+                    </p>
+                    <form class="flex flex-col sm:flex-row gap-4" action="/api/lead/lawyer" method="POST">
+                        <input type="email" name="email" placeholder="uw@kantoor.be" class="flex-auto rounded-xl border-0 bg-white/5 px-4 py-3 text-white placeholder:text-white/60 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-white text-sm" required>
+                        <button type="submit" class="flex-none rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all">
+                            Ontvang Template
+                        </button>
+                    </form>
+                    <p class="text-xs text-white/60 mt-3">
+                        Inclusief: CRA Artikel mapping, CPE checklist, Tivoization validator
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-sm text-indigo-200 italic max-w-2xl mx-auto">
+                    LEONA is gebouwd door embedded engineers voor embedded engineers. We snappen Yocto, BitBake, en de realiteit van productie-builds. Deze tools zijn ons cadeau aan de community.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer with CTA -->
     <footer class="bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
@@ -982,7 +1081,8 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                     <div class="flex flex-col">
                         <span class="font-display text-2xl font-bold text-white">LEONA & CRAVIT</span>
                         <span class="text-xs text-gray-400 mt-1">Linux Embedded Operational Network Assessor</span>
-                        <p class="text-sm text-gray-400 mt-4">🐧 De enige CRA-compliance tool die specifiek gebouwd is voor Yocto, Buildroot en Debian embedded systemen.</p>
+                        <p class="text-sm text-gray-400 mt-4">Wij zijn geen advocatenkantoor. Wij zijn uw technische paralegal.</p>
+                        <p class="text-sm text-gray-400 mt-2">Consultancy duurt weken en kost duizenden euro's. LEONA geeft u CRA-bewijs in 60 seconden. Automatisch. Schaalbaar. Direct bruikbaar voor uw juridisch dossier.</p>
                     </div>
                 </div>
                 <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
