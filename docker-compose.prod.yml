@@ -6,21 +6,18 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: leona-app
-    env_file:
-      - .env
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: postgresql://postgres:dyrhoj-virmof-Xynzo0@db.ppdquyowhvabaytdfjje.supabase.co:6543/postgres
       PORT: 8080
-      BASE_URL: ${BASE_URL}
-      STRIPE_API_KEY: ${STRIPE_API_KEY}
-      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
-      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
-      SMTP_PORT: ${SMTP_PORT:-587}
-      SMTP_USER: ${SMTP_USER}
-      SMTP_PASS: ${SMTP_PASS}
-      SMTP_FROM: ${SMTP_FROM:-noreply@leona.io}
+      BASE_URL: https://leona.eliama.agency
+      MOLLIE_API_KEY: test_placeholder
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+      SMTP_USER: support@leonatech.com
+      SMTP_PASS: placeholder
+      SMTP_FROM: support@leonatech.com
     ports:
-      - "8080:8080"
+      - "8081:8080"
     restart: unless-stopped
     networks:
       - leona-network
