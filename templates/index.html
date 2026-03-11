@@ -117,9 +117,15 @@
                             </p>
                             
                             <!-- CTAs -->
-                            <div class="mt-10 flex items-center gap-x-6">
+                            <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                                 <a href="#assessor" class="rounded-md bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 transition-all">Start Gratis Scan</a>
-                                <a href="#validation" class="text-sm/6 font-semibold text-white">Voor Advocaten & Auditors <span aria-hidden="true">→</span></a>
+                                <a href="/static/sample-cra-report.pdf" download class="inline-flex items-center gap-2 rounded-md bg-white/10 border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                                    </svg>
+                                    Download Voorbeeld
+                                </a>
+                                <a href="#validation" class="text-sm/6 font-semibold text-white hidden sm:block">Voor Advocaten <span aria-hidden="true">→</span></a>
                             </div>
 
                             <!-- Timeline Milestones -->
@@ -138,75 +144,74 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Visual PDF Demo -->
+                <!-- Right Column: Sample Report Preview -->
                 <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
                     <div aria-hidden="true" class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-gray-800/30 shadow-xl shadow-indigo-400/10 ring-1 ring-white/5 md:-mr-20 lg:-mr-36"></div>
                     
                     <div class="shadow-lg md:rounded-3xl border border-white/10 overflow-hidden">
-                        <div class="bg-indigo-500 [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
+                        <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
                             <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
                                 <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
                                     
-                                    <!-- Audit Dashboard Preview -->
-                                    <div class="w-screen overflow-hidden rounded-tl-xl bg-[#F9F9F7]">
-                                        <!-- File Tabs -->
-                                        <div class="flex bg-[#E5E5E1]/50 ring-1 ring-black/5">
-                                            <div class="-mb-px flex text-[10px] font-mono uppercase tracking-widest text-gray-500">
-                                                <div class="border-b border-r border-b-white/20 border-r-black/5 bg-white px-4 py-2 text-gray-900 italic">V-Assessor™ Readiness Audit</div>
-                                                <div class="px-4 py-2 opacity-50">Technical_Construction_File.pdf</div>
+                                    <!-- PDF Report Preview Card -->
+                                    <div class="w-screen overflow-hidden rounded-tl-xl bg-white shadow-2xl">
+                                        <!-- PDF Header -->
+                                        <div class="bg-gradient-to-r from-gray-50 to-white px-8 py-6 border-b border-gray-200">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <h3 class="text-xl font-bold text-gray-900">CRA Compliance Rapport</h3>
+                                                    <p class="text-sm text-gray-600 mt-1">Industriële Gateway MG-2400X</p>
+                                                </div>
+                                                <div class="flex flex-col items-end">
+                                                    <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-xs font-semibold">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                                                        78% Compliant
+                                                    </div>
+                                                    <p class="text-xs text-gray-500 mt-1">Midden risico</p>
+                                                </div>
                                             </div>
                                         </div>
                                         
-                                        <!-- Audit Content -->
-                                        <div class="px-8 pb-14 pt-10 font-serif text-[#1A1A1A]">
-                                            <!-- Header with Score -->
-                                            <div class="flex justify-between items-start mb-10 border-b border-gray-200 pb-6">
-                                                <div>
-                                                    <h2 class="text-2xl font-normal italic tracking-tight">LEONA & CRAVIT Validation</h2>
-                                                    <p class="text-[10px] font-sans uppercase tracking-[0.2em] text-gray-500 mt-1">Status: Audit in Progress</p>
-                                                </div>
-                                                <div class="h-12 w-12 rounded-full border-4 border-red-100 flex items-center justify-center">
-                                                    <span class="text-xs font-sans font-bold text-red-600">65%</span>
-                                                </div>
-                                            </div>
-
-                                            <!-- Audit Categories -->
-                                            <div class="grid grid-cols-1 gap-y-6">
-                                                <!-- Green: SBOM Transparency -->
-                                                <div class="group relative bg-white border border-gray-100 p-4 transition-all hover:shadow-md">
-                                                    <p class="text-[9px] font-sans font-bold text-green-600 uppercase">Transparantie</p>
-                                                    <p class="text-sm font-sans mt-1">Directe SBOM-validatie (CycloneDX 1.5)</p>
-                                                    <div class="mt-3 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
-                                                        <div class="h-full bg-green-500 w-[100%]"></div>
+                                        <!-- Report Content Preview -->
+                                        <div class="px-8 py-8 space-y-6">
+                                            <!-- Sample Violations -->
+                                            <div class="space-y-3">
+                                                <div class="flex items-start gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                                    <span class="text-green-600 font-bold text-xs">✓ PASS</span>
+                                                    <div class="flex-1">
+                                                        <p class="text-xs font-semibold text-gray-900">Art. 14.1 SBOM Traceability</p>
+                                                        <p class="text-xs text-gray-600 mt-1">347 componenten met volledige CPE/PURL</p>
                                                     </div>
                                                 </div>
-
-                                                <!-- Red: Vulnerability Management -->
-                                                <div class="group relative bg-white border border-gray-100 p-4 transition-all hover:shadow-md">
-                                                    <p class="text-[9px] font-sans font-bold text-red-600 uppercase">Risico-beheer</p>
-                                                    <p class="text-sm font-sans mt-1">Vulnerability Management & CVE-Remediëring</p>
-                                                    <div class="mt-3 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
-                                                        <div class="h-full bg-red-400 w-[45%]"></div>
+                                                
+                                                <div class="flex items-start gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                                                    <span class="text-red-600 font-bold text-xs">✗ FAIL</span>
+                                                    <div class="flex-1">
+                                                        <p class="text-xs font-semibold text-gray-900">Art. 14.2 License Compliance</p>
+                                                        <p class="text-xs text-gray-600 mt-1">GPL-3.0 Anti-Tivoization risico</p>
                                                     </div>
                                                 </div>
-
-                                                <!-- Locked: Multi-Framework -->
-                                                <div class="relative group cursor-pointer">
-                                                    <div class="opacity-20 blur-[1.5px] bg-white border border-gray-100 p-4">
-                                                        <p class="text-[9px] font-sans font-bold text-gray-400 uppercase">Vertrouwen</p>
-                                                        <p class="text-sm font-sans mt-1">CRA, NIS2 & CER Attestatie Matrix</p>
-                                                    </div>
-                                                    <div class="absolute inset-0 flex items-center justify-center">
-                                                        <div class="bg-gray-900 text-white text-[9px] font-bold uppercase tracking-widest px-4 py-2 shadow-2xl group-hover:bg-indigo-600 transition">
-                                                            Unlock Construction File
-                                                        </div>
+                                                
+                                                <div class="flex items-start gap-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                                    <span class="text-yellow-700 font-bold text-xs">⚠ WARN</span>
+                                                    <div class="flex-1">
+                                                        <p class="text-xs font-semibold text-gray-900">Annex I.II.1 Secure Boot</p>
+                                                        <p class="text-xs text-gray-600 mt-1">Geen hardware root-of-trust (TPM)</p>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!-- Footer Note -->
-                                            <div class="mt-10 text-[9px] text-gray-400 font-sans leading-relaxed">
-                                                * Upload uw Yocto bom.json en ontvang binnen 60 seconden uw volledige audit-rapportage.
+                                            
+                                            <!-- Download CTA -->
+                                            <div class="border-t border-gray-200 pt-6">
+                                                <a href="/static/sample-cra-report.pdf" download class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
+                                                    <span class="flex items-center justify-center gap-2">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+                                                        </svg>
+                                                        Download Voorbeeld Rapport (PDF)
+                                                    </span>
+                                                </a>
+                                                <p class="text-center text-xs text-gray-500 mt-3">Professioneel rapport • TÜV/NoBo ready • 4 pagina's</p>
                                             </div>
                                         </div>
                                     </div>

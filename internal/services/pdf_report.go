@@ -198,21 +198,26 @@ func addCoverPage(m core.Maroto, report ComplianceReport) {
 }
 
 func addAnnexIMappingPage(m core.Maroto, report ComplianceReport) {
-	m.AddRow(40, 
-		text.New("ANNEX I SECURITY REQUIREMENTS MAPPING", props.Text{
-			Size:  14,
-			Style: fontstyle.Bold,
-			Top:   10,
-		}),
-		text.New("Dit document koppelt de technische bevindingen in uw Linux-stack aan de specifieke vereisten van de EU Cyber Resilience Act.", props.Text{
-			Size: 9,
-			Top: 25,
-			Color: &props.Color{Red: 100, Green: 100, Blue: 100},
-		}),
+	m.AddRows(
+		row.New(40).Add(
+			col.New(12).Add(
+				text.New("ANNEX I SECURITY REQUIREMENTS MAPPING", props.Text{
+					Size:  14,
+					Style: fontstyle.Bold,
+					Top:   10,
+				}),
+				text.New("Dit document koppelt de technische bevindingen in uw Linux-stack aan de specifieke vereisten van de EU Cyber Resilience Act.", props.Text{
+					Size: 9,
+					Top: 25,
+					Color: &props.Color{Red: 100, Green: 100, Blue: 100},
+				}),
+			),
+		),
 	)
 	
-	rows := []core.Row{
-		// Table Header
+	var rows []core.Row
+	
+	// Table Header
 	rows = append(rows, row.New(8).Add(
 		col.New(2).Add(
 			text.New("CRA Artikel", props.Text{

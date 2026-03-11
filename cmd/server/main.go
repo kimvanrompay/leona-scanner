@@ -62,6 +62,9 @@ func main() {
 	scannerService := usecase.NewScannerService(repo)
 	pdfService := usecase.NewPDFService()
 
+	// Initialize PDF handler with dedicated directory
+	pdfHandler := handler.NewPDFHandler(scannerService, "./pdf-reports")
+
 	// Initialize HTTP handler v2 (with Gap Analysis & multi-tier checkout)
 	h := handler.NewHTTPHandlerV2(scannerService, pdfService)
 
@@ -87,6 +90,10 @@ func main() {
 	r.HandleFunc("/api/lead/checklist", h.HandleChecklistDownload).Methods("POST")
 	r.HandleFunc("/checklists", h.HandleChecklistPage).Methods("GET")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
+	
+	// PDF download routes (€499 automated product)
+	r.HandleFunc("/api/pdf/download/{scan_id}", pdfHandler.HandleDownloadPDF).Methods("GET")
+	r.HandleFunc("/api/pdf/generate/{scan_id}", pdfHandler.HandleGeneratePDF).Methods("POST")
 	r.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("OK"))
