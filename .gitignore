@@ -5,7 +5,7 @@
 *.so
 *.dylib
 leona-scanner
-server
+/server
 
 # Test binaries
 *.test
