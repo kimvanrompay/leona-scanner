@@ -33,7 +33,11 @@ func main() {
 	if mollieKey != "" {
 		log.Println("✅ Mollie payment provider initialized")
 		// Initialize Mollie client
-		_ = mollie.NewClient(nil)
+		config := mollie.NewConfig(true, mollie.APITokenEnv)
+		_, err := mollie.NewClient(nil, config)
+		if err != nil {
+			log.Printf("Warning: Mollie client initialization failed: %v", err)
+		}
 	} else if stripeKey != "" {
 		stripe.Key = stripeKey
 		log.Println("✅ Stripe payment provider initialized (fallback)")
