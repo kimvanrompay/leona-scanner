@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Resultaten - LEONA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'royal-blue': '#1428A0',
+                        'davis-blue': '#0033A0',
+                        'davis-orange': '#FF6B35',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-royal-blue via-davis-blue to-blue-900 text-white min-h-screen">
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-2">LEONA CRA Scanner</h1>
+                <p class="text-gray-400">Compliance Analyse Resultaten</p>
+            </div>
+
+            <!-- Overall Score Card -->
+            <div class="bg-gradient-to-br from-blue-900/50 to-blue-800/50 backdrop-blur-sm rounded-lg p-8 mb-8 border-2 {{ if eq .Result.Status "CONFORM" }}border-green-500{{ else if eq .Result.Status "VOORWAARDELIJK CONFORM" }}border-yellow-500{{ else }}border-red-500{{ end }}">
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold mb-4">Compliance Score</h2>
+                    <div class="text-6xl font-bold mb-4 {{ if ge .Result.OverallScore 80 }}text-green-400{{ else if ge .Result.OverallScore 60 }}text-yellow-400{{ else }}text-red-400{{ end }}">
+                        {{ .Result.OverallScore }}/100
+                    </div>
+                    <div class="text-xl font-semibold mb-2 {{ if eq .Result.Status "CONFORM" }}text-green-400{{ else if eq .Result.Status "VOORWAARDELIJK CONFORM" }}text-yellow-400{{ else }}text-red-400{{ end }}">
+                        {{ .Result.Status }}
+                    </div>
+                    <div class="text-gray-400 text-sm">
+                        Platform: <span class="font-semibold text-white">{{ .Result.DetectedPlatform }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="bg-blue-900/40 backdrop-blur-sm rounded-lg p-6 mb-8 border border-blue-700">
+                <h3 class="text-xl font-bold mb-4">Samenvatting</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-400 text-sm">Componenten Geanalyseerd</p>
+                        <p class="text-2xl font-bold">{{ .Result.TotalComponents }}</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">Problemen Gevonden</p>
+                        <p class="text-2xl font-bold">{{ len .Result.Issues }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issues by Severity -->
+            {{ if .Result.Issues }}
+            <div class="bg-blue-900/40 backdrop-blur-sm rounded-lg p-6 mb-8 border border-blue-700">
+                <h3 class="text-xl font-bold mb-4">Problemen per Ernst</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-red-900 bg-opacity-20 border border-red-500 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-red-400">{{ .Result.CriticalCount }}</div>
+                        <div class="text-sm text-gray-300 font-semibold mt-1">CRITICAL</div>
+                    </div>
+                    <div class="bg-orange-900 bg-opacity-20 border border-orange-500 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-orange-400">{{ .Result.HighCount }}</div>
+                        <div class="text-sm text-gray-300 font-semibold mt-1">HIGH</div>
+                    </div>
+                    <div class="bg-yellow-900 bg-opacity-20 border border-yellow-500 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-yellow-400">{{ .Result.MediumCount }}</div>
+                        <div class="text-sm text-gray-300 font-semibold mt-1">MEDIUM</div>
+                    </div>
+                    <div class="bg-green-900 bg-opacity-20 border border-green-500 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-green-400">{{ .Result.LowCount }}</div>
+                        <div class="text-sm text-gray-300 font-semibold mt-1">LOW</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Issues Preview (First 5) -->
+            <div class="bg-blue-900/40 backdrop-blur-sm rounded-lg p-6 mb-8 border border-blue-700">
+                <h3 class="text-xl font-bold mb-4">Voorbeeld Bevindingen (Top 5)</h3>
+                <div class="space-y-4">
+                    {{ range $index, $issue := .Result.Issues }}
+                        {{ if lt $index 5 }}
+                        <div class="bg-blue-800/50 backdrop-blur-sm rounded-lg p-4 border border-blue-600">
+                            <div class="flex items-start justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-2 py-1 rounded text-xs font-bold {{ if eq $issue.Severity "CRITICAL" }}bg-red-600 text-white{{ else if eq $issue.Severity "HIGH" }}bg-orange-600 text-white{{ else if eq $issue.Severity "MEDIUM" }}bg-yellow-600 text-white{{ else }}bg-green-600 text-white{{ end }}">{{ $issue.Severity }}</span>
+                                </div>
+                            </div>
+                            <p class="font-semibold mb-1">{{ $issue.Component }}</p>
+                            <p class="text-sm text-gray-300 blur-sm">{{ $issue.Description }}</p>
+                        </div>
+                        {{ end }}
+                    {{ end }}
+                </div>
+                {{ if gt (len .Result.Issues) 5 }}
+                <div class="mt-4 text-center">
+                    <p class="text-gray-400 text-sm">... en nog {{ sub (len .Result.Issues) 5 }} meer problemen</p>
+                    <p class="text-xs text-gray-500 mt-1">Volledige details beschikbaar in het betaalde rapport</p>
+                </div>
+                {{ end }}
+            </div>
+            {{ end }}
+
+            <!-- CTA Section -->
+            <div class="bg-gradient-to-br from-davis-orange via-orange-500 to-red-500 rounded-lg p-8 text-center mb-8 shadow-2xl">
+                <h2 class="text-3xl font-bold mb-4">Krijg het Volledige Rapport</h2>
+                <p class="text-lg mb-6 opacity-90">
+                    Ontvang een gedetailleerd PDF compliance rapport met:
+                </p>
+                <ul class="text-left max-w-md mx-auto mb-6 space-y-2">
+                    <li class="flex items-start"><span class="mr-2">•</span> Alle {{ len .Result.Issues }} bevindingen met aanbevelingen</li>
+                    <li class="flex items-start"><span class="mr-2">•</span> Uitgebreide CRA-compliance analyse</li>
+                    <li class="flex items-start"><span class="mr-2">•</span> Concrete stappen voor verbetering</li>
+                    <li class="flex items-start"><span class="mr-2">•</span> Professional rapport voor stakeholders</li>
+                </ul>
+                <div class="text-4xl font-bold mb-2">€99</div>
+                <p class="text-sm opacity-75 mb-6">Eenmalige betaling • Direct per email</p>
+                <button 
+                    onclick="checkout()"
+                    class="bg-white text-gray-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition transform hover:scale-105 shadow-lg">
+                    Koop Volledig Rapport
+                </button>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="text-center text-gray-400 text-sm">
+                <p class="mb-2">Veilige betaling via Stripe</p>
+                <p>Rapport binnen 5 minuten in uw inbox</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkout() {
+            fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    scan_id: '{{ .ScanID }}',
+                    email: '{{ .Email }}'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert('Er is een fout opgetreden. Probeer het opnieuw.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Er is een fout opgetreden. Probeer het opnieuw.');
+            });
+        }
+    </script>
+</body>
+</html>

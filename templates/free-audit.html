@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIS CRA AUDIT | LEONA & CRAVIT - Linux Embedded Compliance</title>
+    <meta name="description" content="Krijg de audit-logica van een €1000/uur advocaat, gratis. Upload uw Linux SBOM en zie exact waar de EU u gaat pakken.">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#0033A0',
+                        'brand-blue-light': '#4169E1',
+                        'navy-bg': '#0A192F',
+                    },
+                    fontFamily: {
+                        'display': ['Funnel Display', 'serif'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .highlight { 
+            background: linear-gradient(120deg, #3b82f6 0%, #3b82f6 100%); 
+            background-repeat: no-repeat; 
+            background-size: 100% 0.3em; 
+            background-position: 0 88%; 
+        }
+        .shadow-brutal {
+            box-shadow: 20px 20px 0px 0px rgba(10,25,47,1);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .6; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+    <!-- Urgency Bar -->
+    <div class="bg-red-600 text-white text-center py-3 text-xs md:text-sm font-bold uppercase tracking-widest">
+        🚨 Stop met raden. De CRA deadline is September 2026. Uw markttoegang staat op het spel.
+    </div>
+
+    <!-- Main Content -->
+    <section class="max-w-5xl mx-auto px-6 py-12 md:py-20">
+        
+        <!-- Hero Headline -->
+        <div class="mb-16 text-center">
+            <div class="inline-block mb-4 px-4 py-2 bg-brand-blue/10 rounded-full">
+                <span class="text-brand-blue font-bold text-sm">🐧 LEONA & CRAVIT - Linux Embedded Specialist</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-8">
+                Ik geef je de <span class="highlight text-blue-700">Audit-Logica</span> van een €1000/uur advocaat, gratis.
+            </h1>
+            
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-700 max-w-3xl mx-auto">
+                De meeste bedrijven in de machinebouw gaan kapot aan de <strong>Cyber Resilience Act</strong>. Niet omdat ze slechte software maken, maar omdat ze hun <strong>Technisch Dossier</strong> niet op orde hebben. <span class="text-brand-blue font-bold">Upload je SBOM. Ik laat je exact zien waar de EU je gaat pakken.</span>
+            </p>
+        </div>
+
+        <!-- Scanner Box -->
+        <div class="bg-gray-50 border-4 border-gray-900 p-8 md:p-12 shadow-brutal mb-20">
+            <h2 class="text-2xl md:text-3xl font-black uppercase mb-2 italic">Stap 1: De Integriteits Check</h2>
+            <p class="text-gray-600 mb-8 text-sm">CycloneDX of SPDX formaat • Geen credit card vereist</p>
+            
+            <form hx-post="/api/scan" 
+                  hx-encoding="multipart/form-data" 
+                  hx-target="#audit-results" 
+                  hx-indicator="#loading"
+                  class="space-y-6">
+                
+                <div class="border-2 border-dashed border-gray-400 p-8 bg-white hover:border-brand-blue transition-all cursor-pointer rounded-xl">
+                    <input type="file" 
+                           name="sbom" 
+                           id="sbom-upload"
+                           accept=".json,.xml,.spdx,.cdx"
+                           class="block w-full text-lg border-2 border-gray-300 p-4 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-blue file:text-white hover:file:bg-blue-700 cursor-pointer"
+                           required>
+                </div>
+                
+                <button type="submit" class="w-full bg-brand-blue text-white text-xl md:text-2xl font-black py-6 hover:bg-red-600 transition-all duration-300 uppercase tracking-wide rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105">
+                    🔍 Draai de CRAVIT-Engine →
+                </button>
+            </form>
+            
+            <div id="loading" class="htmx-indicator mt-6 text-center">
+                <div class="inline-block">
+                    <div class="font-bold text-brand-blue text-lg animate-pulse-slow">
+                        ⚙️ SYSTEEM ANALYSEERT LINUX KERNEL & SBOM...
+                    </div>
+                    <div class="text-sm text-gray-600 mt-2">Dit duurt ongeveer 15-30 seconden</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 text-center">
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-3">
+                    <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <span class="font-semibold text-sm">Direct rapport</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <span class="font-semibold text-sm">AVG-conform</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                    <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <span class="font-semibold text-sm">Factuur inbegrepen</span>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="audit-results" class="min-h-[200px]">
+            <!-- HTMX will inject results here -->
+        </div>
+
+        <!-- The 3 Silent Killers (Authority Content) -->
+        <div class="border-t-4 border-gray-900 pt-16 mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">
+                    De 3 "Silent Killers" van de CRA voor Linux Embedded
+                </h2>
+                <p class="text-gray-600 text-lg">Waarom slimme engineers tóch falen bij compliance</p>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Killer 1 -->
+                <div class="bg-red-50 border-l-8 border-red-600 p-8 rounded-r-2xl">
+                    <h3 class="text-2xl font-black uppercase mb-4 text-red-900">
+                        ☠️ Killer #1: De "Static Binary" Val
+                    </h3>
+                    <p class="text-gray-800 leading-relaxed mb-4">
+                        <strong>Het probleem:</strong> U heeft uw C++ of Go applicatie statisch gelinkt. Lijkt slim (één binary!), maar uw SBOM is nu onmogelijk te genereren. De CRA eist <em>component-level traceability</em>. Een static binary is een black box.
+                    </p>
+                    <p class="text-gray-700 text-sm italic">
+                        <strong>LEONA detectie:</strong> Wij scannen uw ELF-headers en geven direct aan of uw binary CRA-proof is.
+                    </p>
+                </div>
+
+                <!-- Killer 2 -->
+                <div class="bg-yellow-50 border-l-8 border-yellow-600 p-8 rounded-r-2xl">
+                    <h3 class="text-2xl font-black uppercase mb-4 text-yellow-900">
+                        ⚠️ Killer #2: De "GPL Compliance" Paradox
+                    </h3>
+                    <p class="text-gray-800 leading-relaxed mb-4">
+                        <strong>Het probleem:</strong> De CRA dwingt u om uw SBOM openbaar te maken. Maar daarin staat dat u Qt 5.15 (GPL-3.0) gebruikt. Nu weet de concurrentie dat uw HMI kwetsbaar is én u bent verplicht uw source code te publiceren.
+                    </p>
+                    <p class="text-gray-700 text-sm italic">
+                        <strong>LEONA detectie:</strong> Wij identificeren GPL-3.0 componenten die in conflict zijn met uw proprietary stack.
+                    </p>
+                </div>
+
+                <!-- Killer 3 -->
+                <div class="bg-blue-50 border-l-8 border-blue-600 p-8 rounded-r-2xl">
+                    <h3 class="text-2xl font-black uppercase mb-4 text-blue-900">
+                        🧊 Killer #3: De "Kernel LTS" Leugen
+                    </h3>
+                    <p class="text-gray-800 leading-relaxed mb-4">
+                        <strong>Het probleem:</strong> Uw supplier zegt "Wij gebruiken Linux 5.10 LTS". Maar LTS betekent niet "voor altijd". In december 2026 stopt de support. De CRA eist patches <em>gedurende de hele levensduur</em>. Uw product wordt illegaal.
+                    </p>
+                    <p class="text-gray-700 text-sm italic">
+                        <strong>LEONA detectie:</strong> Cross-reference met kernel.org lifecycle. Automatische waarschuwing bij EOL-risico.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Specter Method -->
+        <div class="bg-navy-bg text-white p-12 rounded-3xl mb-20">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
+                    De "Specter" Methode
+                </h3>
+                <blockquote class="text-xl md:text-2xl italic leading-relaxed text-gray-300 border-l-4 border-brand-blue-light pl-6">
+                    "Geloof me niet op mijn woord. Geloof de wet. De CRA Annex I eist 'Security by Default'. Als je poorten open hebt staan in je Linux-distro die je niet documenteert, ben je strafbaar. Punt."
+                </blockquote>
+                <div class="mt-8 text-center">
+                    <div class="inline-block bg-white/10 px-6 py-3 rounded-lg">
+                        <p class="text-sm text-gray-400">— LEONA & CRAVIT Compliance Officer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why LEONA -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+            <div>
+                <h3 class="text-3xl font-black uppercase mb-6">Waarom LEONA & CRAVIT?</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">Specialistisch voor Embedded Linux</p>
+                            <p class="text-gray-600 text-sm">Yocto, Buildroot, Debian - wij spreken uw taal</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">Directe mapping op EU 2024/2847 (CRA)</p>
+                            <p class="text-gray-600 text-sm">Annex I compliance per artikel, niet alleen CVE's</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">Directe PDF Attestatie (CRAVIT-VERIFIED)</p>
+                            <p class="text-gray-600 text-sm">Klaar voor uw Technisch Dossier</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl border border-blue-200">
+                <h4 class="font-bold text-xl mb-4 text-brand-blue">Sample Report Preview</h4>
+                <div class="bg-white p-6 rounded-lg shadow-sm mb-4 border border-gray-200">
+                    <p class="text-sm font-mono text-gray-700 mb-2">CRA Artikel 10.4 - Security Updates</p>
+                    <p class="text-xs text-red-600 font-bold">❌ NON-COMPLIANT</p>
+                    <p class="text-xs text-gray-600 mt-2 italic">Linux Kernel 5.10.102 detected (EOL dec 2026)</p>
+                </div>
+                <p class="text-sm text-gray-700">
+                    Dit is slechts <strong>15% van de audit-data</strong>. Het volledige rapport bevat 40+ pagina's met remediatiestappen en juridische verantwoording.
+                </p>
+                <a href="#scanner" class="inline-block mt-4 text-brand-blue font-semibold hover:underline">
+                    Upload uw SBOM om uw preview te zien →
+                </a>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="text-center bg-gray-900 text-white p-12 rounded-3xl">
+            <h3 class="text-3xl md:text-4xl font-display font-bold mb-4">
+                Klaar om uw markttoelating te beveiligen?
+            </h3>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Upload uw SBOM nu en ontvang binnen 60 seconden uw CRA Gap Analysis.
+            </p>
+            <a href="#sbom-upload" class="inline-block bg-brand-blue-light hover:bg-blue-500 text-white font-bold px-10 py-4 rounded-xl text-lg transition-all shadow-lg hover:shadow-2xl transform hover:scale-105">
+                Start Gratis Scan →
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Footer minimal -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-8">
+        <div class="max-w-5xl mx-auto px-6 text-center text-sm text-gray-600">
+            <p class="font-display font-bold text-gray-900 mb-2">LEONA & CRAVIT</p>
+            <p>Linux Embedded Operational Network Assessor</p>
+            <p class="mt-4">&copy; 2026 LEONA & CRAVIT. Alle rechten voorbehouden. | <a href="/" class="text-brand-blue hover:underline">craleona.be</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

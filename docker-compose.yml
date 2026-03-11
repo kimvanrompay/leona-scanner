@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: leona-postgres
+    environment:
+      POSTGRES_USER: leona
+      POSTGRES_PASSWORD: leona_secure_password_2024
+      POSTGRES_DB: leona
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U leona"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - leona-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leona-app
+    environment:
+      DATABASE_URL: postgres://leona:leona_secure_password_2024@postgres:5432/leona?sslmode=disable
+      PORT: 8080
+      BASE_URL: http://localhost:8080
+      STRIPE_API_KEY: ${STRIPE_API_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM:-noreply@leona.io}
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - leona-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  leona-network:
+    driver: bridge

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leona-app
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      PORT: 8080
+      BASE_URL: ${BASE_URL}
+      STRIPE_API_KEY: ${STRIPE_API_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM:-noreply@leona.io}
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - leona-network
+
+networks:
+  leona-network:
+    enable_ipv6: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+        - subnet: fd00:1234::/64
