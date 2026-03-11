@@ -3,8 +3,9 @@
 ## Gary Vee Style Content Framework
 
 ### Core Message
-**CRA compliance is happening WHETHER YOU'RE READY OR NOT.**
-**6 months until 15 million euro fines.**
+**CRA compliance is now a market requirement, not optional.**
+**6 months until mandatory reporting.**
+**Retailers and B2B customers will demand proof.**
 **Stop hiring consultants. Start using SaaS.**
 
 ---
@@ -33,10 +34,11 @@ Laat me het uitleggen:
 - 11 september 2026: Verplichte rapportage
 - 11 december 2027: Volledige implementatie
 
-**Slide 2:** De Boetes
-- Tot 15 miljoen EUR
-- OF 2,5% wereldwijde jaaromzet
-- Per product, per overtreding
+**Slide 2:** De Markt Realiteit
+- Retailers eisen CRA-bewijs
+- B2B klanten vragen certificaten
+- Non-compliant = verlies van markttoegang
+- Concurrenten die wel compliant zijn nemen uw klanten over
 
 **Slide 3:** Wat wordt er gecontroleerd?
 - Kernel EOL status
@@ -80,13 +82,15 @@ CRA Artikel 59 zegt dat de FABRIKANT verantwoordelijk is.
 Niet de engineer. Niet de consultant.
 De C-suite.
 
-En als je producten de EU binnenkomen met een EOL kernel,
-stopt de douane ze.
+En als je producten non-compliant zijn,
+verliezen retailers en B2B klanten vertrouwen.
 
-Niet "misschien".
-Niet "als ze het checken".
+Ze kiezen voor concurrenten die wel compliant zijn.
+Ze vragen om bewijs.
 
-Stop. Meteen.
+CRA-certificering wordt baseline verwachting.
+Net als ISO.
+Net als CE-marking.
 
 Want vanaf 11 september 2026 moeten alle fabrikanten
 ACTIEF kwetsbaarheden rapporteren binnen 24 uur.
@@ -113,8 +117,8 @@ Je CFO kan het begrijpen.
 Je Legal team kan ermee werken.
 En jij hebt bewijs dat je compliant bent.
 
-499 euro voor zekerheid.
-Of 15 miljoen euro boete voor onzekerheid.
+499 euro voor marktzekerheid.
+Of klanten verliezen aan concurrenten.
 
 De keuze is simpel.
 
@@ -427,11 +431,14 @@ Code: CRA2026 voor 500 EUR korting bij upgrade.
 ## Viral Hooks Tested
 
 1. "11 september 2026" (urgency)
-2. "15 miljoen euro boetes" (fear)
+2. "Behoud uw marktpositie" (value)
 3. "60 seconden" (speed)
 4. "499 vs 15.000 EUR" (price contrast)
 5. "Upload SBOM" (simplicity)
 6. "Pure SaaS" (positioning)
 7. "Geen consultants" (disruption)
+8. "Retailers eisen bewijs" (market reality)
+9. "Concurrenten nemen uw klanten" (competitive pressure)
 
+Focus on business value and market reality, not regulatory fines.
 Use in EVERY post.
