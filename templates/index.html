@@ -69,160 +69,563 @@
 </head>
 <body class="bg-white antialiased text-black min-h-full flex flex-col">
 
-    <!-- Navigation - Davis Polk style -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between py-4">
-                <a href="/" class="font-display text-2xl font-bold text-brand-blue hover:text-blue-800 transition-colors">LEONA & CRAVIT</a>
-                <div class="hidden md:flex items-center gap-8 text-sm">
-                    <a href="#validation" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Validatie</a>
-                    <a href="#assessor" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">V-Assessor™</a>
-                    <a href="/insights" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Inzichten</a>
-                    <a href="#knowledge" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Kennisbank</a>
-                    <a href="/free-report" class="text-gray-700 hover:text-brand-blue transition-colors font-medium">Gratis Rapport</a>
-                    <a href="#assessor" class="bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-indigo-700 hover:to-indigo-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
-                        Start Gratis Scan →
-                    </a>
+    <!-- Navigation -->
+    <header class="bg-white border-b border-gray-200 shadow-sm">
+        <nav aria-label="Global" class="flex items-center justify-between px-8 py-4 lg:px-12">
+            <div class="flex items-center gap-x-12">
+                <a href="/" class="-m-1.5 p-1.5">
+                    <span class="sr-only">LEONA & CRAVIT</span>
+                    <span class="font-display text-2xl font-bold text-blue-600">LEONA & CRAVIT</span>
+                </a>
+                <div class="hidden lg:flex lg:gap-x-8">
+                    <a href="#validation" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Validatie</a>
+                    <a href="#assessor" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Assessor</a>
+                    <a href="/insights" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Inzichten</a>
+                    <a href="#knowledge" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Kennis</a>
+                </div>
+            </div>
+            <div class="flex lg:hidden">
+                <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 hover:text-blue-600">
+                    <span class="sr-only">Open main menu</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden lg:flex">
+                <a href="#assessor" class="rounded-lg bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-blue-600 transition-all">Start Scan</a>
+            </div>
+        </nav>
+        <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm lg:hidden">
+            <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
+                <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-200">
+                    <div class="flex items-center justify-between">
+                        <a href="/" class="-m-1.5 p-1.5">
+                            <span class="sr-only">LEONA & CRAVIT</span>
+                            <span class="font-display text-2xl font-bold text-blue-600">LEONA & CRAVIT</span>
+                        </a>
+                        <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-600 hover:text-blue-600">
+                            <span class="sr-only">Close menu</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-6 flow-root">
+                        <div class="-my-6 divide-y divide-gray-200">
+                            <div class="space-y-2 py-6">
+                                <a href="#validation" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Validatie</a>
+                                <a href="#assessor" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Assessor</a>
+                                <a href="/insights" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Inzichten</a>
+                                <a href="#knowledge" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Kennis</a>
+                            </div>
+                            <div class="py-6">
+                                <a href="#assessor" class="-mx-3 block rounded-lg bg-blue-500 px-3 py-2.5 text-center text-base/7 font-semibold text-white hover:bg-blue-600">Start Scan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+    </header>
+
+    <!-- Hero Section - CRA Compliance Emphasis -->
+    <header class="group/cra isolate overflow-hidden bg-blue-950">
+        <div class="flow-root border-b border-b-white/5 bg-blue-900/25 pb-16 pt-24 sm:pt-32 lg:pb-0">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="relative z-10">
+                    <h2 class="mx-auto max-w-4xl text-balance text-center text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                        CRA is er. <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-white">Klaar of niet.</span>
+                    </h2>
+                    <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">
+                        De EU Cyber Resilience Act is nu van kracht, met verplichte rapportage vanaf <strong class="text-blue-400">11 september 2026</strong>. Of u nu aan Europese klanten verkoopt of niet, CRA-compliance wordt een baseline verwachting voor B2B software.
+                    </p>
+                    <div class="mt-16 flex justify-center">
+                        <div class="inline-flex items-center gap-3 rounded-full bg-blue-500/10 px-5 py-2.5 ring-1 ring-inset ring-blue-500/30">
+                            <span class="relative flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                            </span>
+                            <span class="text-sm/5 font-semibold text-blue-400 uppercase tracking-wider">Over 6 maanden: Verplichte SBOM-rapportage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 lg:mx-0 lg:-mb-14 lg:max-w-none lg:grid-cols-3">
+                    <svg viewBox="0 0 1208 1024" aria-hidden="true" class="absolute -bottom-48 left-1/2 h-[64rem] -translate-x-1/2 translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] lg:-top-48 lg:bottom-auto lg:translate-y-0">
+                        <ellipse cx="604" cy="512" rx="604" ry="512" fill="url(#cra-urgency-gradient)" />
+                        <defs>
+                            <radialGradient id="cra-urgency-gradient">
+                                <stop stop-color="#4169E1" />
+                                <stop offset="1" stop-color="#60A5FA" />
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                    <div aria-hidden="true" class="hidden lg:absolute lg:inset-x-px lg:bottom-0 lg:top-4 lg:block lg:rounded-t-2xl bg-blue-900/80 lg:ring-1 lg:ring-white/10"></div>
+                    
+                    <!-- PROBLEM Card -->
+                    <div class="group/impact relative rounded-2xl bg-blue-900/80 outline outline-1 -outline-offset-1 outline-white/10 lg:bg-transparent lg:pb-14 lg:outline-0">
+                        <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+                            <h3 class="text-sm/6 font-semibold text-blue-400">Regelgevend Kader</h3>
+                            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                                <div class="mt-2">
+                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">CRA definieert nieuwe verplichtingen</p>
+                                    <p class="text-sm text-gray-400 mt-2">Verordening (EU) 2024/2847 van kracht</p>
+                                </div>
+                                <a href="#assessor" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Beoordeel positie</a>
+                            </div>
+                            <div class="mt-8 flow-root sm:mt-10">
+                                <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white lg:border-t-0">
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-sky-400">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        </svg>
+                                        Art. 13: Technisch constructiedossier verplicht
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-sky-400">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        </svg>
+                                        Art. 14: SBOM-documentatie en traceerbaarheid
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-sky-400">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        </svg>
+                                        Annex I: Essential cybersecurity requirements
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SOLUTION Card (Featured) -->
+                    <div data-featured="true" class="group/impact relative z-10 rounded-2xl bg-blue-900 outline outline-1 -outline-offset-1 outline-white/10">
+                        <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+                            <h3 class="text-sm/6 font-semibold text-indigo-400">Technische Validatie</h3>
+                            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                                <div class="mt-2">
+                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">Geautomatiseerde conformiteitsbeoordeling</p>
+                                    <p class="text-sm text-gray-400 mt-2">SBOM-analyse tegen Annex I security-eisen</p>
+                                </div>
+                                <a href="#assessor" class="w-full rounded-md bg-indigo-500 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Valideer SBOM</a>
+                            </div>
+                            <div class="mt-8 flow-root sm:mt-10">
+                                <ul role="list" class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-indigo-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        Technisch constructiedossier (Art. 13)
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-indigo-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        Notified Body ready documentatie
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-indigo-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        CVE-tracking en kwetsbaarhedenbeheer
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-indigo-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        Licentie-compliance verificatie
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-indigo-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        Secure boot configuratie-audit
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-indigo-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        Support lifecycle validatie (5 jaar)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TIMELINE Card -->
+                    <div class="group/impact relative rounded-2xl bg-blue-900/80 outline outline-1 -outline-offset-1 outline-white/10 lg:bg-transparent lg:pb-14 lg:outline-0">
+                        <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+                            <h3 class="text-sm/6 font-semibold text-sky-400">Implementatietraject</h3>
+                            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                                <div class="mt-2">
+                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">Fasering en deadlines</p>
+                                    <p class="text-sm text-gray-400 mt-2">Overgangsperiode tot volledige toepassing</p>
+                                </div>
+                                <a href="/static/sample-cra-report.pdf" download class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Download voorbeeld</a>
+                            </div>
+                            <div class="mt-8 flow-root sm:mt-10">
+                                <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white lg:border-t-0">
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-cyan-400">
+                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                        <span><strong class="text-cyan-400">10 dec 2024:</strong> CRA in werking getreden</span>
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-blue-400">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span><strong class="text-blue-400">11 sept 2026:</strong> Rapportageverplichting start</span>
+                                    </li>
+                                    <li class="flex gap-x-3 py-2">
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-sky-400">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span><strong class="text-sky-400">11 dec 2027:</strong> Volledige conformiteitsplicht</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Hero Section with Visual Demo -->
-    <header class="bg-gray-900">
-        <div class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-950/20">
-            <div class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
-                
-                <!-- Left Column: Value Proposition -->
-                <div class="px-6 lg:px-0 lg:pt-4">
-                    <div class="mx-auto max-w-2xl">
-                        <div class="max-w-lg">
-                            <!-- Status Badge -->
-                            <div class="mt-24 sm:mt-32 lg:mt-16">
-                                <a href="#" class="inline-flex space-x-6">
-                                    <span class="rounded-full bg-indigo-500/10 px-3 py-1 text-sm/6 font-semibold text-indigo-400 ring-1 ring-inset ring-indigo-500/25">CRA Compliance Status</span>
-                                    <span class="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-300">
-                                        <span class="animate-pulse text-red-400">●</span>
-                                        <span>6 maanden tot deadline (11 sept 2026)</span>
-                                    </span>
-                                </a>
-                            </div>
-                            
-                            <!-- Headline -->
-                            <h1 class="mt-10 text-pretty text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                                Beveilig uw<br/>markttoegang.
-                            </h1>
-                            <p class="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">
-                                LEONA & CRAVIT helpt de machinebouw bij het bouwen van een schaalbaar security-programma. Wij automatiseren uw Technisch Constructiedossier, zodat uw engineering-team kan blijven innoveren.
-                            </p>
-                            
-                            <!-- CTAs -->
-                            <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                                <a href="#assessor" class="rounded-md bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 transition-all">Start Gratis Scan</a>
-                                <a href="/static/sample-cra-report.pdf" download class="inline-flex items-center gap-2 rounded-md bg-white/10 border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
-                                    </svg>
-                                    Download Voorbeeld
-                                </a>
-                                <a href="#validation" class="text-sm/6 font-semibold text-white hidden sm:block">Voor Advocaten <span aria-hidden="true">→</span></a>
-                            </div>
+        <!-- Compliance Assessment Matrix -->
+        <div class="bg-blue-950 py-24 sm:py-32">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="mx-auto max-w-4xl text-center">
+                    <h2 class="text-base/7 font-semibold" style="color: #FF6B35;">Technisch Advies</h2>
+                    <p class="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">Compliance-trajecten per build-systeem</p>
+                </div>
+                <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">
+                    Wij adviseren u op basis van objectieve technische validatie. De onderstaande matrix toont typische compliance-hiaten per embedded Linux ecosysteem en de wijze waarop LEONA deze adresseert.
+                </p>
 
-                            <!-- Timeline Milestones -->
-                            <div class="mt-16 grid grid-cols-1 gap-4 border-t border-white/10 pt-10">
-                                <p class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold">Kritieke Mijlpalen</p>
-                                <div class="flex justify-between text-xs text-gray-400">
-                                    <span>Dec 2024: CRA In werking</span>
-                                    <span class="text-green-500">✓ Voltooid</span>
-                                </div>
-                                <div class="flex justify-between text-xs text-gray-200 font-bold">
-                                    <span>Sept 2026: Verplichte rapportage</span>
-                                    <span class="text-red-400">In aantocht</span>
-                                </div>
+                <!-- Mobile: Cards -->
+                <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
+                    <!-- Yocto/OpenEmbedded -->
+                    <section class="p-8">
+                        <h3 id="platform-yocto" class="text-sm/6 font-semibold text-white">Yocto / OpenEmbedded</h3>
+                        <p class="mt-2 flex items-baseline gap-x-1 text-white">
+                            <span class="text-sm font-semibold" style="color: #FF6B35;">Native SPDX-ondersteuning</span>
+                        </p>
+                        <a href="#assessor" aria-describedby="platform-yocto" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" style="background-color: rgba(255, 107, 53, 0.1);">Valideer build</a>
+                        <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-200">
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Art. 14.1 SBOM-traceerbaarheid via CPE/PURL-validatie</span>
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Art. 14.2 GPL-3.0 anti-tivoization detectie</span>
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Annex I.II.1 Kernel LTS/EOL-validatie</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Buildroot -->
+                    <section class="rounded-xl bg-white/5 p-8 ring-1 ring-inset ring-white/10">
+                        <h3 id="platform-buildroot" class="text-sm/6 font-semibold text-white">Buildroot</h3>
+                        <p class="mt-2 flex items-baseline gap-x-1 text-white">
+                            <span class="text-sm font-semibold" style="color: #FF6B35;">Manual SBOM via legal-info</span>
+                        </p>
+                        <a href="#assessor" aria-describedby="platform-buildroot" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white" style="background-color: #FF6B35;">Converteer & valideer</a>
+                        <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-200">
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Automatische conversie manifest.csv → CycloneDX</span>
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>BusyBox CVE-mapping (bekend risicogebied)</span>
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>U-Boot secure boot compliance-check</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Debian/Ubuntu -->
+                    <section class="p-8">
+                        <h3 id="platform-debian" class="text-sm/6 font-semibold text-white">Debian / Ubuntu</h3>
+                        <p class="mt-2 flex items-baseline gap-x-1 text-white">
+                            <span class="text-sm font-semibold" style="color: #FF6B35;">Syft-based SBOM-generatie</span>
+                        </p>
+                        <a href="#assessor" aria-describedby="platform-debian" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" style="background-color: rgba(255, 107, 53, 0.1);">Scan dpkg-systeem</a>
+                        <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-200">
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Volledige apt/dpkg package-traceerbaarheid</span>
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Debian Security Tracker integratie</span>
+                            </li>
+                            <li class="flex gap-x-3">
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
+                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                                <span>Reproducible builds verificatie (waar van toepassing)</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- Desktop: Comparison Table -->
+                <div class="isolate mt-20 hidden lg:block">
+                    <div class="relative -mx-8">
+                        <div class="absolute inset-x-4 inset-y-0 -z-10 flex">
+                            <div style="margin-left: 50%" aria-hidden="true" class="flex w-1/4 px-4">
+                                <div class="w-full rounded-t-xl border-x border-t border-white/10" style="background-color: rgba(255, 107, 53, 0.05);"></div>
                             </div>
                         </div>
+                        <table class="w-full table-fixed border-separate border-spacing-x-8 text-left">
+                            <caption class="sr-only">Compliance-validatie per build-systeem</caption>
+                            <colgroup>
+                                <col class="w-1/4" />
+                                <col class="w-1/4" />
+                                <col class="w-1/4" />
+                                <col class="w-1/4" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                                        <div class="text-sm/7 font-semibold text-white">Yocto / OpenEmbedded</div>
+                                        <div class="mt-1 text-xs text-gray-400">Native SPDX 2.3</div>
+                                    </th>
+                                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                                        <div class="text-sm/7 font-semibold text-white">Buildroot</div>
+                                        <div class="mt-1 text-xs text-gray-400">Legal-info manifest</div>
+                                    </th>
+                                    <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
+                                        <div class="text-sm/7 font-semibold text-white">Debian / Ubuntu</div>
+                                        <div class="mt-1 text-xs text-gray-400">Syft-generatie</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><span class="sr-only">Action</span></th>
+                                    <td class="px-6 pt-2 xl:px-8">
+                                        <a href="#assessor" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20" style="background-color: rgba(255, 107, 53, 0.1);">Valideer build</a>
+                                    </td>
+                                    <td class="px-6 pt-2 xl:px-8">
+                                        <a href="#assessor" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white" style="background-color: #FF6B35;">Converteer & valideer</a>
+                                    </td>
+                                    <td class="px-6 pt-2 xl:px-8">
+                                        <a href="#assessor" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20" style="background-color: rgba(255, 107, 53, 0.1);">Scan dpkg-systeem</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="colgroup" colspan="4" class="pb-4 pt-8 text-sm/6 font-semibold text-white">
+                                        CRA Compliance-vereisten
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
+                                    </th>
+                                </tr>
+                                
+                                <!-- Art. 14.1 SBOM Traceability -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Art. 14.1 SBOM-traceerbaarheid
+                                        <div class="text-xs text-gray-500 mt-1">Identificatie van componenten en afhankelijkheden</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">CPE/PURL-validatie voor alle componenten</div>
+                                        <div class="text-xs text-gray-500 mt-1">SPDX 2.3 native output</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Automatische conversie manifest.csv → CycloneDX</div>
+                                        <div class="text-xs text-gray-500 mt-1">Legal-info metadata normalisatie</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Volledige apt/dpkg package-traceerbaarheid</div>
+                                        <div class="text-xs text-gray-500 mt-1">Syft-based component discovery</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Art. 14.2 License Compliance -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Art. 14.2 Licentie-compliance
+                                        <div class="text-xs text-gray-500 mt-1">Open-source licentierisico's en copyleft-vereisten</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">GPL-3.0 anti-tivoization detectie</div>
+                                        <div class="text-xs text-gray-500 mt-1">BitBake recipe license parsing</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">BusyBox licentie-mapping</div>
+                                        <div class="text-xs text-gray-500 mt-1">Applet-level GPL tracking</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Debian copyright-file parsing</div>
+                                        <div class="text-xs text-gray-500 mt-1">Machine-readable DEP-5 format</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Annex I.II.1 Secure Boot -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Annex I.II.1 Secure Boot
+                                        <div class="text-xs text-gray-500 mt-1">Cryptografische boot chain validatie</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Kernel secure boot configuratie-check</div>
+                                        <div class="text-xs text-gray-500 mt-1">CONFIG_SECURITY_LOCKDOWN validatie</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">U-Boot verified boot validatie</div>
+                                        <div class="text-xs text-gray-500 mt-1">FIT image signature verificatie</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">UEFI Secure Boot detectie</div>
+                                        <div class="text-xs text-gray-500 mt-1">Shim + MOK database validatie</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- CVE & Vulnerability Management -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Art. 14.4 Kwetsbaarhedenbeheer
+                                        <div class="text-xs text-gray-500 mt-1">Actief geëxploiteerde CVE's en patch-status</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Kernel LTS/EOL-validatie + CVE-mapping</div>
+                                        <div class="text-xs text-gray-500 mt-1">kernel.org stable tree tracking</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">BusyBox CVE-database cross-referentie</div>
+                                        <div class="text-xs text-gray-500 mt-1">NVD + distro-specific patches</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Debian Security Tracker integratie</div>
+                                        <div class="text-xs text-gray-500 mt-1">DSA/DLA advisory mapping</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Support Lifecycle -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Art. 11 Support-levenscyclus
+                                        <div class="text-xs text-gray-500 mt-1">Minimaal 5 jaar security updates (CRA eis)</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Yocto release EOL-tracking</div>
+                                        <div class="text-xs text-gray-500 mt-1">LTS branch + commercial support opties</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Component upstream EOL-validatie</div>
+                                        <div class="text-xs text-gray-500 mt-1">Kritieke packages zonder maintainer</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">LTS-release verificatie (5 jaar minimum)</div>
+                                        <div class="text-xs text-gray-500 mt-1">Debian LTS/ELTS programma-validatie</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Art. 13 Technical Documentation -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Art. 13 Technische documentatie
+                                        <div class="text-xs text-gray-500 mt-1">Voldoende informatie voor conformiteitsbeoordeling</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Layer dependency graph-generatie</div>
+                                        <div class="text-xs text-gray-500 mt-1">BitBake build reproducibility report</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Buildroot .config trace</div>
+                                        <div class="text-xs text-gray-500 mt-1">Defconfig + BR2_EXTERNAL audit</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">APT sources.list validatie</div>
+                                        <div class="text-xs text-gray-500 mt-1">Repository signature verificatie</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Art. 10.1 Incident Reporting -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Art. 10.1 Incident-rapportage
+                                        <div class="text-xs text-gray-500 mt-1">Actief geëxploiteerde kwetsbaarheden binnen 24u melden</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">CISA KEV catalog matching</div>
+                                        <div class="text-xs text-gray-500 mt-1">Known Exploited Vulnerabilities database</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Exploit prediction scoring (EPSS)</div>
+                                        <div class="text-xs text-gray-500 mt-1">Likelihood of exploitation metrics</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Ubuntu Security Notices (USN)</div>
+                                        <div class="text-xs text-gray-500 mt-1">Priority: critical/high filtering</div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Annex I.I.2 Access Control -->
+                                <tr>
+                                    <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
+                                        Annex I.I.2 Toegangsbeveiliging
+                                        <div class="text-xs text-gray-500 mt-1">Bescherming tegen ongeautoriseerde toegang</div>
+                                        <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
+                                    </th>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">SELinux/AppArmor policy-validatie</div>
+                                        <div class="text-xs text-gray-500 mt-1">Mandatory Access Control enforcement</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Root filesystem read-only detectie</div>
+                                        <div class="text-xs text-gray-500 mt-1">dm-verity + overlayfs configuratie</div>
+                                    </td>
+                                    <td class="px-6 py-4 xl:px-8">
+                                        <div class="text-sm/6 text-gray-300">Systemd hardening features</div>
+                                        <div class="text-xs text-gray-500 mt-1">NoNewPrivileges, PrivateTmp, etc.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <!-- Right Column: Sample Report Preview -->
-                <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
-                    <div aria-hidden="true" class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-gray-800/30 shadow-xl shadow-indigo-400/10 ring-1 ring-white/5 md:-mr-20 lg:-mr-36"></div>
-                    
-                    <div class="shadow-lg md:rounded-3xl border border-white/10 overflow-hidden">
-                        <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
-                            <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
-                                <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
-                                    
-                                    <!-- PDF Report Preview Card -->
-                                    <div class="w-screen overflow-hidden rounded-tl-xl bg-white shadow-2xl">
-                                        <!-- PDF Header -->
-                                        <div class="bg-gradient-to-r from-gray-50 to-white px-8 py-6 border-b border-gray-200">
-                                            <div class="flex items-center justify-between">
-                                                <div>
-                                                    <h3 class="text-xl font-bold text-gray-900">CRA Compliance Rapport</h3>
-                                                    <p class="text-sm text-gray-600 mt-1">Industriële Gateway MG-2400X</p>
-                                                </div>
-                                                <div class="flex flex-col items-end">
-                                                    <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-xs font-semibold">
-                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
-                                                        78% Compliant
-                                                    </div>
-                                                    <p class="text-xs text-gray-500 mt-1">Midden risico</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Report Content Preview -->
-                                        <div class="px-8 py-8 space-y-6">
-                                            <!-- Sample Violations -->
-                                            <div class="space-y-3">
-                                                <div class="flex items-start gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                                                    <span class="text-green-600 font-bold text-xs">✓ PASS</span>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-semibold text-gray-900">Art. 14.1 SBOM Traceability</p>
-                                                        <p class="text-xs text-gray-600 mt-1">347 componenten met volledige CPE/PURL</p>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="flex items-start gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
-                                                    <span class="text-red-600 font-bold text-xs">✗ FAIL</span>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-semibold text-gray-900">Art. 14.2 License Compliance</p>
-                                                        <p class="text-xs text-gray-600 mt-1">GPL-3.0 Anti-Tivoization risico</p>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="flex items-start gap-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                                                    <span class="text-yellow-700 font-bold text-xs">⚠ WARN</span>
-                                                    <div class="flex-1">
-                                                        <p class="text-xs font-semibold text-gray-900">Annex I.II.1 Secure Boot</p>
-                                                        <p class="text-xs text-gray-600 mt-1">Geen hardware root-of-trust (TPM)</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Download CTA -->
-                                            <div class="border-t border-gray-200 pt-6">
-                                                <a href="/static/sample-cra-report.pdf" download class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
-                                                    <span class="flex items-center justify-center gap-2">
-                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
-                                                        </svg>
-                                                        Download Voorbeeld Rapport (PDF)
-                                                    </span>
-                                                </a>
-                                                <p class="text-center text-xs text-gray-500 mt-3">Professioneel rapport • TÜV/NoBo ready • 4 pagina's</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div aria-hidden="true" class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 md:rounded-3xl"></div>
-                            </div>
-                        </div>
+                <!-- Advisory Note -->
+                <div class="mt-16 mx-auto max-w-3xl">
+                    <div class="rounded-2xl border border-white/10 p-8" style="background-color: rgba(255, 107, 53, 0.05);">
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            <strong class="text-white">Technisch advies:</strong> LEONA accepteert SBOM's in SPDX, CycloneDX en CSV-formaat. Wij normaliseren deze automatisch naar CRA-vereisten en mappen alle componenten naar hun respectievelijke licentie- en CVE-databases. Dit is geen oppervlakkige scan, maar een diepgaande validatie van uw complete build-artefacten tegen Annex I security-eisen.
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-gray-900 sm:h-32"></div>
         </div>
     </header>
 
@@ -328,69 +731,83 @@
         </div>
     </section>
 
-    <!-- Cross-Framework Compliance Section -->
-    <section class="bg-gradient-to-br from-gray-900 to-gray-800 py-24 md:py-32 text-white">
+    <!-- Multi-Framework Attestation Section -->
+    <div class="relative isolate bg-gray-900 pb-32 pt-24 sm:pt-32">
+        <div aria-hidden="true" class="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.0625rem] bg-gradient-to-tr from-blue-400 to-blue-600"></div>
+        </div>
+        <div aria-hidden="true" class="absolute inset-x-0 top-0 -z-10 flex transform-gpu overflow-hidden pt-32 opacity-25 blur-3xl sm:pt-40 xl:justify-end">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="ml-[-22rem] aspect-[1313/771] w-[82.0625rem] flex-none origin-top-right rotate-[30deg] bg-gradient-to-tr from-blue-400 to-sky-300 xl:ml-0 xl:mr-[calc(50%-12rem)]"></div>
+        </div>
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="text-sm/6 font-semibold text-blue-400 uppercase tracking-wider">Multi-Framework Attestation</div>
-            <h2 class="mt-2 font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl leading-tight">
-                De "Vanta" voor<br/>
-                Embedded Linux
-            </h2>
-            <p class="mt-6 text-lg text-gray-300 max-w-3xl leading-relaxed">
-                LEONA & CRAVIT valideert uw systeem tegen de drie belangrijkste Europese kaders voor de maakindustrie. Eén scan, drie compliance-dossiers.
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-base/7 font-semibold text-blue-400">MULTI-FRAMEWORK ATTESTATION</h2>
+                <p class="mt-2 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Embedded Linux Compliance Platform</p>
+            </div>
+            <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-300 sm:text-xl/8">
+                LEONA & CRAVIT valideert uw systeem tegen de drie belangrijkste Europese kaders voor de maakindustrie. Één scan, drie compliance-dossiers.
             </p>
-
-            <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+            
+            <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <!-- CRA -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                <figure class="rounded-2xl bg-gray-800/75 p-8 ring-1 ring-white/10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                         </div>
-                        <h3 class="font-display text-xl font-bold">CRA</h3>
+                        <h3 class="text-xl font-semibold text-white">CRA</h3>
                     </div>
-                    <p class="text-gray-300 mb-2 font-semibold">Cyber Resilience Act</p>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Productveiligheid & Security-by-Design. Verplicht voor CE-markering vanaf september 2026.
-                    </p>
-                </div>
-
+                    <blockquote>
+                        <p class="text-lg font-semibold text-white mb-3">Cyber Resilience Act</p>
+                        <p class="text-sm/6 text-gray-300">
+                            Productveiligheid & Security-by-Design. Verplicht voor CE-markering vanaf september 2026.
+                        </p>
+                    </blockquote>
+                </figure>
+                
                 <!-- CER -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                <figure class="rounded-2xl bg-gray-800/75 p-8 ring-1 ring-white/10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                         </div>
-                        <h3 class="font-display text-xl font-bold">CER</h3>
+                        <h3 class="text-xl font-semibold text-white">CER</h3>
                     </div>
-                    <p class="text-gray-300 mb-2 font-semibold">Critical Entities Resilience</p>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Kritieke Entiteiten & Fysieke Weerbaarheid. Cruciaal voor infrastructuur-gerelateerde machines.
-                    </p>
-                </div>
-
+                    <blockquote>
+                        <p class="text-lg font-semibold text-white mb-3">Critical Entities Resilience</p>
+                        <p class="text-sm/6 text-gray-300">
+                            Kritieke Entiteiten & Fysieke Weerbaarheid. Cruciaal voor infrastructuur-gerelateerde machines.
+                        </p>
+                    </blockquote>
+                </figure>
+                
                 <!-- NIS2 -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+                <figure class="rounded-2xl bg-gray-800/75 p-8 ring-1 ring-white/10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M13 7H7v6h6V7z"/><path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/></svg>
                         </div>
-                        <h3 class="font-display text-xl font-bold">NIS2</h3>
+                        <h3 class="text-xl font-semibold text-white">NIS2</h3>
                     </div>
-                    <p class="text-gray-300 mb-2 font-semibold">Network and Information Security 2</p>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Supply Chain Security & Incident Reporting. Vereist door uw klanten in energiesector en zorg.
+                    <blockquote>
+                        <p class="text-lg font-semibold text-white mb-3">Network and Information Security 2</p>
+                        <p class="text-sm/6 text-gray-300">
+                            Supply Chain Security & Incident Reporting. Vereist door uw klanten in energiesector en zorg.
+                        </p>
+                    </blockquote>
+                </figure>
+            </div>
+            
+            <!-- Advisory Note -->
+            <div class="mt-16 mx-auto max-w-3xl">
+                <div class="rounded-2xl bg-white/10 border border-white/20 p-8 backdrop-blur">
+                    <p class="text-white/90 text-lg leading-relaxed">
+                        <strong class="text-white">Waarom dit belangrijk is:</strong> Uw klanten vragen niet alleen om CRA-compliance. Zij opereren onder NIS2 (kritieke infrastructuur) en CER (fysieke security). Door alle drie de frameworks te dekken, wordt uw product onmisbaar in hun supply chain.
                     </p>
                 </div>
             </div>
-
-            <div class="mt-12 bg-white/10 border border-white/20 rounded-2xl p-8 backdrop-blur">
-                <p class="text-white/90 text-lg leading-relaxed">
-                    <strong class="text-white">Waarom dit belangrijk is:</strong> Uw klanten vragen niet alleen om CRA-compliance. Zij opereren onder NIS2 (kritieke infrastructuur) en CER (fysieke security). Door alle drie de frameworks te dekken, wordt uw product onmisbaar in hun supply chain.
-                </p>
-            </div>
         </div>
-    </section>
+    </div>
 
     <!-- Bento Section -->
     <main>
@@ -463,103 +880,6 @@
         </div>
     </main>
 
-    <!-- V-Assessor Section -->
-    <section id="assessor" class="py-16 md:py-24 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider mb-4">Diagnostische Scan</div>
-            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">Start V-Assessor™ Validatie</h2>
-            <p class="text-xl md:text-2xl text-gray-600 mb-16 max-w-2xl mx-auto">Upload uw SBOM en ontvang binnen 60 seconden een eerste analyse. Het volledige Technisch Constructiedossier wordt na validatie beschikbaar gesteld.</p>
-            
-            <!-- Upload Zone -->
-            <div id="scanner-zone" class="max-w-2xl mx-auto">
-                <!-- Upload UI -->
-                <div id="upload-ui">
-                    <form hx-post="/api/scan" 
-                          hx-encoding="multipart/form-data" 
-                          hx-target="#scanner-zone"
-                          hx-swap="innerHTML"
-                          hx-indicator="#scan-loading"
-                          class="relative">
-                        
-                        <div class="border-2 border-dashed border-brand-blue/30 rounded-4xl p-12 md:p-16 bg-white ring-1 ring-brand-blue/10 transition-all hover:border-brand-blue cursor-pointer group">
-                            <input type="file" 
-                                   name="sbom" 
-                                   id="file-upload" 
-                                   accept=".json,.xml,.spdx,.cdx"
-                                   class="hidden" 
-                                   onchange="this.form.requestSubmit(); document.getElementById('scan-status').textContent = 'Parsing SBOM metadata...'">
-                            
-                            <label for="file-upload" class="cursor-pointer block">
-                                <div class="flex flex-col items-center gap-6">
-                                    <svg class="w-16 h-16 md:w-20 md:h-20 text-brand-blue group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                                    </svg>
-                                    <div>
-                                        <p class="text-gray-900 text-xl md:text-2xl font-bold">Sleep uw <span class="text-brand-blue">bom.json</span> hier</p>
-                                        <p class="text-sm md:text-base text-gray-600 mt-3">of klik om te uploaden</p>
-                                        <p class="text-xs text-gray-500 mt-4">CycloneDX, SPDX, Yocto manifest</p>
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Loading Theater (hidden by default, shown by HTMX) -->
-                <div id="scan-loading" class="htmx-indicator hidden">
-                    <div class="bg-white rounded-4xl shadow-2xl border-2 border-brand-blue p-12 text-center">
-                        <div class="flex flex-col items-center gap-6">
-                            <!-- Animated Scanner Icon -->
-                            <div class="relative w-20 h-20">
-                                <div class="absolute inset-0 border-4 border-brand-blue/20 rounded-full"></div>
-                                <div class="absolute inset-0 border-4 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
-                                <svg class="absolute inset-0 w-full h-full p-4 text-brand-blue" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
-                            </div>
-                            
-                            <!-- Status Messages -->
-                            <div class="space-y-2">
-                                <p class="text-xl font-bold text-gray-900">LEONA analyseert uw build...</p>
-                                <p id="scan-status" class="text-sm font-mono text-brand-blue animate-pulse">Parsing Yocto layers...</p>
-                            </div>
-                            
-                            <!-- Technical Progress Bar -->
-                            <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                                <div class="bg-gradient-to-r from-brand-blue to-blue-400 h-full animate-pulse" style="width: 100%; animation: progress 3s ease-in-out infinite;"></div>
-                            </div>
-                            
-                            <!-- Technical Steps -->
-                            <div class="text-left text-xs text-gray-600 space-y-1 font-mono">
-                                <p class="opacity-100 transition-opacity">✓ SBOM format validated</p>
-                                <p class="opacity-80 transition-opacity delay-300">✓ Checking Annex I requirements...</p>
-                                <p class="opacity-60 transition-opacity delay-500">✓ Kernel EOL detection...</p>
-                                <p class="opacity-40 transition-opacity delay-700">→ Mapping CVEs to components...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                <!-- Trust Indicators -->
-                <div class="mt-12 flex flex-wrap justify-center gap-6 md:gap-12 text-sm md:text-base text-gray-600">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-brand-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span>Direct rapport</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-brand-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span>AVG-conform</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-brand-blue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span>Factuur inbegrepen</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <!-- Assessment Results Section -->
     <section id="results" class="max-w-7xl mx-auto px-6 py-12 bg-white"></section>
@@ -633,146 +953,6 @@
         </div>
     </section>
 
-    <!-- CRA Timeline & SBOM Importance Section -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-red-50 via-white to-blue-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <!-- Urgent Header -->
-            <div class="text-center mb-12">
-                <div class="inline-block px-4 py-2 bg-red-100 rounded-full text-red-800 text-sm font-bold mb-4">
-                    KRITIEKE TIJDLIJN
-                </div>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                    CRA is er. Klaar of niet.
-                </h2>
-                <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-                    De EU Cyber Resilience Act (CRA) is nu van kracht, met verplichte rapportage vanaf <strong class="text-red-600">11 september 2026</strong>. Of u nu aan Europese klanten verkoopt of niet, CRA-compliance wordt een baseline verwachting voor B2B software.
-                </p>
-            </div>
-
-            <!-- Timeline Cards -->
-            <div class="grid md:grid-cols-3 gap-6 mb-16">
-                <div class="bg-white rounded-3xl p-8 ring-1 ring-gray-200 shadow-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-gray-400 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 font-semibold uppercase">Deadline gepasseerd</div>
-                            <div class="text-sm font-bold text-gray-900">10 December 2024</div>
-                        </div>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-gray-900 mb-2">CRA In Werking</h3>
-                    <p class="text-gray-600 text-sm">De Cyber Resilience Act is officieel van kracht getreden in de EU.</p>
-                </div>
-
-                <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl p-8 ring-2 ring-red-300 shadow-lg relative">
-                    <div class="absolute top-4 right-4">
-                        <span class="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">URGENT</span>
-                    </div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <div>
-                            <div class="text-xs text-red-700 font-semibold uppercase">Over 6 maanden</div>
-                            <div class="text-sm font-bold text-red-900">11 September 2026</div>
-                        </div>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-gray-900 mb-2">Verplichte Rapportage</h3>
-                    <p class="text-gray-700 text-sm">Fabrikanten moeten kwetsbaarheden rapporteren. SBOM-vereisten beginnen.</p>
-                </div>
-
-                <div class="bg-white rounded-3xl p-8 ring-1 ring-blue-200 shadow-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 font-semibold uppercase">Over 1 jaar, 9 maanden</div>
-                            <div class="text-sm font-bold text-gray-900">11 December 2027</div>
-                        </div>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-gray-900 mb-2">Volledige Implementatie</h3>
-                    <p class="text-gray-600 text-sm">Alle CRA-vereisten volledig van kracht voor markttoegang in de EU.</p>
-                </div>
-            </div>
-
-            <!-- US Executive Order Context -->
-            <div class="bg-gradient-to-br from-blue-900 to-brand-blue rounded-4xl p-8 md:p-12 mb-12 text-white">
-                <div class="max-w-4xl">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-2xl md:text-3xl font-bold mb-3">US Executive Order 14028: SBOMs voor Federale Aanbestedingen</h3>
-                            <p class="text-white/90 text-lg leading-relaxed mb-4">
-                                In mei 2021 introduceerde de Amerikaanse overheid Executive Order 14028 als reactie op escalerende cyberdreigingen tegen kritieke infrastructuur. Een kernvereiste: <strong class="text-white">Software Bill of Materials (SBOMs)</strong> voor alle software die aan de federale overheid wordt verkocht.
-                            </p>
-                            <p class="text-white/80 text-base">
-                                Deze SBOM-verplichting heeft de hele software-industrie getransformeerd. Het NIST Cybersecurity Framework heeft SBOMs nu als cruciaal element opgenomen.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SBOM Benefits -->
-            <div class="bg-white rounded-4xl p-8 md:p-12 ring-1 ring-gray-200">
-                <h3 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-                    Het Groeiende Belang van SBOMs in Cybersecurity Compliance
-                </h3>
-                <div class="prose prose-lg max-w-4xl mx-auto">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Het cybersecurity-landschap is de afgelopen jaren snel geëvolueerd, gedreven door toegenomen bewustzijn van kwetsbaarheden in software supply chains. Naarmate regelgevende vereisten blijven evolueren, worden SBOMs de <strong>de facto standaard</strong> voor transparantie in software supply chains.
-                    </p>
-                    
-                    <div class="grid md:grid-cols-3 gap-6 my-8">
-                        <div class="bg-blue-50 rounded-2xl p-6">
-                            <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center mb-4">
-                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-2">Verbeterde Zichtbaarheid</h4>
-                            <p class="text-sm text-gray-600">Volledige transparantie van alle software-componenten in uw systeem</p>
-                        </div>
-                        <div class="bg-green-50 rounded-2xl p-6">
-                            <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mb-4">
-                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-2">Snellere Remediation</h4>
-                            <p class="text-sm text-gray-600">Identificeer en verhelp kwetsbaarheden onmiddellijk</p>
-                        </div>
-                        <div class="bg-purple-50 rounded-2xl p-6">
-                            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
-                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                            </div>
-                            <h4 class="font-bold text-gray-900 mb-2">Vertrouwen Opbouwen</h4>
-                            <p class="text-sm text-gray-600">Sterkere relaties met klanten en partners door transparantie</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-2xl my-8">
-                        <p class="text-gray-800 font-semibold mb-2">
-                            ⚠️ Tijd is kritiek in dit evoluerende landschap
-                        </p>
-                        <p class="text-gray-700 text-sm leading-relaxed">
-                            Organisaties die SBOM-adoptie uitstellen, lopen risico niet langer compliant te zijn met regelgevende vereisten en best practices. Belangrijker nog: ze stellen zich bloot aan verhoogd risico in een tijdperk van steeds geavanceerdere cyberdreigingen.
-                        </p>
-                    </div>
-
-                    <p class="text-gray-700 leading-relaxed">
-                        Voor organisaties die SBOMs nog niet hebben geïntegreerd in hun software development en procurement processen, is de urgentie duidelijk: <strong>SBOM-adoptie gaat niet alleen over compliance — het is fundamenteel voor het waarborgen van de beveiliging en veerkracht van moderne software-infrastructuur</strong>.
-                    </p>
-                </div>
-
-                <div class="mt-10 text-center">
-                    <a href="#scanner" class="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-brand-blue to-brand-blue-light text-white text-lg font-bold rounded-xl hover:from-blue-800 hover:to-blue-700 transition-all shadow-xl">
-                        Start uw CRA Compliance Scan →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Knowledge Base / Articles Section -->
     <section id="knowledge" class="py-16 md:py-24 bg-white border-t border-gray-200">
@@ -1323,7 +1503,7 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
     </section>
 
     <!-- Footer with CTA -->
-    <footer class="bg-gray-900">
+    <footer class="bg-blue-950">
         <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
             <!-- CTA Section -->
             <div class="mx-auto max-w-2xl text-center mb-24">
