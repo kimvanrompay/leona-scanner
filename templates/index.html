@@ -1675,7 +1675,7 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 </div>
             </nav>
 
-            <form id="risk-form" hx-post="/api/lead/risk-assessment" hx-target="#risk-assessment-result" hx-swap="innerHTML">
+            <form id="risk-form" action="/api/lead/risk-assessment" method="POST" data-turbo-frame="_top">
                 <!-- Hidden form inputs - populated by wizard.js -->
                 <input type="hidden" name="email" id="final-email">
                 <input type="hidden" name="company_name" id="final-company">
@@ -1691,8 +1691,6 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 <div id="current-question" class="min-h-[400px]">
                     <!-- JavaScript wizard renders here -->
                 </div>
-                
-                <div id="risk-assessment-result" class="mt-6"></div>
             </form>
         </div>
     </dialog>
