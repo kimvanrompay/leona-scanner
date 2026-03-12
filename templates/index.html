@@ -1630,7 +1630,186 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
         </div>
     </footer>
 
-    <!-- Lead Magnet Modals -->
-    {{ template "partials/lead-modals.html" }}
+    <!-- Risk Assessment Modal -->
+    <dialog id="risk-assessment-modal" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-2xl w-full p-0 border-0">
+        <div class="bg-gradient-to-br from-blue-950 to-blue-900 p-8 rounded-t-2xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">⚖️ CRA Exposure Assessment</h2>
+                    <p class="text-gray-300 mt-2">Binnen 60 seconden weet u of uw bedrijf persoonlijk aansprakelijk is</p>
+                </div>
+                <button type="button" onclick="document.getElementById('risk-assessment-modal').close()" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="bg-white p-8">
+            <form hx-post="/api/lead/risk-assessment" hx-target="#risk-assessment-result" hx-swap="innerHTML">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Zakelijk e-mailadres *</label>
+                        <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="cto@uwbedrijf.be">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsnaam</label>
+                        <input type="text" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="Embedded Systems NV">
+                    </div>
+                    <div class="space-y-4">
+                        <!-- SBOM Traceability -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" name="sells_to_infrastructure" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-900">Kunnen alle binaries in uw rootfs getraceerd worden naar source packages met CPE 2.3 identifiers?</span>
+                                    <p class="text-xs text-gray-600 mt-1">CRA Art. 14.1 vereist dat elk artefact in de firmware volledig traceerbaar is via SBOM. Als u <code>opkg list-installed</code> runt, moet elk package een CPE hebben.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Kernel Provenance -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" name="uses_open_source" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-900">Gebruikt u out-of-tree kernel modules zonder upstream source URI in uw .bbappend?</span>
+                                    <p class="text-xs text-gray-600 mt-1">Proprietary kernel drivers zonder gedocumenteerde <code>SRC_URI</code> in Yocto layers falen Annex I.II.1 traceability checks. Dit is kritiek voor notified body audits.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Vulnerability Disclosure -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" name="has_sbom" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-900">Heeft u een CSAF 2.0 compliant vulnerability disclosure endpoint voor uw product?</span>
+                                    <p class="text-xs text-gray-600 mt-1">CRA Art. 11.2 verplicht machine-readable CVE disclosure binnen 24u na NVD publicatie. <code>/.well-known/csaf/provider-metadata.json</code> is de standaard.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Secure Boot Chain -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" name="has_vuln_process" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-900">Verifieert uw bootloader (U-Boot/GRUB) kernel signatures met hardware root-of-trust?</span>
+                                    <p class="text-xs text-gray-600 mt-1">Annex I.II.4 eist cryptographic boot chain validation. Zonder <code>CONFIG_MODULE_SIG_FORCE=y</code> + verified boot, bent u non-compliant.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- GPL Compliance -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" name="products_in_eu" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-900">Linkt uw userspace applicaties tegen GPL-3.0 libraries zonder source code disclosure mechanisme?</span>
+                                    <p class="text-xs text-gray-600 mt-1">Tivoization risks: GPLv3 + proprietary linking = license violation + CRA Art. 14.2 non-compliance. Check <code>ldd</code> output van alle binaries.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Kernel EOL -->
+                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" name="kernel_eol" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-900">Is uw Linux kernel versie EOL binnen de verwachte product lifecycle (5+ jaar)?</span>
+                                    <p class="text-xs text-gray-600 mt-1">CRA Art. 10.4 verplicht security updates gedurende product lifetime. Kernel 4.x/5.4 zonder LTS support = kritieke bevinding. Check <code>uname -r</code>.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsgrootte</label>
+                        <select name="company_size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                            <option value="1-10">1-10 werknemers</option>
+                            <option value="11-50">11-50 werknemers</option>
+                            <option value="51-250" selected>51-250 werknemers</option>
+                            <option value="250+">250+ werknemers</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="risk-assessment-result" class="mt-6"></div>
+                <button type="submit" class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
+                    Bereken Risicoscore
+                </button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Sample Report Modal -->
+    <dialog id="sample-report-modal" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-lg w-full p-0 border-0">
+        <div class="bg-gradient-to-br from-blue-950 to-blue-900 p-8 rounded-t-2xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">📄 Voorbeeldrapport TCF</h2>
+                    <p class="text-gray-300 mt-2">Download de gouden standaard</p>
+                </div>
+                <button type="button" onclick="document.getElementById('sample-report-modal').close()" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="bg-white p-8">
+            <div class="mb-6">
+                <div class="flex items-center justify-center space-x-4 text-center">
+                    <div>
+                        <div class="text-4xl font-bold text-blue-900">42</div>
+                        <div class="text-xs text-gray-600">Pagina's</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-blue-900">187</div>
+                        <div class="text-xs text-gray-600">Componenten</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-blue-900">14</div>
+                        <div class="text-xs text-gray-600">CVE's</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-blue-900">92%</div>
+                        <div class="text-xs text-gray-600">Score</div>
+                    </div>
+                </div>
+            </div>
+            <form hx-post="/api/lead/sample-report" hx-target="#sample-report-result" hx-swap="innerHTML">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Zakelijk e-mailadres *</label>
+                        <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="engineer@uwbedrijf.be">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsnaam</label>
+                        <input type="text" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="Industrial IoT NV">
+                    </div>
+                </div>
+                <div id="sample-report-result" class="mt-4"></div>
+                <button type="submit" class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
+                    Download 42-Pagina TCF
+                </button>
+                <p class="text-xs text-gray-500 mt-3 text-center">Het voorbeeldrapport wordt direct naar uw inbox gestuurd</p>
+            </form>
+        </div>
+    </dialog>
+
+    <script>
+    // Open Risk Assessment Modal from "Beoordeel positie" buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a[href="#assessor"]').forEach(function(link) {
+            const text = link.textContent.trim();
+            if (text === 'Beoordeel positie') {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('risk-assessment-modal').showModal();
+                });
+            }
+        });
+    });
+    </script>
 </body>
 </html>
