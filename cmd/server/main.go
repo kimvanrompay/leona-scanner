@@ -98,6 +98,8 @@ func main() {
 	r.HandleFunc("/api/lead/engineer", h.HandleEngineerLeadMagnet).Methods("POST")
 	r.HandleFunc("/api/lead/lawyer", h.HandleLawyerLeadMagnet).Methods("POST")
 	r.HandleFunc("/api/lead/checklist", h.HandleChecklistDownload).Methods("POST")
+	r.HandleFunc("/api/lead/risk-assessment", h.HandleRiskAssessment).Methods("POST")
+	r.HandleFunc("/api/lead/sample-report", h.HandleSampleReportDownload).Methods("POST")
 	r.HandleFunc("/checklists", h.HandleChecklistPage).Methods("GET")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
 	
