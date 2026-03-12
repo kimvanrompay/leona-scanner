@@ -24,7 +24,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    
+    <!-- Hotwire Turbo for instant navigation -->
+    <script type="module">
+        import * as Turbo from 'https://cdn.skypack.dev/@hotwired/turbo@8.0.4';
+    </script>
+    
+    <!-- Hotwire Stimulus for controllers -->
+    <script type="module">
+        import { Application } from 'https://cdn.skypack.dev/@hotwired/stimulus@3.2.2';
+        window.Stimulus = Application.start();
+    </script>
+    
     <script>
         tailwind.config = {
             theme: {
