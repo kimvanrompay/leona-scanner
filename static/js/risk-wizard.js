@@ -155,21 +155,27 @@ function updateProgress() {
 
 function showEmailForm() {
     const container = document.getElementById('current-question');
+    container.style.opacity = '1';
+    container.style.transform = 'translateX(0)';
     
     const riskLevel = riskScore >= 70 ? 'HOOG' : (riskScore >= 40 ? 'MIDDEN' : 'LAAG');
-    const color = riskScore >= 70 ? 'red' : (riskScore >= 40 ? 'orange' : 'green');
+    const emoji = riskScore >= 70 ? '⚠️' : (riskScore >= 40 ? '⚡' : '✅');
+    const bgColor = riskScore >= 70 ? 'bg-red-100' : (riskScore >= 40 ? 'bg-orange-100' : 'bg-green-100');
+    const textColor = riskScore >= 70 ? 'text-red-600' : (riskScore >= 40 ? 'text-orange-600' : 'text-green-600');
+    const borderColor = riskScore >= 70 ? 'border-red-200' : (riskScore >= 40 ? 'border-orange-200' : 'border-green-200');
+    const failedCount = Object.keys(answers).filter(k => answers[k].answer === 'no').length;
     
     container.innerHTML = `
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-24 h-24 bg-${color}-100 rounded-full mb-6">
-                <span class="text-6xl">${riskScore >= 70 ? '⚠️' : (riskScore >= 40 ? '⚡' : '✅')}</span>
+            <div class="inline-flex items-center justify-center w-24 h-24 ${bgColor} rounded-full mb-6">
+                <span class="text-6xl">${emoji}</span>
             </div>
             <h3 class="text-3xl font-bold text-gray-900 mb-2">Uw CRA Risk Score</h3>
-            <div class="text-6xl font-bold text-${color}-600 mb-2">${riskScore}/100</div>
-            <div class="text-xl font-semibold text-${color}-700">${riskLevel} RISICO</div>
+            <div class="text-6xl font-bold ${textColor} mb-2">${riskScore}/100</div>
+            <div class="text-xl font-semibold ${textColor}">${riskLevel} RISICO</div>
         </div>
         
-        <div class="bg-gray-50 border-2 border-${color}-200 rounded-xl p-6 mb-6">
+        <div class="bg-gray-50 border-2 ${borderColor} rounded-xl p-6 mb-6">
             <p class="text-center text-gray-700 mb-4">
                 <strong>Ontvang uw volledige risico-analyse + remediation roadmap</strong>
             </p>
@@ -189,7 +195,7 @@ function showEmailForm() {
         </button>
         
         <p class="text-xs text-gray-500 mt-4 text-center">
-            We sturen een 42-pagina technisch rapport met specifieke fixes voor uw ${Object.keys(answers).filter(k => answers[k].answer === 'no').length} compliance gaps
+            We sturen een 42-pagina technisch rapport met specifieke fixes voor uw ${failedCount} compliance gaps
         </p>
     `;
     
