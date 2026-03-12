@@ -1669,107 +1669,23 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
             </div>
 
             <form id="risk-form" hx-post="/api/lead/risk-assessment" hx-target="#risk-assessment-result" hx-swap="innerHTML">
-                <!-- Hidden inputs for email (collected at end) -->
+                <!-- Hidden form inputs - populated by wizard.js -->
                 <input type="hidden" name="email" id="final-email">
                 <input type="hidden" name="company_name" id="final-company">
-                <input type="hidden" name="company_size" value="51-250">
+                <input type="hidden" name="company_size" id="final-company-size" value="51-250">
+                <input type="hidden" name="sells_to_infrastructure">
+                <input type="hidden" name="uses_open_source">
+                <input type="hidden" name="has_sbom">
+                <input type="hidden" name="has_vuln_process">
+                <input type="hidden" name="products_in_eu">
+                <input type="hidden" name="kernel_eol">
                 
-                <!-- Question Container -->
-                <div id="question-container" class="space-y-6">
-                    <!-- Questions will be inserted here via HTMX -->
-                    <div class="space-y-4" id="current-question">
-                        <!-- Question 1: CPE Traceability -->
-                        <div class="question-card animate-fade-in" data-question="1" data-risk="30">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full mb-4">
-                                    <span class="text-2xl">📦</span>
-                                </div>
-                                <h3 class="text-lg font-bold text-gray-900">CPE 2.3 Binary Traceability</h3>
-                            </div>
-                            <p class="text-gray-800 mb-6 leading-relaxed">Kunnen <strong>alle binaries</strong> in uw rootfs getraceerd worden naar source packages met CPE 2.3 identifiers?</p>
-                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-                                <p class="text-sm text-blue-900"><strong>💡 Tip:</strong> Run <code class="bg-blue-100 px-2 py-1 rounded">opkg list-installed</code> - elk package moet een CPE hebben</p>
-                                <p class="text-xs text-blue-700 mt-2">📖 CRA Art. 14.1 - Elk artefact moet volledig traceerbaar zijn via SBOM</p>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <button type="button" onclick="answerQuestion(1, 'no', 30)" class="answer-btn bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-105">
-                                    ❌ Nee, niet volledig
-                                </button>
-                                <button type="button" onclick="answerQuestion(1, 'yes', 0)" class="answer-btn bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-105">
-                                    ✅ Ja, 100% traceerbaar
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Kernel Provenance -->
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" name="uses_open_source" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
-                                <div>
-                                    <span class="text-sm font-semibold text-gray-900">Gebruikt u out-of-tree kernel modules zonder upstream source URI in uw .bbappend?</span>
-                                    <p class="text-xs text-gray-600 mt-1">Proprietary kernel drivers zonder gedocumenteerde <code>SRC_URI</code> in Yocto layers falen Annex I.II.1 traceability checks. Dit is kritiek voor notified body audits.</p>
-                                </div>
-                            </label>
-                        </div>
-
-                        <!-- Vulnerability Disclosure -->
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" name="has_sbom" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
-                                <div>
-                                    <span class="text-sm font-semibold text-gray-900">Heeft u een CSAF 2.0 compliant vulnerability disclosure endpoint voor uw product?</span>
-                                    <p class="text-xs text-gray-600 mt-1">CRA Art. 11.2 verplicht machine-readable CVE disclosure binnen 24u na NVD publicatie. <code>/.well-known/csaf/provider-metadata.json</code> is de standaard.</p>
-                                </div>
-                            </label>
-                        </div>
-
-                        <!-- Secure Boot Chain -->
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" name="has_vuln_process" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
-                                <div>
-                                    <span class="text-sm font-semibold text-gray-900">Verifieert uw bootloader (U-Boot/GRUB) kernel signatures met hardware root-of-trust?</span>
-                                    <p class="text-xs text-gray-600 mt-1">Annex I.II.4 eist cryptographic boot chain validation. Zonder <code>CONFIG_MODULE_SIG_FORCE=y</code> + verified boot, bent u non-compliant.</p>
-                                </div>
-                            </label>
-                        </div>
-
-                        <!-- GPL Compliance -->
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" name="products_in_eu" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
-                                <div>
-                                    <span class="text-sm font-semibold text-gray-900">Linkt uw userspace applicaties tegen GPL-3.0 libraries zonder source code disclosure mechanisme?</span>
-                                    <p class="text-xs text-gray-600 mt-1">Tivoization risks: GPLv3 + proprietary linking = license violation + CRA Art. 14.2 non-compliance. Check <code>ldd</code> output van alle binaries.</p>
-                                </div>
-                            </label>
-                        </div>
-
-                        <!-- Kernel EOL -->
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" name="kernel_eol" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
-                                <div>
-                                    <span class="text-sm font-semibold text-gray-900">Is uw Linux kernel versie EOL binnen de verwachte product lifecycle (5+ jaar)?</span>
-                                    <p class="text-xs text-gray-600 mt-1">CRA Art. 10.4 verplicht security updates gedurende product lifetime. Kernel 4.x/5.4 zonder LTS support = kritieke bevinding. Check <code>uname -r</code>.</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsgrootte</label>
-                        <select name="company_size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
-                            <option value="1-10">1-10 werknemers</option>
-                            <option value="11-50">11-50 werknemers</option>
-                            <option value="51-250" selected>51-250 werknemers</option>
-                            <option value="250+">250+ werknemers</option>
-                        </select>
-                    </div>
+                <!-- Question container - fully controlled by risk-wizard.js -->
+                <div id="current-question" class="min-h-[400px]">
+                    <!-- JavaScript wizard renders here -->
                 </div>
+                
                 <div id="risk-assessment-result" class="mt-6"></div>
-                <button type="submit" class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
-                    Bereken Risicoscore
-                </button>
             </form>
         </div>
     </dialog>

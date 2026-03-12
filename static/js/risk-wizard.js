@@ -166,37 +166,45 @@ function showEmailForm() {
     const failedCount = Object.keys(answers).filter(k => answers[k].answer === 'no').length;
     
     container.innerHTML = `
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-24 h-24 ${bgColor} rounded-full mb-6">
-                <span class="text-6xl">${emoji}</span>
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-20 h-20 ${bgColor} rounded-full mb-4">
+                <span class="text-5xl">${emoji}</span>
             </div>
-            <h3 class="text-3xl font-bold text-gray-900 mb-2">Uw CRA Risk Score</h3>
-            <div class="text-6xl font-bold ${textColor} mb-2">${riskScore}/100</div>
-            <div class="text-xl font-semibold ${textColor}">${riskLevel} RISICO</div>
+            <div class="text-7xl font-bold ${textColor} mb-3">${riskScore}<span class="text-4xl">/100</span></div>
+            <div class="text-2xl font-bold ${textColor} mb-2">${riskLevel} RISICO</div>
+            <p class="text-gray-600 text-sm">Gebaseerd op ${failedCount} compliance gap${failedCount !== 1 ? 's' : ''}</p>
         </div>
         
-        <div class="bg-gray-50 border-2 ${borderColor} rounded-xl p-6 mb-6">
-            <p class="text-center text-gray-700 mb-4">
-                <strong>Ontvang uw volledige risico-analyse + remediation roadmap</strong>
-            </p>
-            <div class="space-y-4">
+        <div class="bg-white border-2 ${borderColor} rounded-2xl p-8 mb-6 shadow-sm">
+            <h4 class="text-lg font-bold text-gray-900 mb-2 text-center">Ontvang uw 42-pagina Technical Report</h4>
+            <p class="text-sm text-gray-600 mb-6 text-center">Compliance gaps + remediation roadmap + CRA article mapping</p>
+            
+            <div class="space-y-3">
                 <input type="email" id="email-input" required 
-                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-lg" 
-                    placeholder="uw.email@bedrijf.be">
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-base" 
+                    placeholder="zakelijk.email@uwbedrijf.be">
                 <input type="text" id="company-input" 
-                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-lg" 
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-base" 
                     placeholder="Bedrijfsnaam (optioneel)">
+                    
+                <select id="company-size-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 text-base text-gray-700">
+                    <option value="">Bedrijfsgrootte</option>
+                    <option value="1-10">1-10 werknemers</option>
+                    <option value="11-50">11-50 werknemers</option>
+                    <option value="51-250" selected>51-250 werknemers</option>
+                    <option value="250+">250+ werknemers</option>
+                </select>
             </div>
+            
+            <button type="button" onclick="submitAssessment()" 
+                class="w-full mt-6 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg text-lg">
+                📧 Email Mijn Risk Report
+            </button>
+            
+            <p class="text-xs text-gray-500 mt-4 text-center">
+                ✓ Geen credit card vereist · ✓ Direct in uw inbox · ✓ 100% confidentieel
+            </p>
         </div>
-        
-        <button type="button" onclick="submitAssessment()" 
-            class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg text-lg">
-            📧 Email Mijn Risk Report
-        </button>
-        
-        <p class="text-xs text-gray-500 mt-4 text-center">
-            We sturen een 42-pagina technisch rapport met specifieke fixes voor uw ${failedCount} compliance gaps
-        </p>
     `;
     
     document.getElementById('progress-bar').style.width = '100%';
@@ -205,6 +213,7 @@ function showEmailForm() {
 function submitAssessment() {
     const email = document.getElementById('email-input').value;
     const company = document.getElementById('company-input').value;
+    const companySize = document.getElementById('company-size-input').value;
     
     if (!email || !email.includes('@')) {
         alert('Vul een geldig e-mailadres in');
@@ -214,13 +223,15 @@ function submitAssessment() {
     // Set hidden form values
     document.getElementById('final-email').value = email;
     document.getElementById('final-company').value = company;
+    document.getElementById('final-company-size').value = companySize || '51-250';
     
-    // Map answers to form checkboxes
-    document.querySelector('input[name="sells_to_infrastructure"]').checked = answers[1]?.answer === 'no';
-    document.querySelector('input[name="uses_open_source"]').checked = answers[2]?.answer === 'no';
-    document.querySelector('input[name="has_sbom"]').checked = answers[3]?.answer === 'no';
-    document.querySelector('input[name="has_vuln_process"]').checked = answers[4]?.answer === 'no';
-    document.querySelector('input[name="products_in_eu"]').checked = answers[5]?.answer === 'no';
+    // Map answers to hidden inputs (not checkboxes anymore)
+    document.querySelector('input[name="sells_to_infrastructure"]').value = answers[1]?.answer === 'no' ? 'true' : 'false';
+    document.querySelector('input[name="uses_open_source"]').value = answers[2]?.answer === 'no' ? 'true' : 'false';
+    document.querySelector('input[name="has_sbom"]').value = answers[3]?.answer === 'no' ? 'true' : 'false';
+    document.querySelector('input[name="has_vuln_process"]').value = answers[4]?.answer === 'no' ? 'true' : 'false';
+    document.querySelector('input[name="products_in_eu"]').value = answers[5]?.answer === 'no' ? 'true' : 'false';
+    document.querySelector('input[name="kernel_eol"]').value = answers[6]?.answer === 'no' ? 'true' : 'false';
     
     // Submit via HTMX
     document.getElementById('risk-form').requestSubmit();
