@@ -134,22 +134,37 @@ function answerQuestion(qNum, answer, risk) {
 }
 
 function updateProgress() {
-    const progress = ((currentQuestion - 1) / totalQuestions) * 100;
-    document.getElementById('progress-bar').style.width = progress + '%';
+    // Update text
     document.getElementById('progress-text').textContent = currentQuestion > totalQuestions 
         ? 'Afgerond!' 
         : `Vraag ${currentQuestion} van ${totalQuestions}`;
+    
+    // Update dots - mark completed and current
+    const dots = document.querySelectorAll('#progress-dots span');
+    dots.forEach((dot, index) => {
+        const stepNum = index + 1;
+        if (stepNum < currentQuestion) {
+            // Completed step
+            dot.className = 'block size-2.5 rounded-full bg-orange-500 transition-all';
+        } else if (stepNum === currentQuestion) {
+            // Current step - larger with glow
+            dot.className = 'block size-3 rounded-full bg-orange-500 ring-4 ring-orange-200 transition-all';
+        } else {
+            // Upcoming step
+            dot.className = 'block size-2.5 rounded-full bg-gray-200 transition-all';
+        }
+    });
     
     // Update risk score preview
     const scoreEl = document.getElementById('risk-score-preview');
     scoreEl.textContent = `Risk: ${riskScore}/100`;
     
     if (riskScore >= 70) {
-        scoreEl.className = 'font-bold text-red-600';
+        scoreEl.className = 'text-sm font-bold text-red-600';
     } else if (riskScore >= 40) {
-        scoreEl.className = 'font-bold text-orange-600';
+        scoreEl.className = 'text-sm font-bold text-orange-600';
     } else {
-        scoreEl.className = 'font-bold text-green-600';
+        scoreEl.className = 'text-sm font-bold text-green-600';
     }
 }
 
@@ -207,7 +222,11 @@ function showEmailForm() {
         </div>
     `;
     
-    document.getElementById('progress-bar').style.width = '100%';
+    // Mark all dots as completed
+    const dots = document.querySelectorAll('#progress-dots span');
+    dots.forEach(dot => {
+        dot.className = 'block size-2.5 rounded-full bg-orange-500 transition-all';
+    });
 }
 
 function submitAssessment() {

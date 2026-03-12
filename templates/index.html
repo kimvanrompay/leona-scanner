@@ -1657,16 +1657,23 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
             </div>
         </div>
         <div class="bg-white p-8">
-            <!-- Progress Bar -->
-            <div class="mb-8">
-                <div class="flex justify-between text-xs text-gray-600 mb-2">
-                    <span id="progress-text">Vraag 1 van 6</span>
-                    <span id="risk-score-preview" class="font-bold text-orange-600">Risk: 0/100</span>
+            <!-- Progress Stepper -->
+            <nav aria-label="Progress" class="mb-8">
+                <div class="flex items-center justify-center">
+                    <p id="progress-text" class="text-sm font-medium text-gray-700">Vraag 1 van 6</p>
+                    <ol role="list" class="ml-8 flex items-center space-x-5" id="progress-dots">
+                        <li><span class="block size-2.5 rounded-full bg-orange-500" data-step="1"></span></li>
+                        <li><span class="block size-2.5 rounded-full bg-gray-200" data-step="2"></span></li>
+                        <li><span class="block size-2.5 rounded-full bg-gray-200" data-step="3"></span></li>
+                        <li><span class="block size-2.5 rounded-full bg-gray-200" data-step="4"></span></li>
+                        <li><span class="block size-2.5 rounded-full bg-gray-200" data-step="5"></span></li>
+                        <li><span class="block size-2.5 rounded-full bg-gray-200" data-step="6"></span></li>
+                    </ol>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div id="progress-bar" class="bg-gradient-to-r from-green-500 to-orange-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                <div class="text-center mt-3">
+                    <span id="risk-score-preview" class="text-sm font-bold text-orange-600">Risk: 0/100</span>
                 </div>
-            </div>
+            </nav>
 
             <form id="risk-form" hx-post="/api/lead/risk-assessment" hx-target="#risk-assessment-result" hx-swap="innerHTML">
                 <!-- Hidden form inputs - populated by wizard.js -->
