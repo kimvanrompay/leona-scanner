@@ -81,59 +81,59 @@
 <body class="bg-white antialiased text-black min-h-full flex flex-col">
 
     <!-- Navigation -->
-    <header class="bg-white border-b border-gray-200 shadow-sm">
-        <nav aria-label="Global" class="flex items-center justify-between px-8 py-4 lg:px-12">
-            <div class="flex items-center gap-x-12">
-                <a href="/" class="-m-1.5 p-1.5">
-                    <span class="sr-only">LEONA & CRAVIT</span>
-                    <span class="font-display text-2xl font-bold text-blue-600">LEONA & CRAVIT</span>
-                </a>
-                <div class="hidden lg:flex lg:gap-x-8">
-                    <a href="#validation" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Validatie</a>
-                    <a href="#assessor" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Assessor</a>
-                    <a href="/insights" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Inzichten</a>
-                    <a href="#knowledge" class="text-sm/6 font-semibold text-gray-700 hover:text-blue-600 transition-colors">Kennis</a>
+    <header class="bg-gray-900">
+        <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            <div class="flex flex-1">
+                <div class="hidden lg:flex lg:gap-x-12">
+                    <a href="#validation" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Validatie</a>
+                    <a href="#assessor" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">CRA Assessment</a>
+                    <a href="#knowledge" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Kennis</a>
+                </div>
+                <div class="flex lg:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400 hover:text-white">
+                        <span class="sr-only">Open main menu</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <div class="flex lg:hidden">
-                <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 hover:text-blue-600">
-                    <span class="sr-only">Open main menu</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-            <div class="hidden lg:flex">
-                <a href="#assessor" class="rounded-lg bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-blue-600 transition-all">Start Scan</a>
+            <a href="/" class="-m-1.5 p-1.5">
+                <span class="sr-only">LEONA & CRAVIT</span>
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-600 to-orange-500 flex items-center justify-center">
+                    <span class="font-display text-xl font-bold text-white">L</span>
+                </div>
+            </a>
+            <div class="flex flex-1 justify-end">
+                <a href="#assessor" class="rounded-md bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-orange-400 transition-all shadow-lg">Start Scan <span aria-hidden="true">&rarr;</span></a>
             </div>
         </nav>
-        <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm lg:hidden">
+        <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
-                <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-200">
+                <div class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6">
                     <div class="flex items-center justify-between">
+                        <div class="flex flex-1">
+                            <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-400 hover:text-white">
+                                <span class="sr-only">Close menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
                         <a href="/" class="-m-1.5 p-1.5">
                             <span class="sr-only">LEONA & CRAVIT</span>
-                            <span class="font-display text-2xl font-bold text-blue-600">LEONA & CRAVIT</span>
+                            <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-orange-500 flex items-center justify-center">
+                                <span class="font-display text-lg font-bold text-white">L</span>
+                            </div>
                         </a>
-                        <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-600 hover:text-blue-600">
-                            <span class="sr-only">Close menu</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-6 flow-root">
-                        <div class="-my-6 divide-y divide-gray-200">
-                            <div class="space-y-2 py-6">
-                                <a href="#validation" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Validatie</a>
-                                <a href="#assessor" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Assessor</a>
-                                <a href="/insights" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Inzichten</a>
-                                <a href="#knowledge" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-700 hover:bg-blue-50">Kennis</a>
-                            </div>
-                            <div class="py-6">
-                                <a href="#assessor" class="-mx-3 block rounded-lg bg-blue-500 px-3 py-2.5 text-center text-base/7 font-semibold text-white hover:bg-blue-600">Start Scan</a>
-                            </div>
+                        <div class="flex flex-1 justify-end">
+                            <a href="#assessor" class="text-sm/6 font-semibold text-white">Start Scan <span aria-hidden="true">&rarr;</span></a>
                         </div>
+                    </div>
+                    <div class="mt-6 space-y-2">
+                        <a href="#validation" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Validatie</a>
+                        <a href="#assessor" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">CRA Assessment</a>
+                        <a href="#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Kennis</a>
                     </div>
                 </div>
             </div>
