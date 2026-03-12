@@ -1646,26 +1646,48 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
             </div>
         </div>
         <div class="bg-white p-8">
-            <form hx-post="/api/lead/risk-assessment" hx-target="#risk-assessment-result" hx-swap="innerHTML">
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-900 mb-2">Zakelijk e-mailadres *</label>
-                        <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="cto@uwbedrijf.be">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsnaam</label>
-                        <input type="text" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="Embedded Systems NV">
-                    </div>
-                    <div class="space-y-4">
-                        <!-- SBOM Traceability -->
-                        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                            <label class="flex items-start space-x-3 cursor-pointer">
-                                <input type="checkbox" name="sells_to_infrastructure" value="true" class="w-5 h-5 text-orange-500 rounded mt-0.5">
-                                <div>
-                                    <span class="text-sm font-semibold text-gray-900">Kunnen alle binaries in uw rootfs getraceerd worden naar source packages met CPE 2.3 identifiers?</span>
-                                    <p class="text-xs text-gray-600 mt-1">CRA Art. 14.1 vereist dat elk artefact in de firmware volledig traceerbaar is via SBOM. Als u <code>opkg list-installed</code> runt, moet elk package een CPE hebben.</p>
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between text-xs text-gray-600 mb-2">
+                    <span id="progress-text">Vraag 1 van 6</span>
+                    <span id="risk-score-preview" class="font-bold text-orange-600">Risk: 0/100</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progress-bar" class="bg-gradient-to-r from-green-500 to-orange-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <form id="risk-form" hx-post="/api/lead/risk-assessment" hx-target="#risk-assessment-result" hx-swap="innerHTML">
+                <!-- Hidden inputs for email (collected at end) -->
+                <input type="hidden" name="email" id="final-email">
+                <input type="hidden" name="company_name" id="final-company">
+                <input type="hidden" name="company_size" value="51-250">
+                
+                <!-- Question Container -->
+                <div id="question-container" class="space-y-6">
+                    <!-- Questions will be inserted here via HTMX -->
+                    <div class="space-y-4" id="current-question">
+                        <!-- Question 1: CPE Traceability -->
+                        <div class="question-card animate-fade-in" data-question="1" data-risk="30">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-12 h-12 bg-orange-100 rounded-full mb-4">
+                                    <span class="text-2xl">📦</span>
                                 </div>
-                            </label>
+                                <h3 class="text-lg font-bold text-gray-900">CPE 2.3 Binary Traceability</h3>
+                            </div>
+                            <p class="text-gray-800 mb-6 leading-relaxed">Kunnen <strong>alle binaries</strong> in uw rootfs getraceerd worden naar source packages met CPE 2.3 identifiers?</p>
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                                <p class="text-sm text-blue-900"><strong>💡 Tip:</strong> Run <code class="bg-blue-100 px-2 py-1 rounded">opkg list-installed</code> - elk package moet een CPE hebben</p>
+                                <p class="text-xs text-blue-700 mt-2">📖 CRA Art. 14.1 - Elk artefact moet volledig traceerbaar zijn via SBOM</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button type="button" onclick="answerQuestion(1, 'no', 30)" class="answer-btn bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-105">
+                                    ❌ Nee, niet volledig
+                                </button>
+                                <button type="button" onclick="answerQuestion(1, 'yes', 0)" class="answer-btn bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-105">
+                                    ✅ Ja, 100% traceerbaar
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Kernel Provenance -->
@@ -1797,6 +1819,9 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
         </div>
     </dialog>
 
+    <!-- Risk Wizard Script -->
+    <script src="/static/js/risk-wizard.js"></script>
+    
     <script>
     // Open Risk Assessment Modal from "Beoordeel positie" buttons
     document.addEventListener('DOMContentLoaded', function() {
@@ -1806,6 +1831,8 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     document.getElementById('risk-assessment-modal').showModal();
+                    // Initialize wizard on open
+                    setTimeout(() => initRiskWizard(), 100);
                 });
             }
         });
