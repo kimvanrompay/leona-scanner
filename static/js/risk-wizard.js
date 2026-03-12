@@ -1,6 +1,6 @@
 // Interactive CRA Risk Assessment Wizard
 let currentQuestion = 1;
-let totalQuestions = 6;
+let totalQuestions = 21;
 let riskScore = 0;
 let answers = {};
 
@@ -8,56 +8,191 @@ const questions = [
     {
         id: 1,
         icon: '📦',
-        title: 'CPE 2.3 Binary Traceability',
-        question: 'Kunnen <strong>alle binaries</strong> in uw rootfs getraceerd worden naar source packages met CPE 2.3 identifiers?',
-        tip: 'Run <code>opkg list-installed</code> - elk package moet een CPE hebben',
-        article: 'CRA Art. 14.1 - Elk artefact moet volledig traceerbaar zijn via SBOM',
-        risk: 30
-    },
-    {
-        id: 2,
-        icon: '🔧',
-        title: 'Out-of-Tree Kernel Module Provenance',
-        question: 'Gebruikt u <strong>proprietary kernel modules</strong> zonder gedocumenteerde SRC_URI in uw .bbappend files?',
-        tip: 'Check je Yocto layers: elke <code>.ko</code> module moet een upstream source URI hebben',
-        article: 'Annex I.II.1 - Provenance tracking vereist voor alle kernel extensions',
-        risk: 25
-    },
-    {
-        id: 3,
-        icon: '🔐',
-        title: 'CSAF 2.0 Vulnerability Disclosure',
-        question: 'Heeft u een <strong>machine-readable CVE endpoint</strong> op <code>/.well-known/csaf/provider-metadata.json</code>?',
-        tip: 'CRA vereist geautomatiseerde vulnerability disclosure binnen 24u',
-        article: 'CRA Art. 11.2 - CSAF 2.0 is de EU standaard voor CVE disclosure',
-        risk: 20
-    },
-    {
-        id: 4,
-        icon: '⚡',
-        title: 'Cryptographic Boot Chain',
-        question: 'Verifieert uw bootloader (U-Boot/GRUB) <strong>kernel signatures</strong> met hardware root-of-trust?',
-        tip: 'Check <code>CONFIG_MODULE_SIG_FORCE=y</code> + Secure Boot in firmware',
-        article: 'Annex I.II.4 - Verified boot chain verplicht voor critical infra',
-        risk: 15
-    },
-    {
-        id: 5,
-        icon: '⚖️',
-        title: 'GPL-3.0 Tivoization Risk',
-        question: 'Linkt uw proprietary userspace code tegen <strong>GPLv3 libraries</strong> zonder source disclosure?',
-        tip: 'Run <code>ldd /usr/bin/yourdaemon</code> - check voor libreadline, libgmp',
-        article: 'CRA Art. 14.2 + GPLv3 §6 - Tivoization = dubbele compliance breach',
+        title: 'SBOM Generation Capability',
+        question: 'Genereert uw build systeem <strong>automatisch een CycloneDX of SPDX SBOM</strong> bij elke productie-build?',
+        tip: 'Yocto: <code>INHERIT += "create-spdx"</code> | Buildroot: manual via <code>legal-info</code>',
+        article: 'CRA Art. 14.1 - SBOM verplicht vanaf 11 sept 2026, machine-readable format',
         risk: 8
     },
     {
+        id: 2,
+        icon: '🔍',
+        title: 'CPE 2.3 Component Identification',
+        question: 'Hebben <strong>alle packages in uw rootfs</strong> een CPE 2.3 identifier (cpe:/a:vendor:product:version)?',
+        tip: 'Check SBOM: elk component moet CPE hebben voor CVE matching tegen NVD',
+        article: 'CRA Art. 14.1 - Zonder CPE geen geautomatiseerde vulnerability tracking',
+        risk: 7
+    },
+    {
+        id: 3,
+        icon: '🔧',
+        title: 'Out-of-Tree Kernel Modules',
+        question: 'Gebruikt u <strong>proprietary kernel modules (.ko)</strong> zonder gedocumenteerde upstream source?',
+        tip: 'Elke <code>insmod</code> in init scripts moet traceerbaar zijn naar SRC_URI',
+        article: 'Annex I.II.1 - Alle kernel extensions vereisen provenance tracking',
+        risk: 6
+    },
+    {
+        id: 4,
+        icon: '🐛',
+        title: 'Known CVE Exposure',
+        question: 'Weet u <strong>hoeveel actieve CVEs</strong> er in uw huidige Linux distributie zitten?',
+        tip: 'Run CVE scan tegen NVD database - vaak 50+ onbekende vulnerabilities',
+        article: 'Annex I.I.1 - Geen bekende exploiteerbare kwetsbaarheden toegestaan',
+        risk: 7
+    },
+    {
+        id: 5,
+        icon: '⏰',
+        title: 'Vulnerability Response Time',
+        question: 'Heeft u een <strong>gedocumenteerd proces</strong> voor CVE patches binnen 24 uur na disclosure?',
+        tip: 'CRA vereist automated monitoring + emergency patch capability',
+        article: 'CRA Art. 11.1 - Vulnerabilities gemeld binnen 24u aan ENISA',
+        risk: 6
+    },
+    {
         id: 6,
+        icon: '📡',
+        title: 'CSAF 2.0 Vulnerability Endpoint',
+        question: 'Publiceert u <strong>machine-readable security advisories</strong> op /.well-known/csaf/?',
+        tip: 'CSAF 2.0 is EU standaard - klanten gaan dit geautomatiseerd scrapen',
+        article: 'CRA Art. 11.2 - Geautomatiseerde vulnerability disclosure verplicht',
+        risk: 5
+    },
+    {
+        id: 7,
         icon: '🕐',
-        title: 'Kernel EOL Lifecycle',
-        question: 'Is uw Linux kernel versie <strong>EOL binnen 5 jaar</strong> na product release?',
-        tip: 'Check <code>uname -r</code> - Kernel 4.x/5.4 zonder LTS = non-compliant',
-        article: 'CRA Art. 10.4 - Security updates vereist gedurende volledige product lifetime',
-        risk: 2
+        title: 'Kernel LTS Support Coverage',
+        question: 'Is uw Linux kernel versie <strong>EOL binnen 5 jaar</strong> na product launch?',
+        tip: '<code>uname -r</code> - Check kernel.org: 4.x/5.4 nadert EOL, 6.6 LTS loopt tot 2029',
+        article: 'CRA Art. 10.4 - Security updates gedurende volledige product lifetime',
+        risk: 7
+    },
+    {
+        id: 8,
+        icon: '⚡',
+        title: 'Secure Boot Implementation',
+        question: 'Verifieert uw bootloader <strong>kernel signatures</strong> met hardware root-of-trust (TPM/TEE)?',
+        tip: 'U-Boot: <code>CONFIG_FIT_SIGNATURE</code> + verified boot chain',
+        article: 'Annex I.II.4 - Verified boot mandatory voor connected devices',
+        risk: 6
+    },
+    {
+        id: 9,
+        icon: '🔐',
+        title: 'Kernel Module Signing',
+        question: 'Zijn <strong>alle kernel modules</strong> cryptografisch gesigneerd en gevalideerd at boot?',
+        tip: 'Check <code>CONFIG_MODULE_SIG_FORCE=y</code> - voorkomt malicious .ko loading',
+        article: 'Annex I.II.4 - Unsigned modules = attack surface voor rootkits',
+        risk: 5
+    },
+    {
+        id: 10,
+        icon: '⚖️',
+        title: 'GPL-3.0 Copyleft Compliance',
+        question: 'Linkt uw proprietary code tegen <strong>GPLv3 libraries</strong> (readline, gmp, bash)?',
+        tip: '<code>ldd /usr/bin/yourdaemon</code> - GPLv3 = source disclosure vereist',
+        article: 'CRA Art. 14.2 + GPLv3 §6 - Tivoization = dubbele compliance breach',
+        risk: 5
+    },
+    {
+        id: 11,
+        icon: '📄',
+        title: 'License SPDX Documentation',
+        question: 'Heeft u <strong>SPDX license identifiers</strong> voor alle 500+ packages in uw image?',
+        tip: 'CRA vereist volledige license transparency - "Unknown" is non-compliant',
+        article: 'CRA Art. 14.2 - License disclosure mandatory in SBOM',
+        risk: 4
+    },
+    {
+        id: 12,
+        icon: '🌐',
+        title: 'Default Credentials Exposure',
+        question: 'Shipped uw device met <strong>hardcoded passwords</strong> in /etc/shadow of config files?',
+        tip: 'Check init scripts: root:root, admin:admin = instant fail bij certificatie',
+        article: 'Annex I.II.2 - No default credentials in production firmware',
+        risk: 6
+    },
+    {
+        id: 13,
+        icon: '🔌',
+        title: 'Network Service Attack Surface',
+        question: 'Draait uw device <strong>onnodige daemons</strong> (telnetd, ftpd, dropbear op 0.0.0.0)?',
+        tip: '<code>netstat -tulpn</code> - BusyBox telnet/FTP = red flag',
+        article: 'Annex I.II.2 - Secure by default, minimal attack surface',
+        risk: 5
+    },
+    {
+        id: 14,
+        icon: '🔄',
+        title: 'OTA Update Cryptographic Validation',
+        question: 'Valideert uw OTA updater <strong>firmware signatures</strong> voor elke update?',
+        tip: 'Check update script: zonder signature validation = remote code execution risk',
+        article: 'Annex I.II.5 - Secure update mechanism met rollback capability',
+        risk: 7
+    },
+    {
+        id: 15,
+        icon: '🛡️',
+        title: 'Memory Protection (ASLR/DEP)',
+        question: 'Zijn <strong>ASLR en DEP</strong> enabled in uw kernel config en userspace?',
+        tip: '<code>cat /proc/sys/kernel/randomize_va_space</code> (moet 2 zijn)',
+        article: 'Annex I.II.3 - Modern memory protection mechanisms mandatory',
+        risk: 4
+    },
+    {
+        id: 16,
+        icon: '📋',
+        title: 'Technical Construction File',
+        question: 'Heeft u een <strong>42+ pagina TCF</strong> met architecture diagrams, threat model, test results?',
+        tip: 'CRA Annex VII - Dit document moet CE marking ondersteunen',
+        article: 'CRA Art. 24 - Technical documentation mandatory voor markttoelating',
+        risk: 6
+    },
+    {
+        id: 17,
+        icon: '🏭',
+        title: 'Build Reproducibility',
+        question: 'Zijn uw builds <strong>bit-for-bit reproducible</strong> vanaf dezelfde source commit?',
+        tip: 'Check timestamps in binaries: non-reproducible = provenance issues',
+        article: 'CRA Art. 14.1 - Reproducible builds bewijzen supply chain integrity',
+        risk: 4
+    },
+    {
+        id: 18,
+        icon: '🔗',
+        title: 'Supply Chain PURL Mapping',
+        question: 'Heeft elk package een <strong>PURL</strong> (pkg:github/vendor/repo@version) in uw SBOM?',
+        tip: 'PURL = upstream source traceability - vereist voor supply chain audits',
+        article: 'CRA Art. 14.1 - Supply chain transparency via package URLs',
+        risk: 4
+    },
+    {
+        id: 19,
+        icon: '⚠️',
+        title: 'Critical Infrastructure Classification',
+        question: 'Verkoopt u aan <strong>energie, telecom, water of transport</strong> (NIS2 sectors)?',
+        tip: 'Critical infrastructure = strengere eisen (Article 6 Class I/II)',
+        article: 'CRA Art. 6 - Critical products hebben aanvullende certificatie-eisen',
+        risk: 5
+    },
+    {
+        id: 20,
+        icon: '📅',
+        title: 'Update Lifecycle Commitment',
+        question: 'Garandeert u <strong>security updates voor 5+ jaar</strong> na laatste product verkoop?',
+        tip: 'Dit moet gedocumenteerd zijn in product documentation',
+        article: 'CRA Art. 10.4 - Support period disclosure verplicht',
+        risk: 5
+    },
+    {
+        id: 21,
+        icon: '📊',
+        title: 'EU Market Conformity Declaration',
+        question: 'Heeft u een <strong>EU Declaration of Conformity</strong> klaar voor CRA (vergelijkbaar met CE voor EMC)?',
+        tip: 'Dit document moet refereren naar CRA Annex VII compliance',
+        article: 'CRA Art. 28 - DoC verplicht voor markttoetreding vanaf dec 2027',
+        risk: 4
     }
 ];
 
