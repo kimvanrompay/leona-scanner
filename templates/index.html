@@ -261,7 +261,7 @@
                                     <p class="text-2xl font-semibold tracking-tight text-white leading-tight">Fasering en deadlines</p>
                                     <p class="text-sm text-gray-200 mt-2">Overgangsperiode tot volledige toepassing</p>
                                 </div>
-                                <a href="/static/sample-cra-report.pdf" download class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Download voorbeeld</a>
+                                <button type="button" onclick="document.getElementById('sample-report-modal').showModal()" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Download voorbeeld</button>
                             </div>
                             <div class="mt-8 flow-root sm:mt-10">
                                 <ul role="list" class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
@@ -1629,5 +1629,8 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
             </div>
         </div>
     </footer>
+
+    <!-- Lead Magnet Modals -->
+    {{ template "partials/lead-modals.html" }}
 </body>
 </html>
