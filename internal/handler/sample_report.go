@@ -28,6 +28,12 @@ func (h *HTTPHandlerV2) HandleSampleReportDownload(w http.ResponseWriter, r *htt
 		return
 	}
 
+	// Business email validation
+	if !isBusinessEmail(email) {
+		http.Error(w, getBusinessEmailError(), http.StatusBadRequest)
+		return
+	}
+
 	// Store lead (sample download = warm lead)
 	if db != nil {
 		lead := &database.Lead{

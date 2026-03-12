@@ -50,6 +50,12 @@ func (h *HTTPHandlerV2) HandleRiskAssessment(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
+	// Business email validation (no Gmail, Outlook, etc.)
+	if !isBusinessEmail(req.Email) {
+		http.Error(w, getBusinessEmailError(), http.StatusBadRequest)
+		return
+	}
+
 	// Calculate risk score (0-100, higher = more risk)
 	riskScore := calculateRiskScore(req)
 	riskLevel := getRiskLevel(riskScore)

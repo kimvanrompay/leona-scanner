@@ -33,6 +33,12 @@ func (h *HTTPHandlerV2) HandleEngineerLeadMagnet(w http.ResponseWriter, r *http.
 		return
 	}
 
+	// Business email validation
+	if !isBusinessEmail(email) {
+		http.Error(w, getBusinessEmailError(), http.StatusBadRequest)
+		return
+	}
+
 	// Create lead in database (if available)
 	if db != nil {
 		lead := &database.Lead{
@@ -72,6 +78,12 @@ func (h *HTTPHandlerV2) HandleLawyerLeadMagnet(w http.ResponseWriter, r *http.Re
 	// Validate email
 	if email == "" || !strings.Contains(email, "@") {
 		http.Error(w, "Geldig e-mailadres vereist", http.StatusBadRequest)
+		return
+	}
+
+	// Business email validation
+	if !isBusinessEmail(email) {
+		http.Error(w, getBusinessEmailError(), http.StatusBadRequest)
 		return
 	}
 

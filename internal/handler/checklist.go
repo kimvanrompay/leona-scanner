@@ -30,6 +30,12 @@ func (h *HTTPHandlerV2) HandleChecklistDownload(w http.ResponseWriter, r *http.R
 		return
 	}
 
+	// Business email validation
+	if !isBusinessEmail(email) {
+		http.Error(w, getBusinessEmailError(), http.StatusBadRequest)
+		return
+	}
+
 	if checklistType == "" {
 		http.Error(w, "Checklist type vereist", http.StatusBadRequest)
 		return
