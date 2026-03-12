@@ -292,11 +292,11 @@ function updateProgress() {
     
     // Update risk score preview
     const scoreEl = document.getElementById('risk-score-preview');
-    scoreEl.textContent = `Risk: ${riskScore}/100`;
+    scoreEl.textContent = `Risk: ${riskScore}/120`;
     
-    if (riskScore >= 70) {
+    if (riskScore >= 80) {
         scoreEl.className = 'text-sm font-bold text-red-600';
-    } else if (riskScore >= 40) {
+    } else if (riskScore >= 50) {
         scoreEl.className = 'text-sm font-bold text-orange-600';
     } else {
         scoreEl.className = 'text-sm font-bold text-green-600';
@@ -308,11 +308,11 @@ function showEmailForm() {
     container.style.opacity = '1';
     container.style.transform = 'translateX(0)';
     
-    const riskLevel = riskScore >= 70 ? 'HOOG' : (riskScore >= 40 ? 'MIDDEN' : 'LAAG');
-    const emoji = riskScore >= 70 ? '⚠️' : (riskScore >= 40 ? '⚡' : '✅');
-    const bgColor = riskScore >= 70 ? 'bg-red-100' : (riskScore >= 40 ? 'bg-orange-100' : 'bg-green-100');
-    const textColor = riskScore >= 70 ? 'text-red-600' : (riskScore >= 40 ? 'text-orange-600' : 'text-green-600');
-    const borderColor = riskScore >= 70 ? 'border-red-200' : (riskScore >= 40 ? 'border-orange-200' : 'border-green-200');
+    const riskLevel = riskScore >= 80 ? 'HOOG' : (riskScore >= 50 ? 'MIDDEN' : 'LAAG');
+    const emoji = riskScore >= 80 ? '⚠️' : (riskScore >= 50 ? '⚡' : '✅');
+    const bgColor = riskScore >= 80 ? 'bg-red-100' : (riskScore >= 50 ? 'bg-orange-100' : 'bg-green-100');
+    const textColor = riskScore >= 80 ? 'text-red-600' : (riskScore >= 50 ? 'text-orange-600' : 'text-green-600');
+    const borderColor = riskScore >= 80 ? 'border-red-200' : (riskScore >= 50 ? 'border-orange-200' : 'border-green-200');
     const failedCount = Object.keys(answers).filter(k => answers[k].answer === 'no').length;
     
     container.innerHTML = `
@@ -320,7 +320,7 @@ function showEmailForm() {
             <div class="inline-flex items-center justify-center w-20 h-20 ${bgColor} rounded-full mb-4">
                 <span class="text-5xl">${emoji}</span>
             </div>
-            <div class="text-7xl font-bold ${textColor} mb-3">${riskScore}<span class="text-4xl">/100</span></div>
+            <div class="text-7xl font-bold ${textColor} mb-3">${riskScore}<span class="text-4xl">/120</span></div>
             <div class="text-2xl font-bold ${textColor} mb-2">${riskLevel} RISICO</div>
             <p class="text-gray-600 text-sm">Gebaseerd op ${failedCount} compliance gap${failedCount !== 1 ? 's' : ''}</p>
         </div>

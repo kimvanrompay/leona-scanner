@@ -1,0 +1,56 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{block "title" .}}LEONA & CRAVIT CRA Scanner{{end}}</title>
+    
+    {{block "meta" .}}{{end}}
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js for interactive components -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    {{block "extra_head" .}}{{end}}
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#0033A0',
+                        'brand-blue-light': '#4169E1',
+                    },
+                    fontFamily: {
+                        'display': ['Funnel Display', 'sans-serif'],
+                        'sans': ['Switzer', 'system-ui', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    {{block "styles" .}}{{end}}
+</head>
+<body class="bg-white antialiased text-black min-h-full flex flex-col">
+    {{template "navbar" .}}
+    
+    <main class="flex-grow">
+        {{block "content" .}}{{end}}
+    </main>
+    
+    {{template "footer" .}}
+    
+    {{block "scripts" .}}{{end}}
+</body>
+</html>
+{{end}}

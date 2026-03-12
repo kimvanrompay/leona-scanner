@@ -1,0 +1,73 @@
+{{define "navbar"}}
+<!-- Navigation -->
+<div class="relative isolate z-50 shadow-sm border-b border-gray-200">
+    <div class="bg-white">
+        <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
+            <div class="flex lg:flex-1">
+                <a href="/" class="-m-1.5 p-1.5">
+                    <span class="sr-only">LEONA & CRAVIT</span>
+                    <div class="relative h-12 w-12 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
+                        <span class="font-display text-xl font-bold text-white" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">L</span>
+                    </div>
+                </a>
+            </div>
+            <div class="hidden lg:flex lg:gap-x-12">
+                <a href="/producten" class="text-sm/6 font-semibold {{if eq .ActivePage "producten"}}text-orange-600{{else}}text-gray-900 hover:text-orange-600{{end}} transition-colors">Producten</a>
+                <a href="/diensten" class="text-sm/6 font-semibold {{if eq .ActivePage "diensten"}}text-orange-600{{else}}text-gray-900 hover:text-orange-600{{end}} transition-colors">Diensten</a>
+                <a href="/#knowledge" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Kennis</a>
+                <a href="/#partners" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Partners</a>
+                <a href="/#about" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Over ons</a>
+            </div>
+            <div class="flex flex-1 items-center justify-end gap-x-6">
+                <a href="#" class="hidden text-sm/6 font-semibold text-gray-900 lg:block hover:text-orange-600 transition-colors">Login</a>
+                <a href="/demo" class="rounded-md px-3.5 py-2.5 text-sm font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
+            </div>
+            <div class="flex lg:hidden">
+                <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 hover:text-gray-900">
+                    <span class="sr-only">Open main menu</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
+        <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
+            <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-200">
+                <div class="flex items-center gap-x-6">
+                    <a href="/" class="-m-1.5 p-1.5">
+                        <span class="sr-only">LEONA & CRAVIT</span>
+                        <div class="relative h-10 w-10 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
+                            <span class="font-display text-lg font-bold text-white" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">L</span>
+                        </div>
+                    </a>
+                    <a href="/demo" onclick="document.getElementById('mobile-menu').close()" class="ml-auto rounded-md px-3 py-2 text-sm font-bold text-white shadow-sm" style="background-color: #FF6B35;" onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
+                    <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-600 hover:text-gray-900">
+                        <span class="sr-only">Close menu</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="mt-6 flow-root">
+                    <div class="-my-6 divide-y divide-gray-200">
+                        <div class="space-y-2 py-6">
+                            <a href="/producten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Producten</a>
+                            <a href="/diensten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Diensten</a>
+                            <a href="/#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Kennis</a>
+                            <a href="/#partners" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>
+                            <a href="/#about" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Over ons</a>
+                        </div>
+                        <div class="py-6">
+                            <a href="#" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+</div>
+{{end}}

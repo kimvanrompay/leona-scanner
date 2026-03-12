@@ -22,7 +22,7 @@ type SupabaseClient struct {
 type Scan struct {
 	ID               uuid.UUID  `json:"id"`
 	Email            string     `json:"email"`
-	Status           string     `json:"status"` // pending, analyzing, completed, failed
+	Status           string     `json:"status"`         // pending, analyzing, completed, failed
 	PaymentStatus    string     `json:"payment_status"` // free, pending_payment, paid
 	ComplianceScore  *int       `json:"compliance_score,omitempty"`
 	SBOMFormat       *string    `json:"sbom_format,omitempty"`
@@ -40,58 +40,58 @@ type Scan struct {
 
 // Payment represents a payment record
 type Payment struct {
-	ID               uuid.UUID       `json:"id"`
-	ScanID           uuid.UUID       `json:"scan_id"`
-	MolliePaymentID  string          `json:"mollie_payment_id"`
-	Amount           float64         `json:"amount"`
-	Currency         string          `json:"currency"`
-	Status           string          `json:"status"` // open, paid, failed, canceled, expired
-	PaymentMethod    *string         `json:"payment_method,omitempty"`
-	Tier             string          `json:"tier"` // tier1, tier2, tier3
-	CustomerEmail    string          `json:"customer_email"`
-	CustomerName     *string         `json:"customer_name,omitempty"`
-	Description      *string         `json:"description,omitempty"`
-	RedirectURL      *string         `json:"redirect_url,omitempty"`
-	WebhookURL       *string         `json:"webhook_url,omitempty"`
-	Metadata         json.RawMessage `json:"metadata,omitempty"`
-	CreatedAt        time.Time       `json:"created_at"`
-	PaidAt           *time.Time      `json:"paid_at,omitempty"`
-	CanceledAt       *time.Time      `json:"canceled_at,omitempty"`
-	FailedAt         *time.Time      `json:"failed_at,omitempty"`
+	ID              uuid.UUID       `json:"id"`
+	ScanID          uuid.UUID       `json:"scan_id"`
+	MolliePaymentID string          `json:"mollie_payment_id"`
+	Amount          float64         `json:"amount"`
+	Currency        string          `json:"currency"`
+	Status          string          `json:"status"` // open, paid, failed, canceled, expired
+	PaymentMethod   *string         `json:"payment_method,omitempty"`
+	Tier            string          `json:"tier"` // tier1, tier2, tier3
+	CustomerEmail   string          `json:"customer_email"`
+	CustomerName    *string         `json:"customer_name,omitempty"`
+	Description     *string         `json:"description,omitempty"`
+	RedirectURL     *string         `json:"redirect_url,omitempty"`
+	WebhookURL      *string         `json:"webhook_url,omitempty"`
+	Metadata        json.RawMessage `json:"metadata,omitempty"`
+	CreatedAt       time.Time       `json:"created_at"`
+	PaidAt          *time.Time      `json:"paid_at,omitempty"`
+	CanceledAt      *time.Time      `json:"canceled_at,omitempty"`
+	FailedAt        *time.Time      `json:"failed_at,omitempty"`
 }
 
 // Lead represents a marketing lead
 type Lead struct {
-	ID                    uuid.UUID  `json:"id"`
-	Email                 string     `json:"email"`
-	LeadType              string     `json:"lead_type"` // engineer, lawyer, general
-	FirstName             *string    `json:"first_name,omitempty"`
-	LastName              *string    `json:"last_name,omitempty"`
-	CompanyName           *string    `json:"company_name,omitempty"`
-	JobTitle              *string    `json:"job_title,omitempty"`
-	Phone                 *string    `json:"phone,omitempty"`
-	Source                string     `json:"source"` // website, linkedin, referral
-	Status                string     `json:"status"` // new, contacted, qualified, converted
-	Notes                 *string    `json:"notes,omitempty"`
-	LeadMagnetRequested   *string    `json:"lead_magnet_requested,omitempty"`
-	CreatedAt             time.Time  `json:"created_at"`
-	UpdatedAt             time.Time  `json:"updated_at"`
-	LastContactedAt       *time.Time `json:"last_contacted_at,omitempty"`
-	ConvertedAt           *time.Time `json:"converted_at,omitempty"`
+	ID                  uuid.UUID  `json:"id"`
+	Email               string     `json:"email"`
+	LeadType            string     `json:"lead_type"` // engineer, lawyer, general
+	FirstName           *string    `json:"first_name,omitempty"`
+	LastName            *string    `json:"last_name,omitempty"`
+	CompanyName         *string    `json:"company_name,omitempty"`
+	JobTitle            *string    `json:"job_title,omitempty"`
+	Phone               *string    `json:"phone,omitempty"`
+	Source              string     `json:"source"` // website, linkedin, referral
+	Status              string     `json:"status"` // new, contacted, qualified, converted
+	Notes               *string    `json:"notes,omitempty"`
+	LeadMagnetRequested *string    `json:"lead_magnet_requested,omitempty"`
+	CreatedAt           time.Time  `json:"created_at"`
+	UpdatedAt           time.Time  `json:"updated_at"`
+	LastContactedAt     *time.Time `json:"last_contacted_at,omitempty"`
+	ConvertedAt         *time.Time `json:"converted_at,omitempty"`
 }
 
 // AnalysisResult represents a compliance finding
 type AnalysisResult struct {
-	ID                    uuid.UUID `json:"id"`
-	ScanID                uuid.UUID `json:"scan_id"`
-	Framework             string    `json:"framework"` // CRA, CER, NIS2
-	RequirementID         string    `json:"requirement_id"`
-	RequirementDescription *string  `json:"requirement_description,omitempty"`
-	Status                string    `json:"status"` // compliant, partial, non_compliant
-	Finding               *string   `json:"finding,omitempty"`
-	Remediation           *string   `json:"remediation,omitempty"`
-	Severity              *string   `json:"severity,omitempty"`
-	CreatedAt             time.Time `json:"created_at"`
+	ID                     uuid.UUID `json:"id"`
+	ScanID                 uuid.UUID `json:"scan_id"`
+	Framework              string    `json:"framework"` // CRA, CER, NIS2
+	RequirementID          string    `json:"requirement_id"`
+	RequirementDescription *string   `json:"requirement_description,omitempty"`
+	Status                 string    `json:"status"` // compliant, partial, non_compliant
+	Finding                *string   `json:"finding,omitempty"`
+	Remediation            *string   `json:"remediation,omitempty"`
+	Severity               *string   `json:"severity,omitempty"`
+	CreatedAt              time.Time `json:"created_at"`
 }
 
 func NewSupabaseClient(url, serviceKey string) *SupabaseClient {
@@ -154,8 +154,8 @@ func (c *SupabaseClient) UpdateScanStatus(ctx context.Context, scanID uuid.UUID,
 	}
 
 	body, _ := json.Marshal(update)
-	req, _ := http.NewRequestWithContext(ctx, "PATCH", 
-		fmt.Sprintf("%s/rest/v1/scans?id=eq.%s", c.URL, scanID), 
+	req, _ := http.NewRequestWithContext(ctx, "PATCH",
+		fmt.Sprintf("%s/rest/v1/scans?id=eq.%s", c.URL, scanID),
 		bytes.NewBuffer(body))
 	req.Header.Set("apikey", c.ServiceKey)
 	req.Header.Set("Authorization", "Bearer "+c.ServiceKey)
@@ -207,8 +207,8 @@ func (c *SupabaseClient) UpdatePaymentStatus(ctx context.Context, mollieID strin
 	}
 
 	body, _ := json.Marshal(update)
-	req, _ := http.NewRequestWithContext(ctx, "PATCH", 
-		fmt.Sprintf("%s/rest/v1/payments?mollie_payment_id=eq.%s", c.URL, mollieID), 
+	req, _ := http.NewRequestWithContext(ctx, "PATCH",
+		fmt.Sprintf("%s/rest/v1/payments?mollie_payment_id=eq.%s", c.URL, mollieID),
 		bytes.NewBuffer(body))
 	req.Header.Set("apikey", c.ServiceKey)
 	req.Header.Set("Authorization", "Bearer "+c.ServiceKey)
@@ -237,8 +237,8 @@ func (c *SupabaseClient) UnlockScan(ctx context.Context, scanID uuid.UUID) error
 	}
 
 	body, _ := json.Marshal(update)
-	req, _ := http.NewRequestWithContext(ctx, "PATCH", 
-		fmt.Sprintf("%s/rest/v1/scans?id=eq.%s", c.URL, scanID), 
+	req, _ := http.NewRequestWithContext(ctx, "PATCH",
+		fmt.Sprintf("%s/rest/v1/scans?id=eq.%s", c.URL, scanID),
 		bytes.NewBuffer(body))
 	req.Header.Set("apikey", c.ServiceKey)
 	req.Header.Set("Authorization", "Bearer "+c.ServiceKey)

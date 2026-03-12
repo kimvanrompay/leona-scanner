@@ -1,0 +1,47 @@
+#!/bin/sh
+# Lightweight pre-commit hook (format + lint only, no tests)
+# Faster for quick commits
+
+set -e
+
+echo "🔍 Running quick pre-commit checks..."
+
+# Get list of staged Go files
+STAGED_GO_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true)
+
+if [ -z "$STAGED_GO_FILES" ]; then
+    echo "✅ No Go files to check"
+    exit 0
+fi
+
+echo "📝 Files to check:"
+echo "$STAGED_GO_FILES" | sed 's/^/  - /'
+echo ""
+
+# 1. Format check
+echo "🎨 Checking formatting..."
+UNFORMATTED=$(gofmt -l $STAGED_GO_FILES)
+if [ -n "$UNFORMATTED" ]; then
+    echo "❌ These files are not formatted:"
+    echo "$UNFORMATTED" | sed 's/^/  - /'
+    echo ""
+    echo "💡 Run: make format"
+    exit 1
+fi
+echo "✅ Formatting OK"
+
+# 2. Run linter on staged files only
+echo ""
+echo "🔍 Running linter..."
+if ! golangci-lint run --new-from-rev=HEAD --timeout=2m; then
+    echo ""
+    echo "❌ Linter found issues"
+    echo "💡 Run: make lint-fix (auto-fix) or make lint (see all issues)"
+    exit 1
+fi
+echo "✅ Linter OK"
+
+echo ""
+echo "✨ All checks passed! Committing..."
+echo "⚠️  Note: Tests were skipped (light mode)"
+exit 0

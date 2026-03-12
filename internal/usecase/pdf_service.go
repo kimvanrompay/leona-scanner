@@ -287,11 +287,11 @@ func (s *PDFService) SendPDF(toEmail string, pdfData []byte, scanID string) erro
 	emailBody.WriteString("Content-Type: application/pdf\r\n")
 	emailBody.WriteString("Content-Transfer-Encoding: base64\r\n")
 	emailBody.WriteString(fmt.Sprintf("Content-Disposition: attachment; filename=\"CRA-Report-%s.pdf\"\r\n\r\n", scanID))
-	
+
 	// Base64 encode PDF
 	encoded := make([]byte, len(pdfData)*2)
 	base64Encode(pdfData, encoded)
-	
+
 	// Write in chunks of 76 characters (RFC 2045)
 	for i := 0; i < len(encoded); i += 76 {
 		end := i + 76
@@ -301,7 +301,7 @@ func (s *PDFService) SendPDF(toEmail string, pdfData []byte, scanID string) erro
 		emailBody.Write(encoded[i:end])
 		emailBody.WriteString("\r\n")
 	}
-	
+
 	emailBody.WriteString(fmt.Sprintf("\r\n--%s--\r\n", boundary))
 
 	// Send email
@@ -350,34 +350,34 @@ func getSeverityEmoji(severity string) string {
 // Simple base64 encoding (standard encoding)
 func base64Encode(src []byte, dst []byte) {
 	const encodeStd = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-	
+
 	di, si := 0, 0
 	n := (len(src) / 3) * 3
 	for si < n {
 		val := uint(src[si])<<16 | uint(src[si+1])<<8 | uint(src[si+2])
-		
+
 		dst[di] = encodeStd[val>>18&0x3F]
 		dst[di+1] = encodeStd[val>>12&0x3F]
 		dst[di+2] = encodeStd[val>>6&0x3F]
 		dst[di+3] = encodeStd[val&0x3F]
-		
+
 		si += 3
 		di += 4
 	}
-	
+
 	remain := len(src) - si
 	if remain == 0 {
 		return
 	}
-	
+
 	val := uint(src[si]) << 16
 	if remain == 2 {
 		val |= uint(src[si+1]) << 8
 	}
-	
+
 	dst[di] = encodeStd[val>>18&0x3F]
 	dst[di+1] = encodeStd[val>>12&0x3F]
-	
+
 	if remain == 2 {
 		dst[di+2] = encodeStd[val>>6&0x3F]
 		dst[di+3] = '='

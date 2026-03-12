@@ -15,8 +15,8 @@ import (
 )
 
 var (
-	db            *database.SupabaseClient
-	mollieClient  *mollie.Client
+	db           *database.SupabaseClient
+	mollieClient *mollie.Client
 )
 
 func init() {

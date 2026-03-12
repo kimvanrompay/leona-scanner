@@ -15,14 +15,14 @@ import (
 
 // RiskAssessmentRequest represents the quiz submission
 type RiskAssessmentRequest struct {
-	Email                string `json:"email"`
-	CompanyName          string `json:"company_name"`
+	Email                 string `json:"email"`
+	CompanyName           string `json:"company_name"`
 	SellsToInfrastructure bool   `json:"sells_to_infrastructure"` // Critical infra (telecom, energy)
-	UsesOpenSource       bool   `json:"uses_open_source"`        // Open source in kernel/firmware
-	HasSBOM              bool   `json:"has_sbom"`                // Current SBOM process
-	HasVulnProcess       bool   `json:"has_vuln_process"`        // Vulnerability disclosure
-	ProductsInEU         bool   `json:"products_in_eu"`          // Selling in EU market
-	CompanySize          string `json:"company_size"`            // "1-10", "11-50", "51-250", "250+"
+	UsesOpenSource        bool   `json:"uses_open_source"`        // Open source in kernel/firmware
+	HasSBOM               bool   `json:"has_sbom"`                // Current SBOM process
+	HasVulnProcess        bool   `json:"has_vuln_process"`        // Vulnerability disclosure
+	ProductsInEU          bool   `json:"products_in_eu"`          // Selling in EU market
+	CompanySize           string `json:"company_size"`            // "1-10", "11-50", "51-250", "250+"
 }
 
 // HandleRiskAssessment processes the 2-minute CRA exposure quiz
@@ -34,14 +34,14 @@ func (h *HTTPHandlerV2) HandleRiskAssessment(w http.ResponseWriter, r *http.Requ
 
 	// Parse form data
 	req := RiskAssessmentRequest{
-		Email:                r.FormValue("email"),
-		CompanyName:          r.FormValue("company_name"),
+		Email:                 r.FormValue("email"),
+		CompanyName:           r.FormValue("company_name"),
 		SellsToInfrastructure: r.FormValue("sells_to_infrastructure") == "true",
-		UsesOpenSource:       r.FormValue("uses_open_source") == "true",
-		HasSBOM:              r.FormValue("has_sbom") == "true",
-		HasVulnProcess:       r.FormValue("has_vuln_process") == "true",
-		ProductsInEU:         r.FormValue("products_in_eu") == "true",
-		CompanySize:          r.FormValue("company_size"),
+		UsesOpenSource:        r.FormValue("uses_open_source") == "true",
+		HasSBOM:               r.FormValue("has_sbom") == "true",
+		HasVulnProcess:        r.FormValue("has_vuln_process") == "true",
+		ProductsInEU:          r.FormValue("products_in_eu") == "true",
+		CompanySize:           r.FormValue("company_size"),
 	}
 
 	// Validate
@@ -86,12 +86,22 @@ func (h *HTTPHandlerV2) HandleRiskAssessment(w http.ResponseWriter, r *http.Requ
 
 	// Count compliance gaps (answered 'no')
 	gapCount := 0
-	if req.SellsToInfrastructure { gapCount++ }
-	if req.UsesOpenSource { gapCount++ }
-	if req.HasSBOM { gapCount++ }
-	if req.HasVulnProcess { gapCount++ }
-	if req.ProductsInEU { gapCount++ }
-	
+	if req.SellsToInfrastructure {
+		gapCount++
+	}
+	if req.UsesOpenSource {
+		gapCount++
+	}
+	if req.HasSBOM {
+		gapCount++
+	}
+	if req.HasVulnProcess {
+		gapCount++
+	}
+	if req.ProductsInEU {
+		gapCount++
+	}
+
 	// Return Turbo Stream to show thank you page
 	w.Header().Set("Content-Type", "text/vnd.turbo-stream.html")
 	w.Write([]byte(fmt.Sprintf(`

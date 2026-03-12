@@ -34,8 +34,8 @@
 </head>
 <body class="bg-white antialiased text-black min-h-full flex flex-col">
 
-    <!-- Navigation with Flyout Menu -->
-    <div class="relative isolate z-50 shadow-sm border-b border-gray-200" x-data="{ productsOpen: false }">
+    <!-- Navigation -->
+    <div class="relative isolate z-50 shadow-sm border-b border-gray-200">
         <div class="bg-white">
             <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
                 <div class="flex lg:flex-1">
@@ -47,12 +47,7 @@
                     </a>
                 </div>
                 <div class="hidden lg:flex lg:gap-x-12">
-                    <button @click="productsOpen = !productsOpen" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">
-                        Producten
-                        <svg viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                            <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
-                        </svg>
-                    </button>
+                    <a href="/producten" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Producten</a>
                     <a href="/diensten" class="text-sm/6 font-semibold text-orange-600 transition-colors">Diensten</a>
                     <a href="/#knowledge" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Kennis</a>
                     <a href="/#partners" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Partners</a>
@@ -95,6 +90,7 @@
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-200">
                             <div class="space-y-2 py-6">
+                                <a href="/producten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Producten</a>
                                 <a href="/diensten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Diensten</a>
                                 <a href="/#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Kennis</a>
                                 <a href="/#partners" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>

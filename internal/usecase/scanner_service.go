@@ -80,14 +80,14 @@ func (s *ScannerService) MarkScanPaid(scanID string) error {
 func (s *ScannerService) GeneratePDFReport(scan *repository.Scan, result *scanner.AnalysisResult, outputPath string) error {
 	// Convert AnalysisResult to ComplianceReport format
 	violations := s.buildViolations(result)
-	
+
 	riskLevel := "Laag"
 	if result.OverallScore < 60 {
 		riskLevel = "Hoog"
 	} else if result.OverallScore < 80 {
 		riskLevel = "Midden"
 	}
-	
+
 	report := services.ComplianceReport{
 		ProductName:     "Embedded Linux Product",
 		ProductVersion:  "1.0",
@@ -98,19 +98,19 @@ func (s *ScannerService) GeneratePDFReport(scan *repository.Scan, result *scanne
 		KernelVersion:   s.detectKernel(result),
 		Distribution:    scan.Platform,
 	}
-	
+
 	return services.GenerateCRAVITReport(report, outputPath)
 }
 
 func (s *ScannerService) buildViolations(result *scanner.AnalysisResult) []services.ComplianceViolation {
 	var violations []services.ComplianceViolation
-	
+
 	for _, issue := range result.Issues {
 		status := "FAIL"
 		if issue.Severity == "LOW" {
 			status = "WARN"
 		}
-		
+
 		article := "Annex I.II.1"
 		if issue.Category == "TRACEABILITY" {
 			article = "Art. 14.1 (SBOM)"
@@ -119,7 +119,7 @@ func (s *ScannerService) buildViolations(result *scanner.AnalysisResult) []servi
 		} else if issue.Category == "SECURITY" {
 			article = "Art. 10.4 (Updates)"
 		}
-		
+
 		violations = append(violations, services.ComplianceViolation{
 			CRAArticle:       article,
 			Status:           status,
@@ -127,7 +127,7 @@ func (s *ScannerService) buildViolations(result *scanner.AnalysisResult) []servi
 			Remediation:      issue.Recommendation,
 		})
 	}
-	
+
 	return violations
 }
 

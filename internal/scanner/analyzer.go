@@ -42,14 +42,14 @@ type Issue struct {
 
 // ComponentVulnerability represents CVE vulnerabilities found in a component
 type ComponentVulnerability struct {
-	Component   string
-	CPE         string
-	CVECount    int
-	Critical    int
-	High        int
-	Medium      int
-	Low         int
-	CVEs        []services.CVEResult
+	Component string
+	CPE       string
+	CVECount  int
+	Critical  int
+	High      int
+	Medium    int
+	Low       int
+	CVEs      []services.CVEResult
 }
 
 // Platform types
@@ -64,24 +64,24 @@ const (
 func DetectPlatform(components []Component) string {
 	for _, c := range components {
 		name := strings.ToLower(c.Name)
-		
+
 		// Yocto detection
-		if strings.Contains(name, "yocto") || strings.Contains(name, "poky") || 
-		   strings.Contains(name, "meta-") {
+		if strings.Contains(name, "yocto") || strings.Contains(name, "poky") ||
+			strings.Contains(name, "meta-") {
 			return PlatformYocto
 		}
-		
+
 		// Zephyr detection
 		if strings.Contains(name, "zephyr") || strings.Contains(name, "zephyr-kernel") {
 			return PlatformZephyr
 		}
-		
+
 		// FreeRTOS detection
 		if strings.Contains(name, "freertos") || strings.Contains(name, "free-rtos") {
 			return PlatformFreeRTOS
 		}
 	}
-	
+
 	return PlatformGeneric
 }
 
@@ -133,7 +133,7 @@ func AnalyzeComponentsWithCVE(components []Component, platform string, cveServic
 
 		// GPL-3.0 copyleft detection
 		if strings.Contains(strings.ToUpper(c.License), "GPL-3") ||
-		   strings.Contains(strings.ToUpper(c.License), "AGPL") {
+			strings.Contains(strings.ToUpper(c.License), "AGPL") {
 			score -= 8
 			issues = append(issues, Issue{
 				Severity:    "HIGH",
@@ -257,17 +257,17 @@ func AnalyzeComponentsWithCVE(components []Component, platform string, cveServic
 // analyzeYocto applies Yocto-specific compliance rules
 func analyzeYocto(components []Component, score *int, issues *[]Issue, recommendations *[]string) {
 	hasLTSKernel := false
-	
+
 	for _, c := range components {
 		name := strings.ToLower(c.Name)
-		
+
 		// Check for LTS kernel usage
 		if strings.Contains(name, "linux-kernel") || strings.Contains(name, "linux-yocto") {
 			// Check if it's an LTS version (simplified check)
-			if strings.Contains(c.Version, "lts") || 
-			   strings.Contains(c.Version, "5.15") || 
-			   strings.Contains(c.Version, "6.1") ||
-			   strings.Contains(c.Version, "6.6") {
+			if strings.Contains(c.Version, "lts") ||
+				strings.Contains(c.Version, "5.15") ||
+				strings.Contains(c.Version, "6.1") ||
+				strings.Contains(c.Version, "6.6") {
 				hasLTSKernel = true
 			} else {
 				*score -= 15
@@ -295,14 +295,14 @@ func analyzeYocto(components []Component, score *int, issues *[]Issue, recommend
 // analyzeZephyr applies Zephyr RTOS-specific compliance rules
 func analyzeZephyr(components []Component, score *int, issues *[]Issue, recommendations *[]string) {
 	hasZephyrKernel := false
-	
+
 	for _, c := range components {
 		name := strings.ToLower(c.Name)
-		
+
 		// Check for Zephyr kernel
 		if strings.Contains(name, "zephyr") && strings.Contains(name, "kernel") {
 			hasZephyrKernel = true
-			
+
 			// Version must be specified for RTOS kernel
 			if c.Version == "" {
 				*score -= 20
@@ -347,14 +347,14 @@ func analyzeZephyr(components []Component, score *int, issues *[]Issue, recommen
 // analyzeFreeRTOS applies FreeRTOS-specific compliance rules
 func analyzeFreeRTOS(components []Component, score *int, issues *[]Issue, recommendations *[]string) {
 	hasFreeRTOSKernel := false
-	
+
 	for _, c := range components {
 		name := strings.ToLower(c.Name)
-		
+
 		// Check for FreeRTOS kernel
 		if strings.Contains(name, "freertos") {
 			hasFreeRTOSKernel = true
-			
+
 			// Check for LTS version
 			if !strings.Contains(c.Version, "LTS") && !strings.Contains(c.Version, "10.") && !strings.Contains(c.Version, "11.") {
 				*score -= 12

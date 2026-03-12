@@ -31,11 +31,11 @@ type CVEResult struct {
 
 // NVDResponse represents NVD API 2.0 response structure
 type NVDResponse struct {
-	ResultsPerPage int `json:"resultsPerPage"`
-	TotalResults   int `json:"totalResults"`
+	ResultsPerPage  int `json:"resultsPerPage"`
+	TotalResults    int `json:"totalResults"`
 	Vulnerabilities []struct {
 		CVE struct {
-			ID          string `json:"id"`
+			ID           string `json:"id"`
 			Descriptions []struct {
 				Lang  string `json:"lang"`
 				Value string `json:"value"`
@@ -45,9 +45,9 @@ type NVDResponse struct {
 			Metrics   struct {
 				CVSSMetricV31 []struct {
 					CVSSData struct {
-						BaseScore      float64 `json:"baseScore"`
-						BaseSeverity   string  `json:"baseSeverity"`
-						VectorString   string  `json:"vectorString"`
+						BaseScore    float64 `json:"baseScore"`
+						BaseSeverity string  `json:"baseSeverity"`
+						VectorString string  `json:"vectorString"`
 					} `json:"cvssData"`
 				} `json:"cvssMetricV31"`
 				CVSSMetricV2 []struct {

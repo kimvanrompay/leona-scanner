@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"time"
-	
+
 	"leona-scanner/internal/services"
 )
 
@@ -81,19 +81,19 @@ func main() {
 			},
 		},
 	}
-	
+
 	outputPath := "./static/sample-cra-report.pdf"
-	
+
 	fmt.Println("🏭 Generating TÜV-quality sample CRA compliance report...")
 	fmt.Printf("   Product: %s v%s\n", report.ProductName, report.ProductVersion)
 	fmt.Printf("   Platform: %s\n", report.Distribution)
 	fmt.Printf("   Score: %d%% (%s risico)\n", report.ComplianceScore, report.RiskLevel)
 	fmt.Printf("   Violations: %d items checked\n\n", len(report.Violations))
-	
+
 	if err := services.GenerateCRAVITReport(report, outputPath); err != nil {
 		log.Fatalf("❌ Failed to generate PDF: %v", err)
 	}
-	
+
 	fmt.Printf("✅ SUCCESS! Sample report generated: %s\n", outputPath)
 	fmt.Println("📄 This PDF is designed to convince TÜV/NoBo auditors:")
 	fmt.Println("   • Professional CRAVIT branding")

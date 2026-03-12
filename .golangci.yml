@@ -1,0 +1,125 @@
+run:
+  timeout: 5m
+  tests: true
+  skip-dirs:
+    - vendor
+  skip-files:
+    - ".*\\.pb\\.go$"
+    - ".*_gen\\.go$"
+
+linters-settings:
+  # Function length limits
+  funlen:
+    lines: 80           # Max total lines in a function
+    statements: 50      # Max statements in a function
+  
+  # Cognitive complexity (most important)
+  gocognit:
+    min-complexity: 20  # How hard the code is to understand
+  
+  # Cyclomatic complexity
+  cyclop:
+    max-complexity: 15  # Max execution paths
+  
+  # Line length
+  lll:
+    line-length: 120    # Max characters per line
+    tab-width: 4
+  
+  # Cognitive complexity alternative
+  gocyclo:
+    min-complexity: 15
+  
+  # Error handling
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  
+  # Code style
+  revive:
+    confidence: 0.8
+    rules:
+      - name: exported
+        severity: warning
+      - name: var-naming
+        severity: warning
+      - name: package-comments
+        severity: warning
+      - name: indent-error-flow
+        severity: warning
+      - name: error-return
+        severity: warning
+      - name: error-strings
+        severity: warning
+      - name: receiver-naming
+        severity: warning
+      - name: increment-decrement
+        severity: warning
+  
+  # Maintainability index
+  maintidx:
+    under: 20  # Maintainability threshold
+
+linters:
+  enable:
+    # Complexity & Length
+    - funlen       # Detects long functions
+    - gocognit     # Cognitive complexity
+    - cyclop       # Cyclomatic complexity
+    - gocyclo      # Alternative complexity check
+    - nestif       # Detects deeply nested ifs
+    
+    # Code Quality
+    - revive       # General style (replaces golint)
+    - govet        # Go's official linter
+    - errcheck     # Checks for unchecked errors
+    - ineffassign  # Detects ineffectual assignments
+    - staticcheck  # Advanced static analysis
+    - unused       # Detects unused code
+    
+    # Style & Formatting
+    - lll          # Line length
+    - gofmt        # Checks if code is formatted
+    - goimports    # Checks if imports are sorted
+    - misspell     # Detects spelling mistakes
+    - whitespace   # Detects trailing whitespace
+    
+    # Best Practices
+    - bodyclose    # Ensures HTTP response bodies are closed
+    - gosec        # Security issues
+    - unconvert    # Unnecessary type conversions
+    - prealloc     # Slice preallocation hints
+    
+  disable:
+    - typecheck    # Can be noisy in complex projects
+    - deadcode     # Replaced by unused
+    - varcheck     # Replaced by unused
+    - structcheck  # Replaced by unused
+
+issues:
+  # Don't hide multiple issues in the same file
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  
+  # Exclude some checks for generated files
+  exclude-rules:
+    # Exclude some linters from running on tests files
+    - path: _test\.go
+      linters:
+        - funlen
+        - gocognit
+        - cyclop
+    
+    # Exclude long lines in comments
+    - linters:
+        - lll
+      source: "^//go:generate"
+  
+  # Show all issues
+  exclude-use-default: false
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+  sort-results: true

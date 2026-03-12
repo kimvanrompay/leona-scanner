@@ -97,6 +97,64 @@ func (h *HTTPHandlerV2) HandleServices(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// HandleProducts serves the products page
+func (h *HTTPHandlerV2) HandleProducts(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles(
+		"templates/layouts/base.html",
+		"templates/components/navbar.html",
+		"templates/components/footer.html",
+		"templates/components/cta-demo.html",
+		"templates/components/feature-grid.html",
+		"templates/pages/products-simple.html",
+	)
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	// Start with shared data
+	data := NewSharedData("producten")
+
+	// Add Feature Section 1
+	data["Feature1"] = NewFeatureSection(
+		"SBOM Scanning",
+		"Real-time kwetsbaarheid detectie",
+		"Upload uw SBOM en ontvang direct een volledig CRA compliance rapport met CVE scanning.",
+		[]map[string]string{
+			{"Title": "Automatische CVE scanning", "Description": "Real-time detectie via NVD API 2.0"},
+			{"Title": "CycloneDX & SPDX support", "Description": "Ondersteunt beide SBOM formaten"},
+			{"Title": "42-pagina TCF rapport", "Description": "Compleet Technical Construction File voor CRA Annex VII"},
+		},
+		"",
+	)
+
+	// Add Feature Section 2
+	data["Feature2"] = NewFeatureSection(
+		"CI/CD Integratie",
+		"Geautomatiseerde compliance",
+		"Integreer LEONA direct in uw build pipeline voor continue compliance monitoring.",
+		[]map[string]string{
+			{"Title": "Jenkins/GitLab/Bitbucket", "Description": "Native integratie met alle major CI/CD platforms"},
+			{"Title": "Yocto layer analyse", "Description": "Specifieke support voor embedded Linux builds"},
+			{"Title": "API-first design", "Description": "OpenAPI 3.0 spec voor custom integraties"},
+		},
+		"",
+	)
+
+	// Add CTA
+	data["CTA"] = NewCTAData(
+		"Klaar voor CRA compliance?",
+		"Ontdek hoe LEONA uw embedded Linux producten CRA-ready maakt in minder dan een week.",
+		"Vraag Demo Aan",
+	)
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
 // HandleInsights serves the blog/insights index page
 func (h *HTTPHandlerV2) HandleInsights(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/insights.html")
@@ -230,7 +288,7 @@ func (h *HTTPHandlerV2) buildGapAnalysis(result *scanner.AnalysisResult) []GapAn
 
 	// Map issues to CRA articles
 	// This is a simplified mapping - extend with real logic
-	
+
 	// Article 10.4 - Security Updates Support Period
 	hasKernelEOL := false
 	for _, issue := range result.Issues {
@@ -239,7 +297,7 @@ func (h *HTTPHandlerV2) buildGapAnalysis(result *scanner.AnalysisResult) []GapAn
 			break
 		}
 	}
-	
+
 	kernelStatus := "COMPLIANT"
 	kernelFinding := "Linux kernel is binnen support periode"
 	if hasKernelEOL {
@@ -264,7 +322,7 @@ func (h *HTTPHandlerV2) buildGapAnalysis(result *scanner.AnalysisResult) []GapAn
 	}
 
 	sbomStatus := "PARTIAL"
-	sbomFinding := fmt.Sprintf("SBOM aanwezig met %d componenten, maar %d componenten missen CPE/PURL traceability", 
+	sbomFinding := fmt.Sprintf("SBOM aanwezig met %d componenten, maar %d componenten missen CPE/PURL traceability",
 		result.TotalComponents, result.HighCount)
 	if !hasTraceabilityIssues {
 		sbomStatus = "COMPLIANT"

@@ -145,9 +145,9 @@ func (h *HTTPHandler) HandleCheckout(w http.ResponseWriter, r *http.Request) {
 				Quantity: stripe.Int64(1),
 			},
 		},
-		Mode:       stripe.String(string(stripe.CheckoutSessionModePayment)),
-		SuccessURL: stripe.String(fmt.Sprintf("%s/success?scan_id=%s", os.Getenv("BASE_URL"), req.ScanID)),
-		CancelURL:  stripe.String(fmt.Sprintf("%s/", os.Getenv("BASE_URL"))),
+		Mode:          stripe.String(string(stripe.CheckoutSessionModePayment)),
+		SuccessURL:    stripe.String(fmt.Sprintf("%s/success?scan_id=%s", os.Getenv("BASE_URL"), req.ScanID)),
+		CancelURL:     stripe.String(fmt.Sprintf("%s/", os.Getenv("BASE_URL"))),
 		CustomerEmail: stripe.String(req.Email),
 	}
 	params.AddMetadata("scan_id", req.ScanID)
@@ -240,7 +240,7 @@ func (h *HTTPHandler) HandleWebhook(w http.ResponseWriter, r *http.Request) {
 // HandleSuccess shows payment success page
 func (h *HTTPHandler) HandleSuccess(w http.ResponseWriter, r *http.Request) {
 	scanID := r.URL.Query().Get("scan_id")
-	
+
 	w.Header().Set("Content-Type", "text/html")
 	fmt.Fprintf(w, `
 <!DOCTYPE html>

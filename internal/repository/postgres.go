@@ -30,8 +30,8 @@ type Scan struct {
 }
 
 type Repository struct {
-	db         *sql.DB
-	dbType     string // "sqlite" or "postgres"
+	db     *sql.DB
+	dbType string // "sqlite" or "postgres"
 }
 
 func NewRepository(connStr string) (*Repository, error) {
@@ -85,11 +85,11 @@ func (r *Repository) CreateLead(email string) (*Lead, error) {
 		FROM leads 
 		WHERE email = $1
 	`, email).Scan(&lead.ID, &lead.Email, &lead.CreatedAt)
-	
+
 	if err == nil {
 		return &lead, nil
 	}
-	
+
 	if err != sql.ErrNoRows {
 		return nil, fmt.Errorf("failed to check existing lead: %w", err)
 	}
@@ -100,7 +100,7 @@ func (r *Repository) CreateLead(email string) (*Lead, error) {
 		VALUES ($1, $2)
 		RETURNING id, email, created_at
 	`, email, time.Now()).Scan(&lead.ID, &lead.Email, &lead.CreatedAt)
-	
+
 	if err != nil {
 		return nil, fmt.Errorf("failed to create lead: %w", err)
 	}
@@ -125,7 +125,7 @@ func (r *Repository) CreateScan(leadID int64, platform string, score int, rawDat
 		INSERT INTO scans (id, lead_id, platform, score, status, raw_data, result_json, created_at)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 	`, scan.ID, scan.LeadID, scan.Platform, scan.Score, scan.Status, scan.RawData, scan.ResultJSON, scan.CreatedAt)
-	
+
 	if err != nil {
 		return nil, fmt.Errorf("failed to create scan: %w", err)
 	}
@@ -141,7 +141,7 @@ func (r *Repository) GetScanByID(scanID string) (*Scan, error) {
 		FROM scans
 		WHERE id = $1
 	`, scanID).Scan(&scan.ID, &scan.LeadID, &scan.Platform, &scan.Score, &scan.Status, &scan.RawData, &scan.ResultJSON, &scan.CreatedAt, &scan.PaidAt)
-	
+
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, fmt.Errorf("scan not found: %s", scanID)
@@ -160,7 +160,7 @@ func (r *Repository) MarkScanAsPaid(scanID string) error {
 		SET status = 'PAID', paid_at = $1
 		WHERE id = $2
 	`, now, scanID)
-	
+
 	if err != nil {
 		return fmt.Errorf("failed to mark scan as paid: %w", err)
 	}
@@ -185,7 +185,7 @@ func (r *Repository) GetLeadByEmail(email string) (*Lead, error) {
 		FROM leads
 		WHERE email = $1
 	`, email).Scan(&lead.ID, &lead.Email, &lead.CreatedAt)
-	
+
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, fmt.Errorf("lead not found: %s", email)
@@ -204,7 +204,7 @@ func (r *Repository) GetScansByLeadID(leadID int64) ([]*Scan, error) {
 		WHERE lead_id = $1
 		ORDER BY created_at DESC
 	`, leadID)
-	
+
 	if err != nil {
 		return nil, fmt.Errorf("failed to get scans: %w", err)
 	}

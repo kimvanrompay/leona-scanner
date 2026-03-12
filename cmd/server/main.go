@@ -7,14 +7,15 @@ import (
 	"time"
 
 	"leona-scanner/internal/handler"
+	"leona-scanner/internal/middleware"
 	"leona-scanner/internal/repository"
 	"leona-scanner/internal/services"
 	"leona-scanner/internal/usecase"
 
+	mollie "github.com/VictorAvelar/mollie-api-go/v3/mollie"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/stripe/stripe-go/v74"
-	mollie "github.com/VictorAvelar/mollie-api-go/v3/mollie"
 )
 
 var (
@@ -28,7 +29,7 @@ func main() {
 	log.Println("│   🔵 Royal Blue (#1428A0) │ 🟠 Davis Orange (#FF6B35)   │")
 	log.Println("└───────────────────────────────────────────────────────────────────┘")
 	log.Println("")
-	
+
 	// Phase 1: Configuration Loading
 	log.Println("📝 [Phase 1/5] Loading Configuration...")
 	if err := godotenv.Load(); err != nil {
@@ -42,7 +43,7 @@ func main() {
 	log.Println("💳 [Phase 2/5] Initializing Payment Providers...")
 	mollieKey := os.Getenv("MOLLIE_API_KEY")
 	stripeKey := os.Getenv("STRIPE_API_KEY")
-	
+
 	if mollieKey != "" {
 		log.Println("   🇳🇱 Mollie API key detected")
 		config := mollie.NewConfig(true, mollie.APITokenEnv)
@@ -112,12 +113,16 @@ func main() {
 	// Setup router
 	r := mux.NewRouter()
 
+	// Add logging middleware (controlled by LOG_VERBOSE env var)
+	r.Use(middleware.LoggingMiddleware)
+
 	// Serve static files
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	// Routes
 	r.HandleFunc("/", h.HandleIndex).Methods("GET")
 	r.HandleFunc("/demo", h.HandleDemo).Methods("GET")
+	r.HandleFunc("/producten", h.HandleProducts).Methods("GET")
 	r.HandleFunc("/diensten", h.HandleServices).Methods("GET")
 	r.HandleFunc("/insights", h.HandleInsights).Methods("GET")
 	r.HandleFunc("/kennisbank", h.HandleKennisbank).Methods("GET")
@@ -135,7 +140,7 @@ func main() {
 	r.HandleFunc("/api/lead/sample-report", h.HandleSampleReportDownload).Methods("POST")
 	r.HandleFunc("/checklists", h.HandleChecklistPage).Methods("GET")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
-	
+
 	// PDF download routes (€499 automated product)
 	r.HandleFunc("/api/pdf/download/{scan_id}", pdfHandler.HandleDownloadPDF).Methods("GET")
 	r.HandleFunc("/api/pdf/generate/{scan_id}", pdfHandler.HandleGeneratePDF).Methods("POST")
@@ -195,10 +200,19 @@ func main() {
 	log.Printf("│   🚀 VISIT: http://localhost:%s                               │\n", port)
 	log.Println("└───────────────────────────────────────────────────────────────────┘")
 	log.Println("")
+	log.Println("📋 Logging Configuration:")
+	if os.Getenv("LOG_VERBOSE") == "true" {
+		log.Println("   • Mode: VERBOSE (detailed request/response logs)")
+		log.Println("   • Shows: IP, User-Agent, Headers, Size, Timing")
+	} else {
+		log.Println("   • Mode: COMPACT (one-line logs)")
+		log.Println("   • Tip: Set LOG_VERBOSE=true for detailed logs")
+	}
+	log.Println("")
 	log.Println("🟢 Server is LIVE - Accepting requests...")
 	log.Println("👀 Watching for incoming connections...")
 	log.Println("")
-	
+
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatalf("Server failed to start: %v", err)
 	}
