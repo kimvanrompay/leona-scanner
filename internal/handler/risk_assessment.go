@@ -84,15 +84,55 @@ func (h *HTTPHandlerV2) HandleRiskAssessment(w http.ResponseWriter, r *http.Requ
 	// Send admin notification (hot lead!)
 	go h.sendRiskAssessmentNotification(req, riskScore, riskLevel)
 
-	// Return success
-	w.Header().Set("Content-Type", "text/html")
+	// Count compliance gaps (answered 'no')
+	gapCount := 0
+	if req.SellsToInfrastructure { gapCount++ }
+	if req.UsesOpenSource { gapCount++ }
+	if req.HasSBOM { gapCount++ }
+	if req.HasVulnProcess { gapCount++ }
+	if req.ProductsInEU { gapCount++ }
+	
+	// Return Turbo Stream to show thank you page
+	w.Header().Set("Content-Type", "text/vnd.turbo-stream.html")
 	w.Write([]byte(fmt.Sprintf(`
-		<div class="bg-green-900/30 px-6 py-4 rounded-lg border border-green-500/30">
-			<p class="text-green-300 font-semibold">✅ Risicoanalyse voltooid!</p>
-			<p class="text-sm text-gray-300 mt-2">Uw CRA Exposure Score (%d/100 - %s risico) is naar %s gestuurd.</p>
-			<p class="text-xs text-gray-400 mt-2">Check uw inbox binnen 2 minuten.</p>
-		</div>
-	`, riskScore, strings.ToLower(riskLevel), req.Email)))
+		<turbo-stream action="replace" target="current-question">
+			<template>
+				<div class="relative isolate overflow-hidden bg-gradient-to-br from-gray-900 to-blue-950 px-6 py-16 rounded-2xl">
+					<div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.blue.600),transparent)] opacity-20"></div>
+					<div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%%%%] origin-bottom-left skew-x-[-30deg] bg-gray-900 shadow-xl shadow-blue-500/10 ring-1 ring-white/10"></div>
+					
+					<div class="mx-auto max-w-2xl text-center">
+						<div class="mx-auto mb-8 h-16 w-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg">
+							<svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+							</svg>
+						</div>
+						
+						<h3 class="text-3xl font-bold text-white mb-4">Uw Risk Report is onderweg! 📧</h3>
+						<p class="text-lg text-gray-300 mb-2">We sturen binnen <strong class="text-orange-400">2 minuten</strong> uw persoonlijke 42-pagina CRA compliance rapport naar:</p>
+						<p class="text-xl font-semibold text-orange-400 mb-6">%s</p>
+						<p class="text-sm text-gray-400 mb-8">📊 Uw rapport bevat %d compliance gaps met concrete remediation stappen</p>
+						
+						<div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-6">
+							<h4 class="text-lg font-bold text-white mb-4">💡 Terwijl u wacht, bekijk ook:</h4>
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+								<button onclick="document.getElementById('risk-assessment-modal').close(); document.getElementById('sample-report-modal').showModal();" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-lg transition-all text-sm">
+									📄 Voorbeeld TCF Report
+								</button>
+								<button onclick="document.getElementById('risk-assessment-modal').close(); document.querySelector('a[href=\\"#assessor\\"]').click();" class="bg-orange-600 hover:bg-orange-500 text-white font-semibold py-3 px-4 rounded-lg transition-all text-sm">
+									🔍 Scan Uw SBOM
+								</button>
+							</div>
+						</div>
+						
+						<button onclick="document.getElementById('risk-assessment-modal').close();" class="text-gray-400 hover:text-white text-sm underline">
+							Sluiten
+						</button>
+					</div>
+				</div>
+			</template>
+		</turbo-stream>
+	`, req.Email, gapCount)))
 }
 
 // calculateRiskScore determines CRA compliance risk (0-100)
