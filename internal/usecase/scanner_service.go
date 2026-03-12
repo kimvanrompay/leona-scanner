@@ -10,11 +10,15 @@ import (
 )
 
 type ScannerService struct {
-	repo *repository.Repository
+	repo       *repository.Repository
+	cveService *services.CVEService
 }
 
-func NewScannerService(repo *repository.Repository) *ScannerService {
-	return &ScannerService{repo: repo}
+func NewScannerService(repo *repository.Repository, cveService *services.CVEService) *ScannerService {
+	return &ScannerService{
+		repo:       repo,
+		cveService: cveService,
+	}
 }
 
 // AnalyzeSBOM performs complete CRA compliance analysis
@@ -28,8 +32,8 @@ func (s *ScannerService) AnalyzeSBOM(email string, sbomData []byte) (*scanner.An
 	// Detect platform
 	platform := scanner.DetectPlatform(components)
 
-	// Analyze components
-	result := scanner.AnalyzeComponents(components, platform)
+	// Analyze components (with CVE vulnerability lookup)
+	result := scanner.AnalyzeComponentsWithCVE(components, platform, s.cveService)
 
 	// Create or get lead
 	lead, err := s.repo.CreateLead(email)

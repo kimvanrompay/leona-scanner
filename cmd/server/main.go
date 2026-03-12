@@ -8,6 +8,7 @@ import (
 
 	"leona-scanner/internal/handler"
 	"leona-scanner/internal/repository"
+	"leona-scanner/internal/services"
 	"leona-scanner/internal/usecase"
 
 	"github.com/gorilla/mux"
@@ -58,8 +59,17 @@ func main() {
 	defer repo.Close()
 	log.Println("✅ Database connection established")
 
+	// Initialize CVE vulnerability service
+	nvdAPIKey := os.Getenv("NVD_API_KEY")
+	cveService := services.NewCVEService(nvdAPIKey)
+	if nvdAPIKey != "" {
+		log.Println("✅ NVD CVE service initialized (50 req/30s with API key)")
+	} else {
+		log.Println("⚠️  NVD CVE service initialized (5 req/30s - no API key)")
+	}
+
 	// Initialize services
-	scannerService := usecase.NewScannerService(repo)
+	scannerService := usecase.NewScannerService(repo, cveService)
 	pdfService := usecase.NewPDFService()
 
 	// Initialize PDF handler with dedicated directory

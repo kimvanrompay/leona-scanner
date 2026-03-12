@@ -3,6 +3,8 @@ package scanner
 import (
 	"fmt"
 	"strings"
+
+	"leona-scanner/internal/services"
 )
 
 // Component represents a software component from an SBOM
@@ -26,6 +28,7 @@ type AnalysisResult struct {
 	MediumCount      int
 	LowCount         int
 	Recommendations  []string
+	Vulnerabilities  []ComponentVulnerability // CVE vulnerability data
 }
 
 // Issue represents a compliance issue found during analysis
@@ -35,6 +38,18 @@ type Issue struct {
 	Component      string
 	Description    string
 	Recommendation string
+}
+
+// ComponentVulnerability represents CVE vulnerabilities found in a component
+type ComponentVulnerability struct {
+	Component   string
+	CPE         string
+	CVECount    int
+	Critical    int
+	High        int
+	Medium      int
+	Low         int
+	CVEs        []services.CVEResult
 }
 
 // Platform types
@@ -72,6 +87,11 @@ func DetectPlatform(components []Component) string {
 
 // AnalyzeComponents executes differential analysis based on detected platform
 func AnalyzeComponents(components []Component, platform string) AnalysisResult {
+	return AnalyzeComponentsWithCVE(components, platform, nil)
+}
+
+// AnalyzeComponentsWithCVE executes differential analysis with optional CVE vulnerability lookup
+func AnalyzeComponentsWithCVE(components []Component, platform string, cveService *services.CVEService) AnalysisResult {
 	score := 100
 	var issues []Issue
 	var recommendations []string
@@ -135,6 +155,62 @@ func AnalyzeComponents(components []Component, platform string) AnalysisResult {
 		analyzeFreeRTOS(components, &score, &issues, &recommendations)
 	}
 
+	// CVE Vulnerability Analysis (if CVE service is available)
+	var vulnerabilities []ComponentVulnerability
+	if cveService != nil {
+		for _, c := range components {
+			if c.CPE != "" {
+				cves, err := cveService.LookupByCPE(c.CPE)
+				if err == nil && len(cves) > 0 {
+					// Count vulnerabilities by severity
+					critical, high, medium, low := 0, 0, 0, 0
+					for _, cve := range cves {
+						switch cve.Severity {
+						case "CRITICAL":
+							critical++
+						case "HIGH":
+							high++
+						case "MEDIUM":
+							medium++
+						case "LOW":
+							low++
+						}
+					}
+
+					vulnerabilities = append(vulnerabilities, ComponentVulnerability{
+						Component: c.Name,
+						CPE:       c.CPE,
+						CVECount:  len(cves),
+						Critical:  critical,
+						High:      high,
+						Medium:    medium,
+						Low:       low,
+						CVEs:      cves,
+					})
+
+					// Add CVE issues to the overall issue list
+					if critical > 0 || high > 0 {
+						severity := "HIGH"
+						if critical > 0 {
+							severity = "CRITICAL"
+							score -= 15 // Critical CVEs significantly impact score
+						} else {
+							score -= 10 // High CVEs moderately impact score
+						}
+
+						issues = append(issues, Issue{
+							Severity:    severity,
+							Category:    "SECURITY",
+							Component:   c.Name,
+							Description: fmt.Sprintf("BEVEILIGINGSRISICO: %s heeft %d CVE(s) gevonden - %d critical, %d high, %d medium, %d low", c.Name, len(cves), critical, high, medium, low),
+						})
+						recommendations = append(recommendations, fmt.Sprintf("Update %s om %d bekende beveiligingslekken op te lossen.", c.Name, len(cves)))
+					}
+				}
+			}
+		}
+	}
+
 	// Determine CRA status
 	status := "NIET-CONFORM"
 	if score >= 90 {
@@ -174,6 +250,7 @@ func AnalyzeComponents(components []Component, platform string) AnalysisResult {
 		MediumCount:      mediumCount,
 		LowCount:         lowCount,
 		Recommendations:  recommendations,
+		Vulnerabilities:  vulnerabilities,
 	}
 }
 
