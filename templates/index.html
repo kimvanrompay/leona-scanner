@@ -82,58 +82,64 @@
 
     <!-- Navigation -->
     <header class="bg-gray-900">
-        <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-            <div class="flex flex-1">
-                <div class="hidden lg:flex lg:gap-x-12">
-                    <a href="#validation" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Validatie</a>
-                    <a href="#assessor" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">CRA Assessment</a>
-                    <a href="#knowledge" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Kennis</a>
-                </div>
-                <div class="flex lg:hidden">
-                    <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400 hover:text-white">
-                        <span class="sr-only">Open main menu</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+        <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
+            <div class="flex lg:flex-1">
+                <a href="/" class="-m-1.5 p-1.5">
+                    <span class="sr-only">LEONA & CRAVIT</span>
+                    <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-700 via-blue-600 to-orange-400 flex items-center justify-center shadow-lg">
+                        <span class="font-display text-xl font-bold text-white">L</span>
+                    </div>
+                </a>
             </div>
-            <a href="/" class="-m-1.5 p-1.5">
-                <span class="sr-only">LEONA & CRAVIT</span>
-                <div class="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-700 via-blue-600 to-orange-400 flex items-center justify-center shadow-lg">
-                    <span class="font-display text-xl font-bold text-white">L</span>
-                </div>
-            </a>
-            <div class="flex flex-1 justify-end">
-                <a href="#assessor" class="rounded-md bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-orange-400 transition-all shadow-lg">Start Scan <span aria-hidden="true">&rarr;</span></a>
+            <div class="hidden lg:flex lg:gap-x-12">
+                <a href="#validation" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Producten</a>
+                <a href="#knowledge" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Kennis</a>
+                <a href="#partners" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Partners</a>
+                <a href="#about" class="text-sm/6 font-semibold text-white hover:text-orange-400 transition-colors">Over ons</a>
+            </div>
+            <div class="flex flex-1 items-center justify-end gap-x-6">
+                <a href="mailto:enterprise@craleona.be" class="hidden text-sm/6 font-semibold text-white lg:block hover:text-orange-400 transition-colors">Contact</a>
+                <a href="#assessor" class="rounded-md bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 transition-all">Start Scan</a>
+            </div>
+            <div class="flex lg:hidden">
+                <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400 hover:text-white">
+                    <span class="sr-only">Open main menu</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
             </div>
         </nav>
         <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
-                <div class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6">
-                    <div class="flex items-center justify-between">
-                        <div class="flex flex-1">
-                            <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-400 hover:text-white">
-                                <span class="sr-only">Close menu</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
-                                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </button>
-                        </div>
+                <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+                    <div class="flex items-center gap-x-6">
                         <a href="/" class="-m-1.5 p-1.5">
                             <span class="sr-only">LEONA & CRAVIT</span>
                             <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-700 via-blue-600 to-orange-400 flex items-center justify-center shadow-lg">
                                 <span class="font-display text-lg font-bold text-white">L</span>
                             </div>
                         </a>
-                        <div class="flex flex-1 justify-end">
-                            <a href="#assessor" class="text-sm/6 font-semibold text-white">Start Scan <span aria-hidden="true">&rarr;</span></a>
-                        </div>
+                        <a href="#assessor" onclick="document.getElementById('mobile-menu').close()" class="ml-auto rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-400">Start Scan</a>
+                        <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-400 hover:text-white">
+                            <span class="sr-only">Close menu</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
                     </div>
-                    <div class="mt-6 space-y-2">
-                        <a href="#validation" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Validatie</a>
-                        <a href="#assessor" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">CRA Assessment</a>
-                        <a href="#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Kennis</a>
+                    <div class="mt-6 flow-root">
+                        <div class="-my-6 divide-y divide-white/10">
+                            <div class="space-y-2 py-6">
+                                <a href="#validation" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Producten</a>
+                                <a href="#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Kennis</a>
+                                <a href="#partners" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Partners</a>
+                                <a href="#about" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Over ons</a>
+                            </div>
+                            <div class="py-6">
+                                <a href="mailto:enterprise@craleona.be" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5">Contact</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
