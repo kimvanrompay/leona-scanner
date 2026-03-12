@@ -155,6 +155,21 @@ func (h *HTTPHandlerV2) HandleProducts(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// HandleSnapshot serves the SNAPSHOT product page
+func (h *HTTPHandlerV2) HandleSnapshot(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/snapshot.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
 // HandleInsights serves the blog/insights index page
 func (h *HTTPHandlerV2) HandleInsights(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/insights.html")

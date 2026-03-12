@@ -123,6 +123,7 @@ func main() {
 	r.HandleFunc("/", h.HandleIndex).Methods("GET")
 	r.HandleFunc("/demo", h.HandleDemo).Methods("GET")
 	r.HandleFunc("/producten", h.HandleProducts).Methods("GET")
+	r.HandleFunc("/snapshot", h.HandleSnapshot).Methods("GET")
 	r.HandleFunc("/diensten", h.HandleServices).Methods("GET")
 	r.HandleFunc("/insights", h.HandleInsights).Methods("GET")
 	r.HandleFunc("/kennisbank", h.HandleKennisbank).Methods("GET")
