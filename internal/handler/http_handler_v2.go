@@ -75,7 +75,7 @@ func (h *HTTPHandlerV2) HandleIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "index", nil); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", nil); err != nil {
 		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
 		log.Printf("Template execute error: %v", err)
 	}
