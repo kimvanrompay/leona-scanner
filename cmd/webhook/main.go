@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/leona-scanner/internal/database"
+	"leona-scanner/internal/database"
 	"github.com/mollie/mollie-api-go/v4/mollie"
 )
 

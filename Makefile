@@ -9,9 +9,17 @@ install-tools: ## Install required Go tools
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	@echo "📦 Installing goimports..."
 	@go install golang.org/x/tools/cmd/goimports@latest
+	@echo "📦 Installing templ..."
+	@go install github.com/a-h/templ/cmd/templ@latest
 	@echo "✅ Tools installed"
 
-lint: ## Run linter to check code quality
+templ-generate: ## Generate Go code from .templ files
+	@echo "🔄 Generating templ components..."
+	@go run github.com/a-h/templ/cmd/templ@latest generate
+
+run: templ-generate ## Run the server (auto-generates templ)
+	@echo "🚀 Starting server..."
+	@go run cmd/server/main.go
 	@echo "🔍 Running golangci-lint..."
 	@golangci-lint run ./...
 
@@ -38,7 +46,7 @@ run: ## Run the server
 	@echo "🚀 Starting server..."
 	@go run cmd/server/main.go
 
-run-verbose: ## Run the server with verbose logging
+run-verbose: templ-generate ## Run the server with verbose logging
 	@echo "🚀 Starting server with verbose logging..."
 	@LOG_VERBOSE=true go run cmd/server/main.go
 

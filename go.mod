@@ -1,6 +1,6 @@
 module leona-scanner
 
-go 1.22
+go 1.23.0
 
 require (
 	github.com/google/uuid v1.6.0
@@ -14,6 +14,7 @@ require (
 
 require (
 	github.com/VictorAvelar/mollie-api-go/v3 v3.14.0 // indirect
+	github.com/a-h/templ v0.3.1001 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/f-amaral/go-async v0.3.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect

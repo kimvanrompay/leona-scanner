@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEONA & CRAVIT | Automated CRA Compliance Engineering | Technical Construction File Generator</title>
-    <meta name="description" content="LEONA & CRAVIT: Geautomatiseerde CRA compliance engineering voor embedded Linux. Geen oppervlakkige scan, maar diepgaande binaire en broncode validatie van uw Yocto-distributie.">
-    
+    <meta name="description"
+        content="LEONA & CRAVIT: Geautomatiseerde CRA compliance engineering voor embedded Linux. Geen oppervlakkige scan, maar diepgaande binaire en broncode validatie van uw Yocto-distributie.">
+
     <!-- Open Graph / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://leona-cravit.be/">
     <meta property="og:title" content="LEONA & CRAVIT | CRA Compliance Engineering for Embedded Linux">
-    <meta property="og:description" content="Automated CRA compliance engineering. Bitbake layer inspection, binary provenance tracking, multi-framework attestation (CRA/CER/NIS2).">
+    <meta property="og:description"
+        content="Automated CRA compliance engineering. Bitbake layer inspection, binary provenance tracking, multi-framework attestation (CRA/CER/NIS2).">
     <meta property="og:image" content="https://leona-cravit.be/static/og-image.jpg">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://leona-cravit.be/">
@@ -22,16 +25,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Alpine.js for interactive components -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- HTMX for dynamic content loading -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -55,42 +60,125 @@
         :root {
             --brand-blue: #0033A0;
         }
-        html, body {
+
+        html,
+        body {
             min-height: 100%;
         }
+
         /* HTMX indicator: show when htmx request is in progress */
         .htmx-indicator {
             display: none;
         }
+
         .htmx-request .htmx-indicator,
         .htmx-request.htmx-indicator {
             display: block;
         }
+
         /* Progress bar animation */
         @keyframes progress {
-            0% { width: 0%; }
-            50% { width: 100%; }
-            100% { width: 0%; }
+            0% {
+                width: 0%;
+            }
+
+            50% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0%;
+            }
         }
     </style>
-    
+
     <style>
-        .ibm-plex-mono-thin { font-family: "IBM Plex Mono", monospace; font-weight: 100; font-style: normal; }
-        .ibm-plex-mono-extralight { font-family: "IBM Plex Mono", monospace; font-weight: 200; font-style: normal; }
-        .ibm-plex-mono-light { font-family: "IBM Plex Mono", monospace; font-weight: 300; font-style: normal; }
-        .ibm-plex-mono-regular { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-style: normal; }
-        .ibm-plex-mono-medium { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-style: normal; }
-        .ibm-plex-mono-semibold { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-style: normal; }
-        .ibm-plex-mono-bold { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-style: normal; }
-        .ibm-plex-mono-thin-italic { font-family: "IBM Plex Mono", monospace; font-weight: 100; font-style: italic; }
-        .ibm-plex-mono-extralight-italic { font-family: "IBM Plex Mono", monospace; font-weight: 200; font-style: italic; }
-        .ibm-plex-mono-light-italic { font-family: "IBM Plex Mono", monospace; font-weight: 300; font-style: italic; }
-        .ibm-plex-mono-regular-italic { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-style: italic; }
-        .ibm-plex-mono-medium-italic { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-style: italic; }
-        .ibm-plex-mono-semibold-italic { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-style: italic; }
-        .ibm-plex-mono-bold-italic { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-style: italic; }
+        .ibm-plex-mono-thin {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-extralight {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 200;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-light {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-regular {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-medium {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-semibold {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-bold {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-thin-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 100;
+            font-style: italic;
+        }
+
+        .ibm-plex-mono-extralight-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 200;
+            font-style: italic;
+        }
+
+        .ibm-plex-mono-light-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .ibm-plex-mono-regular-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .ibm-plex-mono-medium-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .ibm-plex-mono-semibold-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .ibm-plex-mono-bold-italic {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 700;
+            font-style: italic;
+        }
     </style>
 </head>
+
 <body class="bg-white antialiased text-black min-h-full flex flex-col">
 
     <!-- Navigation -->
@@ -100,48 +188,70 @@
                 <div class="flex lg:flex-1">
                     <a href="/" class="-m-1.5 p-1.5">
                         <span class="sr-only">LEONA & CRAVIT</span>
-                        <div class="relative h-6 w-6 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
-                            <span class="font-display text-xl font-bold text-white" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);"> </span>
+                        <div class="relative h-6 w-6 rounded-full flex items-center justify-center"
+                            style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
+                            <span class="font-display text-xl font-bold text-white"
+                                style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);"> </span>
                         </div>
                     </a>
                 </div>
                 <div class="hidden lg:flex lg:gap-x-12">
-                    <a href="/producten" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Producten</a>
-                    <a href="/diensten" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Diensten</a>
-                    <a href="#knowledge" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Kennis</a>
-                    <a href="#partners" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Partners</a>
-                    <a href="#about" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Over ons</a>
+                    <a href="/producten"
+                        class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Producten</a>
+                    <a href="/diensten"
+                        class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Diensten</a>
+                    <a href="#knowledge"
+                        class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Kennis</a>
+                    <a href="#partners"
+                        class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Partners</a>
+                    <a href="#about"
+                        class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Over
+                        ons</a>
                 </div>
                 <div class="flex flex-1 items-center justify-end gap-x-6">
-                    <a href="#" class="hidden text-sm/6 font-semibold text-gray-900 lg:block hover:text-orange-600 transition-colors">Login</a>
-                    <a href="/demo" class="rounded-md px-3.5 py-2.5 text-sm font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
+                    <a href="#"
+                        class="hidden text-sm/6 font-semibold text-gray-900 lg:block hover:text-orange-600 transition-colors">Login</a>
+                    <a href="/demo"
+                        class="rounded-md px-3.5 py-2.5 text-sm font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all"
+                        style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'"
+                        onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
                 </div>
                 <div class="flex lg:hidden">
-                    <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 hover:text-gray-900">
+                    <button type="button" onclick="document.getElementById('mobile-menu').showModal()"
+                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 hover:text-gray-900">
                         <span class="sr-only">Open main menu</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
-                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
                         </svg>
                     </button>
                 </div>
             </nav>
         </div>
-        
+
         <!-- Mobile Menu -->
         <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
             <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
-                <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-200">
+                <div
+                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-200">
                     <div class="flex items-center gap-x-6">
                         <a href="/" class="-m-1.5 p-1.5">
                             <span class="sr-only">LEONA & CRAVIT</span>
-                            <div class="relative h-5 w-5 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
-                                <span class="font-display text-lg font-bold text-white" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);"> </span>
+                            <div class="relative h-5 w-5 rounded-full flex items-center justify-center"
+                                style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
+                                <span class="font-display text-lg font-bold text-white"
+                                    style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);"> </span>
                             </div>
                         </a>
-                        <a href="/demo" onclick="document.getElementById('mobile-menu').close()" class="ml-auto rounded-md px-3 py-2 text-sm font-bold text-white shadow-sm" style="background-color: #FF6B35;" onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
-                        <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-600 hover:text-gray-900">
+                        <a href="/demo" onclick="document.getElementById('mobile-menu').close()"
+                            class="ml-auto rounded-md px-3 py-2 text-sm font-bold text-white shadow-sm"
+                            style="background-color: #FF6B35;" onmouseover="this.style.backgroundColor='#ff8555'"
+                            onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
+                        <button type="button" onclick="document.getElementById('mobile-menu').close()"
+                            class="-m-2.5 rounded-md p-2.5 text-gray-600 hover:text-gray-900">
                             <span class="sr-only">Close menu</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                class="size-6">
                                 <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </button>
@@ -149,14 +259,21 @@
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-200">
                             <div class="space-y-2 py-6">
-                                <a href="/producten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Producten</a>
-                                <a href="/diensten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Diensten</a>
-                                <a href="#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Kennis</a>
-                                <a href="#partners" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>
-                                <a href="#about" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Over ons</a>
+                                <a href="/producten" onclick="document.getElementById('mobile-menu').close()"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Producten</a>
+                                <a href="/diensten" onclick="document.getElementById('mobile-menu').close()"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Diensten</a>
+                                <a href="#knowledge" onclick="document.getElementById('mobile-menu').close()"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Kennis</a>
+                                <a href="#partners" onclick="document.getElementById('mobile-menu').close()"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>
+                                <a href="#about" onclick="document.getElementById('mobile-menu').close()"
+                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Over
+                                    ons</a>
                             </div>
                             <div class="py-6">
-                                <a href="#" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Login</a>
+                                <a href="#" onclick="document.getElementById('mobile-menu').close()"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Login</a>
                             </div>
                         </div>
                     </div>
@@ -170,24 +287,37 @@
         <div class="flow-root border-b border-b-white/5 bg-blue-900/25 pb-16 pt-24 sm:pt-32 lg:pb-0">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="relative z-10">
-                    <h2 class="mx-auto max-w-4xl text-balance text-center text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                        CRA is er. <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-300 to-white">Klaar of niet.</span>
+                    <h2
+                        class="mx-auto max-w-4xl text-balance text-center text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                        CRA is er. <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-300 to-white">Klaar
+                            of niet.</span>
                     </h2>
-                    <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-100 sm:text-xl/8">
-                        De EU Cyber Resilience Act is nu van kracht, met verplichte rapportage vanaf <strong class="text-orange-400" style="color: #FF6B35;">11 september 2026</strong>. Of u nu aan Europese klanten verkoopt of niet, CRA-compliance wordt een baseline verwachting voor B2B software.
+                    <p
+                        class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-100 sm:text-xl/8">
+                        De EU Cyber Resilience Act is nu van kracht, met verplichte rapportage vanaf <strong
+                            class="text-orange-400" style="color: #FF6B35;">11 september 2026</strong>. Of u nu aan
+                        Europese klanten verkoopt of niet, CRA-compliance wordt een baseline verwachting voor B2B
+                        software.
                     </p>
                     <div class="mt-16 flex justify-center">
-                        <div class="inline-flex items-center gap-3 rounded-full px-5 py-2.5 ring-2 ring-inset" style="background-color: rgba(255, 107, 53, 0.15); border-color: #FF6B35;">
+                        <div class="inline-flex items-center gap-3 rounded-full px-5 py-2.5 ring-2 ring-inset"
+                            style="background-color: rgba(255, 107, 53, 0.15); border-color: #FF6B35;">
                             <span class="relative flex h-3 w-3">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: #FF6B35;"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3" style="background-color: #FF6B35;"></span>
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                    style="background-color: #FF6B35;"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3"
+                                    style="background-color: #FF6B35;"></span>
                             </span>
-                            <span class="text-sm/5 font-semibold uppercase tracking-wider text-white">Over 6 maanden: Verplichte SBOM-rapportage</span>
+                            <span class="text-sm/5 font-semibold uppercase tracking-wider text-white">Over 6 maanden:
+                                Verplichte SBOM-rapportage</span>
                         </div>
                     </div>
                 </div>
-                <div class="relative mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 lg:mx-0 lg:-mb-14 lg:max-w-none lg:grid-cols-3">
-                    <svg viewBox="0 0 1208 1024" aria-hidden="true" class="absolute -bottom-48 left-1/2 h-[64rem] -translate-x-1/2 translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] lg:-top-48 lg:bottom-auto lg:translate-y-0">
+                <div
+                    class="relative mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 lg:mx-0 lg:-mb-14 lg:max-w-none lg:grid-cols-3">
+                    <svg viewBox="0 0 1208 1024" aria-hidden="true"
+                        class="absolute -bottom-48 left-1/2 h-[64rem] -translate-x-1/2 translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] lg:-top-48 lg:bottom-auto lg:translate-y-0">
                         <ellipse cx="604" cy="512" rx="604" ry="512" fill="url(#cra-urgency-gradient)" />
                         <defs>
                             <radialGradient id="cra-urgency-gradient">
@@ -196,36 +326,53 @@
                             </radialGradient>
                         </defs>
                     </svg>
-                    <div aria-hidden="true" class="hidden lg:absolute lg:inset-x-px lg:bottom-0 lg:top-4 lg:block lg:rounded-t-2xl bg-blue-900/80 lg:ring-1 lg:ring-white/10"></div>
-                    
+                    <div aria-hidden="true"
+                        class="hidden lg:absolute lg:inset-x-px lg:bottom-0 lg:top-4 lg:block lg:rounded-t-2xl bg-blue-900/80 lg:ring-1 lg:ring-white/10">
+                    </div>
+
                     <!-- PROBLEM Card -->
-                    <div class="group/impact relative rounded-2xl bg-blue-900/90 outline outline-1 -outline-offset-1 outline-white/20 lg:bg-transparent lg:pb-14 lg:outline-0">
+                    <div
+                        class="group/impact relative rounded-2xl bg-blue-900/90 outline outline-1 -outline-offset-1 outline-white/20 lg:bg-transparent lg:pb-14 lg:outline-0">
                         <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
                             <h3 class="text-sm/6 font-semibold" style="color: #FF6B35;">Regelgevend Kader</h3>
-                            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                            <div
+                                class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
                                 <div class="mt-2">
-                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">CRA definieert nieuwe verplichtingen</p>
+                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">CRA
+                                        definieert nieuwe verplichtingen</p>
                                     <p class="text-sm text-gray-200 mt-2">Verordening (EU) 2024/2847 van kracht</p>
                                 </div>
-                                <a href="#assessor" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Beoordeel positie</a>
+                                <a href="#assessor"
+                                    class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Beoordeel
+                                    positie</a>
                             </div>
                             <div class="mt-8 flow-root sm:mt-10">
-                                <ul role="list" class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
+                                <ul role="list"
+                                    class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                         Art. 13: Technisch constructiedossier verplicht
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                         Art. 14: SBOM-documentatie en traceerbaarheid
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                         Annex I: Essential cybersecurity requirements
                                     </li>
@@ -233,53 +380,80 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- SOLUTION Card (Featured) -->
-                    <div data-featured="true" class="group/impact relative z-10 rounded-2xl outline outline-2 -outline-offset-1" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); outline-color: #FF6B35;">
+                    <div data-featured="true"
+                        class="group/impact relative z-10 rounded-2xl outline outline-2 -outline-offset-1"
+                        style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); outline-color: #FF6B35;">
                         <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
                             <h3 class="text-sm/6 font-bold" style="color: #FF6B35;">Technische Validatie</h3>
-                            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                            <div
+                                class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
                                 <div class="mt-2">
-                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">Geautomatiseerde conformiteitsbeoordeling</p>
+                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">
+                                        Geautomatiseerde conformiteitsbeoordeling</p>
                                     <p class="text-sm text-gray-100 mt-2">SBOM-analyse tegen Annex I security-eisen</p>
                                 </div>
-                                <a href="#assessor" class="w-full rounded-md px-3 py-2 text-center text-sm/6 font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Valideer SBOM</a>
+                                <a href="#assessor"
+                                    class="w-full rounded-md px-3 py-2 text-center text-sm/6 font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                                    style="background-color: #FF6B35; "
+                                    onmouseover="this.style.backgroundColor='#ff8555'"
+                                    onmouseout="this.style.backgroundColor='#FF6B35'">Valideer SBOM</a>
                             </div>
                             <div class="mt-8 flow-root sm:mt-10">
-                                <ul role="list" class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
+                                <ul role="list"
+                                    class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                         Technisch constructiedossier (Art. 13)
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                         Notified Body ready documentatie
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                         CVE-tracking en kwetsbaarhedenbeheer
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                         Licentie-compliance verificatie
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                         Secure boot configuratie-audit
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                         Support lifecycle validatie (5 jaar)
                                     </li>
@@ -287,37 +461,56 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- TIMELINE Card -->
-                    <div class="group/impact relative rounded-2xl bg-blue-900/90 outline outline-1 -outline-offset-1 outline-white/20 lg:bg-transparent lg:pb-14 lg:outline-0">
+                    <div
+                        class="group/impact relative rounded-2xl bg-blue-900/90 outline outline-1 -outline-offset-1 outline-white/20 lg:bg-transparent lg:pb-14 lg:outline-0">
                         <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
                             <h3 class="text-sm/6 font-semibold" style="color: #FF6B35;">Implementatietraject</h3>
-                            <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                            <div
+                                class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
                                 <div class="mt-2">
-                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">Fasering en deadlines</p>
+                                    <p class="text-2xl font-semibold tracking-tight text-white leading-tight">Fasering
+                                        en deadlines</p>
                                     <p class="text-sm text-gray-200 mt-2">Overgangsperiode tot volledige toepassing</p>
                                 </div>
-                                <button type="button" onclick="document.getElementById('sample-report-modal').showModal()" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Download voorbeeld</button>
+                                <button type="button"
+                                    onclick="document.getElementById('sample-report-modal').showModal()"
+                                    class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 ring-1 ring-inset ring-white/5">Download
+                                    voorbeeld</button>
                             </div>
                             <div class="mt-8 flow-root sm:mt-10">
-                                <ul role="list" class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
+                                <ul role="list"
+                                    class="-my-2 divide-y divide-white/10 border-t border-white/10 text-sm/6 text-white lg:border-t-0">
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#10B981" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#10B981" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path
+                                                d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
-                                        <span><strong class="text-green-400">10 dec 2024:</strong> CRA in werking getreden</span>
+                                        <span><strong class="text-green-400">10 dec 2024:</strong> CRA in werking
+                                            getreden</span>
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                                        <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+                                                clip-rule="evenodd" />
                                         </svg>
-                                        <span><strong style="color: #FF6B35;">11 sept 2026:</strong> Rapportageverplichting start</span>
+                                        <span><strong style="color: #FF6B35;">11 sept 2026:</strong>
+                                            Rapportageverplichting start</span>
                                     </li>
                                     <li class="flex gap-x-3 py-2">
-                                        <svg viewBox="0 0 20 20" fill="#60A5FA" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                        <svg viewBox="0 0 20 20" fill="#60A5FA" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 flex-none">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                clip-rule="evenodd" />
                                         </svg>
-                                        <span><strong class="text-blue-300">11 dec 2027:</strong> Volledige conformiteitsplicht</span>
+                                        <span><strong class="text-blue-300">11 dec 2027:</strong> Volledige
+                                            conformiteitsplicht</span>
                                     </li>
                                 </ul>
                             </div>
@@ -332,10 +525,12 @@
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-4xl text-center">
                     <h2 class="text-base/7 font-semibold" style="color: #FF6B35;">Technisch Advies</h2>
-                    <p class="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">Compliance-trajecten per build-systeem</p>
+                    <p class="mt-2 text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                        Compliance-trajecten per build-systeem</p>
                 </div>
                 <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-white sm:text-xl/8">
-                    Wij adviseren u op basis van objectieve technische validatie. De onderstaande matrix toont typische compliance-hiaten per embedded Linux ecosysteem en de wijze waarop LEONA deze adresseert.
+                    Wij adviseren u op basis van objectieve technische validatie. De onderstaande matrix toont typische
+                    compliance-hiaten per embedded Linux ecosysteem en de wijze waarop LEONA deze adresseert.
                 </p>
 
                 <!-- Mobile: Cards -->
@@ -346,23 +541,34 @@
                         <p class="mt-2 flex items-baseline gap-x-1 text-white">
                             <span class="text-sm font-semibold" style="color: #FF6B35;">Native SPDX-ondersteuning</span>
                         </p>
-                        <a href="#assessor" aria-describedby="platform-yocto" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" style="background-color: rgba(255, 107, 53, 0.1);">Valideer build</a>
+                        <a href="#assessor" aria-describedby="platform-yocto"
+                            class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                            style="background-color: rgba(255, 107, 53, 0.1);">Valideer build</a>
                         <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-200">
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Art. 14.1 SBOM-traceerbaarheid via CPE/PURL-validatie</span>
                             </li>
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Art. 14.2 GPL-3.0 anti-tivoization detectie</span>
                             </li>
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Annex I.II.1 Kernel LTS/EOL-validatie</span>
                             </li>
@@ -373,25 +579,37 @@
                     <section class="rounded-xl bg-white/5 p-8 ring-1 ring-inset ring-white/10">
                         <h3 id="platform-buildroot" class="text-sm/6 font-semibold text-white">Buildroot</h3>
                         <p class="mt-2 flex items-baseline gap-x-1 text-white">
-                            <span class="text-sm font-semibold" style="color: #FF6B35;">Manual SBOM via legal-info</span>
+                            <span class="text-sm font-semibold" style="color: #FF6B35;">Manual SBOM via
+                                legal-info</span>
                         </p>
-                        <a href="#assessor" aria-describedby="platform-buildroot" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white" style="background-color: #FF6B35;">Converteer & valideer</a>
+                        <a href="#assessor" aria-describedby="platform-buildroot"
+                            class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white"
+                            style="background-color: #FF6B35;">Converteer & valideer</a>
                         <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-200">
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Automatische conversie manifest.csv → CycloneDX</span>
                             </li>
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>BusyBox CVE-mapping (bekend risicogebied)</span>
                             </li>
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>U-Boot secure boot compliance-check</span>
                             </li>
@@ -404,23 +622,34 @@
                         <p class="mt-2 flex items-baseline gap-x-1 text-white">
                             <span class="text-sm font-semibold" style="color: #FF6B35;">Syft-based SBOM-generatie</span>
                         </p>
-                        <a href="#assessor" aria-describedby="platform-debian" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" style="background-color: rgba(255, 107, 53, 0.1);">Scan dpkg-systeem</a>
+                        <a href="#assessor" aria-describedby="platform-debian"
+                            class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                            style="background-color: rgba(255, 107, 53, 0.1);">Scan dpkg-systeem</a>
                         <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-200">
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Volledige apt/dpkg package-traceerbaarheid</span>
                             </li>
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Debian Security Tracker integratie</span>
                             </li>
                             <li class="flex gap-x-3">
-                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none">
-                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                <svg viewBox="0 0 20 20" fill="#FF6B35" data-slot="icon" aria-hidden="true"
+                                    class="h-6 w-5 flex-none">
+                                    <path
+                                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
                                 </svg>
                                 <span>Reproducible builds verificatie (waar van toepassing)</span>
                             </li>
@@ -433,7 +662,8 @@
                     <div class="relative -mx-8">
                         <div class="absolute inset-x-4 inset-y-0 -z-10 flex">
                             <div style="margin-left: 50%" aria-hidden="true" class="flex w-1/4 px-4">
-                                <div class="w-full rounded-t-xl border-x border-t border-white/10" style="background-color: rgba(255, 107, 53, 0.05);"></div>
+                                <div class="w-full rounded-t-xl border-x border-t border-white/10"
+                                    style="background-color: rgba(255, 107, 53, 0.05);"></div>
                             </div>
                         </div>
                         <table class="w-full table-fixed border-separate border-spacing-x-8 text-left">
@@ -465,48 +695,60 @@
                                 <tr>
                                     <th scope="row"><span class="sr-only">Action</span></th>
                                     <td class="px-6 pt-2 xl:px-8">
-                                        <a href="#assessor" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20" style="background-color: rgba(255, 107, 53, 0.1);">Valideer build</a>
+                                        <a href="#assessor"
+                                            class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20"
+                                            style="background-color: rgba(255, 107, 53, 0.1);">Valideer build</a>
                                     </td>
                                     <td class="px-6 pt-2 xl:px-8">
-                                        <a href="#assessor" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white" style="background-color: #FF6B35;">Converteer & valideer</a>
+                                        <a href="#assessor"
+                                            class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white"
+                                            style="background-color: #FF6B35;">Converteer & valideer</a>
                                     </td>
                                     <td class="px-6 pt-2 xl:px-8">
-                                        <a href="#assessor" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20" style="background-color: rgba(255, 107, 53, 0.1);">Scan dpkg-systeem</a>
+                                        <a href="#assessor"
+                                            class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-white ring-1 ring-inset ring-white/5 hover:bg-white/20"
+                                            style="background-color: rgba(255, 107, 53, 0.1);">Scan dpkg-systeem</a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="colgroup" colspan="4" class="pb-4 pt-8 text-sm/6 font-semibold text-white">
+                                    <th scope="colgroup" colspan="4"
+                                        class="pb-4 pt-8 text-sm/6 font-semibold text-white">
                                         CRA Compliance-vereisten
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/10"></div>
                                     </th>
                                 </tr>
-                                
+
                                 <!-- Art. 14.1 SBOM Traceability -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Art. 14.1 SBOM-traceerbaarheid
-                                        <div class="text-xs text-gray-500 mt-1">Identificatie van componenten en afhankelijkheden</div>
+                                        <div class="text-xs text-gray-500 mt-1">Identificatie van componenten en
+                                            afhankelijkheden</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
-                                        <div class="text-sm/6 text-gray-300">CPE/PURL-validatie voor alle componenten</div>
+                                        <div class="text-sm/6 text-gray-300">CPE/PURL-validatie voor alle componenten
+                                        </div>
                                         <div class="text-xs text-gray-500 mt-1">SPDX 2.3 native output</div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
-                                        <div class="text-sm/6 text-gray-300">Automatische conversie manifest.csv → CycloneDX</div>
+                                        <div class="text-sm/6 text-gray-300">Automatische conversie manifest.csv →
+                                            CycloneDX</div>
                                         <div class="text-xs text-gray-500 mt-1">Legal-info metadata normalisatie</div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
-                                        <div class="text-sm/6 text-gray-300">Volledige apt/dpkg package-traceerbaarheid</div>
+                                        <div class="text-sm/6 text-gray-300">Volledige apt/dpkg package-traceerbaarheid
+                                        </div>
                                         <div class="text-xs text-gray-500 mt-1">Syft-based component discovery</div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- Art. 14.2 License Compliance -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Art. 14.2 Licentie-compliance
-                                        <div class="text-xs text-gray-500 mt-1">Open-source licentierisico's en copyleft-vereisten</div>
+                                        <div class="text-xs text-gray-500 mt-1">Open-source licentierisico's en
+                                            copyleft-vereisten</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
@@ -522,12 +764,13 @@
                                         <div class="text-xs text-gray-500 mt-1">Machine-readable DEP-5 format</div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- Annex I.II.1 Secure Boot -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Annex I.II.1 Secure Boot
-                                        <div class="text-xs text-gray-500 mt-1">Cryptografische boot chain validatie</div>
+                                        <div class="text-xs text-gray-500 mt-1">Cryptografische boot chain validatie
+                                        </div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
@@ -543,16 +786,18 @@
                                         <div class="text-xs text-gray-500 mt-1">Shim + MOK database validatie</div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- CVE & Vulnerability Management -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Art. 14.4 Kwetsbaarhedenbeheer
-                                        <div class="text-xs text-gray-500 mt-1">Actief geëxploiteerde CVE's en patch-status</div>
+                                        <div class="text-xs text-gray-500 mt-1">Actief geëxploiteerde CVE's en
+                                            patch-status</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
-                                        <div class="text-sm/6 text-gray-300">Kernel LTS/EOL-validatie + CVE-mapping</div>
+                                        <div class="text-sm/6 text-gray-300">Kernel LTS/EOL-validatie + CVE-mapping
+                                        </div>
                                         <div class="text-xs text-gray-500 mt-1">kernel.org stable tree tracking</div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
@@ -564,38 +809,45 @@
                                         <div class="text-xs text-gray-500 mt-1">DSA/DLA advisory mapping</div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- Support Lifecycle -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Art. 11 Support-levenscyclus
-                                        <div class="text-xs text-gray-500 mt-1">Minimaal 5 jaar security updates (CRA eis)</div>
+                                        <div class="text-xs text-gray-500 mt-1">Minimaal 5 jaar security updates (CRA
+                                            eis)</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">Yocto release EOL-tracking</div>
-                                        <div class="text-xs text-gray-500 mt-1">LTS branch + commercial support opties</div>
+                                        <div class="text-xs text-gray-500 mt-1">LTS branch + commercial support opties
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">Component upstream EOL-validatie</div>
-                                        <div class="text-xs text-gray-500 mt-1">Kritieke packages zonder maintainer</div>
+                                        <div class="text-xs text-gray-500 mt-1">Kritieke packages zonder maintainer
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
-                                        <div class="text-sm/6 text-gray-300">LTS-release verificatie (5 jaar minimum)</div>
-                                        <div class="text-xs text-gray-500 mt-1">Debian LTS/ELTS programma-validatie</div>
+                                        <div class="text-sm/6 text-gray-300">LTS-release verificatie (5 jaar minimum)
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">Debian LTS/ELTS programma-validatie
+                                        </div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- Art. 13 Technical Documentation -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Art. 13 Technische documentatie
-                                        <div class="text-xs text-gray-500 mt-1">Voldoende informatie voor conformiteitsbeoordeling</div>
+                                        <div class="text-xs text-gray-500 mt-1">Voldoende informatie voor
+                                            conformiteitsbeoordeling</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">Layer dependency graph-generatie</div>
-                                        <div class="text-xs text-gray-500 mt-1">BitBake build reproducibility report</div>
+                                        <div class="text-xs text-gray-500 mt-1">BitBake build reproducibility report
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">Buildroot .config trace</div>
@@ -606,17 +858,19 @@
                                         <div class="text-xs text-gray-500 mt-1">Repository signature verificatie</div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- Art. 10.1 Incident Reporting -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Art. 10.1 Incident-rapportage
-                                        <div class="text-xs text-gray-500 mt-1">Actief geëxploiteerde kwetsbaarheden binnen 24u melden</div>
+                                        <div class="text-xs text-gray-500 mt-1">Actief geëxploiteerde kwetsbaarheden
+                                            binnen 24u melden</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">CISA KEV catalog matching</div>
-                                        <div class="text-xs text-gray-500 mt-1">Known Exploited Vulnerabilities database</div>
+                                        <div class="text-xs text-gray-500 mt-1">Known Exploited Vulnerabilities database
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">Exploit prediction scoring (EPSS)</div>
@@ -627,17 +881,19 @@
                                         <div class="text-xs text-gray-500 mt-1">Priority: critical/high filtering</div>
                                     </td>
                                 </tr>
-                                
+
                                 <!-- Annex I.I.2 Access Control -->
                                 <tr>
                                     <th scope="row" class="py-4 text-sm/6 font-normal text-gray-200 px-6 xl:px-8">
                                         Annex I.I.2 Toegangsbeveiliging
-                                        <div class="text-xs text-gray-500 mt-1">Bescherming tegen ongeautoriseerde toegang</div>
+                                        <div class="text-xs text-gray-500 mt-1">Bescherming tegen ongeautoriseerde
+                                            toegang</div>
                                         <div class="absolute inset-x-8 mt-4 h-px bg-white/5"></div>
                                     </th>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">SELinux/AppArmor policy-validatie</div>
-                                        <div class="text-xs text-gray-500 mt-1">Mandatory Access Control enforcement</div>
+                                        <div class="text-xs text-gray-500 mt-1">Mandatory Access Control enforcement
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 xl:px-8">
                                         <div class="text-sm/6 text-gray-300">Root filesystem read-only detectie</div>
@@ -655,283 +911,61 @@
 
                 <!-- Advisory Note -->
                 <div class="mt-16 mx-auto max-w-3xl">
-                    <div class="rounded-2xl border-2 p-8" style="background-color: rgba(255, 107, 53, 0.1); border-color: #FF6B35;">
+                    <div class="rounded-2xl border-2 p-8"
+                        style="background-color: rgba(255, 107, 53, 0.1); border-color: #FF6B35;">
                         <p class="text-sm text-gray-100 leading-relaxed">
-                            <strong class="text-white" style="color: #FF6B35;">Technisch advies:</strong> LEONA accepteert SBOM's in SPDX, CycloneDX en CSV-formaat. Wij normaliseren deze automatisch naar CRA-vereisten en mappen alle componenten naar hun respectievelijke licentie- en CVE-databases. Dit is geen oppervlakkige scan, maar een diepgaande validatie van uw complete build-artefacten tegen Annex I security-eisen.
+                            <strong class="text-white" style="color: #FF6B35;">Technisch advies:</strong> LEONA
+                            accepteert SBOM's in SPDX, CycloneDX en CSV-formaat. Wij normaliseren deze automatisch naar
+                            CRA-vereisten en mappen alle componenten naar hun respectievelijke licentie- en
+                            CVE-databases. Dit is geen oppervlakkige scan, maar een diepgaande validatie van uw complete
+                            build-artefacten tegen Annex I security-eisen.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+    <!-- Workflow Feature Section (from templ) -->
+    {{.FeatureWorkflowHTML}}
 
-    <!-- Technical Validation Parameters Section -->
-    <section id="validation" class="bg-white py-24 md:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider">Technische Diepgang</div>
-            <h2 class="mt-2 font-display text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-6xl leading-tight">
-                De Drie Pilaren<br/>
-                van Kwaliteit
-            </h2>
-            <p class="mt-6 text-lg text-gray-600 max-w-3xl leading-relaxed">
-                LEONA & CRAVIT analyseert niet alleen de SBOM, maar valideert uw volledige build-omgeving tegen de Annex I security-eisen. Elke binary wordt getraceerd naar zijn bronlicentie en CVE-geschiedenis.
-            </p>
+    <!-- Feature Screenshot Section (from templ) -->
+    {{.FeatureScreenshotHTML}}
 
-            <div class="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
-                <!-- Pillar 1 -->
-                <div class="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center">
-                            <span class="text-white font-black text-lg">1</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-gray-900">Bitbake Layer Inspection</h3>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed mb-4">
-                        Wij analyseren niet alleen de SBOM, maar valideren uw <code class="bg-white px-2 py-1 rounded text-sm">.bb</code> recipes en <code class="bg-white px-2 py-1 rounded text-sm">local.conf</code> tegen de Annex I security-eisen.
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Detecteert: Onveilige <code class="bg-white px-1 rounded text-xs">IMAGE_FEATURES</code>, missing <code class="bg-white px-1 rounded text-xs">SECURITY_CFLAGS</code>, outdated layers
-                    </p>
-                </div>
+    <!-- Feature Bordered Screenshot Section (from templ) -->
+    {{.FeatureBorderedScreenshotHTML}}
 
-                <!-- Pillar 2 -->
-                <div class="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center">
-                            <span class="text-white font-black text-lg">2</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-gray-900">Binary Provenance Tracking</h3>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed mb-4">
-                        Elke binary in uw image wordt getraceerd naar zijn bronlicentie en CVE-geschiedenis. Essentieel voor de juridische bewijslast onder de Cyber Resilience Act.
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Gebruikt: NVD API 2.0, <code class="bg-white px-1 rounded text-xs">cve-check.bbclass</code>, SPDX relationship mapping
-                    </p>
-                </div>
+    <!-- Feature Three Column Section (from templ) -->
+    {{.FeatureThreeColHTML}}
 
-                <!-- Pillar 3 -->
-                <div class="relative bg-gray-50 rounded-2xl p-8 border border-gray-200">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-brand-blue rounded-lg flex items-center justify-center">
-                            <span class="text-white font-black text-lg">3</span>
-                        </div>
-                        <h3 class="font-display text-xl font-bold text-gray-900">Automated Annex I Mapping</h3>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed mb-4">
-                        Onze engine vertaalt technische configuraties (zoals Secure Boot, Read-Only FS en Signed Updates) direct naar de wettelijke artikelen 3.1 t/m 3.6.
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Valideert: dm-verity, ima-evm-rootfs, SECURITY_LDFLAGS, kernel lockdown
-                    </p>
-                </div>
-            </div>
+    <!-- Feature Testimonial Section (from templ) -->
+    {{.FeatureTestimonialHTML}}
 
-            <!-- Validation Parameters Table -->
-            <div class="mt-20 bg-gradient-to-br from-gray-50 to-white border border-gray-200 rounded-2xl p-8 md:p-12">
-                <h3 class="font-display text-2xl font-bold text-gray-900 mb-8">Validatie Parameters Matrix</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-gray-300">
-                                <th class="text-left py-4 px-4 font-bold text-gray-900">Validatie Parameter</th>
-                                <th class="text-left py-4 px-4 font-bold text-gray-900">Juridische Relevantie (CRA)</th>
-                                <th class="text-left py-4 px-4 font-bold text-gray-900">Technisch Instrument (Yocto)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="py-4 px-4 font-medium text-gray-900">CVE Backporting Audit</td>
-                                <td class="py-4 px-4 text-gray-700">Art. 10: Vulnerability handling</td>
-                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">cve-check.bbclass</code> + NVD API 2.0</td>
-                            </tr>
-                            <tr>
-                                <td class="py-4 px-4 font-medium text-gray-900">Hardened Toolchain</td>
-                                <td class="py-4 px-4 text-gray-700">Art. 3.1: Security by design</td>
-                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">SECURITY_CFLAGS</code> & <code class="bg-white px-2 py-1 rounded text-xs">_LDFLAGS</code> audit</td>
-                            </tr>
-                            <tr>
-                                <td class="py-4 px-4 font-medium text-gray-900">License Compliance</td>
-                                <td class="py-4 px-4 text-gray-700">Art. 18: Technical documentation</td>
-                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">COPYLEFT_COMPLIANCE</code> validatie</td>
-                            </tr>
-                            <tr>
-                                <td class="py-4 px-4 font-medium text-gray-900">Integrity Checks</td>
-                                <td class="py-4 px-4 text-gray-700">Art. 3.2: Protection against tampering</td>
-                                <td class="py-4 px-4"><code class="bg-white px-2 py-1 rounded text-xs">dm-verity</code> & <code class="bg-white px-2 py-1 rounded text-xs">ima-evm-rootfs</code> detectie</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Pricing Three Tiers Section (from templ) -->
+    {{.PricingThreeTiersHTML}}
 
-    <!-- Multi-Framework Attestation Section -->
-    <div class="relative isolate bg-gray-900 pb-32 pt-24 sm:pt-32">
-        <div aria-hidden="true" class="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl">
-            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.0625rem] bg-gradient-to-tr from-blue-400 to-blue-600"></div>
-        </div>
-        <div aria-hidden="true" class="absolute inset-x-0 top-0 -z-10 flex transform-gpu overflow-hidden pt-32 opacity-25 blur-3xl sm:pt-40 xl:justify-end">
-            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="ml-[-22rem] aspect-[1313/771] w-[82.0625rem] flex-none origin-top-right rotate-[30deg] bg-gradient-to-tr from-blue-400 to-sky-300 xl:ml-0 xl:mr-[calc(50%-12rem)]"></div>
-        </div>
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-base/7 font-bold" style="color: #FF6B35;">MULTI-FRAMEWORK ATTESTATION</h2>
-                <p class="mt-2 text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Embedded Linux Compliance Platform</p>
-            </div>
-            <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-100 sm:text-xl/8">
-                LEONA & CRAVIT valideert uw systeem tegen de drie belangrijkste Europese kaders voor de maakindustrie. Één scan, drie compliance-dossiers.
-            </p>
-            
-            <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                <!-- CRA -->
-                <figure class="rounded-2xl p-8 ring-2" style="background-color: rgba(30, 58, 138, 0.4); border-color: #FF6B35;">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #FF6B35;">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-white">CRA</h3>
-                    </div>
-                    <blockquote>
-                        <p class="text-lg font-semibold text-white mb-3">Cyber Resilience Act</p>
-                        <p class="text-sm/6 text-gray-100">
-                            Productveiligheid & Security-by-Design. Verplicht voor CE-markering vanaf september 2026.
-                        </p>
-                    </blockquote>
-                </figure>
-                
-                <!-- CER -->
-                <figure class="rounded-2xl p-8 ring-2" style="background-color: rgba(30, 58, 138, 0.4); border-color: #10B981;">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0" style="box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-white">CER</h3>
-                    </div>
-                    <blockquote>
-                        <p class="text-lg font-semibold text-white mb-3">Critical Entities Resilience</p>
-                        <p class="text-sm/6 text-gray-100">
-                            Kritieke Entiteiten & Fysieke Weerbaarheid. Cruciaal voor infrastructuur-gerelateerde machines.
-                        </p>
-                    </blockquote>
-                </figure>
-                
-                <!-- NIS2 -->
-                <figure class="rounded-2xl p-8 ring-2" style="background-color: rgba(30, 58, 138, 0.4); border-color: #A855F7;">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0" style="box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M13 7H7v6h6V7z"/><path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/></svg>
-                        </div>
-                        <h3 class="text-xl font-semibold text-white">NIS2</h3>
-                    </div>
-                    <blockquote>
-                        <p class="text-lg font-semibold text-white mb-3">Network and Information Security 2</p>
-                        <p class="text-sm/6 text-gray-100">
-                            Supply Chain Security & Incident Reporting. Vereist door uw klanten in energiesector en zorg.
-                        </p>
-                    </blockquote>
-                </figure>
-            </div>
-            
-            <!-- Advisory Note -->
-            <div class="mt-16 mx-auto max-w-3xl">
-                <div class="rounded-2xl border-2 p-8 backdrop-blur" style="background-color: rgba(255, 107, 53, 0.15); border-color: #FF6B35;">
-                    <p class="text-white text-lg leading-relaxed">
-                        <strong style="color: #FF6B35;">Waarom dit belangrijk is:</strong> Uw klanten vragen niet alleen om CRA-compliance. Zij opereren onder NIS2 (kritieke infrastructuur) en CER (fysieke security). Door alle drie de frameworks te dekken, wordt uw product onmisbaar in hun supply chain.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Pricing Comparison Section (from templ) -->
+    {{.PricingComparisonHTML}}
 
-    <!-- Bento Section -->
-    <main>
-        <div class="bg-gradient-to-b from-white from-50% to-gray-50 py-24 md:py-32">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="text-sm/6 font-semibold text-brand-blue uppercase tracking-wider">Technical Construction File</div>
-                <h2 class="mt-2 font-display text-4xl font-bold tracking-tight text-black sm:text-5xl lg:text-6xl leading-tight">
-                    Van SBOM<br/>
-                    tot volledig<br/>
-                    juridisch dossier
-                </h2>
-                <p class="mt-6 text-lg text-gray-600 max-w-2xl leading-relaxed">
-                    Geen consultants. Geen weken wachten. Upload uw Yocto SPDX, Buildroot CSV of Debian manifest en ontvang uw gevalideerd Technisch Constructiedossier voor de CE-markering.
-                </p>
+    <!-- Footer Four Column Section (from templ) -->
+    {{.FooterFourColumnHTML}}
 
-                <div class="mt-16 grid grid-cols-1 gap-4 sm:mt-20 lg:grid-cols-6 lg:grid-rows-2">
-                    <!-- Bento Card 1 - Large -->
-                    <div class="relative overflow-hidden rounded-4xl bg-white p-8 shadow-sm ring-1 ring-black/5 lg:col-span-3 lg:rounded-tl-4xl">
-                        <div class="text-xs font-semibold text-brand-blue uppercase tracking-wider">Yocto & Buildroot</div>
-                        <h3 class="mt-4 font-display text-2xl font-bold text-black leading-tight">
-                            Kernel-kwetsbaarheden<br/>
-                            detecteren voordat<br/>
-                            ze uw certificering blokkeren
-                        </h3>
-                        <p class="mt-6 text-sm leading-relaxed text-gray-600">
-                            LEONA & CRAVIT controleert automatisch of uw Linux-kernel EOL is en scant op zero-day CVE's volgens CRA Artikel 10 vereisten.
-                        </p>
-                    </div>
-
-                    <!-- Bento Card 2 - Feature -->
-                    <div class="relative overflow-hidden rounded-4xl bg-gradient-to-br from-brand-blue to-brand-blue-light p-8 shadow-sm lg:col-span-3 lg:rounded-tr-4xl">
-                        <div class="text-xs font-semibold text-white/70 uppercase tracking-wider">BusyBox Security</div>
-                        <h3 class="mt-4 font-display text-2xl font-bold text-white leading-tight">
-                            Detecteer onveilige<br/>
-                            Telnet en FTP configuraties<br/>
-                            in uw embedded stack
-                        </h3>
-                    </div>
-
-                    <!-- Bento Card 3 -->
-                    <div class="relative overflow-hidden rounded-4xl bg-white p-8 shadow-sm ring-1 ring-black/5 lg:col-span-2 lg:rounded-bl-4xl">
-                        <div class="text-xs font-semibold text-brand-blue uppercase tracking-wider">Medische Apparaten</div>
-                        <h3 class="mt-4 font-display text-xl font-bold text-black leading-tight">
-                            Debian-gebaseerde<br/>
-                            systemen<br/>
-                            audit-ready
-                        </h3>
-                    </div>
-
-                    <!-- Bento Card 4 -->
-                    <div class="relative overflow-hidden rounded-4xl bg-white p-8 shadow-sm ring-1 ring-black/5 lg:col-span-2">
-                        <div class="text-xs font-semibold text-brand-blue uppercase tracking-wider">Industriële IoT</div>
-                        <h3 class="mt-4 font-display text-xl font-bold text-black leading-tight">
-                            Real-time kernel<br/>
-                            compliance-check
-                        </h3>
-                    </div>
-
-                    <!-- Bento Card 5 -->
-                    <div class="relative overflow-hidden rounded-4xl bg-white p-8 shadow-sm ring-1 ring-black/5 lg:col-span-2 lg:rounded-br-4xl">
-                        <div class="text-xs font-semibold text-brand-blue uppercase tracking-wider">Automotive Linux</div>
-                        <h3 class="mt-4 font-display text-xl font-bold text-black leading-tight">
-                            GPL-3.0<br/>
-                            licentie-risico<br/>
-                            eliminatie
-                        </h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-
-    <!-- Assessment Results Section -->
-    <section id="results" class="max-w-7xl mx-auto px-6 py-12 bg-white"></section>
+    <!-- Page 404 Background Section (from templ) -->
+    {{.Page404BackgroundHTML}}
 
     <!-- Notable Matters Section -->
     <section id="insights" class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-16">Waarom firmware engineers voor LEONA kiezen</h2>
-            
+            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-16">Waarom firmware
+                engineers voor LEONA kiezen</h2>
+
             <div class="space-y-12">
                 <div class="border-b border-gray-200 pb-12">
                     <h3 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                         Stop met raden wat "CRA-compliant" betekent voor uw kernel
                     </h3>
                     <p class="text-lg text-gray-600 max-w-4xl">
-                        U schrijft embedded code, geen juridische dossiers. LEONA vertaalt CRA Annex I naar concrete checks voor uw Linux-configuratie: EOL kernel-detectie, CVE-mapping en BusyBox security audits.
+                        U schrijft embedded code, geen juridische dossiers. LEONA vertaalt CRA Annex I naar concrete
+                        checks voor uw Linux-configuratie: EOL kernel-detectie, CVE-mapping en BusyBox security audits.
                     </p>
                 </div>
 
@@ -940,7 +974,8 @@
                         Vermijd kostbare certificering-vertragingen door kernel-kwetsbaarheden
                     </h3>
                     <p class="text-lg text-gray-600 max-w-4xl">
-                        Één verouderde Linux-versie in uw Yocto-build kan uw product-release maanden vertragen. LEONA scant automatisch op zero-day risico's en geeft u een audit-ready rapport.
+                        Één verouderde Linux-versie in uw Yocto-build kan uw product-release maanden vertragen. LEONA
+                        scant automatisch op zero-day risico's en geeft u een audit-ready rapport.
                     </p>
                 </div>
 
@@ -949,7 +984,8 @@
                         Bescherm uw IP tegen GPL-3.0 copyleft claims
                     </h3>
                     <p class="text-lg text-gray-600 max-w-4xl">
-                        GPL-verplichtingen in uw Linux-driver kunnen uw propriëtaire code blootstellen. LEONA detecteert licentie-incompatibiliteiten voordat ze juridische problemen veroorzaken.
+                        GPL-verplichtingen in uw Linux-driver kunnen uw propriëtaire code blootstellen. LEONA detecteert
+                        licentie-incompatibiliteiten voordat ze juridische problemen veroorzaken.
                     </p>
                 </div>
             </div>
@@ -959,31 +995,51 @@
     <!-- Capabilities Section -->
     <section id="features" class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-16">Linux-specifieke CRA compliance</h2>
+            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-16">Linux-specifieke CRA
+                compliance</h2>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-4xl p-8 ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all">
-                    <div class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
                     </div>
                     <h3 class="font-display text-2xl font-bold text-gray-900 mb-4">Yocto LTS-controles</h3>
-                    <p class="text-lg text-gray-600 leading-relaxed">Automatische detectie van EOL kernels en verouderde Yocto layers die uw CRA-certificering blokkeren.</p>
+                    <p class="text-lg text-gray-600 leading-relaxed">Automatische detectie van EOL kernels en verouderde
+                        Yocto layers die uw CRA-certificering blokkeren.</p>
                 </div>
 
                 <div class="bg-white rounded-4xl p-8 ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all">
-                    <div class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                            <path fill-rule="evenodd"
+                                d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
                     </div>
                     <h3 class="font-display text-2xl font-bold text-gray-900 mb-4">Kernel CVE-mapping</h3>
-                    <p class="text-lg text-gray-600 leading-relaxed">CPE-validatie voor Linux-componenten met directe CVE-traceerbaarheid volgens CRA Artikel 11.</p>
+                    <p class="text-lg text-gray-600 leading-relaxed">CPE-validatie voor Linux-componenten met directe
+                        CVE-traceerbaarheid volgens CRA Artikel 11.</p>
                 </div>
 
                 <div class="bg-white rounded-4xl p-8 ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all">
-                    <div class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
                     </div>
                     <h3 class="font-display text-2xl font-bold text-gray-900 mb-4">BusyBox security-audit</h3>
-                    <p class="text-lg text-gray-600 leading-relaxed">Detecteer Telnet, FTP en andere onveilige protocollen in uw embedded Linux-configuratie.</p>
+                    <p class="text-lg text-gray-600 leading-relaxed">Detecteer Telnet, FTP en andere onveilige
+                        protocollen in uw embedded Linux-configuratie.</p>
                 </div>
             </div>
         </div>
@@ -991,360 +1047,25 @@
 
 
     <!-- Knowledge Base / Articles Section -->
-    <section id="knowledge" class="py-16 md:py-24 bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <div class="text-sm font-semibold text-brand-blue mb-3">Kennisbank</div>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                    CRA-vereisten voor Linux Embedded Systemen
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Vertaling van juridische compliance naar concrete technische implementatie voor uw Linux-distributie
-                </p>
-            </div>
-
-            <div class="max-w-5xl mx-auto space-y-4">
-                <!-- Article 1: CRA Artikel 10 - Kernel EOL -->
-                <details class="group bg-gradient-to-br from-gray-50 to-white rounded-4xl ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all overflow-hidden">
-                    <summary class="cursor-pointer p-8 flex items-start justify-between">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">CRA Artikel 10</span>
-                                <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full">🚨 Kritiek</span>
-                            </div>
-                            <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">
-                                End-of-Life Kernel Detectie: Yocto, Buildroot en Debian
-                            </h3>
-                            <p class="text-gray-600">
-                                Verouderde Linux-kernels zijn de #1 oorzaak van CRA non-compliance. Leer hoe LEONA automatisch EOL detecteert.
-                            </p>
-                        </div>
-                        <svg class="w-6 h-6 text-brand-blue flex-shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-8 pb-8 pt-4 border-t border-gray-100">
-                        <div class="prose prose-lg max-w-none">
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">Wat eist de CRA?</h4>
-                            <p class="text-gray-700 leading-relaxed mb-6">
-                                <strong>CRA Artikel 10, lid 2</strong> vereist dat fabrikanten kwetsbaarheden actief identificeren en patches distribueren gedurende de hele "support period". Een End-of-Life (EOL) kernel ontvangt geen security updates meer, waardoor u automatisch non-compliant bent.
-                            </p>
-
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">🐧 Linux-specifieke implementatie per distributie</h4>
-                            
-                            <div class="space-y-6 mb-6">
-                                <div class="bg-blue-50 rounded-2xl p-6 border border-blue-100">
-                                    <h5 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                        <span class="w-8 h-8 bg-brand-blue text-white rounded-lg flex items-center justify-center text-sm font-bold">Y</span>
-                                        Yocto Project / OpenEmbedded
-                                    </h5>
-                                    <p class="text-gray-700 mb-3"><strong>Risico:</strong> Yocto laat u elke kernel-versie kiezen. Dit is flexibel, maar gevaarlijk.</p>
-                                    <p class="text-gray-700 mb-3"><strong>LEONA check:</strong></p>
-                                    <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-                                        <li>Scant <code class="bg-white px-2 py-1 rounded text-sm">PREFERRED_VERSION_linux-yocto</code> in uw <code class="bg-white px-2 py-1 rounded text-sm">local.conf</code></li>
-                                        <li>Vergelijkt met <a href="https://kernel.org" class="text-brand-blue underline">kernel.org</a> LTS support-schema</li>
-                                        <li>Geeft waarschuwing als uw kernel < 5.10 (EOL in 2026) of niet-LTS</li>
-                                    </ul>
-                                    <p class="text-gray-700 mt-3"><strong>Fix:</strong> Update naar <code class="bg-white px-2 py-1 rounded text-sm">linux-yocto 6.6</code> (LTS tot dec 2026) of <code class="bg-white px-2 py-1 rounded text-sm">6.12</code> (LTS tot 2029)</p>
-                                </div>
-
-                                <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
-                                    <h5 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                        <span class="w-8 h-8 bg-green-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">B</span>
-                                        Buildroot
-                                    </h5>
-                                    <p class="text-gray-700 mb-3"><strong>Risico:</strong> Buildroot headers verbergen de exacte kernel-versie in menuconfig.</p>
-                                    <p class="text-gray-700 mb-3"><strong>LEONA check:</strong></p>
-                                    <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-                                        <li>Parst <code class="bg-white px-2 py-1 rounded text-sm">.config</code> voor <code class="bg-white px-2 py-1 rounded text-sm">BR2_LINUX_KERNEL_VERSION</code></li>
-                                        <li>Detecteert "latest" of "custom" tarballs zonder versie-pinning</li>
-                                        <li>Valideert tegen CVE-database voor bekende kernel-kwetsbaarheden</li>
-                                    </ul>
-                                    <p class="text-gray-700 mt-3"><strong>Fix:</strong> Pin expliciete versie in <code class="bg-white px-2 py-1 rounded text-sm">BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="6.6.15"</code></p>
-                                </div>
-
-                                <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
-                                    <h5 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                                        <span class="w-8 h-8 bg-purple-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">D</span>
-                                        Debian Embedded (incl. Raspberry Pi OS)
-                                    </h5>
-                                    <p class="text-gray-700 mb-3"><strong>Risico:</strong> Debian Stable bevriest packages, inclusief de kernel.</p>
-                                    <p class="text-gray-700 mb-3"><strong>LEONA check:</strong></p>
-                                    <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-                                        <li>Detecteert <code class="bg-white px-2 py-1 rounded text-sm">linux-image-*</code> package-versie in SBOM</li>
-                                        <li>Cross-reference met Debian Security Tracker voor openstaande CVE's</li>
-                                        <li>Waarschuwt als u Debian Buster (EOL 2024) of ouder gebruikt</li>
-                                    </ul>
-                                    <p class="text-gray-700 mt-3"><strong>Fix:</strong> Upgrade naar Debian 12 "Bookworm" (support tot 2028) + enable <code class="bg-white px-2 py-1 rounded text-sm">unattended-upgrades</code></p>
-                                </div>
-                            </div>
-
-                            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-                                <p class="text-sm text-gray-800">
-                                    <strong>⚠️ LEONA Pro Tip:</strong> De CRA vereist dat u kwetsbaarheden binnen <strong>24 uur</strong> identificeert (Artikel 11, lid 3). Een EOL kernel maakt dit onmogelijk. Scan elke release.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Article 2: CRA Annex I Part II - BusyBox Security -->
-                <details class="group bg-gradient-to-br from-gray-50 to-white rounded-4xl ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all overflow-hidden">
-                    <summary class="cursor-pointer p-8 flex items-start justify-between">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">CRA Annex I, Part II(1)</span>
-                                <span class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-semibold rounded-full">BusyBox</span>
-                            </div>
-                            <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">
-                                Onveilige Protocollen: Telnet, FTP en rlogin in Embedded Linux
-                            </h3>
-                            <p class="text-gray-600">
-                                CRA verbiedt "known exploitable vulnerabilities". Telnet en FTP in BusyBox vallen hieronder.
-                            </p>
-                        </div>
-                        <svg class="w-6 h-6 text-brand-blue flex-shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-8 pb-8 pt-4 border-t border-gray-100">
-                        <div class="prose prose-lg max-w-none">
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">Wat eist de CRA?</h4>
-                            <p class="text-gray-700 leading-relaxed mb-6">
-                                <strong>Annex I, Part II, sectie 1(a):</strong> "Products shall be delivered without any known exploitable vulnerabilities." Telnet (plaintext credentials) en FTP (geen encryptie) zijn per definitie kwetsbaar.
-                            </p>
-
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">Waarom BusyBox het probleem is</h4>
-                            <p class="text-gray-700 mb-4">
-                                BusyBox is de standaard userland voor 90% van embedded Linux. Het is geïmplementeerd als één executable met "applets" die via symlinks worden aangeroepen. Standaard bevat het:
-                            </p>
-                            <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-6">
-                                <li><code class="bg-gray-100 px-2 py-1 rounded text-sm">telnetd</code> - Telnet daemon (poort 23)</li>
-                                <li><code class="bg-gray-100 px-2 py-1 rounded text-sm">ftpd</code> / <code class="bg-gray-100 px-2 py-1 rounded text-sm">ftpget</code> - FTP server/client</li>
-                                <li><code class="bg-gray-100 px-2 py-1 rounded text-sm">rlogin</code> - Remote login zonder authenticatie</li>
-                            </ul>
-
-                            <div class="bg-red-50 rounded-2xl p-6 border border-red-200 mb-6">
-                                <h5 class="font-bold text-gray-900 mb-3">🚨 LEONA detectie-logica</h5>
-                                <p class="text-gray-700 mb-3">Wij scannen uw SBOM op:</p>
-                                <pre class="bg-white p-4 rounded-lg overflow-x-auto text-sm"><code>// Go code in internal/analyzer/busybox.go
-if component.Name == "busybox" {
-    if strings.Contains(component.PURL, "telnet") ||
-       strings.Contains(component.Properties, "CONFIG_TELNETD=y") {
-        violations = append(violations, 
-            "CRA Non-Compliant: BusyBox Telnet enabled (plaintext credentials)")
-    }
-}</code></pre>
-                            </div>
-
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">Distributie-specifieke fixes</h4>
-                            <div class="space-y-4 mb-6">
-                                <div class="bg-blue-50 rounded-xl p-4">
-                                    <p class="font-bold text-gray-900 mb-2">Yocto / OpenEmbedded:</p>
-                                    <p class="text-gray-700 text-sm mb-2">Voeg toe aan <code class="bg-white px-2 py-1 rounded">local.conf</code>:</p>
-                                    <pre class="bg-white p-3 rounded text-xs overflow-x-auto"><code>PACKAGECONFIG_remove_pn-busybox = "telnetd ftpd rlogin"
-IMAGE_INSTALL_append = " openssh-sshd"</code></pre>
-                                </div>
-                                <div class="bg-green-50 rounded-xl p-4">
-                                    <p class="font-bold text-gray-900 mb-2">Buildroot:</p>
-                                    <p class="text-gray-700 text-sm mb-2">In menuconfig:</p>
-                                    <pre class="bg-white p-3 rounded text-xs overflow-x-auto"><code>Target packages > BusyBox configuration
-  [ ] telnetd
-  [ ] ftpd
-  [*] dropbear (SSH replacement)</code></pre>
-                                </div>
-                            </div>
-
-                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                                <p class="text-sm text-gray-800">
-                                    <strong>🛡️ Best Practice:</strong> Vervang BusyBox networking door <strong>Dropbear</strong> (SSH) voor debugging. Disable alle network services in productie-builds.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Article 3: GPL-3.0 License Compliance -->
-                <details class="group bg-gradient-to-br from-gray-50 to-white rounded-4xl ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all overflow-hidden">
-                    <summary class="cursor-pointer p-8 flex items-start justify-between">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">CRA Artikel 14</span>
-                                <span class="px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full">Licenties</span>
-                            </div>
-                            <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">
-                                GPL-3.0 Copyleft Risico's in Linux Drivers en Kernel Modules
-                            </h3>
-                            <p class="text-gray-600">
-                                GPL-3.0 in uw kernel-module kan uw proprietary code "besmetten". LEONA detecteert dit voordat het een juridisch probleem wordt.
-                            </p>
-                        </div>
-                        <svg class="w-6 h-6 text-brand-blue flex-shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-8 pb-8 pt-4 border-t border-gray-100">
-                        <div class="prose prose-lg max-w-none">
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">Wat eist de CRA?</h4>
-                            <p class="text-gray-700 leading-relaxed mb-6">
-                                <strong>Artikel 14:</strong> Fabrikanten moeten een SBOM verstrekken met "licensing information". Als u GPL-3.0 code gebruikt in een closed-source product, overtreedt u niet alleen de licentie, maar ook CRA rapportageverplichtingen.
-                            </p>
-
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">Het Linux Kernel Module Probleem</h4>
-                            <p class="text-gray-700 mb-4">
-                                De Linux kernel zelf is GPL-2.0. Maar veel third-party drivers en userspace libraries zijn GPL-3.0. Het verschil:
-                            </p>
-                            <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-6">
-                                <li><strong>GPL-2.0:</strong> Copyleft geldt voor "derived works". Kernel modules via <code class="bg-gray-100 px-2 py-1 rounded text-sm">MODULE_LICENSE("GPL")</code> zijn OK als ze alleen kernel API's aanroepen.</li>
-                                <li><strong>GPL-3.0:</strong> Expliciete "Tivoization" clausule. Als u GPL-3.0 code linkt, moet uw éntire binary open-source worden.</li>
-                            </ul>
-
-                            <div class="bg-yellow-50 rounded-2xl p-6 border border-yellow-200 mb-6">
-                                <h5 class="font-bold text-gray-900 mb-3">⚠️ Veelvoorkomende valkuil: Automotive</h5>
-                                <p class="text-gray-700 mb-3">
-                                    Veel automotive systemen gebruiken <strong>Qt</strong> (GPL-3.0) voor HMI. Als u Qt linkt met uw proprietary CAN-bus stack zonder commerciële licentie, bent u verplicht uw code te publiceren.
-                                </p>
-                                <p class="text-gray-700 text-sm">
-                                    <strong>LEONA check:</strong> Scant SBOM op <code class="bg-white px-2 py-1 rounded">libQt*.so</code> + proprietary components in dezelfde <code class="bg-white px-2 py-1 rounded">LD_LIBRARY_PATH</code>.
-                                </p>
-                            </div>
-
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">LEONA GPL-detectie per distributie</h4>
-                            <div class="space-y-4 mb-6">
-                                <div class="bg-blue-50 rounded-xl p-4">
-                                    <p class="font-bold text-gray-900 mb-2">🐧 Yocto Project:</p>
-                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1 ml-4">
-                                        <li>Parst <code class="bg-white px-2 py-1 rounded">license.manifest</code> in image rootfs</li>
-                                        <li>Detecteert <code class="bg-white px-2 py-1 rounded">INCOMPATIBLE_LICENSE</code> violations</li>
-                                        <li>Waarschuwt als GPL-3.0 package wordt geïnstalleerd zonder <code class="bg-white px-2 py-1 rounded">COMMERCIAL_LICENSE</code> flag</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-green-50 rounded-xl p-4">
-                                    <p class="font-bold text-gray-900 mb-2">🐧 Buildroot:</p>
-                                    <p class="text-gray-700 text-sm mb-2">Buildroot heeft geen native license-checker. LEONA:</p>
-                                    <ul class="list-disc list-inside text-gray-700 text-sm space-y-1 ml-4">
-                                        <li>Scant <code class="bg-white px-2 py-1 rounded">legal-info/manifest.csv</code></li>
-                                        <li>Cross-reference met SPDX license-db voor copyleft-types</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="bg-red-50 border border-red-200 rounded-xl p-6">
-                                <p class="text-sm text-gray-800">
-                                    <strong>🚨 Juridisch risico:</strong> GPL-3.0 schendingen kunnen leiden tot gedwongen open-sourcing van uw IP + contractuele boetes. Een LEONA scan van €499 is goedkoper dan één juridische brief.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Article 4: SBOM Requirements -->
-                <details class="group bg-gradient-to-br from-gray-50 to-white rounded-4xl ring-1 ring-brand-blue/10 hover:ring-brand-blue/30 transition-all overflow-hidden">
-                    <summary class="cursor-pointer p-8 flex items-start justify-between">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <span class="px-3 py-1 bg-brand-blue/10 text-brand-blue text-xs font-semibold rounded-full">CRA Artikel 14</span>
-                                <span class="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full">SBOM</span>
-                            </div>
-                            <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">
-                                SBOM Generatie voor Yocto en Buildroot: CycloneDX vs SPDX
-                            </h3>
-                            <p class="text-gray-600">
-                                De CRA vereist een "Software Bill of Materials". Leer hoe u deze genereert voor uw Linux-build.
-                            </p>
-                        </div>
-                        <svg class="w-6 h-6 text-brand-blue flex-shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </summary>
-                    <div class="px-8 pb-8 pt-4 border-t border-gray-100">
-                        <div class="prose prose-lg max-w-none">
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">CRA SBOM Vereisten</h4>
-                            <p class="text-gray-700 leading-relaxed mb-6">
-                                <strong>Artikel 14, lid 2:</strong> De SBOM moet bevatten:
-                            </p>
-                            <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4 mb-6">
-                                <li>Lijst van alle software-componenten (incl. libraries, kernel modules)</li>
-                                <li>Versienummers en unieke identifiers (bijv. CPE, PURL)</li>
-                                <li>Licentie-informatie per component</li>
-                                <li>Dependency-relaties (welke component gebruikt welke library)</li>
-                            </ul>
-
-                            <h4 class="font-display text-xl font-bold text-gray-900 mb-4">🐧 SBOM Tools per Linux Distributie</h4>
-                            <div class="space-y-6 mb-6">
-                                <div class="bg-blue-50 rounded-2xl p-6 border border-blue-100">
-                                    <h5 class="font-bold text-gray-900 mb-3">Yocto Project - SPDX Support (Built-in)</h5>
-                                    <p class="text-gray-700 mb-3">Yocto Kirkstone (4.0+) heeft native SPDX-generatie:</p>
-                                    <pre class="bg-white p-4 rounded-lg overflow-x-auto text-sm mb-3"><code># Voeg toe aan local.conf
-INHERIT += "create-spdx"
-SPDX_PRETTY = "1"
-
-# Build image
-bitbake core-image-minimal
-
-# SBOM output:
-# tmp/deploy/spdx/[MACHINE]/core-image-minimal.spdx.json</code></pre>
-                                    <p class="text-gray-700 text-sm"><strong>LEONA accepteert:</strong> Yocto SPDX 2.3 JSON formaat direct.</p>
-                                </div>
-
-                                <div class="bg-green-50 rounded-2xl p-6 border border-green-100">
-                                    <h5 class="font-bold text-gray-900 mb-3">Buildroot - Manual SBOM via legal-info</h5>
-                                    <p class="text-gray-700 mb-3">Buildroot heeft geen native SBOM. Gebruik <code class="bg-white px-2 py-1 rounded text-sm">make legal-info</code>:</p>
-                                    <pre class="bg-white p-4 rounded-lg overflow-x-auto text-sm mb-3"><code>make legal-info
-
-# Output: output/legal-info/manifest.csv
-# Converteer naar CycloneDX:
-pip install cyclonedx-bom
-cyclonedx-py -i output/legal-info/manifest.csv -o sbom.json</code></pre>
-                                    <p class="text-gray-700 text-sm"><strong>LEONA Pro Tip:</strong> Upload de <code class="bg-white px-2 py-1 rounded">manifest.csv</code> direct. Wij converteren automatisch.</p>
-                                </div>
-
-                                <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100">
-                                    <h5 class="font-bold text-gray-900 mb-3">Debian / Ubuntu - Syft of apt-based SBOM</h5>
-                                    <p class="text-gray-700 mb-3">Voor Debian-gebaseerde systemen:</p>
-                                    <pre class="bg-white p-4 rounded-lg overflow-x-auto text-sm mb-3"><code># Optie 1: Syft (aanbevolen)
-curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
-syft scan dir:/rootfs -o cyclonedx-json > sbom.json
-
-# Optie 2: dpkg + manual parsing
-dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
-                                </div>
-                            </div>
-
-                            <div class="bg-brand-blue/5 border border-brand-blue/20 rounded-xl p-6">
-                                <p class="text-sm text-gray-800">
-                                    <strong>LEONA Voordeel:</strong> Upload uw SBOM in élk formaat (SPDX, CycloneDX, CSV). Wij normaliseren automatisch en mappen naar CRA-vereisten.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-
-            <div class="mt-12 text-center">
-                <a href="#scanner" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-brand-blue to-brand-blue-light text-white font-bold rounded-xl hover:from-blue-800 hover:to-blue-700 transition-all shadow-lg">
-                    Scan uw Linux SBOM met deze checks →
-                </a>
-            </div>
-        </div>
-    </section>
-
+    {{.KnowledgeHTML}}
     <!-- Pricing -->
     <section id="pricing" class="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div class="max-w-7xl mx-auto px-6">
             <!-- Urgency Banner -->
             <div class="mb-12 bg-red-600 rounded-2xl p-6 text-white text-center">
                 <div class="font-bold text-lg mb-2">ACTIE DEZE WEEK: 500 EURO KORTING</div>
-                <div class="text-sm">Gebruik code <span class="font-mono bg-white/20 px-2 py-1 rounded">CRA2026</span> bij bestelling. Geldig tot zondag 23:59.</div>
+                <div class="text-sm">Gebruik code <span class="font-mono bg-white/20 px-2 py-1 rounded">CRA2026</span>
+                    bij bestelling. Geldig tot zondag 23:59.</div>
             </div>
 
             <div class="text-center mb-16">
                 <div class="text-sm font-semibold text-brand-blue mb-3">Compliance Packages</div>
                 <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                    Bescherm uw markttoegang.<br/>Behoud uw concurrentiepositie.
+                    Bescherm uw markttoegang.<br />Behoud uw concurrentiepositie.
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    6 maanden tot verplichte CRA rapportage. Bedrijven die nu compliance bereiken, behouden hun marktpositie. Bedrijven die wachten, verliezen klanten aan concurrenten die wel compliant zijn.
+                    6 maanden tot verplichte CRA rapportage. Bedrijven die nu compliance bereiken, behouden hun
+                    marktpositie. Bedrijven die wachten, verliezen klanten aan concurrenten die wel compliant zijn.
                 </p>
             </div>
 
@@ -1361,35 +1082,63 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm text-gray-700">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Formeel Technisch Dossier (PDF)</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Annex I Compliance Mapping</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Kernel EOL + CVE detectie</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>GPL-3.0 licentie-scan</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-gray-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-gray-300 flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span class="text-gray-400">Email support (48u)</span>
                         </li>
                     </ul>
-                    <a href="mailto:sales@leona-cravit.be?subject=Bestelling%20Audit%20Start%20499%20EUR&body=Ik%20wens%20The%20Audit%20Start%20package%20te%20bestellen.%0A%0ABedrijf:%0AContactpersoon:%0AFactuuradres:%0ATelefoon:%0A%0ACode:%20CRA2026" class="block text-center bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-xl transition-all">
+                    <a href="mailto:sales@leona-cravit.be?subject=Bestelling%20Audit%20Start%20499%20EUR&body=Ik%20wens%20The%20Audit%20Start%20package%20te%20bestellen.%0A%0ABedrijf:%0AContactpersoon:%0AFactuuradres:%0ATelefoon:%0A%0ACode:%20CRA2026"
+                        class="block text-center bg-gray-900 hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded-xl transition-all">
                         Bestel Nu
                     </a>
                     <p class="text-xs text-gray-500 mt-4 text-center">Direct factuur + start binnen 48u</p>
                 </div>
 
                 <!-- Tier 2: The Compliance Shield (HIGHLIGHTED) -->
-                <div class="bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-4xl p-8 ring-2 ring-brand-blue shadow-2xl relative transform scale-105">
-                    <div class="absolute top-0 right-0 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-2xl rounded-tr-4xl">
+                <div
+                    class="bg-gradient-to-br from-brand-blue to-brand-blue-light rounded-4xl p-8 ring-2 ring-brand-blue shadow-2xl relative transform scale-105">
+                    <div
+                        class="absolute top-0 right-0 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-2xl rounded-tr-4xl">
                         MEEST GEKOZEN
                     </div>
                     <div class="mb-6">
@@ -1402,30 +1151,57 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm text-white">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span><strong>Onbeperkte scans</strong> (all tier 1 features)</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span><strong>Formele Attestatie:</strong> "CRAVIT-VERIFIED" certificaat</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Liability Shield Statement (juridische tekst)</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Dekking voor <strong>5 productlijnen</strong></span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Prioritaire support (12u response)</span>
                         </li>
                     </ul>
-                    <a href="mailto:sales@leona-cravit.be?subject=Bestelling%20Compliance%20Shield%202499%20EUR&body=Ik%20wens%20The%20Compliance%20Shield%20package%20te%20bestellen.%0A%0ABedrijf:%0AContactpersoon:%0AFactuuradres:%0ATelefoon:%0AAantal%20productlijnen:%0A%0ACode:%20CRA2026" class="block text-center bg-white text-brand-blue font-bold py-3 px-6 rounded-xl hover:bg-gray-100 transition-all shadow-lg">
+                    <a href="mailto:sales@leona-cravit.be?subject=Bestelling%20Compliance%20Shield%202499%20EUR&body=Ik%20wens%20The%20Compliance%20Shield%20package%20te%20bestellen.%0A%0ABedrijf:%0AContactpersoon:%0AFactuuradres:%0ATelefoon:%0AAantal%20productlijnen:%0A%0ACode:%20CRA2026"
+                        class="block text-center bg-white text-brand-blue font-bold py-3 px-6 rounded-xl hover:bg-gray-100 transition-all shadow-lg">
                         Bestel Nu - Bespaar 500 EUR
                     </a>
-                    <p class="text-xs text-white/70 mt-4 text-center">Volledige compliance binnen 3 weken gegarandeerd</p>
+                    <p class="text-xs text-white/70 mt-4 text-center">Volledige compliance binnen 3 weken gegarandeerd
+                    </p>
                 </div>
 
                 <!-- Tier 3: The Enterprise Partner -->
@@ -1440,27 +1216,53 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm text-gray-700">
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span><strong>Alles van Tier 2</strong> + dedicated support</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span><strong>CI/CD Integratie:</strong> Jenkins/GitLab/Yocto pipeline</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>API access voor custom workflows</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span><strong>Jaarlijkse On-site Audit</strong> (België/Nederland)</span>
                         </li>
                         <li class="flex items-start gap-2">
-                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <svg class="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
                             <span>Dedicated Slack/Teams channel</span>
                         </li>
                     </ul>
-                    <a href="mailto:sales@leona-cravit.be?subject=Offerte%20Enterprise%20Partner%206999%20EUR&body=Ik%20wens%20een%20offerte%20voor%20The%20Enterprise%20Partner%20package.%0A%0ABedrijf:%0AContactpersoon:%0AAantal%20productlijnen:%0ACI/CD%20platform%20(Jenkins/GitLab/etc):%0ATelefoon:%0A%0ACode:%20CRA2026" class="block text-center bg-brand-blue hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all">
+                    <a href="mailto:sales@leona-cravit.be?subject=Offerte%20Enterprise%20Partner%206999%20EUR&body=Ik%20wens%20een%20offerte%20voor%20The%20Enterprise%20Partner%20package.%0A%0ABedrijf:%0AContactpersoon:%0AAantal%20productlijnen:%0ACI/CD%20platform%20(Jenkins/GitLab/etc):%0ATelefoon:%0A%0ACode:%20CRA2026"
+                        class="block text-center bg-brand-blue hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all">
                         Vraag Offerte Aan
                     </a>
                     <p class="text-xs text-gray-500 mt-4 text-center">Response binnen 4u • Start binnen 1 week</p>
@@ -1473,7 +1275,9 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                         <strong>🚨 Waarom Enterprise klanten niet per scan betalen:</strong>
                     </p>
                     <p class="text-gray-700 leading-relaxed">
-                        Één dag vertraging bij de douane kost u meer dan €4.900. Één GPL-3.0 schending kan uw IP blootstellen. Met een jaarabonnement krijgt u <strong>juridische zekerheid</strong> en <strong>continuiteit</strong> die u kunt verantwoorden aan uw CFO.
+                        Één dag vertraging bij de douane kost u meer dan €4.900. Één GPL-3.0 schending kan uw IP
+                        blootstellen. Met een jaarabonnement krijgt u <strong>juridische zekerheid</strong> en
+                        <strong>continuiteit</strong> die u kunt verantwoorden aan uw CFO.
                     </p>
                 </div>
             </div>
@@ -1494,14 +1298,22 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
 
             <div class="grid grid-cols-1 gap-8 lg:grid-cols-2 items-start">
                 <!-- Engineer Lead Magnet -->
-                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl ring-1 ring-white/20 hover:bg-white/15 transition-all">
+                <div
+                    class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl ring-1 ring-white/20 hover:bg-white/15 transition-all">
                     <h3 class="text-white text-2xl font-display font-bold mb-4">Voor de Engineers</h3>
                     <p class="text-indigo-100 leading-relaxed mb-6">
-                        Geen zin in papierwerk? Download onze gratis <span class="font-mono bg-indigo-900/50 px-2 py-1 rounded text-white">meta-leona</span> sample layer en valideer je Yocto recipes direct in de terminal. Automatische CRA-checks tijdens je BitBake build.
+                        Geen zin in papierwerk? Download onze gratis <span
+                            class="font-mono bg-indigo-900/50 px-2 py-1 rounded text-white">meta-leona</span> sample
+                        layer en valideer je Yocto recipes direct in de terminal. Automatische CRA-checks tijdens je
+                        BitBake build.
                     </p>
-                    <form class="flex flex-col sm:flex-row gap-4" hx-post="/api/lead/engineer" hx-target="#engineer-response" hx-swap="innerHTML">
-                        <input type="email" name="email" id="engineer-email" placeholder="uw@email.be" class="flex-auto rounded-xl border-0 bg-white/5 px-4 py-3 text-white placeholder:text-white/60 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-white text-sm" required>
-                        <button type="submit" class="flex-none rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all">
+                    <form class="flex flex-col sm:flex-row gap-4" hx-post="/api/lead/engineer"
+                        hx-target="#engineer-response" hx-swap="innerHTML">
+                        <input type="email" name="email" id="engineer-email" placeholder="uw@email.be"
+                            class="flex-auto rounded-xl border-0 bg-white/5 px-4 py-3 text-white placeholder:text-white/60 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-white text-sm"
+                            required>
+                        <button type="submit"
+                            class="flex-none rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all">
                             Ontvang Layer
                         </button>
                     </form>
@@ -1512,14 +1324,21 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 </div>
 
                 <!-- Lawyer Lead Magnet -->
-                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl ring-1 ring-white/20 hover:bg-white/15 transition-all">
+                <div
+                    class="bg-white/10 backdrop-blur-sm p-8 rounded-3xl ring-1 ring-white/20 hover:bg-white/15 transition-all">
                     <h3 class="text-white text-2xl font-display font-bold mb-4">Voor de Juristen</h3>
                     <p class="text-indigo-100 leading-relaxed mb-6">
-                        Maak je cliënten sneller CRA-ready. Download ons gratis <span class="underline">Annex I Mapping Template</span> en koppel juridische eisen direct aan technische bewijslast. Excel-based, ready voor je advies-dossiers.
+                        Maak je cliënten sneller CRA-ready. Download ons gratis <span class="underline">Annex I Mapping
+                            Template</span> en koppel juridische eisen direct aan technische bewijslast. Excel-based,
+                        ready voor je advies-dossiers.
                     </p>
-                    <form class="flex flex-col sm:flex-row gap-4" hx-post="/api/lead/lawyer" hx-target="#lawyer-response" hx-swap="innerHTML">
-                        <input type="email" name="email" id="lawyer-email" placeholder="uw@kantoor.be" class="flex-auto rounded-xl border-0 bg-white/5 px-4 py-3 text-white placeholder:text-white/60 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-white text-sm" required>
-                        <button type="submit" class="flex-none rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all">
+                    <form class="flex flex-col sm:flex-row gap-4" hx-post="/api/lead/lawyer"
+                        hx-target="#lawyer-response" hx-swap="innerHTML">
+                        <input type="email" name="email" id="lawyer-email" placeholder="uw@kantoor.be"
+                            class="flex-auto rounded-xl border-0 bg-white/5 px-4 py-3 text-white placeholder:text-white/60 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-white text-sm"
+                            required>
+                        <button type="submit"
+                            class="flex-none rounded-xl bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-50 transition-all">
                             Ontvang Template
                         </button>
                     </form>
@@ -1532,7 +1351,8 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
 
             <div class="mt-12 text-center">
                 <p class="text-sm text-indigo-200 italic max-w-2xl mx-auto">
-                    LEONA is gebouwd door embedded engineers voor embedded engineers. We snappen Yocto, BitBake, en de realiteit van productie-builds. Deze tools zijn ons cadeau aan de community.
+                    LEONA is gebouwd door embedded engineers voor embedded engineers. We snappen Yocto, BitBake, en de
+                    realiteit van productie-builds. Deze tools zijn ons cadeau aan de community.
                 </p>
             </div>
         </div>
@@ -1550,13 +1370,16 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                     </p>
                 </hgroup>
                 <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-400">
-                    Upload uw Linux SBOM en ontvang binnen 60 seconden een CRA Gap Analysis. Geen credit card vereist voor de gratis scan.
+                    Upload uw Linux SBOM en ontvang binnen 60 seconden een CRA Gap Analysis. Geen credit card vereist
+                    voor de gratis scan.
                 </p>
                 <div class="mt-8 flex justify-center gap-4">
-                    <a href="#scanner" class="rounded-xl bg-brand-blue-light px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue-light transition-all">
+                    <a href="#scanner"
+                        class="rounded-xl bg-brand-blue-light px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue-light transition-all">
                         Start gratis scan
                     </a>
-                    <a href="#knowledge" class="rounded-xl border border-gray-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition-all">
+                    <a href="#knowledge"
+                        class="rounded-xl border border-gray-600 px-6 py-3.5 text-sm font-semibold text-white hover:bg-gray-800 transition-all">
                         Bekijk kennisbank
                     </a>
                 </div>
@@ -1567,9 +1390,13 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 <div>
                     <div class="flex flex-col">
                         <span class="font-display text-2xl font-bold text-white">LEONA & CRAVIT</span>
-                        <span class="text-xs text-gray-400 mt-1">Technical Paralegal for Embedded Linux Compliance</span>
-                        <p class="text-sm text-gray-400 mt-4">Wij zijn geen advocatenkantoor. Wij zijn uw technische paralegal.</p>
-                        <p class="text-sm text-gray-400 mt-2">Traditionele consultancy duurt weken en kost duizenden euro's. LEONA & CRAVIT genereert uw Technisch Constructiedossier in 60 seconden. Automatisch. Schaalbaar. Direct bruikbaar voor uw CE-markering.</p>
+                        <span class="text-xs text-gray-400 mt-1">Technical Paralegal for Embedded Linux
+                            Compliance</span>
+                        <p class="text-sm text-gray-400 mt-4">Wij zijn geen advocatenkantoor. Wij zijn uw technische
+                            paralegal.</p>
+                        <p class="text-sm text-gray-400 mt-2">Traditionele consultancy duurt weken en kost duizenden
+                            euro's. LEONA & CRAVIT genereert uw Technisch Constructiedossier in 60 seconden.
+                            Automatisch. Schaalbaar. Direct bruikbaar voor uw CE-markering.</p>
                     </div>
                 </div>
                 <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
@@ -1578,16 +1405,23 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                             <h3 class="text-sm/6 font-semibold text-white">Oplossingen</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#scanner" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Linux CRA Scanner</a>
+                                    <a href="#scanner"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Linux CRA
+                                        Scanner</a>
                                 </li>
                                 <li>
-                                    <a href="#knowledge" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Kennisbank</a>
+                                    <a href="#knowledge"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Kennisbank</a>
                                 </li>
                                 <li>
-                                    <a href="#pricing" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Enterprise Bundles</a>
+                                    <a href="#pricing"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Enterprise
+                                        Bundles</a>
                                 </li>
                                 <li>
-                                    <a href="#features" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Platform Expertise</a>
+                                    <a href="#features"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Platform
+                                        Expertise</a>
                                 </li>
                             </ul>
                         </div>
@@ -1595,13 +1429,17 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                             <h3 class="text-sm/6 font-semibold text-white">Support</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="mailto:support@craleona.be" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Email Support</a>
+                                    <a href="mailto:support@craleona.be"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Email
+                                        Support</a>
                                 </li>
                                 <li>
-                                    <a href="#knowledge" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Documentatie</a>
+                                    <a href="#knowledge"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Documentatie</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white transition-colors">CRA Guides</a>
+                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white transition-colors">CRA
+                                        Guides</a>
                                 </li>
                             </ul>
                         </div>
@@ -1611,13 +1449,17 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                             <h3 class="text-sm/6 font-semibold text-white">Bedrijf</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#insights" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Over Ons</a>
+                                    <a href="#insights"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Over Ons</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+                                    <a href="#"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">LinkedIn</a>
                                 </li>
                                 <li>
-                                    <a href="mailto:enterprise@craleona.be" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Enterprise Sales</a>
+                                    <a href="mailto:enterprise@craleona.be"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Enterprise
+                                        Sales</a>
                                 </li>
                             </ul>
                         </div>
@@ -1625,13 +1467,19 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                             <h3 class="text-sm/6 font-semibold text-white">Juridisch</h3>
                             <ul role="list" class="mt-6 space-y-4">
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Algemene Voorwaarden</a>
+                                    <a href="#"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Algemene
+                                        Voorwaarden</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                                    <a href="#"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Privacy
+                                        Policy</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="text-sm/6 text-gray-400 hover:text-white transition-colors">Cookie Policy</a>
+                                    <a href="#"
+                                        class="text-sm/6 text-gray-400 hover:text-white transition-colors">Cookie
+                                        Policy</a>
                                 </li>
                             </ul>
                         </div>
@@ -1645,38 +1493,46 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                     <a href="#" class="text-gray-400 hover:text-white transition-colors">
                         <span class="sr-only">LinkedIn</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                         </svg>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-white transition-colors">
                         <span class="sr-only">GitHub</span>
                         <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
                         </svg>
                     </a>
                     <a href="mailto:enterprise@craleona.be" class="text-gray-400 hover:text-white transition-colors">
                         <span class="sr-only">Email</span>
                         <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </a>
                 </div>
-                <p class="mt-8 text-sm/6 text-gray-400 md:order-1 md:mt-0">&copy; 2026 LEONA & CRAVIT. Alle rechten voorbehouden. | craleona.be</p>
+                <p class="mt-8 text-sm/6 text-gray-400 md:order-1 md:mt-0">&copy; 2026 LEONA & CRAVIT. Alle rechten
+                    voorbehouden. | craleona.be</p>
             </div>
         </div>
     </footer>
 
     <!-- Risk Assessment Modal -->
-    <dialog id="risk-assessment-modal" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-2xl w-full p-0 border-0">
+    <dialog id="risk-assessment-modal"
+        class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-2xl w-full p-0 border-0">
         <div class="bg-gradient-to-br from-blue-950 to-blue-900 p-8 rounded-t-2xl">
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-2xl font-bold text-white">⚖️ CRA Compliance Self-Assessment</h2>
                     <p class="text-gray-300 mt-2">21 technische vragen - ontdek uw compliance gaps in 3 minuten</p>
                 </div>
-                <button type="button" onclick="document.getElementById('risk-assessment-modal').close()" class="text-gray-400 hover:text-white">
+                <button type="button" onclick="document.getElementById('risk-assessment-modal').close()"
+                    class="text-gray-400 hover:text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -1726,7 +1582,7 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 <input type="hidden" name="has_vuln_process">
                 <input type="hidden" name="products_in_eu">
                 <input type="hidden" name="kernel_eol">
-                
+
                 <!-- Question container - fully controlled by risk-wizard.js -->
                 <div id="current-question" class="min-h-[400px]">
                     <!-- JavaScript wizard renders here -->
@@ -1736,16 +1592,19 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
     </dialog>
 
     <!-- Sample Report Modal -->
-    <dialog id="sample-report-modal" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-lg w-full p-0 border-0">
+    <dialog id="sample-report-modal"
+        class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-lg w-full p-0 border-0">
         <div class="bg-gradient-to-br from-blue-950 to-blue-900 p-8 rounded-t-2xl">
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-2xl font-bold text-white">📄 Voorbeeldrapport TCF</h2>
                     <p class="text-gray-300 mt-2">Download de gouden standaard</p>
                 </div>
-                <button type="button" onclick="document.getElementById('sample-report-modal').close()" class="text-gray-400 hover:text-white">
+                <button type="button" onclick="document.getElementById('sample-report-modal').close()"
+                    class="text-gray-400 hover:text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -1775,40 +1634,47 @@ dpkg-query -W -f='${Package},${Version},${Source}\n' > packages.csv</code></pre>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-900 mb-2">Zakelijk e-mailadres *</label>
-                        <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="engineer@uwbedrijf.be">
+                        <input type="email" name="email" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                            placeholder="engineer@uwbedrijf.be">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsnaam</label>
-                        <input type="text" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="Industrial IoT NV">
+                        <input type="text" name="company_name"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                            placeholder="Industrial IoT NV">
                     </div>
                 </div>
                 <div id="sample-report-result" class="mt-4"></div>
-                <button type="submit" class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
+                <button type="submit"
+                    class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
                     Download 42-Pagina TCF
                 </button>
-                <p class="text-xs text-gray-500 mt-3 text-center">Het voorbeeldrapport wordt direct naar uw inbox gestuurd</p>
+                <p class="text-xs text-gray-500 mt-3 text-center">Het voorbeeldrapport wordt direct naar uw inbox
+                    gestuurd</p>
             </form>
         </div>
     </dialog>
 
     <!-- Risk Wizard Script -->
     <script src="/static/js/risk-wizard.js"></script>
-    
+
     <script>
-    // Open Risk Assessment Modal from "Beoordeel positie" buttons
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('a[href="#assessor"]').forEach(function(link) {
-            const text = link.textContent.trim();
-            if (text === 'Beoordeel positie') {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.getElementById('risk-assessment-modal').showModal();
-                    // Initialize wizard on open
-                    setTimeout(() => initRiskWizard(), 100);
-                });
-            }
+        // Open Risk Assessment Modal from "Beoordeel positie" buttons
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href="#assessor"]').forEach(function (link) {
+                const text = link.textContent.trim();
+                if (text === 'Beoordeel positie') {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        document.getElementById('risk-assessment-modal').showModal();
+                        // Initialize wizard on open
+                        setTimeout(() => initRiskWizard(), 100);
+                    });
+                }
+            });
         });
-    });
     </script>
 </body>
+
 </html>

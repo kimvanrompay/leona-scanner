@@ -1,0 +1,350 @@
+package components
+
+templ PricingComparison() {
+    <div class="bg-gray-900">
+        <main>
+            <!-- Pricing section -->
+            <form class="group/tiers isolate overflow-hidden">
+                <div class="flow-root border-b border-b-white/5 bg-gray-800/25 pb-16 pt-24 sm:pt-32 lg:pb-0">
+                    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                        <div class="relative z-10">
+                            <h2 class="mx-auto max-w-4xl text-balance text-center text-5xl font-semibold tracking-tight text-white sm:text-6xl">Pricing that grows with you</h2>
+                            <p class="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg font-medium text-gray-400 sm:text-xl/8">Choose an affordable plan that’s packed with the best features for engaging your audience, creating customer loyalty, and driving sales.</p>
+                            <div class="mt-16 flex justify-center">
+                                <fieldset aria-label="Payment frequency">
+                                    <div class="grid grid-cols-2 gap-x-1 rounded-full bg-white/5 p-1 text-center text-xs/5 font-semibold text-white">
+                                        <label class="group relative rounded-full px-2.5 py-1 has-[:checked]:bg-indigo-500">
+                                            <input type="radio" name="frequency" value="monthly" checked class="absolute inset-0 appearance-none rounded-full"/>
+                                            <span class="text-white">Monthly</span>
+                                        </label>
+                                        <label class="group relative rounded-full px-2.5 py-1 has-[:checked]:bg-indigo-500">
+                                            <input type="radio" name="frequency" value="annually" class="absolute inset-0 appearance-none rounded-full"/>
+                                            <span class="text-white">Annually</span>
+                                        </label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="relative mx-auto mt-10 grid max-w-md grid-cols-1 gap-y-8 lg:mx-0 lg:-mb-14 lg:max-w-none lg:grid-cols-3">
+                            <svg viewBox="0 0 1208 1024" aria-hidden="true" class="absolute -bottom-48 left-1/2 h-[64rem] -translate-x-1/2 translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] lg:-top-48 lg:bottom-auto lg:translate-y-0">
+                                <ellipse cx="604" cy="512" rx="604" ry="512" fill="url(#d25c25d4-6d43-4bf9-b9ac-1842a30a4867)"></ellipse>
+                                <defs>
+                                    <radialGradient id="d25c25d4-6d43-4bf9-b9ac-1842a30a4867">
+                                        <stop stop-color="#7775D6"></stop>
+                                        <stop offset="1" stop-color="#E935C1"></stop>
+                                    </radialGradient>
+                                </defs>
+                            </svg>
+                            <div aria-hidden="true" class="hidden lg:absolute lg:inset-x-px lg:bottom-0 lg:top-4 lg:block lg:rounded-t-2xl lg:bg-gray-800/80 lg:ring-1 lg:ring-white/10"></div>
+                            <div class="group/tier relative rounded-2xl bg-gray-800/80 outline outline-1 -outline-offset-1 outline-white/10 lg:bg-transparent lg:pb-14 lg:outline-0">
+                                <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+                                    <h3 id="tier-starter" class="text-sm/6 font-semibold text-white">Starter</h3>
+                                    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                                        <div class="mt-2 flex items-center gap-x-4">
+                                            <p class="text-4xl font-semibold tracking-tight text-white group-[:not(:has([name=frequency][value=monthly]:checked))]/tiers:hidden">$19</p>
+                                            <p class="text-4xl font-semibold tracking-tight text-white group-[:not(:has([name=frequency][value=annually]:checked))]/tiers:hidden">$199</p>
+                                            <div class="text-sm">
+                                                <p class="text-white">USD</p>
+                                                <p class="text-gray-400 group-[:not(:has([name=frequency][value=monthly]:checked))]/tiers:hidden">Billed monthly</p>
+                                                <p class="text-gray-400 group-[:not(:has([name=frequency][value=annually]:checked))]/tiers:hidden">Billed annually</p>
+                                            </div>
+                                        </div>
+                                        <button type="submit" name="tier" value="starter" aria-describedby="tier-starter" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 group-data-[featured]/tier:bg-indigo-500 group-data-[featured]/tier:hover:bg-indigo-400 group-data-[featured]/tier:focus-visible:outline-indigo-500 [&:not(.group[data-featured]_*)]:ring-1 [&:not(.group[data-featured]_*)]:ring-inset [&:not(.group[data-featured]_*)]:ring-white/5">Buy this plan</button>
+                                    </div>
+                                    <div class="mt-8 flow-root sm:mt-10">
+                                        <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white group-data-[featured]/tier:divide-white/10 group-data-[featured]/tier:border-white/10 lg:border-t-0">
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Custom domains
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Edge content delivery
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Advanced analytics
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-featured="true" class="group/tier relative z-10 rounded-2xl bg-gray-800 outline outline-1 -outline-offset-1 outline-white/10">
+                                <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+                                    <h3 id="tier-scale" class="text-sm/6 font-semibold text-white">Scale</h3>
+                                    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                                        <div class="mt-2 flex items-center gap-x-4">
+                                            <p class="text-4xl font-semibold tracking-tight text-white group-[:not(:has([name=frequency][value=monthly]:checked))]/tiers:hidden">$99</p>
+                                            <p class="text-4xl font-semibold tracking-tight text-white group-[:not(:has([name=frequency][value=annually]:checked))]/tiers:hidden">$999</p>
+                                            <div class="text-sm">
+                                                <p class="text-white">USD</p>
+                                                <p class="text-gray-400 group-[:not(:has([name=frequency][value=monthly]:checked))]/tiers:hidden">Billed monthly</p>
+                                                <p class="text-gray-400 group-[:not(:has([name=frequency][value=annually]:checked))]/tiers:hidden">Billed annually</p>
+                                            </div>
+                                        </div>
+                                        <button type="submit" name="tier" value="scale" aria-describedby="tier-scale" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 group-data-[featured]/tier:bg-indigo-500 group-data-[featured]/tier:hover:bg-indigo-400 group-data-[featured]/tier:focus-visible:outline-indigo-500 [&:not(.group[data-featured]_*)]:ring-1 [&:not(.group[data-featured]_*)]:ring-inset [&:not(.group[data-featured]_*)]:ring-white/5">Buy this plan</button>
+                                    </div>
+                                    <div class="mt-8 flow-root sm:mt-10">
+                                        <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white group-data-[featured]/tier:divide-white/10 group-data-[featured]/tier:border-white/10 lg:border-t-0">
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Custom domains
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Edge content delivery
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Advanced analytics
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Quarterly workshops
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Single sign-on (SSO)
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Priority phone support
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group/tier relative rounded-2xl bg-gray-800/80 outline outline-1 -outline-offset-1 outline-white/10 lg:bg-transparent lg:pb-14 lg:outline-0">
+                                <div class="p-8 lg:pt-12 xl:p-10 xl:pt-14">
+                                    <h3 id="tier-growth" class="text-sm/6 font-semibold text-white">Growth</h3>
+                                    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-stretch">
+                                        <div class="mt-2 flex items-center gap-x-4">
+                                            <p class="text-4xl font-semibold tracking-tight text-white group-[:not(:has([name=frequency][value=monthly]:checked))]/tiers:hidden">$49</p>
+                                            <p class="text-4xl font-semibold tracking-tight text-white group-[:not(:has([name=frequency][value=annually]:checked))]/tiers:hidden">$499</p>
+                                            <div class="text-sm">
+                                                <p class="text-white">USD</p>
+                                                <p class="text-gray-400 group-[:not(:has([name=frequency][value=monthly]:checked))]/tiers:hidden">Billed monthly</p>
+                                                <p class="text-gray-400 group-[:not(:has([name=frequency][value=annually]:checked))]/tiers:hidden">Billed annually</p>
+                                            </div>
+                                        </div>
+                                        <button type="submit" name="tier" value="growth" aria-describedby="tier-growth" class="w-full rounded-md bg-white/10 px-3 py-2 text-center text-sm/6 font-semibold text-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/75 group-data-[featured]/tier:bg-indigo-500 group-data-[featured]/tier:hover:bg-indigo-400 group-data-[featured]/tier:focus-visible:outline-indigo-500 [&:not(.group[data-featured]_*)]:ring-1 [&:not(.group[data-featured]_*)]:ring-inset [&:not(.group[data-featured]_*)]:ring-white/5">Buy this plan</button>
+                                    </div>
+                                    <div class="mt-8 flow-root sm:mt-10">
+                                        <ul role="list" class="-my-2 divide-y divide-white/5 border-t border-white/5 text-sm/6 text-white group-data-[featured]/tier:divide-white/10 group-data-[featured]/tier:border-white/10 lg:border-t-0">
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Custom domains
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Edge content delivery
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Advanced analytics
+                                            </li>
+                                            <li class="flex gap-x-3 py-2">
+                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 flex-none text-gray-500 group-data-[featured]/tier:text-indigo-400">
+                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                </svg>
+                                                Quarterly workshops
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative bg-gray-900 lg:pt-14">
+                    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+                        <!-- Feature comparison (up to lg) -->
+                        <section aria-labelledby="mobile-comparison-heading" class="lg:hidden">
+                            <h2 id="mobile-comparison-heading" class="sr-only">Feature comparison</h2>
+                            <div class="mx-auto max-w-2xl space-y-16">
+                                <div class="border-t border-white/10">
+                                    <div class="-mt-px w-72 border-t-2 border-transparent pt-10 md:w-80">
+                                        <h3 class="text-sm/6 font-semibold text-white">Starter</h3>
+                                        <p class="mt-1 text-sm/6 text-gray-400">Everything you need to get started.</p>
+                                    </div>
+                                    <div class="mt-10 space-y-10">
+                                        <div>
+                                            <h4 class="text-sm/6 font-semibold text-white">Features</h4>
+                                            <div class="relative mt-6">
+                                                <!-- Fake card background -->
+                                                <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-1/2 rounded-lg bg-gray-800/50 sm:block"></div>
+                                                <div class="relative rounded-lg bg-gray-800/50 ring-1 ring-white/10 sm:rounded-none sm:bg-transparent sm:ring-0">
+                                                    <dl class="divide-y divide-white/10 text-sm/6">
+                                                        <div class="flex items-center justify-between px-4 py-3 sm:grid sm:grid-cols-2 sm:px-0">
+                                                            <dt class="pr-4 text-gray-400">Edge content delivery</dt>
+                                                            <dd class="flex items-center justify-end sm:justify-center sm:px-4">
+                                                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-5 text-indigo-400">
+                                                                    <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                                </svg>
+                                                                <span class="sr-only">Yes</span>
+                                                            </dd>
+                                                        </div>
+                                                        <!-- More rows... -->
+                                                    </dl>
+                                                </div>
+                                                <!-- Fake card border -->
+                                                <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 rounded-lg ring-1 ring-white/10 sm:block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Feature comparison (lg+) -->
+                        <section aria-labelledby="comparison-heading" class="hidden lg:block">
+                            <h2 id="comparison-heading" class="sr-only">Feature comparison</h2>
+                            <div class="grid grid-cols-4 gap-x-8 border-t border-white/10 before:block">
+                                <div aria-hidden="true" class="-mt-px">
+                                    <div class="border-t-2 border-transparent pt-10">
+                                        <p class="text-sm/6 font-semibold text-white">Starter</p>
+                                        <p class="mt-1 text-sm/6 text-gray-400">Everything you need to get started.</p>
+                                    </div>
+                                </div>
+                                <div aria-hidden="true" class="-mt-px">
+                                    <div class="border-t-2 border-indigo-500 pt-10">
+                                        <p class="text-sm/6 font-semibold text-indigo-400">Scale</p>
+                                        <p class="mt-1 text-sm/6 text-gray-400">Added flexibility at scale.</p>
+                                    </div>
+                                </div>
+                                <div aria-hidden="true" class="-mt-px">
+                                    <div class="border-t-2 border-transparent pt-10">
+                                        <p class="text-sm/6 font-semibold text-white">Growth</p>
+                                        <p class="mt-1 text-sm/6 text-gray-400">All the extras for your growing team.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="-mt-6 space-y-16">
+                                <div>
+                                    <h3 class="text-sm/6 font-semibold text-white">Features</h3>
+                                    <div class="relative -mx-8 mt-10">
+                                        <!-- Fake card backgrounds -->
+                                        <div aria-hidden="true" class="absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block">
+                                            <div class="size-full rounded-lg bg-gray-800/50"></div>
+                                            <div class="size-full rounded-lg bg-gray-800/50"></div>
+                                            <div class="size-full rounded-lg bg-gray-800/50"></div>
+                                        </div>
+                                        <table class="relative w-full border-separate border-spacing-x-8">
+                                            <thead>
+                                                <tr class="text-left">
+                                                    <th scope="col">
+                                                        <span class="sr-only">Feature</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-white">
+                                                        Edge content delivery
+                                                        <div class="absolute inset-x-8 mt-3 h-px bg-white/10"></div>
+                                                    </th>
+                                                    <td class="relative w-1/4 px-4 py-0 text-center">
+                                                        <span class="relative size-full py-3">
+                                                            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-5 text-indigo-400">
+                                                                <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                            </svg>
+                                                            <span class="sr-only">Yes</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="relative w-1/4 px-4 py-0 text-center">
+                                                        <span class="relative size-full py-3">
+                                                            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-5 text-indigo-400">
+                                                                <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                            </svg>
+                                                            <span class="sr-only">Yes</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="relative w-1/4 px-4 py-0 text-center">
+                                                        <span class="relative size-full py-3">
+                                                            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-5 text-indigo-400">
+                                                                <path d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                                                            </svg>
+                                                            <span class="sr-only">Yes</span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm/6 font-normal text-white">
+                                                        Custom domains
+                                                        <div class="absolute inset-x-8 mt-3 h-px bg-white/10"></div>
+                                                    </th>
+                                                    <td class="relative w-1/4 px-4 py-0 text-center">
+                                                        <span class="relative size-full py-3">
+                                                            <span class="text-sm/6 text-white">1</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="relative w-1/4 px-4 py-0 text-center">
+                                                        <span class="relative size-full py-3">
+                                                            <span class="text-sm/6 font-semibold text-indigo-400">Unlimited</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="relative w-1/4 px-4 py-0 text-center">
+                                                        <span class="relative size-full py-3">
+                                                            <span class="text-sm/6 text-white">3</span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- Fake card borders -->
+                                        <div aria-hidden="true" class="pointer-events-none absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block">
+                                            <div class="rounded-lg ring-1 ring-white/10"></div>
+                                            <div class="rounded-lg ring-2 ring-indigo-500"></div>
+                                            <div class="rounded-lg ring-1 ring-white/10"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </form>
+            <!-- FAQ section -->
+            <div class="mx-auto mt-24 max-w-7xl px-6 sm:mt-56 lg:px-8">
+                <h2 class="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Frequently asked questions</h2>
+                <dl class="mt-20 divide-y divide-white/10">
+                    <div class="py-8 first:pt-0 last:pb-0 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-base/7 font-semibold text-white lg:col-span-5">What&#039;s the best thing about Switzerland?</dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <p class="text-base/7 text-gray-400">I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.</p>
+                        </dd>
+                    </div>
+                    <div class="py-8 first:pt-0 last:pb-0 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-base/7 font-semibold text-white lg:col-span-5">How do you make holy water?</dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <p class="text-base/7 text-gray-400">You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore fuga aliquam nostrum quod porro. Delectus quia facere id sequi expedita natus.</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </main>
+    </div>
+}

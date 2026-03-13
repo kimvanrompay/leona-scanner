@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -8,10 +10,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
+	"leona-scanner/internal/components"
 	"leona-scanner/internal/scanner"
 	"leona-scanner/internal/usecase"
+
+	"github.com/a-h/templ"
 
 	"github.com/stripe/stripe-go/v74"
 	"github.com/stripe/stripe-go/v74/checkout/session"
@@ -54,20 +60,66 @@ func NewHTTPHandlerV2(scannerService *usecase.ScannerService, pdfService *usecas
 
 // HandleIndex serves the landing page
 func (h *HTTPHandlerV2) HandleIndex(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/index.html")
+	// Recursively find all .html files in templates directory
+	var files []string
+	err := filepath.Walk("templates", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && strings.HasSuffix(path, ".html") {
+			files = append(files, path)
+		}
+		return nil
+	})
+
+	if err != nil {
+		http.Error(w, "Template scan error", http.StatusInternalServerError)
+		log.Printf("Template walk error: %v", err)
+		return
+	}
+
+	// Create template with helper functions
+	funcMap := template.FuncMap{
+		"sub": func(a, b int) int { return a - b },
+		"add": func(a, b int) int { return a + b },
+	}
+
+	tmpl, err := template.New("index.html").Funcs(funcMap).ParseFiles(files...)
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
 		log.Printf("Template parse error: %v", err)
 		return
 	}
 
-	if err := tmpl.Execute(w, nil); err != nil {
+	// Helper to render templ components to HTML string
+	renderToString := func(c templ.Component) template.HTML {
+		var buf bytes.Buffer
+		c.Render(context.Background(), &buf)
+		return template.HTML(buf.String())
+	}
+
+	// Prepare data for the template
+	data := map[string]interface{}{
+		"TrustedTeamsHTML":              renderToString(components.TrustedTeams(components.DefaultTrustedTeamsProps())),
+		"KnowledgeHTML":                 renderToString(components.KnowledgeSection()),
+		"FeatureWorkflowHTML":           renderToString(components.FeatureWorkflow()),
+		"FeatureScreenshotHTML":         renderToString(components.FeatureScreenshot()),
+		"FeatureBorderedScreenshotHTML": renderToString(components.FeatureBorderedScreenshot()),
+		"FeatureThreeColHTML":           renderToString(components.FeatureThreeCol()),
+		"FeatureTestimonialHTML":        renderToString(components.FeatureTestimonial()),
+		"PricingThreeTiersHTML":         renderToString(components.PricingThreeTiers()),
+		"PricingComparisonHTML":         renderToString(components.PricingComparison()),
+		"FooterFourColumnHTML":          renderToString(components.FooterFourColumn()),
+		"Page404BackgroundHTML":         renderToString(components.Page404Background()),
+	}
+
+	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
 		log.Printf("Template execute error: %v", err)
 	}
 }
 
-// HandleDemo serves the demo request page
+// HandleDemo
 func (h *HTTPHandlerV2) HandleDemo(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/demo.html")
 	if err != nil {
