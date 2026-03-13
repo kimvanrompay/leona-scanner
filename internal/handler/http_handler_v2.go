@@ -54,14 +54,28 @@ func NewHTTPHandlerV2(scannerService *usecase.ScannerService, pdfService *usecas
 
 // HandleIndex serves the landing page
 func (h *HTTPHandlerV2) HandleIndex(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/index.html")
+	tmpl, err := template.ParseFiles(
+		"templates/layouts/base.html",
+		"templates/components/navbar.html",
+		"templates/components/footer.html",
+		"templates/sections/hero.html",
+		"templates/sections/frameworks.html",
+		"templates/sections/bento.html",
+		"templates/sections/insights.html",
+		"templates/sections/scanner.html",
+		"templates/sections/knowledge.html",
+		"templates/sections/partners.html",
+		"templates/sections/about.html",
+		"templates/partials/lead-modals.html",
+		"templates/index.html",
+	)
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
 		log.Printf("Template parse error: %v", err)
 		return
 	}
 
-	if err := tmpl.Execute(w, nil); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "index", nil); err != nil {
 		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
 		log.Printf("Template execute error: %v", err)
 	}
