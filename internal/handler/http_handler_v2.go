@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -13,11 +11,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"leona-scanner/internal/components"
+	"leona-scanner/internal/i18n"
 	"leona-scanner/internal/scanner"
 	"leona-scanner/internal/usecase"
-
-	"github.com/a-h/templ"
 
 	"github.com/stripe/stripe-go/v74"
 	"github.com/stripe/stripe-go/v74/checkout/session"
@@ -49,12 +45,96 @@ type Stats struct {
 type HTTPHandlerV2 struct {
 	scannerService *usecase.ScannerService
 	pdfService     *usecase.PDFService
+	i18nManager    *i18n.I18n
 }
 
-func NewHTTPHandlerV2(scannerService *usecase.ScannerService, pdfService *usecase.PDFService) *HTTPHandlerV2 {
+// getTemplateFuncs returns the standard template function map
+func getTemplateFuncs() template.FuncMap {
+	return template.FuncMap{
+		"sub": func(a, b int) int { return a - b },
+		"add": func(a, b int) int { return a + b },
+		"dict": func(values ...interface{}) (map[string]interface{}, error) {
+			if len(values)%2 != 0 {
+				return nil, fmt.Errorf("invalid dict call")
+			}
+			dict := make(map[string]interface{}, len(values)/2)
+			for i := 0; i < len(values); i += 2 {
+				key, ok := values[i].(string)
+				if !ok {
+					return nil, fmt.Errorf("dict keys must be strings")
+				}
+				dict[key] = values[i+1]
+			}
+			return dict, nil
+		},
+	}
+}
+
+// HandlePage serves any page from templates/pages/ using the base layout
+// URL /about → templates/pages/about.html
+func (h *HTTPHandlerV2) HandlePage(pageName string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Create template set with FuncMap before parsing
+		tmpl := template.New("").Funcs(getTemplateFuncs())
+		tmpl, err := tmpl.ParseFiles(
+			"templates/layouts/base.html",
+			"templates/components/navbar.html",
+			"templates/components/footer.html",
+			"templates/components/hero.html",
+			"templates/components/example-report.html",
+			"templates/components/faq.html",
+			"templates/partials/logo.html",
+			"templates/partials/nav_links.html",
+			"templates/partials/demo-button.html",
+			fmt.Sprintf("templates/pages/%s.html", pageName),
+		)
+		if err != nil {
+			http.Error(w, "Template fout", http.StatusInternalServerError)
+			log.Printf("Template parse error for page '%s': %v", pageName, err)
+			return
+		}
+
+		// Determine language from request
+		lang := "nl" // default
+		if h.i18nManager != nil {
+			lang = h.i18nManager.GetLanguageFromRequest(
+				r.Header.Get("Accept-Language"),
+				r.URL.Query().Get("lang"),
+			)
+		}
+
+		// Use shared data with navbar and i18n
+		data := NewSharedData(pageName)
+		if h.i18nManager != nil {
+			data["T"] = h.i18nManager.GetAll(lang)
+			data["Lang"] = lang
+
+			// Get navigation translations and render navbar with them
+			if navData := h.i18nManager.Get(lang, "navigation"); navData != nil {
+				if navMap, ok := navData.(map[string]interface{}); ok {
+					// Templ navbar removed
+					_ = navMap
+				}
+			}
+		}
+
+		// Check for success message (for contact form)
+		if r.URL.Query().Get("success") == "true" {
+			data["SuccessMessage"] = true
+		}
+
+		if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
+			http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+			log.Printf("Template execute error for page '%s': %v", pageName, err)
+		}
+	}
+}
+
+func NewHTTPHandlerV2(scannerService *usecase.ScannerService, pdfService *usecase.PDFService, i18nManager *i18n.I18n) *HTTPHandlerV2 {
 	return &HTTPHandlerV2{
 		scannerService: scannerService,
 		pdfService:     pdfService,
+		i18nManager:    i18nManager,
 	}
 }
 
@@ -79,39 +159,15 @@ func (h *HTTPHandlerV2) HandleIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create template with helper functions
-	funcMap := template.FuncMap{
-		"sub": func(a, b int) int { return a - b },
-		"add": func(a, b int) int { return a + b },
-	}
-
-	tmpl, err := template.New("index.html").Funcs(funcMap).ParseFiles(files...)
+	tmpl, err := template.New("index.html").Funcs(getTemplateFuncs()).ParseFiles(files...)
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
 		log.Printf("Template parse error: %v", err)
 		return
 	}
 
-	// Helper to render templ components to HTML string
-	renderToString := func(c templ.Component) template.HTML {
-		var buf bytes.Buffer
-		c.Render(context.Background(), &buf)
-		return template.HTML(buf.String())
-	}
-
-	// Prepare data for the template
-	data := map[string]interface{}{
-		"TrustedTeamsHTML":              renderToString(components.TrustedTeams(components.DefaultTrustedTeamsProps())),
-		"KnowledgeHTML":                 renderToString(components.KnowledgeSection()),
-		"FeatureWorkflowHTML":           renderToString(components.FeatureWorkflow()),
-		"FeatureScreenshotHTML":         renderToString(components.FeatureScreenshot()),
-		"FeatureBorderedScreenshotHTML": renderToString(components.FeatureBorderedScreenshot()),
-		"FeatureThreeColHTML":           renderToString(components.FeatureThreeCol()),
-		"FeatureTestimonialHTML":        renderToString(components.FeatureTestimonial()),
-		"PricingThreeTiersHTML":         renderToString(components.PricingThreeTiers()),
-		"PricingComparisonHTML":         renderToString(components.PricingComparison()),
-		"FooterFourColumnHTML":          renderToString(components.FooterFourColumn()),
-		"Page404BackgroundHTML":         renderToString(components.Page404Background()),
-	}
+	// Prepare data for the template (includes dark navbar)
+	data := map[string]interface{}{}
 
 	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
@@ -119,7 +175,7 @@ func (h *HTTPHandlerV2) HandleIndex(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// HandleDemo
+// HandleDemo serves the standalone demo page (no navbar/footer)
 func (h *HTTPHandlerV2) HandleDemo(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/demo.html")
 	if err != nil {
@@ -134,16 +190,44 @@ func (h *HTTPHandlerV2) HandleDemo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// HandleServices serves the enterprise services page
-func (h *HTTPHandlerV2) HandleServices(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/services.html")
+// HandleCRAAssessment serves the standalone CRA assessment wizard (no navbar/footer)
+func (h *HTTPHandlerV2) HandleCRAAssessment(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/cra-assessment.html")
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
 		log.Printf("Template parse error: %v", err)
 		return
 	}
 
+	// Standalone wizard page - no base layout
 	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
+// HandleServices serves the enterprise services page
+func (h *HTTPHandlerV2) HandleServices(w http.ResponseWriter, r *http.Request) {
+	// Create template set with FuncMap before parsing
+	tmpl := template.New("").Funcs(getTemplateFuncs())
+	tmpl, err := tmpl.ParseFiles(
+		"templates/layouts/base.html",
+		"templates/components/navbar.html",
+		"templates/components/footer.html",
+		"templates/partials/logo.html",
+		"templates/partials/nav_links.html",
+		"templates/pages/services.html",
+	)
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	// Use shared data with navbar
+	data := NewSharedData("diensten")
+
+	if err := tmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
 		log.Printf("Template execute error: %v", err)
 	}
@@ -151,10 +235,14 @@ func (h *HTTPHandlerV2) HandleServices(w http.ResponseWriter, r *http.Request) {
 
 // HandleProducts serves the products page
 func (h *HTTPHandlerV2) HandleProducts(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles(
+	// Create template set with FuncMap before parsing
+	tmpl := template.New("").Funcs(getTemplateFuncs())
+	tmpl, err := tmpl.ParseFiles(
 		"templates/layouts/base.html",
 		"templates/components/navbar.html",
 		"templates/components/footer.html",
+		"templates/partials/logo.html",
+		"templates/partials/nav_links.html",
 		"templates/components/cta-demo.html",
 		"templates/components/feature-grid.html",
 		"templates/pages/products-simple.html",
@@ -209,6 +297,7 @@ func (h *HTTPHandlerV2) HandleProducts(w http.ResponseWriter, r *http.Request) {
 
 // HandleSnapshot serves the SNAPSHOT product page
 func (h *HTTPHandlerV2) HandleSnapshot(w http.ResponseWriter, r *http.Request) {
+	// TODO: Convert to base layout - create templates/pages/snapshot.html
 	tmpl, err := template.ParseFiles("templates/snapshot.html")
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
@@ -224,6 +313,7 @@ func (h *HTTPHandlerV2) HandleSnapshot(w http.ResponseWriter, r *http.Request) {
 
 // HandleTCFBundle serves the TCF Bundle product page
 func (h *HTTPHandlerV2) HandleTCFBundle(w http.ResponseWriter, r *http.Request) {
+	// TODO: Convert to base layout - create templates/pages/tcf-bundle.html
 	tmpl, err := template.ParseFiles("templates/tcf-bundle.html")
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
@@ -239,6 +329,7 @@ func (h *HTTPHandlerV2) HandleTCFBundle(w http.ResponseWriter, r *http.Request) 
 
 // HandleInsights serves the blog/insights index page
 func (h *HTTPHandlerV2) HandleInsights(w http.ResponseWriter, r *http.Request) {
+	// TODO: Convert to base layout - create templates/pages/insights.html
 	tmpl, err := template.ParseFiles("templates/insights.html")
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)
@@ -254,6 +345,7 @@ func (h *HTTPHandlerV2) HandleInsights(w http.ResponseWriter, r *http.Request) {
 
 // HandleKennisbank serves the knowledge base index page
 func (h *HTTPHandlerV2) HandleKennisbank(w http.ResponseWriter, r *http.Request) {
+	// TODO: Convert to base layout - create templates/pages/kennisbank.html
 	tmpl, err := template.ParseFiles("templates/kennisbank.html")
 	if err != nil {
 		http.Error(w, "Template fout", http.StatusInternalServerError)

@@ -1,0 +1,56 @@
+{
+  "heading": "CRA is here. Ready or not.",
+  "intro": "The EU Cyber Resilience Act is now in effect, with mandatory reporting starting September 11, 2026. Whether you sell to European customers or not, CRA compliance is becoming a baseline expectation for B2B software.",
+  "timeline": {
+    "heading": "IN 6 MONTHS: MANDATORY SBOM REPORTING",
+    "milestones": [
+      {
+        "date": "Dec 10, 2024",
+        "label": "CRA entered into force"
+      },
+      {
+        "date": "Sept 11, 2026",
+        "label": "Reporting obligation starts"
+      },
+      {
+        "date": "Dec 11, 2027",
+        "label": "Full compliance obligation"
+      }
+    ]
+  },
+  "sections": {
+    "regulatory": {
+      "title": "Regulatory Framework",
+      "subtitle": "CRA defines new obligations",
+      "action": "Assess position",
+      "items": [
+        "Regulation (EU) 2024/2847 in effect",
+        "Art. 13: Technical construction file required",
+        "Art. 14: SBOM documentation and traceability",
+        "Annex I: Essential cybersecurity requirements"
+      ]
+    },
+    "technical": {
+      "title": "Technical Validation",
+      "subtitle": "Automated compliance assessment",
+      "action": "Validate SBOM",
+      "items": [
+        "SBOM analysis against Annex I security requirements",
+        "Technical construction file (Art. 13)",
+        "Notified Body ready documentation",
+        "CVE tracking and vulnerability management",
+        "License compliance verification",
+        "Secure boot configuration audit",
+        "Support lifecycle validation (5 years)"
+      ]
+    },
+    "implementation": {
+      "title": "Implementation Roadmap",
+      "subtitle": "Phasing and deadlines",
+      "action": "Download example",
+      "items": [
+        "Transition period until full application"
+      ]
+    }
+  }
+}

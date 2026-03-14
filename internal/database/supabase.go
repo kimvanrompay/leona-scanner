@@ -94,6 +94,32 @@ type AnalysisResult struct {
 	CreatedAt              time.Time `json:"created_at"`
 }
 
+// ContactSubmission represents a contact form submission
+type ContactSubmission struct {
+	ID        uuid.UUID `json:"id"`
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"last_name"`
+	Email     string    `json:"email"`
+	Company   string    `json:"company"`
+	Message   string    `json:"message"`
+	Solution  string    `json:"solution"` // snapshot, shield, pipeline
+	Status    string    `json:"status"`   // new, contacted, converted
+	CreatedAt time.Time `json:"created_at"`
+}
+
+// DemoSubmission represents a demo request form submission
+type DemoSubmission struct {
+	ID          uuid.UUID `json:"id"`
+	FirstName   string    `json:"first_name"`
+	LastName    string    `json:"last_name"`
+	Email       string    `json:"email"`
+	Company     string    `json:"company"`
+	BuildSystem string    `json:"build_system"` // yocto, buildroot, debian, custom
+	Message     string    `json:"message"`
+	Status      string    `json:"status"` // new, contacted, converted
+	CreatedAt   time.Time `json:"created_at"`
+}
+
 func NewSupabaseClient(url, serviceKey string) *SupabaseClient {
 	return &SupabaseClient{
 		URL:        url,
@@ -298,6 +324,50 @@ func (c *SupabaseClient) SaveAnalysisResults(ctx context.Context, results []Anal
 	if resp.StatusCode != http.StatusCreated {
 		bodyBytes, _ := io.ReadAll(resp.Body)
 		return fmt.Errorf("failed to save analysis results: %s", string(bodyBytes))
+	}
+
+	return nil
+}
+
+// CreateContactSubmission inserts a new contact form submission
+func (c *SupabaseClient) CreateContactSubmission(ctx context.Context, contact *ContactSubmission) error {
+	body, _ := json.Marshal(contact)
+	req, _ := http.NewRequestWithContext(ctx, "POST", c.URL+"/rest/v1/contact_submissions", bytes.NewBuffer(body))
+	req.Header.Set("apikey", c.ServiceKey)
+	req.Header.Set("Authorization", "Bearer "+c.ServiceKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusCreated {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("failed to create contact submission: %s", string(bodyBytes))
+	}
+
+	return nil
+}
+
+// CreateDemoSubmission inserts a new demo request submission
+func (c *SupabaseClient) CreateDemoSubmission(ctx context.Context, demo *DemoSubmission) error {
+	body, _ := json.Marshal(demo)
+	req, _ := http.NewRequestWithContext(ctx, "POST", c.URL+"/rest/v1/demo_requests", bytes.NewBuffer(body))
+	req.Header.Set("apikey", c.ServiceKey)
+	req.Header.Set("Authorization", "Bearer "+c.ServiceKey)
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusCreated {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("failed to create demo submission: %s", string(bodyBytes))
 	}
 
 	return nil

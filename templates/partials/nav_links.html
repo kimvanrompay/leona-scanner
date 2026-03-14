@@ -1,0 +1,17 @@
+{{define "LoginLink"}}
+<a href="{{.URL}}" class="text-base/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors">
+    {{.Text}} <span aria-hidden="true" class="ml-1">&rarr;</span>
+</a>
+{{end}}
+
+{{define "AccountLink"}}
+<a href="{{.URL}}" class="text-base/6 font-semibold text-gray-900 hover:text-indigo-600 transition-colors">
+    {{.Text}}
+</a>
+{{end}}
+
+{{define "DemoButton"}}
+<a href="{{.URL}}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-colors">
+    {{.Text}}
+</a>
+{{end}}

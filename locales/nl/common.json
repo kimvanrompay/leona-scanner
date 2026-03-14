@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "products": "Producten",
+    "services": "Diensten",
+    "knowledge": "Kennis",
+    "partners": "Partners",
+    "about": "Over ons",
+    "login": "Login",
+    "request_demo": "Demo Aanvragen"
+  },
+  "cta": {
+    "get_started": "Aan de slag",
+    "learn_more": "Meer informatie",
+    "request_demo": "Demo Aanvragen",
+    "download": "Download"
+  }
+}

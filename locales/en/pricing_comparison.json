@@ -1,0 +1,54 @@
+{
+  "header": {
+    "title": "Pricing that grows with you",
+    "description": "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales."
+  },
+  "billing": {
+    "monthly": "Monthly",
+    "annually": "Annually",
+    "currency": "USD",
+    "billed_monthly": "Billed monthly",
+    "billed_annually": "Billed annually"
+  },
+  "cta": {
+    "buy_plan": "Buy this plan"
+  },
+  "tiers": {
+    "starter": {
+      "name": "Starter",
+      "description": "Everything you need to get started."
+    },
+    "scale": {
+      "name": "Scale",
+      "description": "Added flexibility at scale."
+    },
+    "growth": {
+      "name": "Growth",
+      "description": "All the extras for your growing team."
+    }
+  },
+  "features": {
+    "custom_domains": "Custom domains",
+    "edge_delivery": "Edge content delivery",
+    "advanced_analytics": "Advanced analytics",
+    "quarterly_workshops": "Quarterly workshops",
+    "sso": "Single sign-on (SSO)",
+    "priority_support": "Priority phone support",
+    "unlimited": "Unlimited"
+  },
+  "sections": {
+    "features": "Features",
+    "comparison": "Feature comparison",
+    "feature_comparison_sr": "Feature comparison",
+    "faq": "Frequently asked questions"
+  },
+  "comparison": {
+    "yes": "Yes"
+  },
+  "faq": {
+    "q1": "What's the best thing about Switzerland?",
+    "a1": "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+    "q2": "How do you make holy water?",
+    "a2": "You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore fuga aliquam nostrum quod porro."
+  }
+}

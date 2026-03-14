@@ -1,0 +1,42 @@
+{
+  "header": {
+    "title": "CRA is er. Klaar of niet.",
+    "description": "De EU Cyber Resilience Act is nu van kracht, met verplichte rapportage vanaf 11 september 2026. Of u nu aan Europese klanten verkoopt of niet, CRA-compliance wordt een baseline verwachting voor B2B software."
+  },
+  "column1": {
+    "title": "Regelgevend Kader",
+    "subtitle": "CRA definieert nieuwe verplichtingen",
+    "description": "Verordening (EU) 2024/2847 van kracht",
+    "button": "Beoordeel positie",
+    "items": [
+      "Art. 13: Technisch constructiedossier verplicht",
+      "Art. 14: SBOM-documentatie en traceerbaarheid",
+      "Annex I: Essential cybersecurity requirements"
+    ]
+  },
+  "column2": {
+    "title": "Technische Validatie",
+    "subtitle": "Geautomatiseerde conformiteitsbeoordeling",
+    "description": "SBOM-analyse tegen Annex I security-eisen",
+    "button": "Valideer SBOM",
+    "items": [
+      "Technisch constructiedossier (Art. 13)",
+      "Notified Body ready documentatie",
+      "CVE-tracking en kwetsbaarhedenbeheer",
+      "Licentie-compliance verificatie",
+      "Secure boot configuratie-audit",
+      "Support lifecycle validatie (5 jaar)"
+    ]
+  },
+  "column3": {
+    "title": "Implementatietraject",
+    "subtitle": "Fasering en deadlines",
+    "description": "Overgangsperiode tot volledige toepassing",
+    "button": "Download voorbeeld",
+    "items": [
+      "10 dec 2024: CRA in werking getreden",
+      "11 sept 2026: Rapportageverplichting start",
+      "11 dec 2027: Volledige conformiteitsplicht"
+    ]
+  }
+}

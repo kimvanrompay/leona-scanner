@@ -1,0 +1,75 @@
+{
+  "header": {
+    "title": "CRA is er. Klaar of niet.",
+    "description": "De EU Cyber Resilience Act is nu van kracht, met verplichte rapportage vanaf 11 september 2026. Of u nu aan Europese klanten verkoopt of niet, CRA-compliance wordt een baseline verwachting voor B2B software."
+  },
+  "billing": {
+    "monthly": "Compliant",
+    "annually": "Geblokkeerd",
+    "currency": "€10.000",
+    "billed_monthly": "Verkoop mogelijk na 11 sept 2026",
+    "billed_annually": "EU markt geblokkeerd zonder compliance"
+  },
+  "cta": {
+    "buy_plan": "Download voorbeeld"
+  },
+  "tiers": {
+    "starter": {
+      "name": "Regelgevend Kader",
+      "description": "CRA definieert nieuwe verplichtingen"
+    },
+    "scale": {
+      "name": "Technische Validatie",
+      "description": "Geautomatiseerde conformiteitsbeoordeling"
+    },
+    "growth": {
+      "name": "Implementatietraject",
+      "description": "Fasering en deadlines"
+    }
+  },
+  "features": {
+    "custom_domains": "Verordening (EU) 2024/2847 van kracht",
+    "edge_delivery": "Art. 13: Technisch constructiedossier verplicht",
+    "advanced_analytics": "Art. 14: SBOM-documentatie en traceerbaarheid",
+    "quarterly_workshops": "Annex I: Essential cybersecurity requirements",
+    "sso": "SBOM-analyse tegen Annex I security-eisen",
+    "priority_support": "CVE-tracking en kwetsbaarhedenbeheer",
+    "unlimited": "Onbeperkt"
+  },
+  "starter_features": {
+    "item1": "Verordening (EU) 2024/2847 van kracht",
+    "item2": "Art. 13: Technisch constructiedossier verplicht",
+    "item3": "Art. 14: SBOM-documentatie en traceerbaarheid",
+    "item4": "Annex I: Essential cybersecurity requirements"
+  },
+  "scale_features": {
+    "item1": "SBOM-analyse tegen Annex I security-eisen",
+    "item2": "Technisch constructiedossier (Art. 13)",
+    "item3": "Notified Body ready documentatie",
+    "item4": "CVE-tracking en kwetsbaarhedenbeheer",
+    "item5": "Licentie-compliance verificatie",
+    "item6": "Secure boot configuratie-audit",
+    "item7": "Support lifecycle validatie (5 jaar)"
+  },
+  "growth_features": {
+    "item1": "Overgangsperiode tot volledige toepassing",
+    "item2": "10 dec 2024: CRA in werking getreden",
+    "item3": "11 sept 2026: Rapportageverplichting start",
+    "item4": "11 dec 2027: Volledige conformiteitsplicht"
+  },
+  "sections": {
+    "features": "Functies",
+    "comparison": "Functievergelijking",
+    "feature_comparison_sr": "Functievergelijking",
+    "faq": "Veelgestelde vragen"
+  },
+  "comparison": {
+    "yes": "Ja"
+  },
+  "faq": {
+    "q1": "Wat is het beste aan Zwitserland?",
+    "a1": "Ik weet het niet, maar de vlag is een groot pluspunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+    "q2": "Hoe maak je heilig water?",
+    "a2": "Je kookt de hel eruit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam aut tempora vitae odio inventore fuga aliquam nostrum quod porro."
+  }
+}

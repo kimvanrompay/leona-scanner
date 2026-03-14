@@ -1,0 +1,198 @@
+{{define "title"}}Enterprise Partner | LEONA & CRAVIT{{end}}
+
+{{define "meta"}}
+<meta name="description" content="Enterprise CRA compliance engineering met volledige CI/CD integratie en jaarlijkse audit-garantie.">
+{{end}}
+
+{{define "content"}}
+    <!-- Hero Section -->
+    <div class="relative isolate overflow-hidden bg-gray-900">
+        <svg class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]" aria-hidden="true">
+            <defs>
+                <pattern id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
+                    <path d="M.5 200V.5H200" fill="none" />
+                </pattern>
+            </defs>
+            <svg x="50%" y="-1" class="overflow-visible fill-gray-800/20">
+                <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" stroke-width="0" />
+            </svg>
+            <rect width="100%" height="100%" stroke-width="0" fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+        </svg>
+        <div class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
+            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
+                <div class="mt-24 sm:mt-32 lg:mt-16">
+                    <span class="rounded-full px-3 py-1 text-sm font-semibold text-gray-100 ring-1 ring-inset" style="background-color: rgba(255, 107, 53, 0.1); border-color: #FF6B35;">Enterprise Partner</span>
+                </div>
+                <h1 class="mt-10 text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">Volledige CRA Compliance Engineering op Maat</h1>
+                <p class="mt-6 text-lg text-gray-200">Consultancy-grade compliance engineering via geautomatiseerde SaaS-implementatie. CI/CD integratie in uw bestaande Yocto pipeline, jaarlijkse on-site audit, dedicated technical support.</p>
+                <div class="mt-10 flex items-center gap-x-6">
+                    <a href="/demo" class="rounded-md px-3.5 py-2.5 text-sm font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Vraag Offerte Aan</a>
+                    <a href="#details" class="text-sm font-semibold text-gray-100">Meer informatie <span aria-hidden="true">→</span></a>
+                </div>
+                <dl class="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:gap-x-12">
+                    <div class="flex flex-col-reverse">
+                        <dt class="text-base text-gray-300">Response tijd</dt>
+                        <dd class="text-2xl font-bold text-gray-100">4 uur</dd>
+                    </div>
+                    <div class="flex flex-col-reverse">
+                        <dt class="text-base text-gray-300">Implementatie start</dt>
+                        <dd class="text-2xl font-bold text-gray-100">1 week</dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+                <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+                    <div class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                        <div class="aspect-[3/2] w-[48rem] rounded-md bg-gray-800 ring-1 ring-white/10">
+                            <div class="p-8">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="h-3 w-3 rounded-full bg-red-500"></div>
+                                    <div class="h-3 w-3 rounded-full bg-yellow-500"></div>
+                                    <div class="h-3 w-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <div class="font-mono text-sm text-gray-300 space-y-2">
+                                    <div><span style="color: #FF6B35;">$</span> leona-cli pipeline integrate --provider jenkins</div>
+                                    <div class="text-gray-500">Analyzing Yocto build environment...</div>
+                                    <div class="text-gray-500">Detecting layers: meta-openembedded, meta-security</div>
+                                    <div class="text-green-400">✓ Integration successful</div>
+                                    <div class="text-gray-500">Automated SBOM generation: enabled</div>
+                                    <div class="text-gray-500">CVE scanning: real-time via NVD API 2.0</div>
+                                    <div class="text-gray-500">TCF generation: post-build hook installed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="details" class="bg-white py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-4xl text-center">
+                <h2 class="text-base font-semibold" style="color: #FF6B35;">Enterprise Partner</h2>
+                <p class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">€4.900 per jaar + eenmalige onboarding</p>
+            </div>
+            <p class="mx-auto mt-6 max-w-2xl text-center text-lg text-gray-600">Consultancy-grade compliance engineering met volledige automatisering. Geen maandelijkse consultants, wel continue technische garantie.</p>
+            
+            <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+                <div class="p-8 sm:p-10 lg:flex-auto">
+                    <h3 class="text-2xl font-bold tracking-tight text-gray-900">Volledige CI/CD Integratie</h3>
+                    <p class="mt-6 text-base text-gray-600">Alle voordelen van The Compliance Shield, plus enterprise-grade implementatie en support:</p>
+                    <div class="mt-10 flex items-center gap-x-4">
+                        <h4 class="flex-none text-sm font-semibold text-gray-900" style="color: #FF6B35;">Inbegrepen in jaarabonnement</h4>
+                        <div class="h-px flex-auto bg-gray-100"></div>
+                    </div>
+                    <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm text-gray-600 sm:grid-cols-2 sm:gap-6">
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Unlimited scans (geen volume restricties)</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>CI/CD pipeline integratie (Jenkins/GitLab/Bitbucket)</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>API toegang met OpenAPI 3.0 spec</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Yocto layer analyse (meta-security, meta-measured, etc.)</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Jaarlijkse on-site CRA audit</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Priority email support (< 4 uur response)</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Dedicated Slack/Teams channel</span>
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span>Custom feature requests (roadmap prioriteit)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+                    <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+                        <div class="mx-auto max-w-xs px-8">
+                            <p class="text-base font-semibold text-gray-600">Jaarabonnement + onboarding</p>
+                            <p class="mt-6 flex items-baseline justify-center gap-x-2">
+                                <span class="text-5xl font-bold tracking-tight text-gray-900">€4.900</span>
+                                <span class="text-sm font-semibold text-gray-600">/jaar</span>
+                            </p>
+                            <p class="mt-2 text-xs text-gray-500">+ €3.950 eenmalige onboarding fee</p>
+                            <a href="/demo" class="mt-10 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Vraag Offerte Aan</a>
+                            <p class="mt-6 text-xs text-gray-600">Betaling via factuur. SLA contract inbegrepen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mx-auto mt-16 max-w-7xl text-center">
+                <h3 class="text-2xl font-bold tracking-tight text-gray-900">Eenmalige onboarding: €3.950</h3>
+                <p class="mt-4 text-lg text-gray-600">Volledige implementatie binnen 1 week, inclusief training en knowledge transfer</p>
+                <ul role="list" class="mt-10 grid grid-cols-1 gap-6 text-left text-sm text-gray-600 sm:grid-cols-2 lg:grid-cols-3">
+                    <li class="flex gap-x-3">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Kick-off meeting (2 uur) met compliance expert</span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span>CI/CD pipeline integratie (remote of on-site)</span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span>API setup + webhook configuratie</span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Team training (2x 3 uur sessie)</span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Documentatie & run playbooks</span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="h-6 w-5 flex-none" style="color: #FF6B35;">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span>30 dagen hyper-support na go-live</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{{end}}

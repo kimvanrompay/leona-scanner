@@ -1,73 +1,82 @@
-{{define "navbar"}}
-<!-- Navigation -->
-<div class="relative isolate z-50 shadow-sm border-b border-gray-200">
-    <div class="bg-white">
-        <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
-            <div class="flex lg:flex-1">
-                <a href="/" class="-m-1.5 p-1.5">
-                    <span class="sr-only">LEONA & CRAVIT</span>
-                    <div class="relative h-6 w-6 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
-                        <span class="font-display text-xl font-bold text-white" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);"> </span>
-                    </div>
-                </a>
-            </div>
+{{ define "navbar" }}
+<!-- Include this script tag or install `@tailwindplus/elements` via npm: -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
+<header class="bg-white">
+    <nav aria-label="Global" class="mx-auto flex items-center justify-between p-6 lg:px-8">
+        <div class="flex items-center gap-x-12">
+            {{template "BrandLogo" .}}
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="/producten" class="text-sm/6 font-semibold {{if eq .ActivePage "producten"}}text-orange-600{{else}}text-gray-900 hover:text-orange-600{{end}} transition-colors">Producten</a>
-                <a href="/diensten" class="text-sm/6 font-semibold {{if eq .ActivePage "diensten"}}text-orange-600{{else}}text-gray-900 hover:text-orange-600{{end}} transition-colors">Diensten</a>
-                <a href="/#knowledge" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Kennis</a>
-                <a href="/#partners" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Partners</a>
-                <a href="/#about" class="text-sm/6 font-semibold text-gray-900 hover:text-orange-600 transition-colors">Over ons</a>
-            </div>
-            <div class="flex flex-1 items-center justify-end gap-x-6">
-                <a href="#" class="hidden text-sm/6 font-semibold text-gray-900 lg:block hover:text-orange-600 transition-colors">Login</a>
-                <a href="/demo" class="rounded-md px-3.5 py-2.5 text-sm font-bold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-all" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
-            </div>
-            <div class="flex lg:hidden">
-                <button type="button" onclick="document.getElementById('mobile-menu').showModal()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-600 hover:text-gray-900">
-                    <span class="sr-only">Open main menu</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
-                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-            </div>
-        </nav>
-    </div>
-    
-    <!-- Mobile Menu -->
-    <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
-        <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
-            <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-200">
-                <div class="flex items-center gap-x-6">
-                    <a href="/" class="-m-1.5 p-1.5">
-                        <span class="sr-only">LEONA & CRAVIT</span>
-                        <div class="relative h-5 w-5 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #4169E1, #1428A0 50%, #0A1A50); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset -2px -2px 8px rgba(0, 0, 0, 0.3), inset 2px 2px 8px rgba(255, 255, 255, 0.2);">
-                            <span class="font-display text-lg font-bold text-white" style="text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);"> </span>
-                        </div>
-                    </a>
-                    <a href="/demo" onclick="document.getElementById('mobile-menu').close()" class="ml-auto rounded-md px-3 py-2 text-sm font-bold text-white shadow-sm" style="background-color: #FF6B35;" onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo Aanvragen</a>
-                    <button type="button" onclick="document.getElementById('mobile-menu').close()" class="-m-2.5 rounded-md p-2.5 text-gray-600 hover:text-gray-900">
-                        <span class="sr-only">Close menu</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
-                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="mt-6 flow-root">
-                    <div class="-my-6 divide-y divide-gray-200">
-                        <div class="space-y-2 py-6">
-                            <a href="/producten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Producten</a>
-                            <a href="/diensten" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Diensten</a>
-                            <a href="/#knowledge" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Kennis</a>
-                            <a href="/#partners" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Partners</a>
-                            <a href="/#about" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Over ons</a>
-                        </div>
-                        <div class="py-6">
-                            <a href="#" onclick="document.getElementById('mobile-menu').close()" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Login</a>
-                        </div>
-                    </div>
-                </div>
+                <a href="/wie-zijn-we" class="text-base/6 text-gray-900 hover:text-blue-600 transition-colors">Wie zijn we</a>
+                <a href="/hoe-het-werkt" class="text-base/6 text-gray-900 hover:text-blue-600 transition-colors">Hoe werkt het</a>
+                <a href="/pricing" class="text-base/6 text-gray-900 hover:text-blue-600 transition-colors">Prijzen</a>
+                <a href="/kennis" class="text-base/6 text-gray-900 hover:text-blue-600 transition-colors">Kennisbank</a>
+                <a href="/contact" class="text-base/6 text-gray-900 hover:text-blue-600 transition-colors">Contact</a>
             </div>
         </div>
-    </dialog>
-</div>
-{{end}}
+        <div class="flex lg:hidden">
+            <button type="button" command="show-modal" commandfor="mobile-menu"
+                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                <span class="sr-only">Open main menu</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                    aria-hidden="true" class="size-6">
+                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4">
+            {{if .IsAuthenticated}}
+            {{template "AccountLink" dict "URL" "/account" "Text" "My Account"}}
+            {{else}}
+            {{template "LoginLink" dict "URL" "/login" "Text" "Log in"}}
+            {{end}}
+            {{template "DemoButton" dict "URL" "/demo" "Text" "DEMO AANVRAGEN"}}
+        </div>
+    </nav>
+    <el-dialog>
+        <dialog id="mobile-menu" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
+            <div tabindex="0" class="fixed inset-0 focus:outline focus:outline-0">
+                <el-dialog-panel
+                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                    <div class="flex items-center justify-between">
+                        {{template "BrandLogo" .}}
+                        <button type="button" command="close" commandfor="mobile-menu"
+                            class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                            <span class="sr-only">Close menu</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                data-slot="icon" aria-hidden="true" class="size-6">
+                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-6 flow-root">
+                        <div class="-my-6 divide-y divide-gray-500/10">
+                            <div class="space-y-2 py-6">
+                                <a href="/wie-zijn-we"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Wie zijn we</a>
+                                <a href="/hoe-het-werkt"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Hoe werkt het</a>
+                                <a href="/pricing"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Prijzen</a>
+                                <a href="/kennis"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Kennisbank</a>
+                                <a href="/contact"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Contact</a>
+                            </div>
+                            <div class="py-6 space-y-2">
+                                <a href="/demo"
+                                    class="-mx-3 block rounded-lg bg-white px-3 py-2.5 text-center text-base/7 font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">DEMO
+                                    AANVRAGEN</a>
+                                <a href="#"
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 text-gray-900 hover:bg-gray-50">Log
+                                    in</a>
+                            </div>
+                        </div>
+                    </div>
+                </el-dialog-panel>
+            </div>
+        </dialog>
+    </el-dialog>
+</header>
+
+{{ end }}

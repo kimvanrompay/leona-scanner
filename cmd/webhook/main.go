@@ -9,9 +9,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/google/uuid"
 	"leona-scanner/internal/database"
-	"github.com/mollie/mollie-api-go/v4/mollie"
+
+	"github.com/VictorAvelar/mollie-api-go/v3/mollie"
+	"github.com/google/uuid"
 )
 
 var (

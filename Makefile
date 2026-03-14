@@ -2,24 +2,16 @@
 
 help: ## Show this help message
 	@echo "Available commands:"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*1885' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 install-tools: ## Install required Go tools
 	@echo "📦 Installing golangci-lint..."
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	@echo "📦 Installing goimports..."
 	@go install golang.org/x/tools/cmd/goimports@latest
-	@echo "📦 Installing templ..."
-	@go install github.com/a-h/templ/cmd/templ@latest
 	@echo "✅ Tools installed"
 
-templ-generate: ## Generate Go code from .templ files
-	@echo "🔄 Generating templ components..."
-	@go run github.com/a-h/templ/cmd/templ@latest generate
-
-run: templ-generate ## Run the server (auto-generates templ)
-	@echo "🚀 Starting server..."
-	@go run cmd/server/main.go
+lint: ## Run linter
 	@echo "🔍 Running golangci-lint..."
 	@golangci-lint run ./...
 
@@ -46,7 +38,7 @@ run: ## Run the server
 	@echo "🚀 Starting server..."
 	@go run cmd/server/main.go
 
-run-verbose: templ-generate ## Run the server with verbose logging
+run-verbose: ## Run the server with verbose logging
 	@echo "🚀 Starting server with verbose logging..."
 	@LOG_VERBOSE=true go run cmd/server/main.go
 

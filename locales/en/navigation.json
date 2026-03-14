@@ -1,0 +1,43 @@
+{
+  "brand": {
+    "name": "LEONA & CRAVIT",
+    "sr_text": "LEONA & CRAVIT Homepage"
+  },
+  "menu": {
+    "product": "Product",
+    "features": "Features",
+    "marketplace": "Marketplace",
+    "company": "Company",
+    "login": "Log in"
+  },
+  "product_dropdown": {
+    "analytics": {
+      "title": "Analytics",
+      "description": "Get a better understanding of your traffic"
+    },
+    "engagement": {
+      "title": "Engagement",
+      "description": "Speak directly to your customers"
+    },
+    "security": {
+      "title": "Security",
+      "description": "Your customers' data will be safe and secure"
+    },
+    "integrations": {
+      "title": "Integrations",
+      "description": "Connect with third-party tools"
+    },
+    "automations": {
+      "title": "Automations",
+      "description": "Build strategic funnels that will convert"
+    }
+  },
+  "cta": {
+    "watch_demo": "Watch demo",
+    "contact_sales": "Contact sales"
+  },
+  "mobile": {
+    "open_menu": "Open main menu",
+    "close_menu": "Close menu"
+  }
+}

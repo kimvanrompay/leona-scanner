@@ -1,0 +1,40 @@
+{{ define "scanner" }}
+<div id="assessor" class="bg-gray-50 border-4 border-gray-900 p-8 md:p-12 shadow-brutal mb-20 max-w-5xl mx-auto my-20">
+    <h2 class="text-2xl md:text-3xl font-black uppercase mb-2 italic">Stap 1: De Integriteits Check</h2>
+    <p class="text-gray-600 mb-8 text-sm">CycloneDX of SPDX formaat • Geen credit card vereist</p>
+    
+    <form hx-post="/api/scan" 
+          hx-encoding="multipart/form-data" 
+          hx-target="#audit-results" 
+          hx-indicator="#loading"
+          class="space-y-6">
+        
+        <div class="border-2 border-dashed border-gray-400 p-8 bg-white hover:border-brand-blue transition-all cursor-pointer rounded-xl">
+            <input type="file" 
+                   name="sbom" 
+                   id="sbom-upload"
+                   accept=".json,.xml,.spdx,.cdx"
+                   class="block w-full text-lg border-2 border-gray-300 p-4 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-blue file:text-white hover:file:bg-blue-700 cursor-pointer"
+                   required/>
+        </div>
+        
+        <button type="submit" class="w-full bg-brand-blue text-white text-xl md:text-2xl font-black py-6 hover:bg-red-600 transition-all duration-300 uppercase tracking-wide rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105">
+            🔍 Draai de CRAVIT-Engine →
+        </button>
+    </form>
+    
+    <div id="loading" class="htmx-indicator mt-6 text-center">
+        <div class="inline-block">
+            <div class="font-bold text-brand-blue text-lg animate-pulse-slow">
+                ⚙️ SYSTEEM ANALYSEERT LINUX KERNEL & SBOM...
+            </div>
+            <div class="text-sm text-gray-600 mt-2">Dit duurt ongeveer 15-30 seconden</div>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div id="audit-results" class="min-h-[200px] mt-8">
+        <!-- HTMX will inject results here -->
+    </div>
+</div>
+{{ end }}

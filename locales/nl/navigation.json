@@ -1,0 +1,43 @@
+{
+  "brand": {
+    "name": "LEONA & CRAVIT",
+    "sr_text": "LEONA & CRAVIT Homepage"
+  },
+  "menu": {
+    "product": "Product",
+    "features": "Kenmerken",
+    "marketplace": "Marktplaats",
+    "company": "Bedrijf",
+    "login": "Inloggen"
+  },
+  "product_dropdown": {
+    "analytics": {
+      "title": "Analytics",
+      "description": "Krijg beter inzicht in uw verkeer"
+    },
+    "engagement": {
+      "title": "Betrokkenheid",
+      "description": "Spreek rechtstreeks met uw klanten"
+    },
+    "security": {
+      "title": "Beveiliging",
+      "description": "De gegevens van uw klanten zijn veilig"
+    },
+    "integrations": {
+      "title": "Integraties",
+      "description": "Verbind met third-party tools"
+    },
+    "automations": {
+      "title": "Automatiseringen",
+      "description": "Bouw strategische funnels die converteren"
+    }
+  },
+  "cta": {
+    "watch_demo": "Bekijk demo",
+    "contact_sales": "Neem contact op"
+  },
+  "mobile": {
+    "open_menu": "Open hoofdmenu",
+    "close_menu": "Sluit menu"
+  }
+}

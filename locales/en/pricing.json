@@ -1,0 +1,18 @@
+{
+  "heading": "Choose the solution that fits your organization perfectly",
+  "subtitle": "From quick scans to full compliance",
+  "snapshot": {
+    "title": "SNAPSHOT",
+    "subtitle": "Automated CRA Compliance Scanner",
+    "description": "Real-time SBOM scanning and vulnerability detection for embedded systems. Upload your SBOM and receive a complete compliance report instantly.",
+    "cta_primary": "Discover SNAPSHOT",
+    "cta_secondary": "Demo"
+  },
+  "tcf_bundle": {
+    "title": "TCF Bundle",
+    "subtitle": "€1,499 per product - Full CRA Compliance",
+    "description": "Generate your Technical Construction File (TCF) and automate your remediation. Legally validated results within 3 to 5 business days.",
+    "cta_primary": "View TCF Bundle",
+    "cta_secondary": "Order"
+  }
+}

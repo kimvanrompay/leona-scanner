@@ -1,280 +1,135 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Aanvragen | LEONA & CRAVIT CRA Compliance Scanner</title>
-    <meta name="description" content="Ontdek hoe LEONA uw embedded Linux systemen CRA-compliant maakt. Vraag een gratis demo aan en spreek met een compliance expert.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://api.fontshare.com/css?f[]=switzer@400,500,600,700&display=swap" />
+    <title>Demo Aanvragen - LEONA & CRAVIT</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-blue': '#0033A0',
-                        'brand-blue-light': '#4169E1',
-                    },
-                    fontFamily: {
-                        'display': ['Funnel Display', 'sans-serif'],
-                        'sans': ['IBM Plex Mono', 'monospace'], 'mono': ['IBM Plex Mono', 'monospace'],
-                    },
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        .ibm-plex-mono-thin { font-family: "IBM Plex Mono", monospace; font-weight: 100; font-style: normal; }
-        .ibm-plex-mono-extralight { font-family: "IBM Plex Mono", monospace; font-weight: 200; font-style: normal; }
-        .ibm-plex-mono-light { font-family: "IBM Plex Mono", monospace; font-weight: 300; font-style: normal; }
-        .ibm-plex-mono-regular { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-style: normal; }
-        .ibm-plex-mono-medium { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-style: normal; }
-        .ibm-plex-mono-semibold { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-style: normal; }
-        .ibm-plex-mono-bold { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-style: normal; }
-        .ibm-plex-mono-thin-italic { font-family: "IBM Plex Mono", monospace; font-weight: 100; font-style: italic; }
-        .ibm-plex-mono-extralight-italic { font-family: "IBM Plex Mono", monospace; font-weight: 200; font-style: italic; }
-        .ibm-plex-mono-light-italic { font-family: "IBM Plex Mono", monospace; font-weight: 300; font-style: italic; }
-        .ibm-plex-mono-regular-italic { font-family: "IBM Plex Mono", monospace; font-weight: 400; font-style: italic; }
-        .ibm-plex-mono-medium-italic { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-style: italic; }
-        .ibm-plex-mono-semibold-italic { font-family: "IBM Plex Mono", monospace; font-weight: 600; font-style: italic; }
-        .ibm-plex-mono-bold-italic { font-family: "IBM Plex Mono", monospace; font-weight: 700; font-style: italic; }
-    </style>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </head>
-<body class="bg-gray-50 antialiased text-black min-h-full">
-    
-    <!-- Simple Header -->
-    <header class="bg-white border-b border-gray-200">
-        <div class="mx-auto max-w-7xl px-6 py-4 lg:px-8">
-            <div class="flex items-center justify-between">
-                <a href="/" class="flex items-center gap-x-3">
-                    <div class="h-5 w-5 rounded-lg bg-gradient-to-br from-blue-700 via-blue-600 to-orange-400 flex items-center justify-center shadow-lg">
-                        <span class="font-display text-xl font-bold text-white"> </span>
-                    </div>
-                    <span class="font-display text-xl font-bold text-gray-900">LEONA & CRAVIT</span>
-                </a>
-                <a href="/" class="text-sm font-semibold text-gray-600 hover:text-gray-900">Terug naar home</a>
-            </div>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="bg-gray-900 py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="grid grid-cols-1 items-center gap-x-8 gap-y-16 lg:grid-cols-2">
-                
-                <!-- Left Column: Value Proposition -->
-                <div class="mx-auto w-full max-w-xl lg:mx-0">
-                    <h2 class="text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl font-display">
-                        Vertrouwd door innovatieve embedded Linux teams
-                    </h2>
-                    
-                    <p class="mt-6 text-lg/8 text-gray-100">
-                        Plan een persoonlijke demo met een LEONA expert en ontdek hoe u binnen 60 dagen volledig CRA-compliant kunt zijn. Geen consultants, geen eindeloze audits - alleen geautomatiseerde compliance engineering.
-                    </p>
-                    
-                    <div class="mt-8 flex items-center gap-x-6">
-                        <a href="#demo-form" class="rounded-md px-3.5 py-2.5 text-sm font-bold text-white" style="background-color: #FF6B35; " onmouseover="this.style.backgroundColor='#ff8555'" onmouseout="this.style.backgroundColor='#FF6B35'">Demo aanvragen</a>
-                        <a href="mailto:enterprise@craleona.be" class="text-sm font-semibold text-white hover:text-gray-200">Contact sales <span aria-hidden="true">&rarr;</span></a>
-                    </div>
-                </div>
-                
-                <!-- Right Column: Customer Logos -->
-                <div class="mx-auto grid w-full max-w-xl grid-cols-2 items-center gap-y-12 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:pl-8">
-                    <div class="flex flex-col items-start gap-2">
-                        <div class="text-white font-bold text-2xl">Industrial IoT</div>
-                        <div class="text-gray-200 text-sm">Smart Manufacturing</div>
-                    </div>
-                    
-                    <div class="flex flex-col items-start gap-2">
-                        <div class="text-white font-bold text-2xl">Medical Devices</div>
-                        <div class="text-gray-200 text-sm">ISO 13485 Ready</div>
-                    </div>
-                    
-                    <div class="flex flex-col items-start gap-2">
-                        <div class="text-white font-bold text-2xl">Telecom</div>
-                        <div class="text-gray-200 text-sm">5G Infrastructure</div>
-                    </div>
-                    
-                    <div class="flex flex-col items-start gap-2">
-                        <div class="text-white font-bold text-2xl">Automotive</div>
-                        <div class="text-gray-200 text-sm">UNECE R155/156</div>
-                    </div>
-                    
-                    <div class="flex flex-col items-start gap-2">
-                        <div class="text-white font-bold text-2xl">Energy</div>
-                        <div class="text-gray-200 text-sm">Critical Infrastructure</div>
-                    </div>
-                    
-                    <div class="flex flex-col items-start gap-2">
-                        <div class="text-white font-bold text-2xl">Aerospace</div>
-                        <div class="text-gray-200 text-sm">DO-326A Compliant</div>
-                    </div>
-                </div>
+<body class="bg-blue-50">
+    <div class="isolate bg-gray-900 min-h-screen px-6 py-24 sm:py-32 lg:px-8">
+        <!-- Background decoration -->
+        <div aria-hidden="true"
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+                class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-600 to-blue-800 opacity-20 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]">
             </div>
         </div>
-    </main>
-    
-    <!-- Demo Form Section -->
-    <section id="demo-form" class="bg-white py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl text-center mb-16">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Vraag uw persoonlijke demo aan</h2>
-                <p class="mt-4 text-lg text-gray-600">Ontdek binnen 30 minuten hoe LEONA uw CRA compliance volledig automatiseert</p>
-            </div>
-            <div class="mx-auto max-w-2xl bg-white rounded-2xl shadow-xl p-8 lg:p-10">
-                <form action="/api/demo-request" method="POST" class="space-y-6">
-                    
-                    <!-- Email -->
-                    <div>
-                        <label for="email" class="block text-sm font-semibold text-gray-900">Zakelijk e-mailadres*</label>
-                        <input type="email" id="email" name="email" required 
-                            class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2" 
-                            placeholder="engineer@uwbedrijf.be">
-                    </div>
-                    
-                    <!-- First & Last Name -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="first_name" class="block text-sm font-semibold text-gray-900">Voornaam*</label>
-                            <input type="text" id="first_name" name="first_name" required 
-                                class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                        </div>
-                        <div>
-                            <label for="last_name" class="block text-sm font-semibold text-gray-900">Achternaam*</label>
-                            <input type="text" id="last_name" name="last_name" required 
-                                class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                        </div>
-                    </div>
-                    
-                    <!-- Company & Job Title -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="company" class="block text-sm font-semibold text-gray-900">Bedrijfsnaam*</label>
-                            <input type="text" id="company" name="company" required 
-                                class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                        </div>
-                        <div>
-                            <label for="job_title" class="block text-sm font-semibold text-gray-900">Functie*</label>
-                            <input type="text" id="job_title" name="job_title" required 
-                                class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2" 
-                                placeholder="Embedded Engineer">
-                        </div>
-                    </div>
-                    
-                    <!-- Company Size -->
-                    <div>
-                        <label for="company_size" class="block text-sm font-semibold text-gray-900">Bedrijfsgrootte*</label>
-                        <select id="company_size" name="company_size" required 
-                            class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                            <option value="">Selecteer een optie</option>
-                            <option value="1-10">1-10 werknemers</option>
-                            <option value="11-50">11-50 werknemers</option>
-                            <option value="51-250">51-250 werknemers</option>
-                            <option value="250+">250+ werknemers</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Country -->
-                    <div>
-                        <label for="country" class="block text-sm font-semibold text-gray-900">Land*</label>
-                        <select id="country" name="country" required 
-                            class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                            <option value="">Selecteer een land</option>
-                            <option value="BE">België</option>
-                            <option value="NL">Nederland</option>
-                            <option value="DE">Duitsland</option>
-                            <option value="FR">Frankrijk</option>
-                            <option value="GB">Verenigd Koninkrijk</option>
-                            <option value="US">Verenigde Staten</option>
-                            <option value="OTHER">Anders</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Use Cases -->
-                    <div>
-                        <label class="block text-sm font-semibold text-gray-900 mb-3">Waar heeft u hulp bij nodig?*</label>
-                        <div class="space-y-3">
-                            <label class="flex items-start gap-x-3 cursor-pointer">
-                                <input type="checkbox" name="use_case_sbom" value="true" class="mt-1 h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
-                                <span class="text-sm text-gray-700">SBOM generatie en CVE tracking</span>
-                            </label>
-                            <label class="flex items-start gap-x-3 cursor-pointer">
-                                <input type="checkbox" name="use_case_tcf" value="true" class="mt-1 h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
-                                <span class="text-sm text-gray-700">Technical Construction File (TCF) documentatie</span>
-                            </label>
-                            <label class="flex items-start gap-x-3 cursor-pointer">
-                                <input type="checkbox" name="use_case_cra" value="true" class="mt-1 h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
-                                <span class="text-sm text-gray-700">CRA Compliance assessment en roadmap</span>
-                            </label>
-                            <label class="flex items-start gap-x-3 cursor-pointer">
-                                <input type="checkbox" name="use_case_automation" value="true" class="mt-1 h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500">
-                                <span class="text-sm text-gray-700">Automatisering van compliance processen</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- How did you hear about us -->
-                    <div>
-                        <label for="referral_source" class="block text-sm font-semibold text-gray-900">Hoe heeft u over ons gehoord?</label>
-                        <select id="referral_source" name="referral_source" 
-                            class="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
-                            <option value="">Selecteer een optie</option>
-                            <option value="google">Google zoekresultaat</option>
-                            <option value="linkedin">LinkedIn</option>
-                            <option value="referral">Aanbeveling van collega</option>
-                            <option value="conference">Conferentie of event</option>
-                            <option value="other">Anders</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Privacy -->
-                    <div class="pt-4">
-                        <p class="text-xs text-gray-600">
-                            Door dit formulier in te dienen, gaat u akkoord met onze 
-                            <a href="/privacy" class="text-orange-600 hover:text-orange-700 underline">Privacy Policy</a>.
-                        </p>
-                    </div>
-                    
-                    <!-- Submit Button -->
-                    <button type="submit" 
-                        class="w-full rounded-lg px-6 py-4 text-base font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2" 
-                        style="background-color: #FF6B35; " 
-                        onmouseover="this.style.backgroundColor='#ff8555'" 
-                        onmouseout="this.style.backgroundColor='#FF6B35'">
-                        Demo aanvragen
-                    </button>
-                </form>
-            </div>
+
+        <div class="mx-auto max-w-2xl text-center">
+            <h2 class="text-balance text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Demo Aanvragen</h2>
+            <p class="mt-2 text-lg/8 text-gray-400">Ervaar hoe LEONA uw Linux Embedded compliance automatiseert. Ontvang
+                binnen 24 uur een voorstel op maat.</p>
         </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="bg-gray-900">
-        <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-            <div class="flex justify-center gap-x-6 md:order-2">
-                <!-- ISO READY Badge -->
-                <div class="flex items-center gap-x-3 px-4 py-2 bg-white/10 rounded-lg border-2 border-white/20">
-                    <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2">
-                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div>
-                        <div class="text-white font-bold text-sm">ISO READY</div>
-                        <div class="text-gray-200 text-xs">27001 Practices</div>
+
+        <form id="demo-form" hx-post="/api/demo/submit" hx-target="#form-messages" hx-swap="innerHTML"
+            class="mx-auto mt-16 max-w-xl sm:mt-20">
+            <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                <!-- First Name -->
+                <div>
+                    <label for="first-name" class="block text-sm/6 font-semibold text-white">Voornaam</label>
+                    <div class="mt-2.5">
+                        <input required id="first-name" type="text" name="first-name"
+                            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500" />
                     </div>
                 </div>
+
+                <!-- Last Name -->
+                <div>
+                    <label for="last-name" class="block text-sm/6 font-semibold text-white">Achternaam</label>
+                    <div class="mt-2.5">
+                        <input required id="last-name" type="text" name="last-name"
+                            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500" />
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="sm:col-span-2">
+                    <label for="company" class="block text-sm/6 font-semibold text-white">Bedrijfsnaam</label>
+                    <div class="mt-2.5">
+                        <input required id="company" type="text" name="company"
+                            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500" />
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="sm:col-span-2">
+                    <label for="email" class="block text-sm/6 font-semibold text-white">Zakelijk E-mailadres</label>
+                    <div class="mt-2.5">
+                        <input required id="email" type="email" name="email"
+                            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500" />
+                    </div>
+                </div>
+
+                <!-- Build System -->
+                <div class="sm:col-span-2">
+                    <label for="build-system" class="block text-sm/6 font-semibold text-white">Linux Build
+                        Systeem</label>
+                    <div class="mt-2.5">
+                        <select id="build-system" name="build-system"
+                            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500">
+                            <option value="yocto">Yocto (Bitbake)</option>
+                            <option value="buildroot">Buildroot</option>
+                            <option value="debian">Debian / Ubuntu Core</option>
+                            <option value="custom">Custom / Anders</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Message (Optional) -->
+                <div class="sm:col-span-2">
+                    <label for="message" class="block text-sm/6 font-semibold text-white">Bericht (optioneel)</label>
+                    <div class="mt-2.5">
+                        <textarea id="message" name="message" rows="4"
+                            class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-500"></textarea>
+                    </div>
+                </div>
+
+                <!-- Privacy Checkbox -->
+                <div class="flex gap-x-4 sm:col-span-2">
+                    <div class="flex h-6 items-center">
+                        <div
+                            class="group relative inline-flex w-8 shrink-0 rounded-full bg-white/5 p-px ring-1 ring-inset ring-white/10 has-[:checked]:bg-blue-500 transition-colors duration-200">
+                            <span
+                                class="size-4 rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition-transform group-has-[:checked]:translate-x-3.5"></span>
+                            <input required id="agree" type="checkbox" name="agree"
+                                class="absolute inset-0 size-full appearance-none" />
+                        </div>
+                    </div>
+                    <label for="agree" class="text-sm/6 text-gray-400">
+                        Ik ga akkoord met de opslag van mijn gegevens voor deze demo-aanvraag.
+                    </label>
+                </div>
             </div>
-            <p class="mt-8 text-center text-sm/6 text-gray-200 md:order-1 md:mt-0">&copy; 2026 LEONA & CRAVIT. Alle rechten voorbehouden. | craleona.be</p>
+
+            <!-- Submit Button -->
+            <div class="mt-10">
+                <button type="submit" id="submit-btn"
+                    class="block w-full rounded-md bg-blue-600 px-3.5 py-2.5 text-center text-sm font-bold text-white shadow-sm hover:bg-blue-500 transition-all">
+                    Verzend Demo Aanvraag
+                </button>
+            </div>
+
+            <!-- Messages -->
+            <div id="form-messages" class="mt-4"></div>
+        </form>
+
+        <!-- Back to Home -->
+        <div class="mt-8 text-center">
+            <a href="/" class="text-sm font-bold text-gray-300 hover:text-blue-400 transition-colors">
+                ← Terug naar home
+            </a>
         </div>
-    </footer>
-    
+    </div>
 </body>
+
 </html>
+
+<!-- Messages -->
+<div id="form-messages" class="mt-4"></div>
+</form>
+</div>
+{{end}}

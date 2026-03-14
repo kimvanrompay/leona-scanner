@@ -51,14 +51,19 @@ type FeatureSection struct {
 // NewSharedData creates shared data with default values
 func NewSharedData(activePage string) map[string]interface{} {
 	return map[string]interface{}{
+		// Page Info
 		"ActivePage": activePage,
 		"SiteName":   "LEONA & CRAVIT",
 		"SiteURL":    "https://leona-cravit.be",
+
+		// Branding
 		"Colors": map[string]string{
 			"Primary":   "#FF6B35",
 			"Secondary": "#1428A0",
 			"Accent":    "#4169E1",
 		},
+
+		// Contact
 		"Contact": map[string]string{
 			"Email":    "info@craleona.be",
 			"Phone":    "+32 xxx xxx xxx",

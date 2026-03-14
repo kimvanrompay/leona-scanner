@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"leona-scanner/internal/handler"
+	"leona-scanner/internal/i18n"
 	"leona-scanner/internal/middleware"
 	"leona-scanner/internal/repository"
 	"leona-scanner/internal/services"
@@ -104,11 +105,22 @@ func main() {
 	pdfService := usecase.NewPDFService()
 	log.Println("   ✅ PDF service ready")
 
+	// Initialize i18n manager
+	log.Println("   🌐 Creating i18n manager...")
+	i18nManager, err := i18n.New("./locales")
+	if err != nil {
+		log.Printf("   ⚠️  i18n initialization failed: %v", err)
+		log.Println("   📝 Continuing without i18n support")
+		i18nManager = nil
+	} else {
+		log.Printf("   ✅ i18n ready - Default: %s, Supported: %v", i18nManager.DefaultLang(), i18nManager.SupportedLangs())
+	}
+
 	// Initialize PDF handler with dedicated directory
 	pdfHandler := handler.NewPDFHandler(scannerService, "./pdf-reports")
 
 	// Initialize HTTP handler v2 (with Gap Analysis & multi-tier checkout)
-	h := handler.NewHTTPHandlerV2(scannerService, pdfService)
+	h := handler.NewHTTPHandlerV2(scannerService, pdfService, i18nManager)
 
 	// Setup router
 	r := mux.NewRouter()
@@ -119,17 +131,38 @@ func main() {
 	// Serve static files
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
-	// Routes
-	r.HandleFunc("/", h.HandleIndex).Methods("GET")
-	r.HandleFunc("/demo", h.HandleDemo).Methods("GET")
-	r.HandleFunc("/producten", h.HandleProducts).Methods("GET")
-	r.HandleFunc("/snapshot", h.HandleSnapshot).Methods("GET")
-	r.HandleFunc("/tcf-bundle", h.HandleTCFBundle).Methods("GET")
-	r.HandleFunc("/diensten", h.HandleServices).Methods("GET")
-	r.HandleFunc("/insights", h.HandleInsights).Methods("GET")
-	r.HandleFunc("/kennisbank", h.HandleKennisbank).Methods("GET")
-	r.HandleFunc("/free-report", h.HandleFreeReport).Methods("GET")
-	r.HandleFunc("/free-audit", h.HandleFreeAudit).Methods("GET")
+	// Routes - all using base layout via HandlePage (yield technique)
+	r.HandleFunc("/", h.HandlePage("index")).Methods("GET") // Uses templates/pages/index.html
+	r.HandleFunc("/demo", h.HandleDemo).Methods("GET")      // Standalone demo page (no navbar/footer)
+
+	// Page routes using base layout (just add file to templates/pages/)
+	r.HandleFunc("/diensten", h.HandlePage("services")).Methods("GET")
+	r.HandleFunc("/producten", h.HandlePage("products-simple")).Methods("GET")
+	r.HandleFunc("/snapshot", h.HandlePage("snapshot")).Methods("GET")
+	r.HandleFunc("/tcf-bundle", h.HandlePage("tcf-bundle")).Methods("GET")
+	r.HandleFunc("/insights", h.HandlePage("insights")).Methods("GET")
+	r.HandleFunc("/kennisbank", h.HandlePage("kennisbank")).Methods("GET")
+	r.HandleFunc("/free-report", h.HandlePage("free-report")).Methods("GET")
+	r.HandleFunc("/free-audit", h.HandlePage("free-audit")).Methods("GET")
+	r.HandleFunc("/cra", h.HandlePage("cra")).Methods("GET")
+	r.HandleFunc("/cra-assessment", h.HandleCRAAssessment).Methods("GET")
+
+	// Navigation pages
+	r.HandleFunc("/wie-zijn-we", h.HandlePage("wie-zijn-we")).Methods("GET")
+	r.HandleFunc("/hoe-het-werkt", h.HandlePage("hoe-het-werkt")).Methods("GET")
+	r.HandleFunc("/kennis", h.HandlePage("kennis")).Methods("GET")
+	r.HandleFunc("/contact", h.HandlePage("contact")).Methods("GET")
+	r.HandleFunc("/pricing", h.HandlePage("pricing")).Methods("GET")
+
+	// Contact form submission
+	r.HandleFunc("/api/contact/submit", h.HandleContactSubmit).Methods("POST")
+
+	// Demo request submission
+	r.HandleFunc("/api/demo/submit", h.HandleDemoSubmit).Methods("POST")
+
+	// Easy to add new pages - just create templates/pages/your-page.html
+	// r.HandleFunc("/about", h.HandlePage("about")).Methods("GET")
+	// r.HandleFunc("/contact", h.HandlePage("contact")).Methods("GET")
 	r.HandleFunc("/api/scan", h.HandleScan).Methods("POST")
 	r.HandleFunc("/api/checkout/tier1", h.HandleCheckoutTier1).Methods("POST")
 	r.HandleFunc("/api/checkout/tier2", h.HandleCheckoutTier2).Methods("POST")
@@ -140,6 +173,7 @@ func main() {
 	r.HandleFunc("/api/lead/checklist", h.HandleChecklistDownload).Methods("POST")
 	r.HandleFunc("/api/lead/risk-assessment", h.HandleRiskAssessment).Methods("POST")
 	r.HandleFunc("/api/lead/sample-report", h.HandleSampleReportDownload).Methods("POST")
+	r.HandleFunc("/api/cra-assessment/submit", h.HandleCRAAssessmentSubmit).Methods("POST")
 	r.HandleFunc("/checklists", h.HandleChecklistPage).Methods("GET")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
 

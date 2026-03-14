@@ -1,0 +1,130 @@
+{{ define "example-report" }}
+<div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl sm:text-center">
+            <h2 class="text-base/7 font-semibold text-blue-600">Transparante Bewijslast</h2>
+            <p
+                class="mt-2 text-pretty text-4xl font-extrabold tracking-tight text-gray-900 sm:text-balance sm:text-5xl">
+                Uw technisch dossier, <br />geautomatiseerd vertaald.
+            </p>
+            <p class="mt-6 text-lg/8 text-gray-600">
+                Het resultaat van onze 24-uurs analyse is een formeel technisch dossier dat de brug slaat tussen uw
+                binaire build en de Europese wetgeving. Geen vage scans, maar een <span
+                    class="text-gray-900 font-semibold">juridisch bruikbaar rapport</span> dat de basis vormt voor uw
+                CE-markering.
+            </p>
+
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a href="/downloads/voorbeeld-cra-rapport.pdf"
+                    class="group relative flex items-center gap-x-3 rounded-lg bg-gray-900 px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-gray-700 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="size-5 text-blue-400 group-hover:text-white transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                    Download Voorbeeld Dossier (PDF)
+                </a>
+            </div>
+            <p class="mt-4 text-xs text-gray-500 font-medium italic">
+                * Gebaseerd op een Yocto/Bitbake-productieomgeving.
+            </p>
+        </div>
+    </div>
+
+    <div class="relative overflow-hidden pt-16">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <img width="2432" height="1442"
+                src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
+                alt="App screenshot" class="mb-[-12%] rounded-xl shadow-2xl ring-1 ring-gray-900/10" />
+
+            <div aria-hidden="true" class="relative">
+                <div class="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-white pt-[7%]"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl mt-16 px-6 sm:mt-20 md:mt-24 lg:px-8">
+        <dl
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base/7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+
+            <div class="relative pl-9">
+                <dt class="inline font-bold text-gray-900">
+                    <svg class="absolute left-1 top-1 size-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4.13-5.5Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Annex I Mapping.
+                </dt>
+                <dd class="inline text-gray-600">Wij vertalen technische metadata naar de exacte 'Essential Security
+                    Requirements' zoals geëist door de EU.</dd>
+            </div>
+
+            <div class="relative pl-9">
+                <dt class="inline font-bold text-gray-900">
+                    <svg class="absolute left-1 top-1 size-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" />
+                    </svg>
+                    CWE & CVE Audit.
+                </dt>
+                <dd class="inline text-gray-600">Direct inzicht in bekende kwetsbaarheden, inclusief een formeel plan
+                    voor Vulnerability Disclosure.</dd>
+            </div>
+
+            <div class="relative pl-9">
+                <dt class="inline font-bold text-gray-900">
+                    <svg class="absolute left-1 top-1 size-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H3.989a.75.75 0 0 0-.75.75v4.242a.75.75 0 0 0 1.5 0v-2.43l.31.31a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm1.23-3.723a.75.75 0 0 0 .219-.53V2.929a.75.75 0 0 0-1.5 0V5.36l-.31-.31A7 7 0 0 0 3.239 8.188a.75.75 0 1 0 1.448.389A5.5 5.5 0 0 1 13.89 6.11l.311.31h-2.432a.75.75 0 0 0 0 1.5h4.243a.75.75 0 0 0 .53-.219Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    SBOM Validatie.
+                </dt>
+                <dd class="inline text-gray-600">Een onweerlegbare inventaris die voldoet aan de strengste supply chain
+                    eisen van uw grootste industriële klanten.</dd>
+            </div>
+
+            <div class="relative pl-9">
+                <dt class="inline font-bold text-gray-900">
+                    <svg class="absolute left-1 top-1 size-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Kernel Lifecycle.
+                </dt>
+                <dd class="inline text-gray-600">Inzicht in EOL-data van componenten om de verplichte support-termijn
+                    van 10 jaar juridisch te onderbouwen.</dd>
+            </div>
+
+            <div class="relative pl-9">
+                <dt class="inline font-bold text-gray-900">
+                    <svg class="absolute left-1 top-1 size-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 1a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 1ZM5.05 3.05a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 0 1-1.06 1.06L5.05 4.11a.75.75 0 0 1 0-1.06Zm9.9 0a.75.75 0 0 1 0 1.06l-1.06 1.06a.75.75 0 1 1-1.06-1.06l1.06-1.06a.75.75 0 0 1 1.06 0ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM3.05 10a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Zm13.15 0a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Conformiteits-basis.
+                </dt>
+                <dd class="inline text-gray-600">Onze audit dient als de technische ruggengraat voor uw officiële EU
+                    Declaration of Conformity.</dd>
+            </div>
+
+            <div class="relative pl-9">
+                <dt class="inline font-bold text-gray-900">
+                    <svg class="absolute left-1 top-1 size-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M4.632 3.533A2 2 0 0 1 6.577 2h6.846a2 2 0 0 1 1.945 1.533l1.976 8.234A3.489 3.489 0 0 0 16 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234Z" />
+                        <path d="M4 13a2 2 0 1 0 0 4h12a2 2 0 1 0 0-4H4Z" />
+                    </svg>
+                    Audit-trail & Archief.
+                </dt>
+                <dd class="inline text-gray-600">Behoud de bewijslast van elke release gedurende de volledige
+                    levenscyclus, zoals vereist door de toezichthouder.</dd>
+            </div>
+
+        </dl>
+    </div>
+</div>
+{{ end }}

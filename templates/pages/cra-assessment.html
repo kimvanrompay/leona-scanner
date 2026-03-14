@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-screen">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRA Compliance Self Assessment | LEONA & CRAVIT</title>
+  <meta name="description" content="CRA compliance assessment voor embedded Linux systemen. 10 vragen om uw CRA-gereedheid te bepalen.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="h-screen bg-white" x-data="{
+  sidebarOpen: false,
+  answers: {},
+  questions: [
+    { id: 1, title: 'SBOM Generatie' },
+    { id: 2, title: 'CVE Tracking' },
+    { id: 3, title: 'Secure Boot' },
+    { id: 4, title: 'OTA Updates' },
+    { id: 5, title: 'Cryptografie' },
+    { id: 6, title: 'TCF Documentatie' },
+    { id: 7, title: 'Supply Chain' },
+    { id: 8, title: 'Incident Response' },
+    { id: 9, title: 'Support Lifecycle' },
+    { id: 10, title: 'Access Control' }
+  ],
+  answerQuestion(number, answer) {
+    this.answers[number] = answer;
+    localStorage.setItem('cra-assessment', JSON.stringify(this.answers));
+    const nextQuestion = document.getElementById('question-' + (number + 1));
+    if (nextQuestion) {
+      nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  },
+  goToQuestion(number) {
+    const question = document.getElementById('question-' + number);
+    if (question) {
+      question.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    this.sidebarOpen = false;
+  },
+  get progress() {
+    return Object.keys(this.answers).length;
+  },
+  get isComplete() {
+    return this.progress === 10;
+  },
+  init() {
+    const saved = localStorage.getItem('cra-assessment');
+    if (saved) {
+      this.answers = JSON.parse(saved);
+    }
+  }
+}">
+
+<!-- Mobile sidebar overlay -->
+<div x-show="sidebarOpen" @click="sidebarOpen = false" class="relative z-50 lg:hidden" x-cloak>
+  <div class="fixed inset-0 bg-gray-900/80" x-show="sidebarOpen" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+  <div class="fixed inset-0 flex">
+    <div @click.stop x-show="sidebarOpen" class="relative mr-16 flex w-full max-w-xs flex-1" x-transition:enter="transition ease-in-out duration-300 transform" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
+      <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+        <button @click="sidebarOpen = false" class="-m-2.5 p-2.5">
+          <span class="sr-only">Sluit sidebar</span>
+          <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-950 px-6 pb-4">
+        <div class="flex h-16 shrink-0 items-center">
+          <h2 class="text-lg font-semibold text-white">CRA Assessment</h2>
+        </div>
+        <nav class="flex flex-1 flex-col">
+          <div class="text-xs font-semibold text-gray-400 mb-3">Voortgang: <span x-text="progress"></span>/10</div>
+          <ul role="list" class="-mx-2 space-y-1">
+            <template x-for="q in questions" :key="q.id">
+              <li>
+                <button @click="goToQuestion(q.id)" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold w-full text-left" :class="answers[q.id] ? 'bg-blue-900 text-white' : 'text-gray-400 hover:text-white hover:bg-blue-900/50'">
+                  <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium" :class="answers[q.id] === 'ja' ? 'border-green-400 bg-green-500 text-white' : answers[q.id] === 'nee' ? 'border-red-400 bg-red-500 text-white' : 'border-gray-600 bg-blue-900 text-gray-400'">
+                    <span x-show="answers[q.id] === 'ja'">✓</span>
+                    <span x-show="answers[q.id] === 'nee'">✗</span>
+                    <span x-show="!answers[q.id]" x-text="q.id"></span>
+                  </span>
+                  <span class="truncate" x-text="q.title"></span>
+                </button>
+              </li>
+            </template>
+          </ul>
+          <div class="mt-auto pt-4 border-t border-blue-900">
+            <button x-show="isComplete" class="w-full rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-400">
+              Bekijk Resultaten
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Static desktop sidebar -->
+<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+  <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-950 px-6 pb-4">
+    <div class="flex h-16 shrink-0 items-center">
+      <h2 class="text-lg font-semibold text-white">CRA Assessment</h2>
+    </div>
+    <nav class="flex flex-1 flex-col">
+      <div class="text-xs font-semibold text-gray-400 mb-3">Voortgang: <span x-text="progress"></span>/10</div>
+      <ul role="list" class="-mx-2 space-y-1">
+        <template x-for="q in questions" :key="q.id">
+          <li>
+            <button @click="goToQuestion(q.id)" class="group flex gap-x-3 rounded-md p-2 text-sm font-semibold w-full text-left transition-all" :class="answers[q.id] ? 'bg-blue-900 text-white' : 'text-gray-400 hover:text-white hover:bg-blue-900/50'">
+              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium" :class="answers[q.id] === 'ja' ? 'border-green-400 bg-green-500 text-white' : answers[q.id] === 'nee' ? 'border-red-400 bg-red-500 text-white' : 'border-gray-600 bg-blue-900 text-gray-400'">
+                <span x-show="answers[q.id] === 'ja'">✓</span>
+                <span x-show="answers[q.id] === 'nee'">✗</span>
+                <span x-show="!answers[q.id]" x-text="q.id"></span>
+              </span>
+              <span class="truncate" x-text="q.title"></span>
+            </button>
+          </li>
+        </template>
+      </ul>
+      <div class="mt-auto py-4 border-t border-blue-900">
+        <button x-show="isComplete" class="w-full rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-400 shadow-sm">
+          Bekijk Resultaten
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- Mobile header -->
+<div class="sticky top-0 z-40 flex items-center gap-x-6 bg-blue-950 px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+  <button @click="sidebarOpen = true" class="-m-2.5 p-2.5 text-gray-400 lg:hidden">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
+  </button>
+  <div class="flex-1 text-sm font-semibold text-white">CRA Compliance Assessment</div>
+  <div class="text-xs text-gray-400"><span x-text="progress"></span>/10</div>
+</div>
+
+<!-- Main content -->
+<main class="lg:pl-72">
+  <div class="h-screen overflow-y-scroll snap-y snap-mandatory">
+    
+    <!-- Hero Section -->
+    <div id="question-0" class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8 h-screen flex items-center snap-start">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2830&h=1500&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover opacity-10" />
+      <div aria-hidden="true" class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl">
+        <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-15"></div>
+      </div>
+      <div class="mx-auto max-w-2xl text-center">
+        <h1 class="text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">CRA Compliance Self Assessment</h1>
+        <p class="mt-8 text-pretty text-lg font-medium text-gray-700 sm:text-xl/8">Beoordeel uw CRA-compliance in 10 vragen. Ontdek waar uw embedded Linux systeem kwetsbaar is en welke stappen u moet nemen voor 11 september 2026.</p>
+        <div class="mt-10">
+          <button @click="goToQuestion(1)" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800">Start Assessment</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 1: SBOM Generation -->
+    <div id="question-1" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 1/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u geautomatiseerde SBOM-generatie?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Een Software Bill of Materials (SBOM) is verplicht onder Art. 14 van de CRA. Dit moet alle componenten, versies en afhankelijkheden documenteren.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(1, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[1] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(1, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[1] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 2: CVE Tracking -->
+    <div id="question-2" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 2/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Volgt u actief CVE's in uw componenten?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">CRA vereist continue monitoring van bekende kwetsbaarheden (CVEs) en rapportage binnen 24 uur voor kritieke exploits (Art. 14).</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(2, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[2] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(2, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[2] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 3: Secure Boot -->
+    <div id="question-3" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 3/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Is Secure Boot geïmplementeerd?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Annex I vereist bescherming tegen ongeautoriseerde firmware-modificaties. Secure Boot verifieert cryptografische handtekeningen bij opstarten.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(3, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[3] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(3, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[3] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 4: OTA Updates -->
+    <div id="question-4" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 4/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u veilige OTA-updates?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Over-The-Air updates moeten encrypted, signed en rollback-protected zijn volgens Annex I Essential Requirements voor software-updates.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(4, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[4] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(4, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[4] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 5: Cryptography -->
+    <div id="question-5" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 5/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Gebruikt u goedgekeurde cryptografie?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Annex I vereist state-of-the-art cryptografische algoritmes (bijv. AES-256, SHA-256, RSA-2048+). Geen zwakke legacy crypto zoals MD5 of DES.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(5, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[5] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(5, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[5] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 6: Technical Documentation -->
+    <div id="question-6" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 6/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u een Technisch Constructiedossier (TCF)?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Art. 13 vereist een compleet TCF met risicoanalyse, security-architectuur, SBOM, test-rapportage en conformiteitsverklaring.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(6, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[6] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(6, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[6] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 7: Supply Chain Validation -->
+    <div id="question-7" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 7/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Valideert u third-party componenten?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">U bent verantwoordelijk voor de hele supply chain. Dit betekent licentie-compliance, provenance tracking en security-validatie van alle dependencies.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(7, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[7] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(7, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[7] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 8: Incident Response -->
+    <div id="question-8" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 8/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u een vulnerability disclosure proces?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Art. 14 vereist een proces om kwetsbaarheden te melden, evalueren en patches uit te rollen. Security researchers moeten u kunnen contacteren.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(8, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[8] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(8, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[8] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 9: Support Lifecycle -->
+    <div id="question-9" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 9/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Biedt u minimaal 5 jaar security updates?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">CRA vereist een support periode van minimaal 5 jaar of de verwachte levensduur van het product. Dit omvat security patches en kwetsbaarheidsrapportage.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(9, 'ja')" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[9] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(9, 'nee')" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[9] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question 10: Access Control -->
+    <div id="question-10" class="bg-gray-50 h-screen flex items-center snap-start">
+      <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+          <div class="mb-4"><span class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag 10/10</span></div>
+          <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u authenticatie en access control?</h2>
+          <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Annex I vereist identificatie en authenticatiemechanismen om ongeautoriseerde toegang te voorkomen. Denk aan: secure login, role-based access, audit logging.</p>
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button @click="answerQuestion(10, 'ja'); goToQuestion(11)" class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all" :class="answers[10] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+            <button @click="answerQuestion(10, 'nee'); goToQuestion(11)" class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all" :class="answers[10] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results & Email Submission Page -->
+    <div id="question-11" class="relative bg-white h-screen snap-start" x-data="{
+      email: '',
+      submitting: false,
+      submitted: false,
+      error: '',
+      async submitAssessment() {
+        if (!this.email || !this.email.includes('@')) {
+          this.error = 'Geldig e-mailadres vereist';
+          return;
+        }
+        this.submitting = true;
+        this.error = '';
+        try {
+          const formData = new FormData();
+          formData.append('email', this.email);
+          formData.append('answers', JSON.stringify($root.answers));
+          
+          const response = await fetch('/api/cra-assessment/submit', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (response.ok) {
+            this.submitted = true;
+          } else {
+            this.error = result.error || 'Er is iets misgegaan';
+          }
+        } catch (err) {
+          this.error = 'Netwerk fout - probeer opnieuw';
+        } finally {
+          this.submitting = false;
+        }
+      }
+    }">
+      <div class="lg:absolute lg:inset-0 lg:left-1/2">
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80" alt="" class="h-64 w-full bg-gray-50 object-cover sm:h-80 lg:absolute lg:h-full" />
+      </div>
+      <div class="pb-24 pt-16 sm:pb-32 sm:pt-24 lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:pt-32">
+        <div class="px-6 lg:px-8">
+          <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg" x-show="!submitted">
+            <!-- Stats Header -->
+            <div class="text-center">
+              <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Resultaat</h2>
+              <p class="mt-4 text-lg/8 text-gray-600">Uw CRA compliance assessment is compleet. Bekijk hieronder uw score.</p>
+            </div>
+            
+            <!-- Stats Grid -->
+            <dl class="mt-12 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2" x-data="{
+              get riskLevel() {
+                const score = (Object.values($root.answers).filter(a => a === 'ja').length / 10) * 100;
+                if (score >= 80) return 'LAAG';
+                if (score >= 50) return 'GEMIDDELD';
+                return 'HOOG';
+              },
+              get riskColor() {
+                const score = (Object.values($root.answers).filter(a => a === 'ja').length / 10) * 100;
+                if (score >= 80) return 'text-green-600';
+                if (score >= 50) return 'text-orange-600';
+                return 'text-red-600';
+              },
+              get urgency() {
+                const neeCount = Object.values($root.answers).filter(a => a === 'nee').length;
+                if (neeCount >= 7) return 'URGENT';
+                if (neeCount >= 4) return 'BELANGRIJK';
+                return 'NORMAAL';
+              },
+              get readiness() {
+                const jaCount = Object.values($root.answers).filter(a => a === 'ja').length;
+                if (jaCount >= 8) return 'KLAAR';
+                if (jaCount >= 5) return 'BIJNA KLAAR';
+                return 'WERK NODIG';
+              }
+            }">
+              <div class="flex flex-col bg-gray-400/5 p-8">
+                <dt class="text-sm/6 font-semibold text-gray-600">Risiconiveau</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight" :class="riskColor" x-text="riskLevel"></dd>
+              </div>
+              <div class="flex flex-col bg-gray-400/5 p-8">
+                <dt class="text-sm/6 font-semibold text-gray-600">CRA Gereedheid</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900" x-text="readiness"></dd>
+              </div>
+              <div class="flex flex-col bg-gray-400/5 p-8">
+                <dt class="text-sm/6 font-semibold text-gray-600">Actie Prioriteit</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900" x-text="urgency"></dd>
+              </div>
+              <div class="flex flex-col bg-gray-400/5 p-8">
+                <dt class="text-sm/6 font-semibold text-gray-600">Tijd tot Deadline</dt>
+                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">18 MND</dd>
+              </div>
+            </dl>
+
+            <!-- Email Form -->
+            <form @submit.prevent="submitAssessment()" class="mt-16">
+              <div class="grid grid-cols-1 gap-x-8 gap-y-6">
+                <div>
+                  <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres</label>
+                  <div class="mt-2.5">
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email"
+                      x-model="email"
+                      required
+                      autocomplete="email"
+                      class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600"
+                      placeholder="uw.email@bedrijf.nl"
+                    />
+                  </div>
+                </div>
+                
+                <div x-show="error" class="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-800" x-text="error"></div>
+              </div>
+              
+              <div class="mt-10 flex justify-end border-t border-gray-900/10 pt-8">
+                <button 
+                  type="submit" 
+                  :disabled="submitting"
+                  class="rounded-md bg-orange-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  x-text="submitting ? 'Verzenden...' : 'Verstuur Volledig Rapport'"
+                ></button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Success Message -->
+          <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg" x-show="submitted" x-transition>
+            <div class="mb-8">
+              <svg class="h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Rapport Verstuurd!</h2>
+            <p class="text-lg text-gray-600 mb-8">Check uw inbox op <span class="font-semibold" x-text="email"></span></p>
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
+              <h3 class="font-semibold text-blue-900 mb-3">📧 Wat zit er in het rapport?</h3>
+              <ul class="space-y-2 text-sm text-blue-800">
+                <li>✅ Gedetailleerde analyse per vraag</li>
+                <li>⚠️ Risicobeoordeling en compliance score</li>
+                <li>📋 Aanbevelingen per CRA artikel</li>
+                <li>🚀 Concrete actieplan voor implementatie</li>
+                <li>📅 Link om gratis 30-min consult in te plannen</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<style>
+  [x-cloak] { display: none !important; }
+</style>
+
+</body>
+</html>

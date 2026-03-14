@@ -1,0 +1,223 @@
+{{ define "faq" }}
+<div class="bg-blue-900">
+    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+        <div class="mx-auto max-w-4xl">
+            <h2 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Veelgestelde Vragen</h2>
+            <p class="mt-4 text-lg text-gray-400">Waarom toonaangevende engineering-teams kiezen voor geautomatiseerde
+                bewijslast.</p>
+
+            <dl class="mt-16 divide-y divide-white/10 border-t border-white/10">
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-cto"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold">Hoe voorkomt dit platform een 'compliance bottleneck' in
+                                onze release-cycle?</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-cto" class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Traditionele audits zijn lineair en vertragend. LEONA &
+                                CRAVIT integreert met uw build-pipeline (Yocto/Buildroot) en transformeert technische
+                                metadata direct naar een compliant dossier. Wij halen de administratieve druk weg bij uw
+                                core engineering team, zodat zij kunnen blijven focussen op feature-ontwikkeling in
+                                plaats van EU-wetgeving.</p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-legal"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold">Hoe waarborgt een technische audit de juridische 'Duty
+                                of Care' onder de CRA?</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-legal" hidden class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Onze dossiers bieden een objectieve, data-gedreven
+                                basis voor uw EU-conformiteitsverklaring. Door binaire metadata te mappen op Annex I
+                                veiligheidseisen, creëert u een onweerlegbaar technisch archief. Dit minimaliseert de
+                                aansprakelijkheid van bestuurders door aan te tonen dat 'State-of-the-Art' monitoring is
+                                toegepast op de volledige software supply chain.</p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-sales"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold">Is dit dossier bruikbaar als commercieel bewijsstuk voor
+                                onze eindklanten?</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-sales" hidden class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Absoluut. Uw klanten (onder NIS2/CER) eisen
+                                transparantie in hun toeleveringsketen. Een extern gevalideerd CRA-dossier van LEONA &
+                                CRAVIT fungeert als een 'security-paspoort'. Het neemt de onzekerheid weg bij
+                                inkooptrajecten en versnelt de acceptatie van uw product in kritieke infrastructuren.
+                            </p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-input"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold">Wat is de impact op onze IP en interne
+                                ontwikkelomgeving?</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-input" hidden class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Minimaal. Wij vereisen geen toegang tot uw source code.
+                                Onze audit werkt op basis van geëxtraheerde binaire metadata (zoals SPDX 2.3 of license
+                                manifests). Uw intellectueel eigendom blijft volledig binnen uw eigen perimeter, terwijl
+                                u wel profiteert van een volledige kwetsbaarheids- en compliance-analyse op
+                                release-niveau.</p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-killer-1"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold text-white">"Waarom zou ik betalen als ik ook
+                                gratis open-source scanners zoals Grype of Trivy kan draaien?"</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-killer-1" hidden class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Een scanner geeft u een lijst met 800 CVE's waar uw
+                                team hoofdpijn van krijgt; wij geven u een <span
+                                    class="text-white font-semibold">juridisch verdedigbaar dossier</span>. Open-source
+                                tools mappen uw kwetsbaarheden niet op de Annex I wetgeving van de CRA, ze garanderen
+                                geen 10-jarige bewaarplicht en ze bieden geen Liability Shield. U betaalt niet voor de
+                                scan, u betaalt voor de juridische vertaling die uw bestuurder uit de wind houdt.</p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-killer-2"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold text-white">"Kan een algoritme van €999 echt
+                                de expertise van een gespecialiseerde auditor vervangen?"</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-killer-2" hidden class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Een menselijke auditor is feilbaar, traag en baseert
+                                zich op steekproeven. Onze engine analyseert <span class="text-white font-semibold">elke
+                                    regel metadata</span> van uw build, 24/7. Wij vervangen de auditor niet; wij
+                                vervangen de honderden uren aan handmatige data-entry die die auditor normaal aan u
+                                factureert. Wij leveren de 'harde feiten' waar de auditor vervolgens alleen nog zijn
+                                stempel op hoeft te zetten.</p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+                <div class="py-6">
+                    <dt>
+                        <button type="button" command="--toggle" commandfor="faq-killer-3"
+                            class="flex w-full items-start justify-between text-left text-white">
+                            <span class="text-base/7 font-bold text-white">"Wat als we gewoon wachten tot de
+                                handhaving van de CRA in 2026 echt begint?"</span>
+                            <span class="ml-6 flex h-7 items-center text-indigo-400">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [[aria-expanded='true']_&]:hidden">
+                                    <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    class="size-6 [&:not([aria-expanded='true']_*)]:hidden">
+                                    <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </button>
+                    </dt>
+                    <el-disclosure id="faq-killer-3" hidden class="[&:not([hidden])]:contents">
+                        <dd class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-400">Dat is een gok. Uw grootste klanten
+                                (die onder NIS2 vallen) auditeren hun supply chain <span
+                                    class="text-white font-semibold">nu al</span>. Als u nu geen dossier kunt
+                                overleggen, bent u morgen een 'high-risk vendor' en verliest u misschien lopende
+                                contracten.
+                                Wachten op de wet is wachten op onzekerheid; proactief handelen is uw
+                                concurrentievoordeel
+                                veiligstellen.</p>
+                        </dd>
+                    </el-disclosure>
+                </div>
+
+            </dl>
+        </div>
+    </div>
+</div>
+{{ end }}

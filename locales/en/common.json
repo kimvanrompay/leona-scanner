@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "products": "Products",
+    "services": "Services",
+    "knowledge": "Knowledge",
+    "partners": "Partners",
+    "about": "About us",
+    "login": "Login",
+    "request_demo": "Request Demo"
+  },
+  "cta": {
+    "get_started": "Get started",
+    "learn_more": "Learn more",
+    "request_demo": "Request Demo",
+    "download": "Download"
+  }
+}

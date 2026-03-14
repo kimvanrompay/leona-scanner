@@ -1,0 +1,5 @@
+{
+  "default_language": "nl",
+  "supported_languages": ["nl", "en", "fr"],
+  "fallback_language": "en"
+}
