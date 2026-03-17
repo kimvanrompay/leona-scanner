@@ -120,7 +120,7 @@ func (h *HTTPHandlerV2) sendEngineerEmail(to string) error {
 	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -139,7 +139,7 @@ func (h *HTTPHandlerV2) sendEngineerEmail(to string) error {
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #667eea 0%%, #764ba2 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
         .button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; font-weight: bold; }
         .code { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 13px; overflow-x: auto; }
@@ -167,7 +167,7 @@ func (h *HTTPHandlerV2) sendEngineerEmail(to string) error {
                 <li>GPL license risk scanner</li>
             </ul>
 
-            <a href="https://leona-cravit.be/downloads/meta-leona.tar.gz" class="button">Download meta-leona layer</a>
+            <a href="https://leonacompliance.be/downloads/meta-leona.tar.gz" class="button">Download meta-leona layer</a>
 
             <h3>⚙️ Installatie (2 minuten)</h3>
             <div class="code">
@@ -185,16 +185,16 @@ echo 'INHERIT += "cra-check kernel-eol-validator"' >> conf/local.conf<br/><br/>
 bitbake core-image-minimal
             </div>
 
-            <p><strong>Output:</strong> Na de build vind je <code>tmp/deploy/images/&lt;machine&gt;/bom.json</code> - upload dit naar <a href="https://leona-cravit.be/#assessor">V-Assessor™</a> voor een gratis compliance scan.</p>
+            <p><strong>Output:</strong> Na de build vind je <code>tmp/deploy/images/&lt;machine&gt;/bom.json</code> - upload dit naar <a href="https://leonacompliance.be/#assessor">V-Assessor™</a> voor een gratis compliance scan.</p>
 
             <h3>🎯 Volgende stap</h3>
             <p>Wil je een volledige CRA gap analysis van je huidige build?</p>
-            <a href="https://leona-cravit.be/#assessor" class="button">Upload je SBOM (gratis)</a>
+            <a href="https://leonacompliance.be/#assessor" class="button">Upload je SBOM (gratis)</a>
         </div>
 
         <div class="footer">
             <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
-            Vragen? Reply op deze email of bezoek <a href="https://leona-cravit.be">leona-cravit.be</a></p>
+            Vragen? Reply op deze email of bezoek <a href="https://leonacompliance.be">leonacompliance.be</a></p>
             <p style="margin-top: 15px; font-size: 11px; color: #999;">
                 Deze tools zijn community contributions. Voor productie-gebruik raden we een volledige V-Assessor™ audit aan (€499).
             </p>
@@ -216,7 +216,7 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
 	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -235,10 +235,10 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
     <style>
         body { font-family: Georgia, serif; line-height: 1.8; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #1e3a8a 0%%, #3730a3 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #fafaf9; padding: 30px; margin-top: 20px; border-radius: 8px; border-left: 4px solid #3730a3; }
         .button { display: inline-block; background: #3730a3; color: white; padding: 14px 35px; text-decoration: none; border-radius: 6px; margin: 20px 0; font-weight: 600; }
-        .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .table { width: 100%%; border-collapse: collapse; margin: 20px 0; }
         .table th { background: #f3f4f6; padding: 10px; text-align: left; font-size: 12px; border-bottom: 2px solid #d1d5db; }
         .table td { padding: 10px; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
         .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 11px; color: #666; }
@@ -265,7 +265,7 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
                 <li>Client intake vragenlijst (embedded Linux specifiek)</li>
             </ul>
 
-            <a href="https://leona-cravit.be/downloads/CRA_Annex_I_Mapping_Template.xlsx" class="button">Download Template (Excel)</a>
+            <a href="https://leonacompliance.be/downloads/CRA_Annex_I_Mapping_Template.xlsx" class="button">Download Template (Excel)</a>
 
             <h3 style="color: 1e3a8a; margin-top: 25px;">🔍 Use case: Cliënt heeft technisch rapport nodig</h3>
             <p>Veel machinebouwers komen bij u met de vraag: <em>"Hoe toetsen we of onze embedded Linux stack CRA-compliant is?"</em></p>
@@ -273,7 +273,7 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
             <p>U kunt nu:</p>
             <ol style="line-height: 2;">
                 <li>Vraag hun SBOM (via Yocto cve-check.bbclass of Buildroot)</li>
-                <li>Upload naar <a href="https://leona-cravit.be/#assessor">V-Assessor™</a> (geautomatiseerde pre-scan)</li>
+                <li>Upload naar <a href="https://leonacompliance.be/#assessor">V-Assessor™</a> (geautomatiseerde pre-scan)</li>
                 <li>Ontvang gap analysis rapport binnen 60 seconden</li>
                 <li>Gebruik onze template om bevindingen te vertalen naar juridische adviezen</li>
             </ol>
@@ -303,13 +303,13 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
                 </tr>
             </table>
 
-            <p>Interesse? Plan een 30-minuten demo: <a href="mailto:support@leona-cravit.be">support@leona-cravit.be</a></p>
+            <p>Interesse? Plan een 30-minuten demo: <a href="mailto:support@leonacompliance.be">support@leonacompliance.be</a></p>
         </div>
 
         <div class="footer">
             <p><strong>LEONA & CRAVIT</strong><br/>
             Technisch-juridische compliance engineering<br/>
-            <a href="https://leona-cravit.be">leona-cravit.be</a> | <a href="mailto:support@leona-cravit.be">support@leona-cravit.be</a></p>
+            <a href="https://leonacompliance.be">leonacompliance.be</a> | <a href="mailto:support@leonacompliance.be">support@leonacompliance.be</a></p>
             <p style="margin-top: 15px; font-size: 10px; color: #999;">
                 Deze template is voor educatieve doeleinden. Juridisch advies blijft uw verantwoordelijkheid.<br/>
                 Wij zijn geen geaccrediteerde notified body - wel een technische due diligence partner.

@@ -199,7 +199,7 @@ func (h *HTTPHandlerV2) sendRiskScoreEmail(to, companyName string, score int, le
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -225,7 +225,7 @@ func (h *HTTPHandlerV2) sendRiskScoreEmail(to, companyName string, score int, le
     <style>
         body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #1e293b 0%%, #334155 100%%); color: white; padding: 30px; border-radius: 8px; }
         .score-box { background: %s; color: white; padding: 40px; text-align: center; border-radius: 12px; margin: 20px 0; }
         .score-number { font-size: 72px; font-weight: bold; line-height: 1; }
         .content { background: #f9fafb; padding: 30px; margin-top: 20px; border-radius: 8px; }
@@ -266,7 +266,7 @@ func (h *HTTPHandlerV2) sendRiskScoreEmail(to, companyName string, score int, le
                 Krijg een kant-en-klaar Technical Construction File voor uw notified body.
             </div>
 
-            <a href="https://leona-cravit.be/#assessor" class="button">Start Gratis SBOM Scan</a>
+            <a href="https://leonacompliance.be/#assessor" class="button">Start Gratis SBOM Scan</a>
             
             <p style="margin-top: 30px; padding: 20px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 6px;">
                 <strong>⏰ Deadline:</strong> CRA wordt verplicht op <strong>11 december 2027</strong>. 
@@ -276,7 +276,7 @@ func (h *HTTPHandlerV2) sendRiskScoreEmail(to, companyName string, score int, le
 
         <div class="footer">
             <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
-            <a href="https://leona-cravit.be">leona-cravit.be</a> | <a href="mailto:support@leona-cravit.be">support@leona-cravit.be</a></p>
+            <a href="https://leonacompliance.be">leonacompliance.be</a> | <a href="mailto:support@leonacompliance.be">support@leonacompliance.be</a></p>
             <p style="margin-top: 10px; font-size: 11px; color: #999;">
                 Deze score is gebaseerd op uw antwoorden en is indicatief. Voor een volledige audit neem contact op.
             </p>
@@ -331,7 +331,7 @@ func (h *HTTPHandlerV2) sendRiskAssessmentNotification(req RiskAssessmentRequest
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return

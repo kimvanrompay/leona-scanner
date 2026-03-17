@@ -96,7 +96,7 @@ func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, comp
 	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -125,7 +125,7 @@ func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, comp
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #667eea 0%%, #764ba2 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
         .field { margin-bottom: 20px; }
         .label { font-weight: bold; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -169,8 +169,9 @@ func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, comp
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | Contact Form Notification<br/>
-            Deze email is automatisch gegenereerd vanuit <a href="https://leona-cravit.be/contact">leona-cravit.be/contact</a></p>
+			<p><strong>LEONA Compliance</strong> | Contact Form Notification<br/>
+			 Deze email is automatisch gegenereerd vanuit <a href="https://leonacompliance.be/contact">leonacompliance.be/contact</a></p> `+
+		`
         </div>
     </div>
 </body>
@@ -191,7 +192,7 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -209,7 +210,7 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #667eea 0%%, #764ba2 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
         .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
     </style>
@@ -233,12 +234,13 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
                 <li>Je ontvangt een offerte op maat</li>
             </ol>
 
-            <p>In de tussentijd kun je alvast een gratis scan doen van je SBOM via onze <a href="https://leona-cravit.be">V-Assessor™</a>.</p>
+            <p>In de tussentijd kun je alvast een gratis scan doen van je SBOM via onze `+
+		`<a href="https://leonacompliance.be">V-Assessor™</a>.</p>
         </div>
 
         <div class="footer">
             <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
-            <a href="https://leona-cravit.be">leona-cravit.be</a> | support@leona-cravit.be</p>
+            <a href="https://leonacompliance.be">leonacompliance.be</a> | support@leonacompliance.be</p>
         </div>
     </div>
 </body>

@@ -109,7 +109,7 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -175,7 +175,7 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	<style>
 		body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
 		.container { max-width: 600px; margin: 0 auto; padding: 20px; }
-		.header { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 30px; border-radius: 8px; text-align: center; }
+		.header { background: linear-gradient(135deg, #1e40af 0%%, #3b82f6 100%%); color: white; padding: 30px; border-radius: 8px; text-align: center; }
 		.score-badge { background: %s; color: white; padding: 20px; border-radius: 12px; text-align: center; margin: 30px 0; }
 		.score-number { font-size: 48px; font-weight: bold; margin: 10px 0; }
 		.content { background: #f9fafb; padding: 30px; margin-top: 20px; border-radius: 8px; }
@@ -218,8 +218,8 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 			</ol>
 
 			<div style="text-align: center;">
-				<a href="https://leona-cravit.be/cra-assessment" class="button">Download Volledig Rapport</a>
-				<a href="https://calendly.com/leona-cravit/cra-consult" class="button" style="background: #22c55e;">Plan Gratis Consult</a>
+				<a href="https://leonacompliance.be/cra-assessment" class="button">Download Volledig Rapport</a>
+				<a href="https://calendly.com/leonacompliance/cra-consult" class="button" style="background: #22c55e;">Plan Gratis Consult</a>
 			</div>
 
 			<h3 style="color: #1e40af; margin-top: 40px;">📅 Belangrijke Deadline</h3>
@@ -229,8 +229,8 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 		</div>
 
 		<div class="footer">
-			<p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
-			Vragen? Reply op deze email of bezoek <a href="https://leona-cravit.be">leona-cravit.be</a></p>
+			<p><strong>LEONA Compliance</strong> | CRA Compliance Engineering<br/>
+			Vragen? Reply op deze email of bezoek <a href="https://leonacompliance.be">leonacompliance.be</a></p>
 		</div>
 	</div>
 </body>
@@ -249,7 +249,7 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		log.Println("SMTP not configured, skipping admin notification")
@@ -268,7 +268,7 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 	<style>
 		body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
 		.container { max-width: 600px; margin: 0 auto; padding: 20px; }
-		.header { background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); color: white; padding: 20px; border-radius: 8px; }
+		.header { background: linear-gradient(135deg, #16a34a 0%%, #22c55e 100%%); color: white; padding: 20px; border-radius: 8px; }
 		.content { background: #f0fdf4; padding: 20px; margin-top: 20px; border-radius: 8px; border-left: 4px solid #16a34a; }
 		.data { background: white; padding: 15px; border-radius: 6px; margin: 15px 0; }
 		.label { font-size: 12px; color: #666; text-transform: uppercase; font-weight: bold; }

@@ -54,7 +54,7 @@ func NewSharedData(activePage string) map[string]interface{} {
 		// Page Info
 		"ActivePage": activePage,
 		"SiteName":   "LEONA & CRAVIT",
-		"SiteURL":    "https://leona-cravit.be",
+		"SiteURL":    "https://leonacompliance.be",
 
 		// Branding
 		"Colors": map[string]string{

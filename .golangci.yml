@@ -114,6 +114,19 @@ issues:
     - linters:
         - lll
       source: "^//go:generate"
+    
+    # Exclude long lines in HTML email templates
+    - linters:
+        - lll
+      source: "<a href.*>.*</a>"
+    
+    - linters:
+        - lll
+      path: "internal/handler/(checklist|contact|demo|lead_magnet|risk_assessment|sample_report|cra_assessment)\\.go$"
+    
+    - linters:
+        - lll
+      path: "scripts/test-email\\.go$"
   
   # Show all issues
   exclude-use-default: false

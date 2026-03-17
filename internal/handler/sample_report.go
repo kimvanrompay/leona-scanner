@@ -75,7 +75,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -98,14 +98,14 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
     <style>
         body { font-family: Georgia, serif; line-height: 1.7; color: #1a1a1a; }
         .container { max-width: 650px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #1428A0 0%, #FF6B35 100%); color: white; padding: 40px; border-radius: 12px; text-align: center; }
+        .header { background: linear-gradient(135deg, #1428A0 0%%, #FF6B35 100%%); color: white; padding: 40px; border-radius: 12px; text-align: center; }
         .logo { font-size: 32px; font-weight: bold; letter-spacing: 2px; }
         .content { background: #fafaf9; padding: 40px; margin-top: 20px; border-radius: 12px; border-left: 6px solid #FF6B35; }
         .highlight-box { background: #fff; padding: 25px; margin: 25px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         .stat { display: inline-block; text-align: center; margin: 15px 20px; }
         .stat-number { font-size: 42px; font-weight: bold; color: #1428A0; }
         .stat-label { font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-        .button { display: inline-block; background: linear-gradient(135deg, #1428A0 0%, #FF6B35 100%); color: white; padding: 16px 40px; text-decoration: none; border-radius: 8px; margin: 25px 0; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(255,107,53,0.3); }
+        .button { display: inline-block; background: linear-gradient(135deg, #1428A0 0%%, #FF6B35 100%%); color: white; padding: 16px 40px; text-decoration: none; border-radius: 8px; margin: 25px 0; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(255,107,53,0.3); }
         .checklist { background: #f0fdf4; padding: 20px; border-left: 4px solid #22c55e; border-radius: 6px; margin: 20px 0; }
         .footer { margin-top: 40px; padding-top: 25px; border-top: 2px solid #e5e7eb; font-size: 12px; color: #666; text-align: center; }
     </style>
@@ -156,7 +156,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
             </div>
 
             <div style="text-align: center;">
-                <a href="https://leona-cravit.be/downloads/Sample_TCF_Report_LEONA_CRAVIT.pdf" class="button">
+                <a href="https://leonacompliance.be/downloads/Sample_TCF_Report_LEONA_CRAVIT.pdf" class="button">
                     📥 Download Voorbeeldrapport (PDF, 42 pagina's)
                 </a>
             </div>
@@ -182,7 +182,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
             </div>
 
             <div style="text-align: center; margin-top: 35px;">
-                <a href="https://leona-cravit.be/#assessor" class="button">
+                <a href="https://leonacompliance.be/#assessor" class="button">
                     🚀 Scan Mijn Product Nu (Gratis Preview)
                 </a>
             </div>
@@ -190,8 +190,8 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
             <h3 style="color: #1428A0; margin-top: 40px;">📞 Vragen over het rapport?</h3>
             <p>Reply direct op deze email of plan een 30-minuten demo:</p>
             <p style="margin-top: 15px;">
-                📧 <a href="mailto:support@leona-cravit.be" style="color: #1428A0; font-weight: 600;">support@leona-cravit.be</a><br/>
-                🌐 <a href="https://leona-cravit.be" style="color: #1428A0; font-weight: 600;">leona-cravit.be</a>
+                📧 <a href="mailto:support@leonacompliance.be" style="color: #1428A0; font-weight: 600;">support@leonacompliance.be</a><br/>
+                🌐 <a href="https://leonacompliance.be" style="color: #1428A0; font-weight: 600;">leonacompliance.be</a>
             </p>
         </div>
 
@@ -220,7 +220,7 @@ func (h *HTTPHandlerV2) sendSampleDownloadNotification(email, companyName string
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return

@@ -30,8 +30,14 @@ func init() {
 	}
 
 	db = database.NewSupabaseClient(supabaseURL, supabaseKey)
-	mollieClient = mollie.NewClient(nil)
-	mollieClient.SetAPIKey(mollieAPIKey)
+
+	// Initialize Mollie client
+	config := mollie.NewConfig(true, mollie.APITokenEnv)
+	client, err := mollie.NewClient(nil, config)
+	if err != nil {
+		log.Fatalf("Failed to initialize Mollie client: %v", err)
+	}
+	mollieClient = client
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +62,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Fetch payment status from Mollie
 	ctx := context.Background()
-	payment, err := mollieClient.Payments.Get(ctx, paymentID, nil)
+	_, payment, err := mollieClient.Payments.Get(ctx, paymentID, nil)
 	if err != nil {
 		log.Printf("Failed to fetch payment from Mollie: %v", err)
 		http.Error(w, "Internal error", http.StatusInternalServerError)
@@ -67,9 +73,8 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Update payment status in database
 	var paidAt *time.Time
-	if payment.Status == mollie.PaymentStatusPaid && payment.PaidAt != nil {
-		t := payment.PaidAt.Time
-		paidAt = &t
+	if payment.Status == "paid" && payment.PaidAt != nil {
+		paidAt = payment.PaidAt
 	}
 
 	if err := db.UpdatePaymentStatus(ctx, paymentID, string(payment.Status), paidAt); err != nil {
@@ -79,25 +84,37 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If payment is successful, unlock the scan
-	if payment.Status == mollie.PaymentStatusPaid {
-		// Extract scan_id from metadata
-		if metadata, ok := payment.Metadata.(map[string]interface{}); ok {
-			if scanIDStr, ok := metadata["scan_id"].(string); ok {
-				scanID, err := uuid.Parse(scanIDStr)
-				if err != nil {
-					log.Printf("Invalid scan_id in payment metadata: %v", err)
-				} else {
-					if err := db.UnlockScan(ctx, scanID); err != nil {
-						log.Printf("Failed to unlock scan: %v", err)
-					} else {
-						log.Printf("Successfully unlocked scan %s", scanID)
-					}
-				}
-			}
-		}
+	if payment.Status == "paid" {
+		unlockScanFromPayment(ctx, payment)
 	}
 
 	w.WriteHeader(http.StatusOK)
+}
+
+func unlockScanFromPayment(ctx context.Context, payment *mollie.Payment) {
+	// Extract scan_id from metadata
+	metadata, ok := payment.Metadata.(map[string]interface{})
+	if !ok {
+		return
+	}
+
+	scanIDStr, ok := metadata["scan_id"].(string)
+	if !ok {
+		return
+	}
+
+	scanID, err := uuid.Parse(scanIDStr)
+	if err != nil {
+		log.Printf("Invalid scan_id in payment metadata: %v", err)
+		return
+	}
+
+	if err := db.UnlockScan(ctx, scanID); err != nil {
+		log.Printf("Failed to unlock scan: %v", err)
+		return
+	}
+
+	log.Printf("Successfully unlocked scan %s", scanID)
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {

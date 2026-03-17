@@ -353,60 +353,15 @@
           <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg" x-show="!submitted">
             <!-- Stats Header -->
             <div class="text-center">
-              <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Resultaat</h2>
-              <p class="mt-4 text-lg/8 text-gray-600">Uw CRA compliance assessment is compleet. Bekijk hieronder uw score.</p>
+              <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Bedankt! 🎉</h2>
+              <p class="mt-4 text-lg/8 text-gray-600">Vul uw e-mailadres in en ontvang de resultaten van uw assessment direct in uw mailbox.</p>
             </div>
-            
-            <!-- Stats Grid -->
-            <dl class="mt-12 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2" x-data="{
-              get riskLevel() {
-                const score = (Object.values($root.answers).filter(a => a === 'ja').length / 10) * 100;
-                if (score >= 80) return 'LAAG';
-                if (score >= 50) return 'GEMIDDELD';
-                return 'HOOG';
-              },
-              get riskColor() {
-                const score = (Object.values($root.answers).filter(a => a === 'ja').length / 10) * 100;
-                if (score >= 80) return 'text-green-600';
-                if (score >= 50) return 'text-orange-600';
-                return 'text-red-600';
-              },
-              get urgency() {
-                const neeCount = Object.values($root.answers).filter(a => a === 'nee').length;
-                if (neeCount >= 7) return 'URGENT';
-                if (neeCount >= 4) return 'BELANGRIJK';
-                return 'NORMAAL';
-              },
-              get readiness() {
-                const jaCount = Object.values($root.answers).filter(a => a === 'ja').length;
-                if (jaCount >= 8) return 'KLAAR';
-                if (jaCount >= 5) return 'BIJNA KLAAR';
-                return 'WERK NODIG';
-              }
-            }">
-              <div class="flex flex-col bg-gray-400/5 p-8">
-                <dt class="text-sm/6 font-semibold text-gray-600">Risiconiveau</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight" :class="riskColor" x-text="riskLevel"></dd>
-              </div>
-              <div class="flex flex-col bg-gray-400/5 p-8">
-                <dt class="text-sm/6 font-semibold text-gray-600">CRA Gereedheid</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900" x-text="readiness"></dd>
-              </div>
-              <div class="flex flex-col bg-gray-400/5 p-8">
-                <dt class="text-sm/6 font-semibold text-gray-600">Actie Prioriteit</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900" x-text="urgency"></dd>
-              </div>
-              <div class="flex flex-col bg-gray-400/5 p-8">
-                <dt class="text-sm/6 font-semibold text-gray-600">Tijd tot Deadline</dt>
-                <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900">18 MND</dd>
-              </div>
-            </dl>
 
             <!-- Email Form -->
-            <form @submit.prevent="submitAssessment()" class="mt-16">
+            <form @submit.prevent="submitAssessment()" class="mt-12">
               <div class="grid grid-cols-1 gap-x-8 gap-y-6">
                 <div>
-                  <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres</label>
+                  <label for="email" class="block text-sm/6 font-semibold text-gray-900">📧 E-mailadres voor rapport</label>
                   <div class="mt-2.5">
                     <input 
                       type="email" 
@@ -429,7 +384,7 @@
                   type="submit" 
                   :disabled="submitting"
                   class="rounded-md bg-orange-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  x-text="submitting ? 'Verzenden...' : 'Verstuur Volledig Rapport'"
+                  x-text="submitting ? 'Verzenden...' : 'Ontvang Resultaten'"
                 ></button>
               </div>
             </form>
@@ -442,16 +397,16 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Rapport Verstuurd!</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Resultaten Verstuurd! ✉️</h2>
             <p class="text-lg text-gray-600 mb-8">Check uw inbox op <span class="font-semibold" x-text="email"></span></p>
             <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
-              <h3 class="font-semibold text-blue-900 mb-3">📧 Wat zit er in het rapport?</h3>
+              <h3 class="font-semibold text-blue-900 mb-3">📧 Wat ontvangt u?</h3>
               <ul class="space-y-2 text-sm text-blue-800">
-                <li>✅ Gedetailleerde analyse per vraag</li>
-                <li>⚠️ Risicobeoordeling en compliance score</li>
+                <li>✅ Uw persoonlijke compliance score</li>
+                <li>⚠️ Risicobeoordeling per vraag</li>
                 <li>📋 Aanbevelingen per CRA artikel</li>
-                <li>🚀 Concrete actieplan voor implementatie</li>
-                <li>📅 Link om gratis 30-min consult in te plannen</li>
+                <li>🚀 Concrete volgende stappen</li>
+                <li>📅 Mogelijkheid voor gratis 30-min consult</li>
               </ul>
             </div>
           </div>

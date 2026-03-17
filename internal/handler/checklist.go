@@ -82,7 +82,7 @@ func (h *HTTPHandlerV2) sendChecklistEmail(to, checklistType string) error {
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		return fmt.Errorf("SMTP not configured")
@@ -119,7 +119,7 @@ func (h *HTTPHandlerV2) sendChecklistEmail(to, checklistType string) error {
     <style>
         body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #4f46e5 0%%, #6366f1 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #f9fafb; padding: 30px; margin-top: 20px; border-radius: 8px; }
         .button { display: inline-block; background: #4f46e5; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; font-weight: bold; }
         .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
@@ -137,16 +137,16 @@ func (h *HTTPHandlerV2) sendChecklistEmail(to, checklistType string) error {
             
             <p>Hieronder vind je de download link voor: <strong>%s</strong></p>
 
-            <a href="https://leona-cravit.be/downloads/%s" class="button">Download %s</a>
+            <a href="https://leonacompliance.be/downloads/%s" class="button">Download %s</a>
 
             <h3>🎯 Volgende stap</h3>
             <p>Wil je een volledige CRA gap analysis van je product?</p>
-            <a href="https://leona-cravit.be/#assessor" class="button">Upload je SBOM (gratis)</a>
+            <a href="https://leonacompliance.be/#assessor" class="button">Upload je SBOM (gratis)</a>
         </div>
 
         <div class="footer">
             <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
-            Vragen? Reply op deze email of bezoek <a href="https://leona-cravit.be">leona-cravit.be</a></p>
+            Vragen? Reply op deze email of bezoek <a href="https://leonacompliance.be">leonacompliance.be</a></p>
         </div>
     </div>
 </body>
@@ -165,7 +165,7 @@ func (h *HTTPHandlerV2) sendAdminNotification(email, checklistType string) {
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
-	smtpFrom := "support@leona-cravit.be"
+	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
 		log.Println("SMTP not configured, skipping admin notification")
@@ -184,7 +184,7 @@ func (h *HTTPHandlerV2) sendAdminNotification(email, checklistType string) {
     <style>
         body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); color: white; padding: 20px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #16a34a 0%%, #22c55e 100%%); color: white; padding: 20px; border-radius: 8px; }
         .content { background: #f0fdf4; padding: 20px; margin-top: 20px; border-radius: 8px; border-left: 4px solid #16a34a; }
         .data { background: white; padding: 15px; border-radius: 6px; margin: 15px 0; }
         .label { font-size: 12px; color: #666; text-transform: uppercase; font-weight: bold; }
