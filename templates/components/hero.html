@@ -48,7 +48,7 @@
         </div>
         
         <!-- Infinite Scrolling Cards -->
-        <div class="mt-10 pb-12 overflow-hidden">
+        <div class="mt-6 pb-12 overflow-hidden">
             <div x-data="{
                 scrollPosition: 0,
                 startScroll() {
@@ -62,7 +62,7 @@
             }" x-init="startScroll()">
                 <div class="flex gap-4" x-ref="track" :style="`transform: translateX(${scrollPosition}px)`">
                     <!-- Card 1 -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80 ring-2 ring-transparent" style="background: linear-gradient(white, white) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 2px solid transparent;">
+                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80 ring-2 ring-transparent" style="background: linear-gradient(white, white) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 5px solid transparent;">
                         <img src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-white/10"></div>
@@ -87,7 +87,7 @@
                     </article>
 
                     <!-- Card 2 -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 2px solid transparent;">
+                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 5px solid transparent;">
                         <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3272&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-white/10"></div>
@@ -112,7 +112,7 @@
                     </article>
 
                     <!-- Card 3 -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 2px solid transparent;">
+                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 5px solid transparent;">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-white/10"></div>
@@ -137,7 +137,7 @@
                     </article>
 
                     <!-- Duplicate cards for infinite effect -->
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 2px solid transparent;">
+                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 5px solid transparent;">
                         <img src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-white/10"></div>
@@ -161,7 +161,7 @@
                         </h3>
                     </article>
 
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 2px solid transparent;">
+                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 5px solid transparent;">
                         <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3272&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-white/10"></div>
@@ -185,7 +185,7 @@
                         </h3>
                     </article>
 
-                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 2px solid transparent;">
+                    <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-6 pb-6 pt-48 sm:pt-40 lg:pt-48 flex-shrink-0 w-80" style="background: linear-gradient(rgb(31 41 55), rgb(31 41 55)) padding-box, linear-gradient(135deg, #FF6B35, #FFA500) border-box; border: 5px solid transparent;">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
                         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/40"></div>
                         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-white/10"></div>
