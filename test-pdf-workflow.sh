@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🧪 LEONA & CRAVIT PDF Generation Workflow Test"
+echo "🧪 LEONA PDF Generation Workflow Test"
 echo "=============================================="
 echo ""
 
@@ -49,7 +49,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 echo "📊 Production Status:"
 echo "   ✅ PDF library (maroto) integrated"
-echo "   ✅ CRAVIT branding & format"
+echo "   ✅ branding & format"
 echo "   ✅ Real SBOM analysis integration"
 echo "   ✅ Download endpoints configured"
 echo "   ✅ Payment gating implemented"

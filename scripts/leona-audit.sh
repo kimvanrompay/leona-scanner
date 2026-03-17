@@ -1,5 +1,5 @@
 #!/bin/sh
-# LEONA & CRAVIT | Hardware Attestation Script v1.1
+# LEONA | Hardware Attestation Script v1.1
 # Compliance: CRA Annex I / NIS2 / CER
 # 
 # Usage: Run this script on your target embedded Linux device
@@ -10,7 +10,7 @@
 set -e
 
 echo "========================================="
-echo "LEONA & CRAVIT Hardware Attestation"
+echo "LEONA Hardware Attestation"
 echo "Version 1.1 | March 2026"
 echo "========================================="
 echo ""

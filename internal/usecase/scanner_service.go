@@ -76,7 +76,7 @@ func (s *ScannerService) MarkScanPaid(scanID string) error {
 	return s.repo.MarkScanAsPaid(scanID)
 }
 
-// GeneratePDFReport converts an AnalysisResult into a formal CRAVIT PDF
+// GeneratePDFReport converts an AnalysisResult into a formal PDF
 func (s *ScannerService) GeneratePDFReport(scan *repository.Scan, result *scanner.AnalysisResult, outputPath string) error {
 	// Convert AnalysisResult to ComplianceReport format
 	violations := s.buildViolations(result)

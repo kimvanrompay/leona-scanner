@@ -201,7 +201,7 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", to)
-	m.SetHeader("Subject", "Bedankt voor je aanvraag - LEONA & CRAVIT")
+	m.SetHeader("Subject", "Bedankt voor je aanvraag - LEONA")
 
 	body := fmt.Sprintf(`
 <!DOCTYPE html>
@@ -225,7 +225,7 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
         <div class="content">
             <p>Beste %s,</p>
             
-            <p>Bedankt voor je interesse in LEONA & CRAVIT. We hebben je aanvraag goed ontvangen en een van onze compliance-experts neemt binnen 24 uur contact met je op.</p>
+            <p>Bedankt voor je interesse in LEONA. We hebben je aanvraag goed ontvangen en een van onze compliance-experts neemt binnen 24 uur contact met je op.</p>
             
             <p><strong>Wat gebeurt er nu?</strong></p>
             <ol>
@@ -239,7 +239,7 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
+            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
             <a href="https://leonacompliance.be">leonacompliance.be</a> | support@leonacompliance.be</p>
         </div>
     </div>

@@ -275,7 +275,7 @@ func (h *HTTPHandlerV2) sendRiskScoreEmail(to, companyName string, score int, le
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
+            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
             <a href="https://leonacompliance.be">leonacompliance.be</a> | <a href="mailto:support@leonacompliance.be">support@leonacompliance.be</a></p>
             <p style="margin-top: 10px; font-size: 11px; color: #999;">
                 Deze score is gebaseerd op uw antwoorden en is indicatief. Voor een volledige audit neem contact op.

@@ -72,7 +72,7 @@ func addCoverPage(m core.Maroto, report ComplianceReport) {
 		// Logo/Branding area
 		row.New(30).Add(
 			col.New(12).Add(
-				text.New("LEONA & CRAVIT", props.Text{
+				text.New("LEONA", props.Text{
 					Size:  24,
 					Style: fontstyle.Bold,
 					Align: align.Center,
@@ -186,7 +186,7 @@ func addCoverPage(m core.Maroto, report ComplianceReport) {
 					Align: align.Center,
 					Color: &props.Color{Red: 100, Green: 100, Blue: 100},
 				}),
-				text.New(fmt.Sprintf("Certificate ID: CRAVIT-%d", report.ScanDate.Unix()), props.Text{
+				text.New(fmt.Sprintf("Certificate ID:-%d", report.ScanDate.Unix()), props.Text{
 					Size:  8,
 					Align: align.Center,
 					Top:   5,
@@ -363,7 +363,7 @@ func addLiabilityShieldPage(m core.Maroto, report ComplianceReport) {
 					Align: align.Center,
 					Top:   10,
 				}),
-				text.New(fmt.Sprintf("Certificate ID: CRAVIT-%d", report.ScanDate.Unix()), props.Text{
+				text.New(fmt.Sprintf("Certificate ID:-%d", report.ScanDate.Unix()), props.Text{
 					Size:  10,
 					Align: align.Center,
 					Top:   25,
@@ -382,7 +382,7 @@ func addLiabilityShieldPage(m core.Maroto, report ComplianceReport) {
 					Align: align.Center,
 					Top:   5,
 				}),
-				text.New("LEONA & CRAVIT Compliance Officer", props.Text{
+				text.New("LEONA Compliance Officer", props.Text{
 					Size:  9,
 					Align: align.Center,
 					Top:   12,

@@ -9,7 +9,7 @@ import (
 func main() {
 	outputPath := "./test-report.pdf"
 
-	fmt.Println("🔧 Generating sample CRAVIT PDF report...")
+	fmt.Println("🔧 Generating sample PDF report...")
 
 	err := services.CreateSampleReport(outputPath)
 	if err != nil {

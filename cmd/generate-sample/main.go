@@ -96,7 +96,7 @@ func main() {
 
 	fmt.Printf("✅ SUCCESS! Sample report generated: %s\n", outputPath)
 	fmt.Println("📄 This PDF is designed to convince TÜV/NoBo auditors:")
-	fmt.Println("   • Professional CRAVIT branding")
+	fmt.Println("   • Professional branding")
 	fmt.Println("   • Realistic product details (industrial gateway)")
 	fmt.Println("   • 78% compliance score (credible, not perfect)")
 	fmt.Println("   • Mix of PASS/WARN/FAIL (shows thorough analysis)")

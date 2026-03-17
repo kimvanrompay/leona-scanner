@@ -133,7 +133,7 @@ func (h *HTTPHandlerV2) sendChecklistEmail(to, checklistType string) error {
         </div>
         
         <div class="content">
-            <p>Bedankt voor je interesse in LEONA & CRAVIT compliance tools!</p>
+            <p>Bedankt voor je interesse in LEONA compliance tools!</p>
             
             <p>Hieronder vind je de download link voor: <strong>%s</strong></p>
 
@@ -145,7 +145,7 @@ func (h *HTTPHandlerV2) sendChecklistEmail(to, checklistType string) error {
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
+            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
             Vragen? Reply op deze email of bezoek <a href="https://leonacompliance.be">leonacompliance.be</a></p>
         </div>
     </div>
@@ -195,7 +195,7 @@ func (h *HTTPHandlerV2) sendAdminNotification(email, checklistType string) {
     <div class="container">
         <div class="header">
             <h2 style="margin: 0;">🎯 Nieuwe Lead!</h2>
-            <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;">LEONA & CRAVIT Checklist Download</p>
+            <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;">LEONA Checklist Download</p>
         </div>
         
         <div class="content">

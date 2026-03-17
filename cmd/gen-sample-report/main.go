@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// Generate the sample report
-	fmt.Println("Generating LEONA & CRAVIT Sample CRA Compliance Report...")
+	fmt.Println("Generating LEONA Sample CRA Compliance Report...")
 	err := services.CreateSampleReport(outputPath)
 	if err != nil {
 		log.Fatalf("Failed to generate report: %v", err)

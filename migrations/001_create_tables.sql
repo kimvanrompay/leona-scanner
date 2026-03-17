@@ -1,4 +1,4 @@
--- LEONA & CRAVIT Database Schema
+-- LEONA Database Schema
 -- Supabase PostgreSQL Migration
 
 -- Enable UUID extension

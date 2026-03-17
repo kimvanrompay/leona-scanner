@@ -113,7 +113,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">LEONA & CRAVIT</div>
+            <div class="logo">LEONA</div>
             <p style="margin: 15px 0 0 0; opacity: 0.95; font-size: 16px; font-family: system-ui, sans-serif;">Technical Compliance Engineering</p>
         </div>
         
@@ -196,7 +196,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
         </div>
 
         <div class="footer">
-            <p style="font-size: 14px; font-weight: 600; color: #1428A0;">LEONA & CRAVIT</p>
+            <p style="font-size: 14px; font-weight: 600; color: #1428A0;">LEONA</p>
             <p>Royal Blue (#1428A0) & Davis Orange (#FF6B35)</p>
             <p style="margin-top: 15px; font-size: 11px; color: #999;">
                 Dit voorbeeldrapport is voor educatieve doeleinden. De data is geanonimiseerd en gebaseerd op een referentie-implementatie.<br/>

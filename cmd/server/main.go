@@ -26,7 +26,7 @@ var (
 func main() {
 	log.Println("")
 	log.Println("┌───────────────────────────────────────────────────────────────────┐")
-	log.Println("│   🚀 LEONA & CRAVIT CRA Scanner v" + Version + " Starting...        │")
+	log.Println("│   🚀 LEONA CRA Scanner v" + Version + " Starting...        │")
 	log.Println("│   🔵 Royal Blue (#1428A0) │ 🟠 Davis Orange (#FF6B35)   │")
 	log.Println("└───────────────────────────────────────────────────────────────────┘")
 	log.Println("")

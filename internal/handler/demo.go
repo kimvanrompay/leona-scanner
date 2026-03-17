@@ -171,7 +171,7 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | Demo Request Notification<br/>
+            <p><strong>LEONA</strong> | Demo Request Notification<br/>
             Deze email is automatisch gegenereerd vanuit <a href="https://leonacompliance.be/demo">leonacompliance.be/demo</a></p>
         </div>
     </div>
@@ -202,7 +202,7 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", to)
-	m.SetHeader("Subject", "Je demo is onderweg - LEONA & CRAVIT")
+	m.SetHeader("Subject", "Je demo is onderweg - LEONA")
 
 	body := fmt.Sprintf(`
 <!DOCTYPE html>
@@ -244,7 +244,7 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
+            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
             <a href="https://leonacompliance.be">leonacompliance.be</a> | support@leonacompliance.be</p>
         </div>
     </div>

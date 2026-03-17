@@ -154,7 +154,7 @@ func (h *HTTPHandlerV2) sendEngineerEmail(to string) error {
         </div>
         
         <div class="content">
-            <p>Bedankt voor je interesse in LEONA & CRAVIT!</p>
+            <p>Bedankt voor je interesse in LEONA!</p>
             
             <p>Hieronder vind je de <strong>meta-leona</strong> Yocto layer. Deze layer voegt automatische CRA compliance checks toe aan je build:</p>
             
@@ -193,7 +193,7 @@ bitbake core-image-minimal
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong> | CRA Compliance Engineering<br/>
+            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
             Vragen? Reply op deze email of bezoek <a href="https://leonacompliance.be">leonacompliance.be</a></p>
             <p style="margin-top: 15px; font-size: 11px; color: #999;">
                 Deze tools zijn community contributions. Voor productie-gebruik raden we een volledige V-Assessor™ audit aan (€499).
@@ -254,7 +254,7 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
         <div class="content">
             <p>Geachte,</p>
             
-            <p>Bedankt voor uw interesse in LEONA & CRAVIT's compliance instrumentarium. Bijgevoegd treft u onze <strong>Annex I Mapping Template</strong> - een Excel-based tool om technische bevindingen te koppelen aan juridische eisen.</p>
+            <p>Bedankt voor uw interesse in LEONA's compliance instrumentarium. Bijgevoegd treft u onze <strong>Annex I Mapping Template</strong> - een Excel-based tool om technische bevindingen te koppelen aan juridische eisen.</p>
             
             <h3 style="color: #1e3a8a; margin-top: 25px;">📋 Wat bevat de template?</h3>
             <ul style="line-height: 2;">
@@ -307,7 +307,7 @@ func (h *HTTPHandlerV2) sendLawyerEmail(to string) error {
         </div>
 
         <div class="footer">
-            <p><strong>LEONA & CRAVIT</strong><br/>
+            <p><strong>LEONA</strong><br/>
             Technisch-juridische compliance engineering<br/>
             <a href="https://leonacompliance.be">leonacompliance.be</a> | <a href="mailto:support@leonacompliance.be">support@leonacompliance.be</a></p>
             <p style="margin-top: 15px; font-size: 10px; color: #999;">

@@ -619,7 +619,11 @@ func (h *HTTPHandlerV2) HandleCheckoutTier1(w http.ResponseWriter, r *http.Reque
 
 // HandleCheckoutTier2 creates Stripe session for €2,450 Compliance Shield
 func (h *HTTPHandlerV2) HandleCheckoutTier2(w http.ResponseWriter, r *http.Request) {
-	h.handleCheckout(w, r, "tier2", 245000, "The Compliance Shield", "Unlimited scans + CRAVIT-VERIFIED certificaat + Email support")
+	h.handleCheckout(
+		w, r, "tier2", 245000,
+		"The Compliance Shield",
+		"Unlimited scans +-VERIFIED certificaat + Email support", //nolint:misspell
+	)
 }
 
 // HandleCheckoutTier3 creates Stripe session for €4,900 Enterprise Partner
@@ -776,7 +780,7 @@ func (h *HTTPHandlerV2) HandleSuccess(w http.ResponseWriter, r *http.Request) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betaling Geslaagd - LEONA & CRAVIT</title>
+    <title>Betaling Geslaagd - LEONA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@700&display=swap" rel="stylesheet">
 </head>
