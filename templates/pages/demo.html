@@ -1,7 +1,8 @@
-{{define "title"}}Request Demo | LEONA{{end}}
+{{define "title"}}Demo Aanvragen | LEONA{{end}}
 
 {{define "meta"}}
-<meta name="description" content="Request a demo of LEONA's CRA compliance automation platform">
+<meta name="description" content="Vraag een demo aan van LEONA's CRA compliance automatiseringsplatform">
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 {{end}}
 
 {{define "content"}}
@@ -25,46 +26,46 @@
       <div class="lg:pr-8">
         <div class="lg:max-w-lg">
           <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
-            Find compliance gaps, close deals faster, and keep customers compliant.
+            Ontdek compliance gaps, sluit deals sneller en houd klanten compliant.
           </h1>
           <p class="mt-6 text-xl leading-8 text-blue-100">
-            Accelerate your CRA compliance journey and build lasting trust with customers—all on one automated platform.
+            Versnel uw CRA compliance traject en bouw blijvend vertrouwen met klanten—allemaal op één geautomatiseerd platform.
           </p>
           
           <div class="mt-10">
-            <h2 class="text-lg font-semibold text-white mb-6">Watch our demos to see how we can help you:</h2>
+            <h2 class="text-lg font-semibold text-white mb-6">Bekijk onze demo's om te zien hoe wij u kunnen helpen:</h2>
             
             <ul class="space-y-4 text-blue-50">
               <li class="flex gap-x-3">
                 <svg class="h-6 w-5 flex-none text-orange-500" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
                 </svg>
-                <span><strong class="font-semibold text-white">Generate audit-ready reports</strong> that quickly turn technical builds into compliant documentation</span>
+                <span><strong class="font-semibold text-white">Genereer audit-ready rapporten</strong> die technische builds snel omzetten naar compliant documentatie</span>
               </li>
               <li class="flex gap-x-3">
                 <svg class="h-6 w-5 flex-none text-orange-500" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
                 </svg>
-                <span><strong class="font-semibold text-white">Close market access faster</strong> with an organized, repeatable CRA compliance process</span>
+                <span><strong class="font-semibold text-white">Verkrijg sneller markttoegang</strong> met een georganiseerd, herhaalbaar CRA compliance proces</span>
               </li>
               <li class="flex gap-x-3">
                 <svg class="h-6 w-5 flex-none text-orange-500" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
                 </svg>
-                <span><strong class="font-semibold text-white">Track, prioritize, and remediate</strong> vulnerabilities across your entire product portfolio</span>
+                <span><strong class="font-semibold text-white">Track, prioriteer en verhelp</strong> kwetsbaarheden in uw volledige productportfolio</span>
               </li>
               <li class="flex gap-x-3">
                 <svg class="h-6 w-5 flex-none text-orange-500" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
                 </svg>
-                <span><strong class="font-semibold text-white">Scale your way</strong> with Yocto/Buildroot integration, CI/CD pipelines, expert guidance, and continuous monitoring</span>
+                <span><strong class="font-semibold text-white">Schaal op uw manier</strong> met Yocto/Buildroot integratie, CI/CD pipelines, expert begeleiding en continue monitoring</span>
               </li>
             </ul>
           </div>
 
           <div class="mt-10 pt-8 border-t border-blue-700">
             <p class="text-blue-200">
-              <span class="font-semibold text-white">Questions?</span> Email us at 
+              <span class="font-semibold text-white">Vragen?</span> Email ons op 
               <a href="mailto:kim@leonacompliance.be" class="font-semibold text-orange-400 hover:text-orange-300">kim@leonacompliance.be</a>
             </p>
           </div>
@@ -72,25 +73,22 @@
       </div>
 
       <!-- Form Section -->
-      <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-10">
+      <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-10" id="demo-form-container">
         <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900">Fill out one form to unlock your personalized demo.</h2>
+          <h2 class="text-2xl font-bold text-gray-900">Vul één formulier in om uw gepersonaliseerde demo te ontvangen.</h2>
         </div>
 
-        <!-- HTMX success message will appear here -->
-        <div id="demo-form-messages" class="mb-6"></div>
-
-        <form hx-post="/api/demo/submit" hx-target="#demo-form-messages" hx-swap="innerHTML" class="space-y-6" id="demo-form">
+        <form hx-post="/api/demo/submit" hx-target="#demo-form-container" hx-swap="innerHTML" class="space-y-6" id="demo-form">
           <div class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
             <div>
-              <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>
+              <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">Voornaam</label>
               <div class="mt-2">
                 <input type="text" name="first-name" id="first-name" required autocomplete="given-name"
                   class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
               </div>
             </div>
             <div>
-              <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
+              <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Achternaam</label>
               <div class="mt-2">
                 <input type="text" name="last-name" id="last-name" required autocomplete="family-name"
                   class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
@@ -100,14 +98,14 @@
 
           <div class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
             <div>
-              <label for="job-title" class="block text-sm font-semibold leading-6 text-gray-900">Job title</label>
+              <label for="job-title" class="block text-sm font-semibold leading-6 text-gray-900">Functietitel</label>
               <div class="mt-2">
                 <input type="text" name="job-title" id="job-title" required
                   class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
               </div>
             </div>
             <div>
-              <label for="company" class="block text-sm font-semibold leading-6 text-gray-900">Company</label>
+              <label for="company" class="block text-sm font-semibold leading-6 text-gray-900">Bedrijf</label>
               <div class="mt-2">
                 <input type="text" name="company" id="company" required autocomplete="organization"
                   class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
@@ -117,41 +115,41 @@
 
           <div class="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
             <div>
-              <label for="company-size" class="block text-sm font-semibold leading-6 text-gray-900">Company size</label>
+              <label for="company-size" class="block text-sm font-semibold leading-6 text-gray-900">Bedrijfsgrootte</label>
               <div class="mt-2">
                 <select id="company-size" name="company-size" required
                   class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
-                  <option value="">Select company size</option>
-                  <option value="1-10">1-10 employees</option>
-                  <option value="11-50">11-50 employees</option>
-                  <option value="51-200">51-200 employees</option>
-                  <option value="201-500">201-500 employees</option>
-                  <option value="501-1000">501-1000 employees</option>
-                  <option value="1001+">1001+ employees</option>
+                  <option value="">Selecteer bedrijfsgrootte</option>
+                  <option value="1-10">1-10 medewerkers</option>
+                  <option value="11-50">11-50 medewerkers</option>
+                  <option value="51-200">51-200 medewerkers</option>
+                  <option value="201-500">201-500 medewerkers</option>
+                  <option value="501-1000">501-1000 medewerkers</option>
+                  <option value="1001+">1001+ medewerkers</option>
                 </select>
               </div>
             </div>
             <div>
-              <label for="country" class="block text-sm font-semibold leading-6 text-gray-900">Country/region</label>
+              <label for="country" class="block text-sm font-semibold leading-6 text-gray-900">Land</label>
               <div class="mt-2">
                 <select id="country" name="country" required
                   class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
-                  <option value="">Select country</option>
-                  <option value="BE">Belgium</option>
-                  <option value="NL">Netherlands</option>
-                  <option value="DE">Germany</option>
-                  <option value="FR">France</option>
-                  <option value="LU">Luxembourg</option>
-                  <option value="UK">United Kingdom</option>
-                  <option value="US">United States</option>
-                  <option value="other">Other</option>
+                  <option value="">Selecteer land</option>
+                  <option value="BE">België</option>
+                  <option value="NL">Nederland</option>
+                  <option value="DE">Duitsland</option>
+                  <option value="FR">Frankrijk</option>
+                  <option value="LU">Luxemburg</option>
+                  <option value="UK">Verenigd Koninkrijk</option>
+                  <option value="US">Verenigde Staten</option>
+                  <option value="other">Anders</option>
                 </select>
               </div>
             </div>
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">E-mailadres</label>
             <div class="mt-2">
               <input type="email" name="email" id="email" required autocomplete="email"
                 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6">
@@ -159,7 +157,7 @@
           </div>
 
           <div>
-            <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Phone</label>
+            <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Telefoon</label>
             <div class="mt-2">
               <input type="tel" name="phone" id="phone"
                 placeholder="+32 XXX XX XX XX"
@@ -173,20 +171,20 @@
                 class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600">
             </div>
             <label for="marketing-consent" class="text-sm leading-6 text-gray-600">
-              Yes, I would like to receive marketing communications regarding LEONA products, services, and events. I can unsubscribe at any time.
+              Ja, ik ontvang graag marketingcommunicatie over LEONA producten, diensten en events. Ik kan me op elk moment afmelden.
             </label>
           </div>
 
           <div>
             <button type="submit"
               class="block w-full rounded-md bg-blue-600 px-6 py-3 text-center text-base font-bold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all">
-              Watch Demo Now
+              Bekijk Demo Nu
             </button>
           </div>
 
           <p class="text-xs leading-5 text-gray-500">
-            We value your privacy. To learn more, visit our 
-            <a href="/privacy" class="font-semibold text-blue-600 hover:text-blue-500">Privacy Statement</a>.
+            Wij respecteren uw privacy. Meer info vindt u in onze 
+            <a href="/privacy" class="font-semibold text-blue-600 hover:text-blue-500">Privacy Verklaring</a>.
           </p>
         </form>
       </div>

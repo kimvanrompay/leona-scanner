@@ -76,19 +76,33 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 
 	// Return success message HTML for HTMX
 	w.Header().Set("Content-Type", "text/html")
+	//nolint:misspell // "informatie" is correct Dutch
 	w.Write([]byte(`
-		<div class="p-4 bg-green-50 border border-green-200 rounded-lg">
-			<p class="text-green-800 font-semibold">✅ Bedankt ` + firstName + `!</p>
-			<p class="text-green-700 text-sm mt-2">Je demo-aanvraag is ontvangen. We nemen binnen 24 uur contact op via ` + email + `.</p>
-			<p class="text-green-700 text-sm mt-2">Check je inbox voor de bevestiging.</p>
+		<div class="text-center py-12">
+			<div class="mb-6">
+				<svg class="w-20 h-20 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+				</svg>
+			</div>
+			<h2 class="text-3xl font-bold text-gray-900 mb-4">Bedankt, ` + firstName + `! 🎉</h2>
+			<p class="text-xl text-gray-600 mb-2">Je demo-aanvraag is ontvangen.</p>
+			<p class="text-gray-600 mb-4">We nemen binnen 24 uur contact op via <span class="font-semibold">` + email + `</span>.</p>
+			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-md mx-auto">
+				<p class="text-blue-900 font-semibold mb-2">📧 Check je mailbox</p>
+				<p class="text-blue-700 text-sm">Je ontvangt zo een bevestigingsmail met meer informatie.</p>
+			</div>
+			<a href="https://leonacompliance.be" class="inline-block mt-8 bg-blue-900 hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
+				Terug naar Home
+			</a>
 		</div>
+		<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 		<script>
-			// Reset form after 8 seconds
-			setTimeout(() => {
-				const form = document.getElementById('demo-form');
-				if (form) form.reset();
-				document.getElementById('demo-form-messages').innerHTML = '';
-			}, 8000);
+			// Confetti celebration
+			confetti({
+				particleCount: 100,
+				spread: 70,
+				origin: { y: 0.6 }
+			});
 		</script>
 	`))
 }
