@@ -10,11 +10,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </head>
 
 <body class="h-screen bg-white" x-data="{
   sidebarOpen: false,
   answers: {},
+  email: '',
+  submitting: false,
+  submitted: false,
+  error: '',
   navigationError: false,
   questions: [
     { id: 1, title: 'Yocto/Buildroot SBOM' },
@@ -598,10 +603,6 @@
 
       <!-- Results & Email Submission Page -->
       <div id="question-11" class="relative h-screen snap-start pb-20" x-data="{
-      email: '',
-      submitting: false,
-      submitted: false,
-      error: '',
       retryCount: 0,
       maxRetries: 3,
       validateEmail(email) {
@@ -777,25 +778,48 @@
                   direct in uw mailbox.</p>
               </div>
 
-              <!-- Email Form -->
-              <form @submit.prevent="submitAssessment" class="mt-8">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-6">
+              <!-- Email Form with HTMX -->
+              <form 
+                id="assessment-form"
+                hx-post="/api/cra-assessment/submit" 
+                hx-target="#form-container"
+                hx-swap="outerHTML"
+                class="mt-8"
+                @htmx:before-request="
+                  const answers = localStorage.getItem('cra-assessment') || '{}';
+                  document.getElementById('answers-input').value = answers;
+                  console.log('Submitting with answers:', answers);
+                  console.log('Submitting with email:', document.getElementById('email').value);
+                  submitting = true;
+                "
+                @htmx:after-request="
+                  submitting = false;
+                  if ($event.detail.successful) {
+                    localStorage.removeItem('cra-assessment');
+                    email = document.getElementById('email').value;
+                    submitted = true;
+                    setTimeout(() => confetti({particleCount: 100, spread: 70, origin: { y: 0.6 }}), 200);
+                  } else {
+                    error = $event.detail.xhr.status === 400 ? 'Geldig e-mailadres vereist' : 'Fout bij verzenden. Probeer opnieuw.';
+                  }
+                ">
+                <div id="form-container" class="grid grid-cols-1 gap-x-8 gap-y-6">
                   <div>
-                    <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres voor
-                      rapport</label>
+                    <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres voor rapport</label>
                     <div class="mt-2.5">
-                      <input type="email" 
+                      <input 
+                        type="email" 
                         id="email" 
                         name="email" 
-                        x-model.trim="email" 
-                        @input="console.log('Email input changed:', email)"
                         required 
                         autocomplete="email"
                         class="block w-full rounded-xl bg-white px-3.5 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 shadow-sm"
                         placeholder="uw.email@bedrijf.be" />
                     </div>
-                    <div x-show="email" class="mt-1 text-xs text-gray-500">Email: <span x-text="email"></span></div>
                   </div>
+
+                  <!-- Hidden field for answers from localStorage -->
+                  <input type="hidden" id="answers-input" name="answers" value="{}" />
 
                   <div x-show="error" class="bg-red-50 border-l-4 border-red-400 p-4 rounded" x-transition>
                     <div class="flex items-start">
@@ -804,10 +828,6 @@
                       </svg>
                       <div class="ml-3 flex-1">
                         <p class="text-sm text-red-800" x-text="error"></p>
-                        <button x-show="retryCount < maxRetries && !submitting" @click="retry()" type="button"
-                          class="mt-2 text-sm font-medium text-red-600 hover:text-red-500 underline">
-                          Opnieuw proberen
-                        </button>
                       </div>
                     </div>
                   </div>
