@@ -145,6 +145,7 @@ func main() {
 	r.HandleFunc("/free-report", h.HandlePage("free-report")).Methods("GET")
 	r.HandleFunc("/free-audit", h.HandlePage("free-audit")).Methods("GET")
 	r.HandleFunc("/cra", h.HandlePage("cra")).Methods("GET")
+	r.HandleFunc("/cra-compliance", h.HandlePage("cra-compliance")).Methods("GET")
 	r.HandleFunc("/cra-assessment", h.HandleCRAAssessment).Methods("GET")
 
 	// Navigation pages
