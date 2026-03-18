@@ -127,51 +127,6 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 		return fmt.Errorf("SMTP not configured")
 	}
 
-	// Determine risk level and recommendations
-	var riskLevel, recommendation string
-	if score >= 80 {
-		riskLevel = "EXCELLENT"
-		recommendation = "Uw technische basis is sterk. Focus op documentatie en procesformalisatie om de laatste 20% te bereiken."
-	} else if score >= 50 {
-		riskLevel = "MEDIUM RISK"
-		recommendation = "Belangrijke gaps gedetecteerd in cryptografie, secure boot of supply chain tracking. Prioriteer deze high-impact gebieden."
-	} else {
-		riskLevel = "HIGH RISK"
-		recommendation = "Kritieke tekortkomingen op meerdere fronten. Een volledige remediation roadmap is nodig om de deadline te halen."
-	}
-
-	// Build question results HTML
-	questionResults := ""
-	questionTitles := map[string]string{
-		"1":  "SBOM Generatie",
-		"2":  "CVE Tracking",
-		"3":  "Secure Boot",
-		"4":  "OTA Updates",
-		"5":  "Cryptografie",
-		"6":  "TCF Documentatie",
-		"7":  "Supply Chain",
-		"8":  "Incident Response",
-		"9":  "Support Lifecycle",
-		"10": "Access Control",
-	}
-
-	for i := 1; i <= 10; i++ {
-		qNum := fmt.Sprintf("%d", i)
-		answer := answers[qNum]
-		status := "❌"
-		statusColor := "#ef4444"
-		if answer == "ja" {
-			status = "✅"
-			statusColor = "#22c55e"
-		}
-		questionResults += fmt.Sprintf(`
-			<tr>
-				<td style="padding: 12px; border-bottom: 1px solid #e5e7eb;">%d. %s</td>
-				<td style="padding: 12px; border-bottom: 1px solid #e5e7eb; text-align: center; color: %s; font-size: 18px;">%s</td>
-			</tr>
-		`, i, questionTitles[qNum], statusColor, status)
-	}
-
 	// Generate unique report ID
 	reportID := time.Now().Unix() % 100000
 
@@ -179,206 +134,80 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", to)
 	m.SetHeader("Bcc", "kim@leonacompliance.be") // BCC copy with user's answers
-	m.SetHeader("Subject", fmt.Sprintf("Uw CRA Technical Assessment - %d%% Score", score))
+	m.SetHeader("Subject", fmt.Sprintf("CRA Compliance Briefing - %d%% Score", score))
 
 	body := fmt.Sprintf(`<!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRA Technical Assessment Report</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>CRA Compliance Briefing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 	<style>
-		body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            line-height: 1.6; 
-            color: #1e293b; 
-            background-color: #f8fafc; 
-            margin: 0; 
-            padding: 0; 
+        @media only screen and (max-width: 620px) {
+            .container { width: 100%% !important; border: none !important; }
+            .content-padding { padding: 30px 20px !important; }
+            h1 { font-size: 26px !important; }
+            .score-value { font-size: 48px !important; }
         }
-		.container { 
-            max-width: 650px; 
-            margin: 40px auto; 
-            background: #ffffff; 
-            border-top: 8px solid #003366;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-		
-        .header { 
-            padding: 40px 40px 20px 40px; 
-            text-align: left; 
-        }
-		.header h1 { 
-            margin: 0; 
-            font-size: 22px; 
-            color: #003366; 
-            letter-spacing: 0.5px; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-        }
-        .report-meta { 
-            font-size: 12px; 
-            color: #64748b; 
-            margin-top: 5px; 
-            letter-spacing: 1px;
-        }
-		
-		.score-section { 
-            background-color: #f1f5f9; 
-            padding: 40px; 
-            text-align: center; 
-            margin: 0 40px;
-            border-radius: 4px;
-        }
-		.score-number { 
-            font-size: 82px; 
-            font-weight: 800; 
-            margin: 0; 
-            line-height: 1; 
-            color: #003366;
-        }
-		.score-label { 
-            font-size: 14px; 
-            color: #fd7e14;
-            text-transform: uppercase; 
-            font-weight: 600;
-            letter-spacing: 2px;
-        }
-
-		.status-callout { 
-            margin: 30px 40px; 
-            padding: 20px; 
-            border-left: 4px solid #fd7e14; 
-            background: #fffcf9;
-            font-size: 16px;
-            color: #334155;
-        }
-		
-		.content { padding: 0 40px 40px 40px; }
-		.section-title { 
-            color: #003366; 
-            text-transform: uppercase; 
-            font-weight: 600; 
-            font-size: 14px; 
-            border-bottom: 1px solid #e2e8f0; 
-            display: block; 
-            margin-bottom: 15px; 
-            padding-bottom: 5px; 
-            letter-spacing: 1px;
-        }
-		
-		.results-table { 
-            width: 100%%; 
-            border-collapse: collapse; 
-            margin: 20px 0; 
-            font-size: 13px; 
-        }
-		.results-table td { 
-            padding: 12px 0; 
-            border-bottom: 1px solid #f1f5f9; 
-        }
-
-		.cta-container { margin: 30px 0; }
-		.button { 
-            display: block; 
-            text-align: center; 
-            background: #fd7e14;
-            color: #ffffff !important; 
-            padding: 18px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 16px; 
-            border-radius: 4px;
-            margin-bottom: 12px;
-            transition: background 0.2s ease;
-        }
-		.button:hover { background: #e86b00; }
-		.button-outline { 
-            background: transparent; 
-            color: #003366 !important; 
-            border: 2px solid #003366; 
-        }
-
-		.deadline-footer { 
-            background: #003366; 
-            color: #ffffff; 
-            padding: 30px; 
-            text-align: center; 
-        }
-        .months-left { 
-            font-size: 28px; 
-            color: #fd7e14; 
-            display: block; 
-            font-weight: 800; 
-        }
-
-		.footer-legal { 
-            padding: 40px; 
-            font-size: 11px; 
-            color: #94a3b8; 
-            background: #ffffff;
-        }
-        .footer-legal a { color: #64748b; }
-	</style>
+    </style>
 </head>
-<body>
-	<div class="container">
-		<div class="header">
-			<h1>CRA Compliance Audit</h1>
-            <div class="report-meta">ID: LEONA-%d-TR | DATUM: 18 MRT 2026</div>
-		</div>
-		
-		<div class="score-section">
-			<div class="score-label">Technical Readiness Score</div>
-			<div class="score-number">%d%%%%</div>
-			<div style="font-size: 16px; font-weight: 400; margin-top: 5px; color: #64748b;">Status: %s</div>
-		</div>
-		
-		<div class="status-callout">
-			"De cijfers liegen niet. %d van de 10 kritieke checks zijn groen. De rest vormt een direct risico voor uw markttoegang in de EU."
-		</div>
-		
-		<div class="content">
-			<h2 class="section-title">Analyse Resultaat</h2>
-			<div style="margin-bottom: 30px; color: #475569;">
-				%s
-			</div>
-
-			<h2 class="section-title">Aanbevolen Volgende Stappen</h2>
-			<div class="cta-container">
-				<a href="https://www.leonacompliance.be/contact" class="button">
-					Start Snapshot Audit (€2.495)
-				</a>
-				<a href="https://www.leonacompliance.be/demo" class="button button-outline">
-					Bekijk de Compliance Pipeline Demo
-				</a>
-			</div>
-
-			<h2 class="section-title">Gedetailleerde Audit Matrix</h2>
-			<table class="results-table">
-				%s
-			</table>
-		</div>
-
-		<div class="deadline-footer">
-			<span style="text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Deadline: 11 September 2026</span>
-			<span class="months-left">%d Maanden Resterend</span>
-			<p style="font-size: 13px; opacity: 0.8; margin-top: 10px;">Vanaf deze datum is CRA compliance verplicht voor verkoop in de EU.</p>
-		</div>
-
-		<div class="footer-legal">
-			<p><strong>LEONA Compliance</strong> | Wetenschapstraat 14, 1040 Brussel, België<br/>
-			<a href="mailto:expert@leonacompliance.be">expert@leonacompliance.be</a> | <a href="https://leonacompliance.be">leonacompliance.be</a></p>
+<body style="margin: 0; padding: 0; width: 100%%; background-color: #f8fafc; font-family: 'Inter', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+    <div class="wrapper" style="background-color: #f8fafc; padding: 20px 0;">
+        <div class="container" style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e2e8f0; overflow: hidden;">
             
-            <div style="margin-top: 20px; border-top: 1px solid #f1f5f9; padding-top: 20px;">
-                U ontvangt dit rapport naar aanleiding van uw deelname aan de CRA Assessment. Wij verwerken uw data conform onze privacy policy.<br><br>
-                <a href="https://www.leonacompliance.be/privacy">Privacy Policy</a>
+            <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773860997/CRA_COMPLIANT_LINUX_SYSTEM-2_mglczu.png" 
+                 alt="CRA Compliance Analysis" 
+                 width="650" 
+                 style="width: 100%%; max-width: 650px; height: auto; display: block; border: 0; outline: none; text-decoration: none;">
+
+            <div class="content-padding" style="padding: 40px 60px 60px 60px;">
+                <span class="sub-header" style="text-transform: uppercase; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; color: #fd7e14; margin-bottom: 12px; display: block;">Assessment-ID: LEONA-%d-TR</span>
+                
+                <h1 style="font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; margin: 0 0 24px 0; letter-spacing: -0.02em;">CRA Compliance Briefing</h1>
+                
+                <div class="score-block" style="border-left: 4px solid #003366; padding-left: 24px; margin: 40px 0;">
+                    <span class="score-value" style="display: block; font-size: 64px; font-weight: 800; color: #0f172a; line-height: 1; letter-spacing: -0.04em;">%d%%%%</span>
+                    <span class="score-label" style="font-size: 13px; text-transform: uppercase; font-weight: 600; color: #64748b; letter-spacing: 0.05em; margin-top: 4px; display: block;">Gereedheidsscore</span>
+                </div>
+
+                <p style="font-size: 16px; color: #475569; margin-bottom: 32px;">
+                   Uw score is een directe weergave van uw exposure. Wachten tot de deadline van september 2026 is geen optie meer.
+                </p>
+
+                <div style="background-color: #f1f5f9; padding: 30px; border-radius: 8px; margin-bottom: 40px;">
+                    <h2 style="font-size: 18px; font-weight: 700; color: #003366; margin: 0 0 12px 0;">Waarom nu de Snapshot Audit starten?</h2>
+                    <p style="font-size: 15px; color: #1e293b; margin: 0 0 20px 0;">
+                        De meeste bedrijven verliezen maanden aan juridisch overleg. Wij doen het anders:
+                    </p>
+                    <ul style="padding: 0; margin: 0; list-style: none; font-size: 15px; color: #1e293b;">
+                        <li style="margin-bottom: 10px;"><strong>⚡ Snelheid:</strong> Volledig inzicht en een direct actieplan binnen <strong>48 uur</strong>.</li>
+                        <li style="margin-bottom: 10px;"><strong>⚖️ ROI:</strong> Een vaste investering van <strong>€2.495</strong> voorkomt boetes die tot 2,5%% van uw wereldwijde omzet kunnen oplopen.</li>
+                        <li style="margin-bottom: 10px;"><strong>🛠️ Techniek:</strong> Geen vage rapporten, maar engineering-advies waar uw dev-team direct mee aan de slag kan.</li>
+                    </ul>
+                </div>
+
+                <div class="actions">
+                    <a href="https://www.leonacompliance.be/contact" 
+                       style="display: block; text-align: center; padding: 22px 24px; font-weight: 800; font-size: 16px; text-decoration: none; border-radius: 6px; margin-bottom: 16px; background-color: #003366; color: #ffffff !important; box-shadow: 0 4px 6px rgba(0,51,102,0.2);">
+                       SNAPSHOT AUDIT — RESULTAAT IN 48U
+                    </a>
+                    
+                    <a href="https://www.leonacompliance.be/demo" 
+                       style="display: block; text-align: center; padding: 18px 24px; font-weight: 700; font-size: 15px; text-decoration: none; border-radius: 6px; border: 2px solid #003366; color: #003366 !important;">
+                       Vraag een Demo
+                    </a>
+                </div>
+
+                <div class="footer" style="margin-top: 64px; padding-top: 32px; border-top: 1px solid #f1f5f9; font-size: 12px; color: #94a3b8;">
+                    <span class="footer-brand" style="color: #475569; font-weight: 700; margin-bottom: 4px; display: block;">LEONA Compliance | Compliance as Code</span>
+                </div>
             </div>
-		</div>
-	</div>
+        </div>
+    </div>
 </body>
-</html>`, reportID, score, riskLevel, jaCount, recommendation, questionResults, calculateMonthsUntilDeadline())
+</html>`, reportID, score)
 
 	m.SetBody("text/html", body)
 
