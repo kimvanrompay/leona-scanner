@@ -256,12 +256,8 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 
 // createSnapshotPayment creates a Mollie payment for the snapshot audit
 func (h *HTTPHandlerV2) createSnapshotPayment(ctx context.Context, submission *SnapshotSubmission) (string, error) {
-	mollieAPIKey := os.Getenv("MOLLIE_API_KEY")
-	if mollieAPIKey == "" {
-		return "", fmt.Errorf("MOLLIE_API_KEY not configured")
-	}
-
-	config := mollie.NewConfig(true, mollieAPIKey)
+	// Mollie SDK will read from MOLLIE_API_TOKEN environment variable
+	config := mollie.NewConfig(true, mollie.APITokenEnv)
 	client, err := mollie.NewClient(nil, config)
 	if err != nil {
 		return "", fmt.Errorf("failed to initialize Mollie client: %w", err)
@@ -331,15 +327,8 @@ func (h *HTTPHandlerV2) HandleMollieWebhook(w http.ResponseWriter, r *http.Reque
 
 	log.Printf("[MOLLIE] Webhook ontvangen voor betaling: %s", paymentID)
 
-	// Fetch payment details from Mollie
-	mollieAPIKey := os.Getenv("MOLLIE_API_KEY")
-	if mollieAPIKey == "" {
-		log.Printf("[ERROR] MOLLIE_API_KEY not configured")
-		http.Error(w, "Internal error", http.StatusInternalServerError)
-		return
-	}
-
-	config := mollie.NewConfig(true, mollieAPIKey)
+	// Fetch payment details from Mollie (SDK reads from MOLLIE_API_TOKEN)
+	config := mollie.NewConfig(true, mollie.APITokenEnv)
 	client, err := mollie.NewClient(nil, config)
 	if err != nil {
 		log.Printf("[ERROR] Failed to initialize Mollie client: %v", err)
