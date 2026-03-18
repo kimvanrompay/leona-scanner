@@ -1,157 +1,196 @@
-{{define "title"}}Kennisbank | LEONA{{end}}
+{{define "title"}}Intelligence Hub | LEONA{{end}}
 
 {{define "meta"}}
-<meta name="description" content="Kennisbank - Alles over CRA compliance voor embedded Linux">
+<meta name="description"
+    content="Kennisbank - Diepgaande technische analyses van de Cyber Resilience Act voor Embedded Linux.">
 {{end}}
 
 {{define "content"}}
-<div class="bg-blue-900 py-24 sm:py-32">
+<div class="bg-white py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-pretty text-4xl tracking-tight text-white sm:text-5xl">CRA Intelligence Hub</h2>
-            <p class="mt-2 text-lg/8 text-gray-300">Deep-dives in de Cyber Resilience Act: van wettekst naar embedded
-                realiteit.</p>
+
+        <div class="mx-auto max-w-3xl lg:mx-0">
+            <p class="text-sm font-black uppercase tracking-[0.3em] text-orange-500 mb-4">
+                Knowledge Base
+            </p>
+            <h2 class="text-pretty text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+                CRA <span class="text-blue-600">Intelligence</span> Hub
+            </h2>
+            <p class="mt-8 text-xl font-light leading-8 text-slate-600">
+                Wij vertalen de complexe juridische teksten van de EU naar de binaire realiteit van uw build-server.
+                Geen vage adviezen, maar harde <span
+                    class="text-slate-900 font-medium italic underline decoration-blue-500">engineering specs</span>.
+            </p>
         </div>
 
-        <div
-            class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-700 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div class="mt-16 flex flex-wrap gap-4 border-b border-slate-100 pb-8">
+            <span
+                class="rounded-full bg-blue-600 px-4 py-1.5 text-xs font-bold text-white uppercase tracking-widest cursor-pointer">Alles</span>
+            <span
+                class="rounded-full bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-500 hover:bg-blue-50 hover:text-blue-600 uppercase tracking-widest cursor-pointer transition-all">Artikelen</span>
+            <span
+                class="rounded-full bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-500 hover:bg-blue-50 hover:text-blue-600 uppercase tracking-widest cursor-pointer transition-all">Annex
+                I Specs</span>
+            <span
+                class="rounded-full bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-500 hover:bg-blue-50 hover:text-blue-600 uppercase tracking-widest cursor-pointer transition-all">Vulnerability
+                Management</span>
+        </div>
 
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-03-14" class="text-blue-400 font-bold">CRA Artikel 10</time>
-                    <span
-                        class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Verplichtingen</span>
+        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-12 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+
+            <article class="group flex flex-col items-start bg-white">
+                <div class="flex items-center gap-x-4 text-[10px] font-black uppercase tracking-[0.15em] mb-6">
+                    <span class="text-blue-600">CRA Artikel 10</span>
+                    <span class="h-px w-8 bg-slate-200"></span>
+                    <span class="text-slate-400">Verplichtingen</span>
                 </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
+                <div class="relative">
+                    <h3
+                        class="text-2xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
                         <a href="#">De Zorgplicht voor Fabrikanten</a>
                     </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Artikel 10 stelt dat fabrikanten alleen
-                        producten mogen leveren die ontworpen, ontwikkeld en geproduceerd zijn conform de essentiële
-                        eisen. Wij leggen uit hoe u dit aantoont zonder uw gehele ontwikkelproces te blokkeren.</p>
+                    <p class="mt-5 text-sm leading-7 text-slate-500 font-light">
+                        Hoe waarborgt u de conformiteit van uw binaire artifacts zonder uw roadmap te blokkeren? Wij
+                        analyseren de impact van de zorgplicht op <span class="font-mono text-xs text-blue-500">CI/CD
+                            pipelines</span>.
+                    </p>
+                </div>
+                <div
+                    class="mt-8 flex items-center gap-x-2 text-xs font-black text-orange-500 uppercase tracking-widest cursor-pointer group-hover:gap-x-4 transition-all">
+                    Lees Deep-dive <span>&rarr;</span>
                 </div>
             </article>
 
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-03-12" class="text-blue-400 font-bold">CRA Annex I</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Technisch</span>
+            <article class="group flex flex-col items-start bg-white">
+                <div class="flex items-center gap-x-4 text-[10px] font-black uppercase tracking-[0.15em] mb-6">
+                    <span class="text-blue-600">CRA Annex I</span>
+                    <span class="h-px w-8 bg-slate-200"></span>
+                    <span class="text-slate-400">Technisch</span>
                 </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
+                <div class="relative">
+                    <h3
+                        class="text-2xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
                         <a href="#">De 12 Essentiële Veiligheidseisen</a>
                     </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Annex I vormt het hart van de audit. Van
-                        automatische updates tot bescherming tegen data-corruptie. Hoe vertaalt u 'state-of-the-art'
-                        naar een Bitbake manifest of Buildroot configuratie?</p>
+                    <p class="mt-5 text-sm leading-7 text-slate-500 font-light">
+                        Van automatische updates tot binaire integriteit. Hoe mapt u 'state-of-the-art' direct naar een
+                        <span class="font-mono text-xs text-blue-500">Bitbake manifest</span> of Buildroot configuratie?
+                    </p>
+                </div>
+                <div
+                    class="mt-8 flex items-center gap-x-2 text-xs font-black text-orange-500 uppercase tracking-widest cursor-pointer group-hover:gap-x-4 transition-all">
+                    Bekijk Specs <span>&rarr;</span>
                 </div>
             </article>
 
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-03-10" class="text-blue-400 font-bold">C Artikel 11</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Incidenten</span>
+            <article
+                class="group flex flex-col items-start bg-white border-2 border-orange-500/5 p-6 rounded-3xl -m-6 hover:bg-slate-50/50 transition-all">
+                <div class="flex items-center gap-x-4 text-[10px] font-black uppercase tracking-[0.15em] mb-6">
+                    <span
+                        class="text-orange-500 font-black animate-pulse underline decoration-orange-500 decoration-2 offset-4">Live
+                        Monitoring</span>
+                    <span class="text-slate-400">Incidenten</span>
                 </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
+                <div class="relative">
+                    <h3
+                        class="text-2xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
                         <a href="#">Meldplicht Actieve Exploits</a>
                     </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Artikel 11 eist dat fabrikanten binnen 24 uur
-                        melding maken van actief misbruikte kwetsbaarheden bij ENISA. Ontdek hoe onze integratie met
-                        CISA KEV u helpt deze deadline te halen.</p>
+                    <p class="mt-5 text-sm leading-7 text-slate-500 font-light">
+                        Artikel 11 eist een melding binnen 24 uur. Ontdek hoe onze <span
+                            class="text-slate-900 font-medium">V-Assessor™</span> integratie met de CISA KEV catalogus
+                        uw team ontlast bij een Zero-day.
+                    </p>
+                </div>
+                <div
+                    class="mt-8 flex items-center gap-x-2 text-xs font-black text-orange-500 uppercase tracking-widest cursor-pointer group-hover:gap-x-4 transition-all">
+                    V-Assessor Demo <span>&rarr;</span>
                 </div>
             </article>
 
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-03-08" class="text-blue-400 font-bold">CRA Artikel 10 (6)</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Support</span>
+            <article class="group flex flex-col items-start bg-white">
+                <div class="flex items-center gap-x-4 text-[10px] font-black uppercase tracking-[0.15em] mb-6">
+                    <span class="text-blue-600">Artikel 10 (6)</span>
+                    <span class="h-px w-8 bg-slate-200"></span>
+                    <span class="text-slate-400">Support</span>
                 </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
-                        <a href="#">De 5-jaar (of levensduur) Regel</a>
+                <div class="relative">
+                    <h3
+                        class="text-2xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                        <a href="#">De 5-jaar Lifecycle Regel</a>
                     </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Hoe bepaalt u de verwachte levensduur van uw
-                        product voor de wettelijke support-periode? Een analyse van de verplichting om
-                        beveiligingsupdates te blijven leveren.</p>
+                    <p class="mt-5 text-sm leading-7 text-slate-500 font-light">
+                        Hoe definieert u de 'verwachte levensduur'? Analyse van de verplichting om security-patches te
+                        blijven leveren voor legacy vloten.
+                    </p>
+                </div>
+                <div
+                    class="mt-8 flex items-center gap-x-2 text-xs font-black text-orange-500 uppercase tracking-widest cursor-pointer">
+                    Lees Meer <span>&rarr;</span>
                 </div>
             </article>
 
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-03-05" class="text-blue-400 font-bold">CRA Annex II</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">SBOM</span>
+            <article class="group flex flex-col items-start bg-white">
+                <div class="flex items-center gap-x-4 text-[10px] font-black uppercase tracking-[0.15em] mb-6">
+                    <span class="text-blue-600">Annex II</span>
+                    <span class="h-px w-8 bg-slate-200"></span>
+                    <span class="text-slate-400">SBOM</span>
                 </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
-                        <a href="#">Software Bill of Materials (SBOM)</a>
+                <div class="relative">
+                    <h3
+                        class="text-2xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                        <a href="#">Dynamische SPDX Inventaris</a>
                     </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">De CRA verplicht een SBOM voor elke component.
-                        Wij bespreken de transitie van statische PDF-lijsten naar dynamische SPDX en CycloneDX formats
-                        in uw Linux-build.</p>
+                    <p class="mt-5 text-sm leading-7 text-slate-500 font-light">
+                        Stop met statische PDF-lijsten. De CRA eist machine-readable SBOM's. Leer hoe u <span
+                            class="font-mono text-xs text-blue-500">create-spdx</span> implementeert in uw build.
+                    </p>
+                </div>
+                <div
+                    class="mt-8 flex items-center gap-x-2 text-xs font-black text-orange-500 uppercase tracking-widest cursor-pointer">
+                    SPDX Guide <span>&rarr;</span>
                 </div>
             </article>
 
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-03-01" class="text-blue-400 font-bold">CRA Artikel 24</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Keuring</span>
+            <article class="group flex flex-col items-start bg-white">
+                <div class="flex items-center gap-x-4 text-[10px] font-black uppercase tracking-[0.15em] mb-6">
+                    <span class="text-blue-600">Archivering</span>
+                    <span class="h-px w-8 bg-slate-200"></span>
+                    <span class="text-slate-400">10 Jaar</span>
                 </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
-                        <a href="#">Zelfbeoordeling vs. NoBo</a>
+                <div class="relative">
+                    <h3
+                        class="text-2xl font-bold leading-7 text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight">
+                        <a href="#">De 10-jaar Dossierplicht</a>
                     </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Wanneer mag u de CE-markering zelf aanbrengen
-                        en wanneer is een Notified Body verplicht? Een gids over risicoklassen voor 'Kritieke
-                        Producten'.</p>
+                    <p class="mt-5 text-sm leading-7 text-slate-500 font-light">
+                        Waarom u technische dossiers 10 jaar moet bewaren. Hoe u de opslag van binaire artifacts en
+                        metadata automatiseert zonder storage-chaos.
+                    </p>
                 </div>
-            </article>
-
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-02-25" class="text-blue-400 font-bold">CRA Artikel 53</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Handhaving</span>
-                </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
-                        <a href="#">Boetes tot 15 Miljoen Euro</a>
-                    </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Niet-naleving is geen optie meer. We analyseren
-                        de handhavingsstructuur en de risico's voor bedrijven die de deadline van de overgangsperiode
-                        missen.</p>
-                </div>
-            </article>
-
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-02-20" class="text-blue-400 font-bold">CRA Annex I (2)</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">OTA</span>
-                </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
-                        <a href="#">Veilige Update Mechanismen</a>
-                    </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">De CRA eist 'secure by default' updates. Wat
-                        betekent dit voor uw bootloader-beveiliging en image-signing proces in embedded omgevingen?</p>
-                </div>
-            </article>
-
-            <article class="flex flex-col items-start justify-between">
-                <div class="flex items-center gap-x-4 text-xs">
-                    <time datetime="2026-02-15" class="text-blue-400 font-bold">CRA Artikel 10 (4)</time>
-                    <span class="rounded-full bg-blue-500/10 px-3 py-1.5 font-medium text-blue-400">Archief</span>
-                </div>
-                <div class="group relative grow">
-                    <h3 class="mt-3 text-lg/6 font-semibold text-white group-hover:text-blue-400">
-                        <a href="#">De 10-jaar Documentatieplicht</a>
-                    </h3>
-                    <p class="mt-5 line-clamp-4 text-sm/6 text-gray-400">Waarom u technische dossiers 10 jaar moet
-                        bewaren nadat het laatste product is verkocht. Hoe LEONA Shield dit archiveringsrisico volledig
-                        van u overneemt.</p>
+                <div
+                    class="mt-8 flex items-center gap-x-2 text-xs font-black text-orange-500 uppercase tracking-widest cursor-pointer">
+                    Legal Info <span>&rarr;</span>
                 </div>
             </article>
 
         </div>
+
+        <div class="mt-32 rounded-[2.5rem] bg-slate-900 p-12 text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                <div class="h-40 w-40 bg-orange-500 rounded-full blur-3xl"></div>
+            </div>
+            <h3 class="text-3xl font-bold text-white tracking-tight">Heeft u een specifieke <span
+                    class="text-blue-500 font-mono">BIPT</span> vraag?</h3>
+            <p class="mt-4 text-slate-400 font-light">Onze experts duiken direct in uw Bitbake layers voor een Snapshot
+                Audit.</p>
+            <div class="mt-10 flex items-center justify-center gap-x-6 uppercase tracking-widest">
+                <a href="/audit"
+                    class="rounded-xl bg-orange-500 px-8 py-4 text-xs font-black text-white shadow-xl hover:bg-orange-600 transition-all">Start
+                    Snapshot Audit</a>
+            </div>
+        </div>
+
     </div>
 </div>
 {{end}}

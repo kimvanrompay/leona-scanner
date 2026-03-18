@@ -157,7 +157,7 @@
 
   <div class="mx-auto max-w-2xl px-6 pt-16 sm:pt-24 lg:max-w-7xl lg:px-8">
     <table class="w-full text-left max-sm:hidden">
-      <caption class="sr-only">Product vergelijking</caption>
+      <caption class="sr-only">Deliverables Detail Matrix</caption>
       <colgroup>
         <col class="w-2/5" />
         <col class="w-1/5" />
@@ -168,92 +168,132 @@
         <tr>
           <td class="p-0 text-white font-bold text-xl uppercase tracking-widest">Detail Matrix</td>
           <th scope="col" class="p-0">
-            <div class="text-sm font-bold text-blue-400">Snapshot</div>
+            <div class="text-sm font-bold text-blue-400 uppercase tracking-tighter">Snapshot</div>
+            <div class="text-[10px] text-gray-500 font-normal uppercase mt-1 tracking-widest text-nowrap">Nulmeting
+              Audit</div>
           </th>
           <th scope="col" class="p-0">
-            <div class="text-sm font-bold text-blue-400 ">Shield</div>
+            <div class="text-sm font-bold text-blue-400 uppercase tracking-tighter">Shield</div>
+            <div class="text-[10px] text-gray-500 font-normal uppercase mt-1 tracking-widest text-nowrap">Volledig TCF
+              Dossier</div>
           </th>
           <th scope="col" class="p-0">
-            <div class="text-sm font-bold text-blue-400">Pipeline</div>
+            <div class="text-sm font-bold text-blue-400 uppercase tracking-tighter">Pipeline</div>
+            <div class="text-[10px] text-gray-500 font-normal uppercase mt-1 tracking-widest text-nowrap">Continue
+              Validatie</div>
           </th>
         </tr>
       </thead>
+
       <tbody class="group">
         <tr>
           <th scope="colgroup" colspan="4" class="px-0 pb-0 pt-10">
             <div
-              class="-mx-4 rounded-lg bg-gray-800/50 px-4 py-3 text-sm/6 font-semibold text-white uppercase tracking-widest">
-              Technische Dossiervorming</div>
+              class="relative -mx-4 rounded-lg bg-gray-800/50 px-4 py-3 text-sm/6 font-semibold text-white uppercase tracking-[0.2em]">
+              Statutaire Bewijslast
+            </div>
           </th>
         </tr>
         <tr class="border-b border-white/10">
-          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300 ">CRA Annex I Mapping</th>
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">CRA Annex I Mapping (Technisch PDF)</th>
           <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
           </td>
           <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
           </td>
           <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
-          </td>
-        </tr>
-        <tr class="border-b border-white/10">
-          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300 ">Software Bill of Materials (SPDX)
-          </th>
-          <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
-          </td>
-          <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
-          </td>
-          <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
           </td>
         </tr>
         <tr class="border-b border-white/10">
-          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300 ">10-Jaar Wettelijke Bewaarplicht
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">Software Bill of Materials
+            (SPDX/CycloneDX)</th>
+          <td class="p-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Gevalideerd</td>
+          <td class="p-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Gevalideerd</td>
+          <td class="p-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Live Feed</td>
+        </tr>
+        <tr class="border-b border-white/10">
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">10-Jaar Wettelijke Bewaarplicht (Storage)
           </th>
-          <td class="p-4 text-gray-500">Optioneel</td>
-          <td class="p-4 font-bold text-blue-400 uppercase text-[10px]">Inbegrepen</td>
-          <td class="p-4 font-bold text-blue-400 uppercase text-[10px]">Inbegrepen</td>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Inbegrepen</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Cloud-Native</td>
         </tr>
         <tr class="border-b border-white/10 last:border-none">
-          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300 ">Board-Level Liability Shield</th>
-          <td class="p-4 text-gray-500">—</td>
-          <td class="p-4 font-bold text-blue-400 uppercase text-[10px]">Gevalideerd</td>
-          <td class="p-4 text-gray-500">—</td>
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">EU Declaration of Conformity Backbone</th>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Volledig TCF</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Volledig TCF</td>
         </tr>
       </tbody>
+
       <tbody class="group">
         <tr>
           <th scope="colgroup" colspan="4" class="px-0 pb-0 pt-10">
             <div
-              class="-mx-4 rounded-lg bg-gray-800/50 px-4 py-3 text-sm/6 font-semibold text-white uppercase tracking-widest">
-              Vulnerability Management</div>
+              class="relative -mx-4 rounded-lg bg-gray-800/50 px-4 py-3 text-sm/6 font-semibold text-white uppercase tracking-[0.2em]">
+              Engineering & Triage Output
+            </div>
           </th>
         </tr>
         <tr class="border-b border-white/10">
-          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300 ">NIST NVD CVE Scanning</th>
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">NIST NVD & CISA KEV Triage</th>
+          <td class="p-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Snapshot</td>
+          <td class="p-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Diepgaand</td>
+          <td class="p-4 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Real-time</td>
+        </tr>
+        <tr class="border-b border-white/10">
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">Contextuele Exploiteerbaarheids-Check</th>
           <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
           </td>
           <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
           </td>
           <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
+          </td>
+        </tr>
+        <tr class="border-b border-white/10">
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">Remediëring Patches (.bbappends / recipes)
+          </th>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4 text-orange-500 text-[10px] font-bold uppercase tracking-widest">Gegenereerd</td>
+          <td class="p-4 text-orange-500 text-[10px] font-bold uppercase tracking-widest">Auto-Patched</td>
+        </tr>
+        <tr class="border-b border-white/10 last:border-none">
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">Binary Hardening Audit (ASLR/NX/Stack)
+          </th>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Inbegrepen</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Continue Check</td>
+        </tr>
+      </tbody>
+
+      <tbody class="group">
+        <tr>
+          <th scope="colgroup" colspan="4" class="px-0 pb-0 pt-10">
+            <div
+              class="relative -mx-4 rounded-lg bg-gray-800/50 px-4 py-3 text-sm/6 font-semibold text-white uppercase tracking-[0.2em]">
+              Surveillance & Juridische Zekerheid
+            </div>
+          </th>
+        </tr>
+        <tr class="border-b border-white/10">
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">24u-Meldingsplicht bij BIPT Monitoring
+          </th>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4">
+            <div class="size-3 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]"></div>
           </td>
         </tr>
         <tr class="border-b border-white/10 last:border-none">
-          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300 ">CISA KEV Exploit Prioritering</th>
-          <td class="p-4 text-gray-500">—</td>
-          <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
-          </td>
-          <td class="p-4">
-            <div class="size-4 bg-blue-500 rounded-full"></div>
-          </td>
+          <th scope="row" class="px-0 py-4 text-sm font-normal text-gray-300">Board-Level Liability Shield</th>
+          <td class="p-4 text-gray-600">—</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Gevalideerd</td>
+          <td class="p-4 text-blue-400 text-[10px] font-bold uppercase tracking-widest">Permanent</td>
         </tr>
       </tbody>
     </table>

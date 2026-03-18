@@ -14,26 +14,27 @@
 
             <h2 class="text-pretty text-4xl font-extrabold tracking-tight text-white sm:text-6xl mb-8">
                 Waar CTO's naartoe gaan om te
-                <span class="relative inline-flex flex-col overflow-hidden h-[1.2em] translate-y-[0.25em]" x-data="{ 
-                words: ['SCHALEN', 'BEVEILIGEN', 'BESCHERMEN', 'SLAGEN'], 
-                current: 0,
-                init() {
-                    setInterval(() => {
-                        this.current = (this.current + 1) % this.words.length;
-                    }, 2500);
-                }
-              }">
+                <span class="relative inline-block" x-data="{ 
+            words: ['SCHALEN', 'BEVEILIGEN', 'BESCHERMEN', 'SLAGEN'], 
+            current: 0,
+            init() {
+                setInterval(() => {
+                    this.current = (this.current + 1) % this.words.length;
+                }, 2500);
+            }
+          }">
+                    <span class="invisible" x-text="words.reduce((a, b) => a.length > b.length ? a : b)"></span>
+
                     <template x-for="(word, index) in words" :key="index">
-                        <span class="text-blue-500 transition-all duration-700 absolute" x-show="current === index"
+                        <span class="text-blue-500 absolute left-0 top-0 w-full" x-show="current === index"
                             x-transition:enter="transition ease-out duration-500 transform"
-                            x-transition:enter-start="translate-y-full opacity-0"
+                            x-transition:enter-start="translate-y-8 opacity-0"
                             x-transition:enter-end="translate-y-0 opacity-100"
                             x-transition:leave="transition ease-in duration-500 transform"
                             x-transition:leave-start="translate-y-0 opacity-100"
-                            x-transition:leave-end="-translate-y-full opacity-0" x-text="word">
+                            x-transition:leave-end="-translate-y-8 opacity-0" x-text="word">
                         </span>
                     </template>
-                    <span class="opacity-0" x-text="words[0]"></span>
                 </span>
             </h2>
 
@@ -136,7 +137,7 @@
                 <div
                     class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10 overflow-hidden shadow-2xl group cursor-pointer">
                     <img width="1824" height="1080"
-                        src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
+                        src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773837669/Ontwerp_zonder_titel-3_kk0ich.png"
                         alt="Linux Embedded Compliance Dashboard"
                         class="opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700" />
 
