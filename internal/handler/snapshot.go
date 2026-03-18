@@ -159,8 +159,8 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 
 	// Return HTMX response with redirect to payment
 	w.Header().Set("Content-Type", "text/html")
-	//nolint:lll,errcheck // HTML template
-	_, _ = w.Write([]byte(fmt.Sprintf(` //nolint:errcheck // HTTP error already handled
+	//nolint:lll,errcheck,gosec // HTML template
+	w.Write([]byte(fmt.Sprintf(`
 		<div class="text-center py-12">
 			<div class="mb-6">
 				<svg class="w-20 h-20 mx-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
