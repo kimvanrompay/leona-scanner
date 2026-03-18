@@ -418,34 +418,102 @@
       submitting: false,
       submitted: false,
       error: '',
+      retryCount: 0,
+      maxRetries: 3,
+      get incompleteQuestions() {
+        const answered = Object.keys($root.answers).length;
+        return 10 - answered;
+      },
+      get isIncomplete() {
+        return this.incompleteQuestions > 0;
+      },
+      validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      },
       async submitAssessment() {
-        if (!this.email || !this.email.includes('@')) {
-          this.error = 'Geldig e-mailadres vereist';
+        // Check if all questions are answered
+        if (this.isIncomplete) {
+          this.error = `U heeft nog ${this.incompleteQuestions} vra${this.incompleteQuestions > 1 ? 'gen' : 'ag'} niet beantwoord. Ga terug en voltooi alle vragen.`;
           return;
         }
+        
+        // Validate email format
+        if (!this.email || !this.validateEmail(this.email)) {
+          this.error = 'Voer een geldig e-mailadres in (bijv. naam@bedrijf.nl)';
+          return;
+        }
+        
         this.submitting = true;
         this.error = '';
+        
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+          
           const formData = new FormData();
           formData.append('email', this.email);
           formData.append('answers', JSON.stringify($root.answers));
           
           const response = await fetch('/api/cra-assessment/submit', {
             method: 'POST',
-            body: formData
+            body: formData,
+            signal: controller.signal
           });
           
-          const result = await response.json();
+          clearTimeout(timeoutId);
           
-          if (response.ok) {
-            this.submitted = true;
-          } else {
-            this.error = result.error || 'Er is iets misgegaan';
+          if (!response.ok) {
+            const result = await response.json();
+            
+            // Handle specific error codes
+            if (response.status === 400) {
+              this.error = result.error || 'Ongeldige invoer. Controleer uw gegevens.';
+            } else if (response.status === 429) {
+              this.error = 'Te veel verzoeken. Probeer het over een minuut opnieuw.';
+            } else if (response.status === 500) {
+              this.error = 'Serverfout. We zijn op de hoogte gesteld. Probeer het later opnieuw.';
+            } else {
+              this.error = result.error || 'Er is iets misgegaan. Probeer het opnieuw.';
+            }
+            
+            // Offer retry for server errors
+            if (response.status >= 500 && this.retryCount < this.maxRetries) {
+              this.error += ` (Poging ${this.retryCount + 1}/${this.maxRetries})`;
+            }
+            return;
           }
+          
+          const result = await response.json();
+          this.submitted = true;
+          this.retryCount = 0;
+          
+          // Clear local storage on success
+          localStorage.removeItem('cra-assessment');
+          
         } catch (err) {
-          this.error = 'Netwerk fout - probeer opnieuw';
+          if (err.name === 'AbortError') {
+            this.error = 'De aanvraag duurde te lang. Controleer uw internetverbinding en probeer opnieuw.';
+          } else if (!navigator.onLine) {
+            this.error = 'Geen internetverbinding. Controleer uw verbinding en probeer opnieuw.';
+          } else {
+            this.error = 'Netwerkfout. Controleer uw verbinding en probeer opnieuw.';
+          }
+          
+          // Offer retry
+          if (this.retryCount < this.maxRetries) {
+            this.error += ` (Poging ${this.retryCount + 1}/${this.maxRetries})`;
+          }
         } finally {
           this.submitting = false;
+        }
+      },
+      async retry() {
+        if (this.retryCount < this.maxRetries) {
+          this.retryCount++;
+          await this.submitAssessment();
+        } else {
+          this.error = 'Maximaal aantal pogingen bereikt. Neem contact op met support@leonacompliance.be';
         }
       }
     }">
@@ -462,6 +530,30 @@
                 </h2>
                 <p class="mt-4 text-lg/8 text-gray-600">Vul uw e-mailadres in en ontvang de resultaten van uw assessment
                   direct in uw mailbox.</p>
+                  
+                <!-- Incomplete Warning -->
+                <div x-show="isIncomplete" class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                  <div class="flex items-start">
+                    <svg class="h-5 w-5 text-yellow-400 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    <div class="ml-3">
+                      <p class="text-sm text-yellow-700 font-semibold">Let op: Assessment onvolledig</p>
+                      <p class="text-sm text-yellow-700 mt-1">U heeft nog <span x-text="incompleteQuestions"></span> vra<span x-text="incompleteQuestions > 1 ? 'gen' : 'ag'"></span> niet beantwoord.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Progress Indicator -->
+                <div class="mt-6">
+                  <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Voortgang</span>
+                    <span><span x-text="$root.progress"></span>/10 vragen</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-blue-600 h-2 rounded-full transition-all" :style="`width: ${($root.progress / 10) * 100}%`"></div>
+                  </div>
+                </div>
               </div>
 
               <!-- Email Form -->
@@ -477,14 +569,38 @@
                     </div>
                   </div>
 
-                  <div x-show="error" class="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-800"
-                    x-text="error"></div>
+                  <div x-show="error" class="bg-red-50 border-l-4 border-red-400 p-4 rounded" x-transition>
+                    <div class="flex items-start">
+                      <svg class="h-5 w-5 text-red-400 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                      </svg>
+                      <div class="ml-3 flex-1">
+                        <p class="text-sm text-red-800" x-text="error"></p>
+                        <button x-show="retryCount < maxRetries && !submitting" @click="retry()" type="button"
+                          class="mt-2 text-sm font-medium text-red-600 hover:text-red-500 underline">
+                          Opnieuw proberen
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="mt-10 flex justify-end border-t border-gray-900/10 pt-8">
+                <div class="mt-10 flex justify-end gap-3 border-t border-gray-900/10 pt-8">
+                  <button type="button" @click="$root.goToQuestion(1)" x-show="isIncomplete"
+                    class="rounded-md bg-gray-200 px-3.5 py-2.5 text-center text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-300">
+                    Terug naar vragen
+                  </button>
                   <button type="submit" :disabled="submitting"
-                    class="rounded-md bg-orange-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                    x-text="submitting ? 'Verzenden...' : 'Ontvang Resultaten'"></button>
+                    class="rounded-md bg-orange-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                    <span x-show="!submitting">Ontvang Resultaten</span>
+                    <span x-show="submitting" class="flex items-center">
+                      <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Verzenden...
+                    </span>
+                  </button>
                 </div>
               </form>
             </div>
@@ -509,6 +625,10 @@
                   <li>Concrete volgende stappen</li>
                   <li>Mogelijkheid voor gratis 30-min consult</li>
                 </ul>
+              </div>
+              
+              <div class="mt-6 text-sm text-gray-500">
+                <p>Geen email ontvangen? Controleer uw spam folder of <a href="mailto:kim@leonacompliance.be" class="text-blue-600 hover:text-blue-800 font-semibold">neem contact op</a>.</p>
               </div>
             </div>
           </div>
