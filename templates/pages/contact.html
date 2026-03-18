@@ -7,9 +7,8 @@
 {{define "content"}}
 <div class="relative bg-blue-900">
   <div class="lg:absolute lg:inset-0 lg:left-1/2">
-    <img
-      src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80"
-      alt="" class="h-64 w-full bg-blue-800 object-cover sm:h-80 lg:absolute lg:h-full" />
+    <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773863635/Ontwerp_zonder_titel-7_mfr6bh.png" alt=""
+      class="h-64 w-full bg-blue-800 object-cover sm:h-80 lg:absolute lg:h-full" />
 
   </div>
   <div class="pb-24 pt-16 sm:pb-32 sm:pt-24 lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:pt-32">
@@ -22,7 +21,8 @@
         <!-- HTMX success message will appear here -->
         <div id="form-messages" class="mt-8"></div>
 
-        <form hx-post="/api/contact/submit" hx-target="#form-messages" hx-swap="innerHTML" class="mt-16" id="contact-form">
+        <form hx-post="/api/contact/submit" hx-target="#form-messages" hx-swap="innerHTML" class="mt-16"
+          id="contact-form">
           <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div>
               <label for="first-name" class="block text-sm/6 font-semibold text-white">Voornaam</label>
@@ -89,7 +89,7 @@
           <div class="mt-10 flex justify-end border-t border-white/10 pt-8">
             <button type="submit"
               class="rounded-md bg-blue-500 px-6 py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 transition-all">Verzend
-              Audit-Aanvraag</button>
+              Bericht</button>
           </div>
         </form>
       </div>

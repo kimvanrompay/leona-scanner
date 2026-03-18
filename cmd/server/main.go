@@ -139,6 +139,7 @@ func main() {
 	r.HandleFunc("/diensten", h.HandlePage("services")).Methods("GET")
 	r.HandleFunc("/producten", h.HandlePage("products-simple")).Methods("GET")
 	r.HandleFunc("/snapshot", h.HandlePage("snapshot")).Methods("GET")
+	r.HandleFunc("/snapshot/success", h.HandlePage("snapshot-success")).Methods("GET")
 	r.HandleFunc("/tcf-bundle", h.HandlePage("tcf-bundle")).Methods("GET")
 	r.HandleFunc("/insights", h.HandlePage("insights")).Methods("GET")
 	r.HandleFunc("/kennisbank", h.HandlePage("kennisbank")).Methods("GET")
@@ -161,6 +162,9 @@ func main() {
 
 	// Demo request submission
 	r.HandleFunc("/api/demo/submit", h.HandleDemoSubmit).Methods("POST")
+
+	// Snapshot audit submission
+	r.HandleFunc("/api/snapshot/submit", h.HandleSnapshotSubmit).Methods("POST")
 
 	// Easy to add new pages - just create templates/pages/your-page.html
 	// r.HandleFunc("/about", h.HandlePage("about")).Methods("GET")
