@@ -232,51 +232,68 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
 	m.SetHeader("To", to)
 	m.SetHeader("Subject", "Je LEONA demo is onderweg 🎬")
 
+	//nolint:misspell // "Executie" is correct Dutch word meaning "execution"
 	body := fmt.Sprintf(`
 <!DOCTYPE html>
-<html>
+<html lang="nl" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #1e3a8a 0%%, #1e40af 100%%); color: white; padding: 30px; border-radius: 8px; }
-        .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
-        .cta { background: #FF6B35; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin-top: 20px; font-weight: bold; }
-        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+        @media only screen and (max-width: 600px) {
+            .container { width: 100%% !important; }
+            .content { padding: 40px 20px !important; }
+            h1 { font-size: 28px !important; }
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 style="margin: 0;">🎬 Demo Aanvraag Ontvangen</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">We plannen je persoonlijke demo in</p>
-        </div>
-        
-        <div class="content">
-            <p>Beste %s,</p>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', -apple-system, sans-serif; color: #000000; -webkit-font-smoothing: antialiased;">
+    <div align="center" style="background-color: #ffffff;">
+        <div class="container" style="max-width: 600px; margin: 0 auto; text-align: left;">
             
-            <p>Bedankt voor je interesse in LEONA! We hebben je demo-aanvraag goed ontvangen.</p>
-            
-            <p><strong>📞 We bellen je binnen 24 uur</strong> om je persoonlijke demo in te plannen en al je vragen te beantwoorden.</p>
-            
-            <p><strong>Wat kun je verwachten in de demo?</strong></p>
-            <ul>
-                <li>Live walkthrough van de LEONA platform</li>
-                <li>Analyse van jouw specifieke CRA compliance uitdagingen</li>
-                <li>Demo van geautomatiseerde SBOM scanning</li>
-                <li>Q&A met onze technical experts</li>
-            </ul>
+            <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773871167/CRA_COMPLIANT_LINUX_SYSTEM-5_shs5we.png" 
+                 alt="CRA Compliance Platform" 
+                 style="width: 100%%; max-width: 600px; height: auto; display: block; border: 0;">
 
-            <p>In de tussentijd kun je alvast meer leren over CRA compliance:</p>
-            
-            <a href="https://leonacompliance.be/cra-compliance" class="cta">Bekijk onze CRA Roadmap</a>
-        </div>
+            <div class="content" style="padding: 60px 40px;">
+                <p style="font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #fd7e14; margin: 0 0 12px 0;">Volgende Stap: Actie</p>
+                <h1 style="font-size: 36px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 32px 0;">Laten we schakelen, %s.</h1>
+                
+                <p style="font-size: 18px; line-height: 1.6; margin: 0 0 24px 0; color: #000000;">
+                    Luister, de CRA komt eraan en de tijd tikt. Je hebt een demo aangevraagd omdat je resultaat wilt, geen verkooppraatje. Dat begrijpen we.
+                </p>
 
-        <div class="footer">
-            <p><strong>LEONA</strong> | CRA Compliance as Code<br/>
-            <a href="https://leonacompliance.be">leonacompliance.be</a> | kim@leonacompliance.be</p>
+                <p style="font-size: 18px; line-height: 1.6; margin: 0 0 40px 0; color: #000000;">
+                    <strong>Een van onze engineers belt je binnen 24 uur.</strong> Geen ruis. Gewoon een direct gesprek om je demo in te plannen en te kijken of LEONA past bij jouw stack.
+                </p>
+
+                <div style="margin-bottom: 48px;">
+                    <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: #888888; margin-bottom: 20px; border-bottom: 1px solid #eeeeee; padding-bottom: 8px;">De blauwdruk</p>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">01. Live Platform Walkthrough</div>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">02. Jouw specifieke CRA-uitdagingen</div>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">03. Geautomatiseerde SBOM Executie</div>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">04. Technische Q&A</div>
+                </div>
+
+                <a href="https://leonacompliance.be/cra-compliance" 
+                   style="display: inline-block; background-color: #003366; color: #ffffff; padding: 18px 32px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">
+                   Bekijk de CRA Roadmap
+                </a>
+            </div>
+
+            <div class="footer" style="padding: 0 40px 60px 40px; font-size: 12px; color: #888888; line-height: 1.8;">
+                <p style="margin: 0;">
+                    <strong>LEONA Compliance</strong><br>
+                    Compliance as Code<br>
+                    <a href="https://leonacompliance.be" style="color: #888888; text-decoration: underline;">leonacompliance.be</a> | <a href="mailto:kim@leonacompliance.be" style="color: #888888; text-decoration: underline;">support@leonacompliance.be</a>
+                </p>
+                <p style="margin: 20px 0 0 0;">
+                    Je ontvangt deze mail omdat je een demo hebt aangevraagd. Geen spam. Alleen executie.
+                </p>
+            </div>
         </div>
-    </div>
+        </div>
 </body>
 </html>
 `, firstName)
