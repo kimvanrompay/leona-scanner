@@ -62,15 +62,19 @@ func (h *HTTPHandlerV2) HandleContactSubmit(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	// Send notification email to kim@eliama.agency
+	// Send notification email to kim@leonacompliance.be
 	if err := h.sendContactNotification(firstName, lastName, email, company, message, solution); err != nil {
-		log.Printf("Failed to send notification email: %v", err)
+		log.Printf("❌ ERROR: Failed to send notification email to kim@leonacompliance.be: %v", err)
 		// Still send confirmation to user
+	} else {
+		log.Printf("✅ SUCCESS: Contact form notification sent to kim@leonacompliance.be from %s %s (%s)", firstName, lastName, email)
 	}
 
 	// Send confirmation email to submitter
 	if err := h.sendContactConfirmation(email, firstName); err != nil {
-		log.Printf("Failed to send confirmation email: %v", err)
+		log.Printf("⚠️  WARNING: Failed to send confirmation email to %s: %v", email, err)
+	} else {
+		log.Printf("📧 Confirmation email sent to %s", email)
 	}
 
 	// Return success message HTML for HTMX
@@ -81,9 +85,10 @@ func (h *HTTPHandlerV2) HandleContactSubmit(w http.ResponseWriter, r *http.Reque
 			<p class="text-green-200 text-sm mt-2">Je aanvraag is ontvangen. We nemen binnen 24 uur contact op via ` + email + `.</p>
 		</div>
 		<script>
-			// Reset form after 3 seconds
+			// Reset form after 5 seconds
 			setTimeout(() => {
-				document.querySelector('form').reset();
+				const form = document.getElementById('contact-form');
+				if (form) form.reset();
 				document.getElementById('form-messages').innerHTML = '';
 			}, 5000);
 		</script>
@@ -114,7 +119,7 @@ func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, comp
 
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
-	m.SetHeader("To", "kim@eliama.agency")
+	m.SetHeader("To", "kim@leonacompliance.be")
 	m.SetHeader("Subject", fmt.Sprintf("🔔 Nieuw Contact: %s %s (%s)", firstName, lastName, company))
 
 	// Email body
