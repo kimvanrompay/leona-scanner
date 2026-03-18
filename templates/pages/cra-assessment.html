@@ -792,16 +792,26 @@
                   console.log('Submitting with email:', document.getElementById('email').value);
                   submitting = true;
                 "
-                @htmx:after-request="
+@htmx:after-request="
                   submitting = false;
                   if ($event.detail.successful) {
                     localStorage.removeItem('cra-assessment');
                     email = document.getElementById('email').value;
                     submitted = true;
-                    setTimeout(() => confetti({particleCount: 100, spread: 70, origin: { y: 0.6 }}), 200);
+                  } else if ($event.detail.xhr.status === 400) {
+                    try {
+                      const response = JSON.parse($event.detail.xhr.responseText);
+                      error = response.error || 'Geldig e-mailadres vereist';
+                    } catch (e) {
+                      error = 'Geldig e-mailadres vereist';
+                    }
                   } else {
-                    error = $event.detail.xhr.status === 400 ? 'Geldig e-mailadres vereist' : 'Fout bij verzenden. Probeer opnieuw.';
+                    error = 'Fout bij verzenden. Probeer opnieuw.';
                   }
+                "
+                @cra-success.window="
+                  email = $event.detail.email;
+                  submitted = true;
                 ">
                 <div id="form-container" class="grid grid-cols-1 gap-x-8 gap-y-6">
                   <div>
