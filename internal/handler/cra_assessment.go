@@ -35,6 +35,8 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 
 	log.Printf("📧 Email received: '%s'", email)
 	log.Printf("📊 Answers JSON received: '%s'", answersJSON)
+	log.Printf("📊 Answers JSON length: %d bytes", len(answersJSON))
+	log.Printf("📊 All form values: %v", r.Form)
 
 	// Validate email
 	if email == "" || !strings.Contains(email, "@") {
@@ -99,6 +101,7 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 	if totalQuestions == 0 {
 		totalQuestions = 10 // Default to 10 for empty submissions
 	}
+	// Fix: multiply first to avoid integer truncation to 0
 	complianceScore := (jaCount * 100) / totalQuestions
 
 	// Save to database (if available)
@@ -137,8 +140,8 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 	//nolint:errcheck,gosec,lll // Success HTML with confetti
 	successHTML := fmt.Sprintf(`
 		<div class="text-center py-8">
-			<div class="text-green-600 text-2xl font-bold mb-4">✅ Verstuurd!</div>
-			<p class="text-lg">Check uw mailbox voor uw persoonlijke CRA rapport naar <strong>%s</strong></p>
+			<div class="text-green-600 text-2xl font-bold mb-4">Verstuurd!</div>
+			<p class="text-lg">Check uw mailbox voor uw persoonlijke CRA test naar <strong>%s</strong></p>
 		</div>
 		<script>
 			// Trigger Alpine.js success state

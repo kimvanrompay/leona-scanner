@@ -61,9 +61,9 @@ func (h *HTTPHandlerV2) HandleSampleReportDownload(w http.ResponseWriter, r *htt
 	// Success response
 	w.Header().Set("Content-Type", "text/html")
 	w.Write([]byte(fmt.Sprintf(`
-		<div class="bg-green-900/30 px-6 py-4 rounded-lg border border-green-500/30">
-			<p class="text-green-300 font-semibold">✅ Voorbeeldrapport onderweg!</p>
-			<p class="text-sm text-gray-300 mt-2">We hebben het 40-pagina Technical Construction File naar %s gestuurd.</p>
+		<div class="bg-blue-900/30 px-6 py-4 rounded-lg border border-blue-500/30">
+			<p class="text-white font-semibold">Voorbeeldrapport onderweg!</p>
+			<p class="text-sm text-gray-300 mt-2">We hebben het Technical Construction File naar %s gestuurd.</p>
 			<p class="text-xs text-gray-400 mt-2">Check uw inbox - dit is de "gouden standaard" voor CRA compliance.</p>
 		</div>
 	`, email)))

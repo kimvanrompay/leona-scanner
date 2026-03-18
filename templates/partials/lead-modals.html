@@ -1,15 +1,17 @@
 {{define "lead-modals"}}
 <!-- Risk Assessment Modal -->
-<dialog id="risk-assessment-modal" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-2xl w-full p-0 border-0">
+<dialog id="risk-assessment-modal"
+    class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-2xl w-full p-0 border-0">
     <div class="bg-gradient-to-br from-blue-950 to-blue-900 p-8 rounded-t-2xl">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-white">⚖️ CRA Exposure Assessment</h2>
                 <p class="text-gray-300 mt-2">Binnen 60 seconden weet u of uw bedrijf persoonlijk aansprakelijk is</p>
             </div>
-            <button type="button" onclick="document.getElementById('risk-assessment-modal').close()" class="text-gray-400 hover:text-white">
+            <button type="button" onclick="document.getElementById('risk-assessment-modal').close()"
+                class="text-gray-400 hover:text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
@@ -19,19 +21,25 @@
             <div class="space-y-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Zakelijk e-mailadres *</label>
-                    <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="cto@uwbedrijf.be">
+                    <input type="email" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        placeholder="cto@uwbedrijf.be">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsnaam</label>
-                    <input type="text" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="Embedded Systems NV">
+                    <input type="text" name="company_name"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                        placeholder="Embedded Systems NV">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="sells_to_infrastructure" value="true" class="w-5 h-5 text-orange-500 rounded">
+                        <input type="checkbox" name="sells_to_infrastructure" value="true"
+                            class="w-5 h-5 text-orange-500 rounded">
                         <span class="text-sm text-gray-700">Verkoopt aan kritieke infrastructuur</span>
                     </label>
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="uses_open_source" value="true" class="w-5 h-5 text-orange-500 rounded">
+                        <input type="checkbox" name="uses_open_source" value="true"
+                            class="w-5 h-5 text-orange-500 rounded">
                         <span class="text-sm text-gray-700">Gebruikt Open Source in kernel</span>
                     </label>
                     <label class="flex items-center space-x-2 cursor-pointer">
@@ -39,17 +47,20 @@
                         <span class="text-sm text-gray-700">Heeft SBOM-proces</span>
                     </label>
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="has_vuln_process" value="true" class="w-5 h-5 text-orange-500 rounded">
+                        <input type="checkbox" name="has_vuln_process" value="true"
+                            class="w-5 h-5 text-orange-500 rounded">
                         <span class="text-sm text-gray-700">Heeft vulnerability disclosure</span>
                     </label>
                     <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" name="products_in_eu" value="true" class="w-5 h-5 text-orange-500 rounded">
+                        <input type="checkbox" name="products_in_eu" value="true"
+                            class="w-5 h-5 text-orange-500 rounded">
                         <span class="text-sm text-gray-700">Verkoopt in EU-markt</span>
                     </label>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsgrootte</label>
-                    <select name="company_size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    <select name="company_size"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
                         <option value="1-10">1-10 werknemers</option>
                         <option value="11-50">11-50 werknemers</option>
                         <option value="51-250" selected>51-250 werknemers</option>
@@ -58,7 +69,8 @@
                 </div>
             </div>
             <div id="risk-assessment-result" class="mt-6"></div>
-            <button type="submit" class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
+            <button type="submit"
+                class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
                 Bereken Risicoscore
             </button>
         </form>
@@ -66,16 +78,18 @@
 </dialog>
 
 <!-- Sample Report Modal -->
-<dialog id="sample-report-modal" class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-lg w-full p-0 border-0">
+<dialog id="sample-report-modal"
+    class="backdrop:bg-black/50 backdrop:backdrop-blur-sm rounded-2xl shadow-2xl max-w-lg w-full p-0 border-0">
     <div class="bg-gradient-to-br from-blue-950 to-blue-900 p-8 rounded-t-2xl">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-2xl font-bold text-white">📄 Voorbeeldrapport TCF</h2>
+                <h2 class="text-2xl font-bold text-white">Voorbeeldrapport TCF</h2>
                 <p class="text-gray-300 mt-2">Download de gouden standaard</p>
             </div>
-            <button type="button" onclick="document.getElementById('sample-report-modal').close()" class="text-gray-400 hover:text-white">
+            <button type="button" onclick="document.getElementById('sample-report-modal').close()"
+                class="text-gray-400 hover:text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
@@ -105,34 +119,40 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Zakelijk e-mailadres *</label>
-                    <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="engineer@uwbedrijf.be">
+                    <input type="email" name="email" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        placeholder="engineer@uwbedrijf.be">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Bedrijfsnaam</label>
-                    <input type="text" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="Industrial IoT NV">
+                    <input type="text" name="company_name"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500"
+                        placeholder="Industrial IoT NV">
                 </div>
             </div>
             <div id="sample-report-result" class="mt-4"></div>
-            <button type="submit" class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
-                Download 42-Pagina TCF
+            <button type="submit"
+                class="mt-6 w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg">
+                Download TCF Voorbeeldrapport
             </button>
-            <p class="text-xs text-gray-500 mt-3 text-center">Het voorbeeldrapport wordt direct naar uw inbox gestuurd</p>
+            <p class="text-xs text-gray-500 mt-3 text-center">Het voorbeeldrapport wordt direct naar uw inbox gestuurd
+            </p>
         </form>
     </div>
 </dialog>
 
 <script>
-// Open Risk Assessment Modal from "Beoordeel positie" buttons
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('a[href="#assessor"]').forEach(function(link) {
-        const text = link.textContent.trim();
-        if (text === 'Beoordeel positie') {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('risk-assessment-modal').showModal();
-            });
-        }
+    // Open Risk Assessment Modal from "Beoordeel positie" buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('a[href="#assessor"]').forEach(function (link) {
+            const text = link.textContent.trim();
+            if (text === 'Beoordeel positie') {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.getElementById('risk-assessment-modal').showModal();
+                });
+            }
+        });
     });
-});
 </script>
 {{end}}
