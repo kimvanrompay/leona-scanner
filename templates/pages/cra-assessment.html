@@ -855,30 +855,31 @@
             </div>
 
             <!-- Success Message -->
-            <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg" x-show="submitted" x-transition>
-              <div class="mb-8 relative">
-                <svg class="h-20 w-20 text-green-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg text-center" x-show="submitted" x-transition>
+              <div class="mb-8 flex justify-center">
+                <svg class="h-24 w-24 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 class="text-5xl font-bold text-gray-900 mb-4 animate-pulse">🎉 Gefeliciteerd!</h2>
-              <p class="text-2xl font-semibold text-green-600 mb-4">Uw assessment is voltooid!</p>
-              <p class="text-lg text-gray-600 mb-8">Check uw inbox op <span class="font-semibold" x-text="email"></span>
+              <h2 class="text-6xl font-bold text-gray-900 mb-6">🎉 Verstuurd!</h2>
+              <p class="text-3xl font-bold text-green-600 mb-4">Check uw mailbox</p>
+              <p class="text-xl text-gray-700 mb-8">Uw persoonlijke CRA compliance rapport is onderweg naar:<br/>
+                <span class="font-bold text-blue-600" x-text="email"></span>
               </p>
-              <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
-                <h3 class="font-semibold text-blue-900 mb-3">Wat ontvangt u?</h3>
-                <ul class="space-y-2 text-sm text-blue-800">
-                  <li>Uw persoonlijke compliance score</li>
-                  <li>Risicobeoordeling per vraag</li>
-                  <li>Aanbevelingen per CRA artikel</li>
-                  <li>Concrete volgende stappen</li>
-                  <li>Mogelijkheid voor gratis 30-min consult</li>
-                </ul>
+              
+              <div class="bg-gradient-to-r from-blue-50 to-green-50 border-2 border-green-500 p-8 rounded-2xl mb-8">
+                <p class="text-lg text-gray-800 mb-4">✉️ Check uw inbox (en spam folder)</p>
+                <p class="text-sm text-gray-600">Het rapport bevat uw score, analyse en concrete volgende stappen</p>
               </div>
               
-              <div class="mt-6 text-sm text-gray-500">
-                <p>Geen email ontvangen? Controleer uw spam folder of <a href="mailto:kim@leonacompliance.be" class="text-blue-600 hover:text-blue-800 font-semibold">neem contact op</a>.</p>
+              <a href="https://leonacompliance.be" 
+                class="inline-block rounded-xl px-10 py-4 text-lg font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-xl shadow-orange-500/50 transform hover:scale-105 transition-all">
+                📊 Ga naar LEONA Compliance
+              </a>
+              
+              <div class="mt-8 text-sm text-gray-500">
+                <p>Geen email ontvangen? <a href="mailto:kim@leonacompliance.be" class="text-blue-600 hover:text-blue-800 font-semibold underline">Neem contact op</a></p>
               </div>
             </div>
           </div>
