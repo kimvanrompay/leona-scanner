@@ -654,6 +654,12 @@
           formData.append('email', this.email);
           formData.append('answers', JSON.stringify(answers));
           
+          // Verify form data
+          console.log('FormData contents:');
+          for (let [key, value] of formData.entries()) {
+            console.log(`  ${key}: ${value}`);
+          }
+          
           const response = await fetch('/api/cra-assessment/submit', {
             method: 'POST',
             body: formData,
@@ -772,16 +778,23 @@
               </div>
 
               <!-- Email Form -->
-              <form @submit.prevent="submitAssessment()" class="mt-8">
+              <form @submit.prevent="submitAssessment" class="mt-8">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-6">
                   <div>
                     <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres voor
                       rapport</label>
                     <div class="mt-2.5">
-                      <input type="email" id="email" name="email" x-model="email" required autocomplete="email"
+                      <input type="email" 
+                        id="email" 
+                        name="email" 
+                        x-model.trim="email" 
+                        @input="console.log('Email input changed:', email)"
+                        required 
+                        autocomplete="email"
                         class="block w-full rounded-xl bg-white px-3.5 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 shadow-sm"
                         placeholder="uw.email@bedrijf.be" />
                     </div>
+                    <div x-show="email" class="mt-1 text-xs text-gray-500">Email: <span x-text="email"></span></div>
                   </div>
 
                   <div x-show="error" class="bg-red-50 border-l-4 border-red-400 p-4 rounded" x-transition>
