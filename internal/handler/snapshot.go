@@ -208,12 +208,7 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 		}
 	}
 
-	// Send detailed notification email to Kim
-	if err := h.sendSnapshotNotification(submission); err != nil {
-		log.Printf("[ERROR] E-mail notificatie mislukt naar kim@leonacompliance.be: %v", err)
-	} else {
-		log.Printf("[SUCCESS] Notificatie verzonden naar kim@leonacompliance.be")
-	}
+	// Note: Notification email to Kim will be sent after successful payment via webhook
 
 	// Create Mollie payment
 	paymentURL, err := h.createSnapshotPayment(r.Context(), submission)
@@ -381,9 +376,17 @@ func (h *HTTPHandlerV2) HandleMollieWebhook(w http.ResponseWriter, r *http.Reque
 
 		if payment.Status == "paid" {
 			log.Printf("[SUCCESS] ✅ Betaling geslaagd voor order %s", orderUUID)
-			// Send confirmation email to customer if desired
+
+			// Send confirmation email to customer
 			if customerEmail, ok := metadata["customer_email"].(string); ok && customerEmail != "" {
 				h.sendSnapshotPaymentConfirmation(customerEmail, orderUUID, metadata)
+			}
+
+			// Send detailed notification to Kim with all submission data
+			if err := h.sendSnapshotNotificationFromWebhook(orderUUID, metadata); err != nil {
+				log.Printf("[ERROR] E-mail notificatie mislukt naar kim@leonacompliance.be: %v", err)
+			} else {
+				log.Printf("[SUCCESS] Notificatie verzonden naar kim@leonacompliance.be")
 			}
 		} else if payment.Status == "failed" || payment.Status == "canceled" {
 			log.Printf("[WAARSCHUWING] ❌ Betaling %s voor order %s", payment.Status, orderUUID)
@@ -475,6 +478,59 @@ func (h *HTTPHandlerV2) sendSnapshotPaymentConfirmation(email, orderUUID string,
 	} else {
 		log.Printf("[SUCCESS] Confirmation email verzonden naar %s", email)
 	}
+}
+
+// sendSnapshotNotificationFromWebhook fetches submission from DB and sends to Kim
+func (h *HTTPHandlerV2) sendSnapshotNotificationFromWebhook(orderUUID string, metadata map[string]interface{}) error {
+	// Fetch submission from database
+	if db == nil {
+		return fmt.Errorf("database not configured")
+	}
+
+	dbSubmission, err := db.GetSnapshotSubmissionByOrderUUID(context.Background(), orderUUID)
+	if err != nil {
+		return fmt.Errorf("failed to fetch submission: %w", err)
+	}
+
+	// Convert database model to form submission for email template
+	submission := &SnapshotSubmission{
+		OrderUUID:          dbSubmission.OrderUUID,
+		FirstName:          dbSubmission.FirstName,
+		LastName:           dbSubmission.LastName,
+		Email:              dbSubmission.Email,
+		Company:            dbSubmission.Company,
+		Phone:              stringPtrToString(dbSubmission.Phone),
+		BuildSystem:        dbSubmission.BuildSystem,
+		BuildSystemVersion: stringPtrToString(dbSubmission.BuildSystemVersion),
+		TargetArchitecture: dbSubmission.TargetArchitecture,
+		KernelVersion:      dbSubmission.KernelVersion,
+		Libc:               dbSubmission.Libc,
+		ProductName:        dbSubmission.ProductName,
+		ProductCategory:    dbSubmission.ProductCategory,
+		Connectivity:       dbSubmission.Connectivity,
+		AnnualVolume:       dbSubmission.AnnualVolume,
+		SecureBoot:         stringPtrToString(dbSubmission.SecureBoot),
+		TPM:                stringPtrToString(dbSubmission.TPM),
+		OTAFeatures:        dbSubmission.OTAFeatures,
+		UpdateFramework:    stringPtrToString(dbSubmission.UpdateFramework),
+		ArtifactAccess:     dbSubmission.ArtifactAccess,
+		EstimatedSize:      stringPtrToString(dbSubmission.EstimatedSize),
+		AvailableArtifacts: dbSubmission.AvailableArtifacts,
+		Timeline:           stringPtrToString(dbSubmission.Timeline),
+		Concerns:           stringPtrToString(dbSubmission.Concerns),
+		AdditionalNotes:    stringPtrToString(dbSubmission.AdditionalNotes),
+		NDAAccepted:        "on",
+	}
+
+	return h.sendSnapshotNotification(submission)
+}
+
+// Helper function to convert string pointer to string
+func stringPtrToString(s *string) string {
+	if s == nil {
+		return ""
+	}
+	return *s
 }
 
 // sendSnapshotNotification sends a detailed email to Kim with all submission data
