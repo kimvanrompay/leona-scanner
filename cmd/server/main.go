@@ -166,6 +166,9 @@ func main() {
 	// Snapshot audit submission
 	r.HandleFunc("/api/snapshot/submit", h.HandleSnapshotSubmit).Methods("POST")
 
+	// Mollie webhook for snapshot payments
+	r.HandleFunc("/webhook/mollie", h.HandleMollieWebhook).Methods("POST")
+
 	// Easy to add new pages - just create templates/pages/your-page.html
 	// r.HandleFunc("/about", h.HandlePage("about")).Methods("GET")
 	// r.HandleFunc("/contact", h.HandlePage("contact")).Methods("GET")

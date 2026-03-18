@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"leona-scanner/internal/database"
 
@@ -303,6 +304,188 @@ func (h *HTTPHandlerV2) createSnapshotPayment(ctx context.Context, submission *S
 	}
 
 	return createdPayment.Links.Checkout.Href, nil
+}
+
+// HandleMollieWebhook processes Mollie webhook events for snapshot payments
+//
+//nolint:gocognit,nestif,gocyclo,cyclop,funlen // Webhook processing requires complex validation flow
+func (h *HTTPHandlerV2) HandleMollieWebhook(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Parse form data
+	if err := r.ParseForm(); err != nil {
+		log.Printf("[MOLLIE] Failed to parse webhook form: %v", err)
+		http.Error(w, "Bad request", http.StatusBadRequest)
+		return
+	}
+
+	paymentID := r.FormValue("id")
+	if paymentID == "" {
+		log.Printf("[MOLLIE] Missing payment ID in webhook")
+		http.Error(w, "Bad request", http.StatusBadRequest)
+		return
+	}
+
+	log.Printf("[MOLLIE] Webhook ontvangen voor betaling: %s", paymentID)
+
+	// Fetch payment details from Mollie
+	mollieAPIKey := os.Getenv("MOLLIE_API_KEY")
+	if mollieAPIKey == "" {
+		log.Printf("[ERROR] MOLLIE_API_KEY not configured")
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+		return
+	}
+
+	config := mollie.NewConfig(true, mollie.APITokenEnv)
+	client, err := mollie.NewClient(nil, config)
+	if err != nil {
+		log.Printf("[ERROR] Failed to initialize Mollie client: %v", err)
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+		return
+	}
+
+	_, payment, err := client.Payments.Get(r.Context(), paymentID, nil)
+	if err != nil {
+		log.Printf("[ERROR] Failed to fetch payment from Mollie: %v", err)
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+		return
+	}
+
+	log.Printf("[MOLLIE] Betaling %s status: %s", paymentID, payment.Status)
+
+	// Extract order UUID from metadata
+	metadata, ok := payment.Metadata.(map[string]interface{})
+	if !ok || metadata["type"] != "snapshot-audit" {
+		log.Printf("[MOLLIE] Niet een snapshot-audit betaling, overslaan")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	orderUUID, ok := metadata["order_uuid"].(string)
+	if !ok || orderUUID == "" {
+		log.Printf("[ERROR] Geen order_uuid in metadata")
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	// Update payment status in database
+	if db != nil {
+		var paidAt *time.Time
+		if payment.Status == "paid" && payment.PaidAt != nil {
+			paidAt = payment.PaidAt
+		}
+
+		if err := db.UpdateSnapshotPaymentStatus(
+			r.Context(),
+			orderUUID,
+			payment.Status,
+			paymentID,
+			paidAt,
+		); err != nil {
+			log.Printf("[ERROR] Database update mislukt: %v", err)
+			http.Error(w, "Internal error", http.StatusInternalServerError)
+			return
+		}
+
+		if payment.Status == "paid" {
+			log.Printf("[SUCCESS] ✅ Betaling geslaagd voor order %s", orderUUID)
+			// Send confirmation email to customer if desired
+			if customerEmail, ok := metadata["customer_email"].(string); ok && customerEmail != "" {
+				h.sendSnapshotPaymentConfirmation(customerEmail, orderUUID, metadata)
+			}
+		} else if payment.Status == "failed" || payment.Status == "canceled" {
+			log.Printf("[WAARSCHUWING] ❌ Betaling %s voor order %s", payment.Status, orderUUID)
+		}
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
+
+// sendSnapshotPaymentConfirmation sends a payment confirmation email to the customer
+func (h *HTTPHandlerV2) sendSnapshotPaymentConfirmation(email, orderUUID string, metadata map[string]interface{}) {
+	smtpHost := os.Getenv("SMTP_HOST")
+	smtpPort := 465
+	smtpUser := os.Getenv("SMTP_USER")
+	smtpPass := os.Getenv("SMTP_PASS")
+	smtpFrom := "support@leonacompliance.be"
+
+	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
+		log.Printf("[WAARSCHUWING] SMTP not configured, skipping confirmation email")
+		return
+	}
+
+	customerName := "Geachte klant"
+	if name, ok := metadata["customer_name"].(string); ok && name != "" {
+		customerName = name
+	}
+
+	productName := "uw product"
+	if product, ok := metadata["product_name"].(string); ok && product != "" {
+		productName = product
+	}
+
+	m := gomail.NewMessage()
+	m.SetHeader("From", smtpFrom)
+	m.SetHeader("To", email)
+	m.SetHeader("Subject", "Betaling Ontvangen - Snapshot Audit - LEONA Compliance")
+
+	//nolint:lll // Email HTML template
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; }
+        .header { background: linear-gradient(135deg, #1e3a8a 0%%, #3b82f6 100%%); color: white; padding: 40px; text-align: center; }
+        .content { padding: 40px; }
+        .footer { padding: 30px; background: #f9fafb; text-align: center; color: #666; font-size: 13px; }
+        .button { display: inline-block; padding: 14px 28px; background: #1e3a8a; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="margin: 0;">✅ Betaling Ontvangen</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Bedankt voor uw vertrouwen</p>
+        </div>
+        <div class="content">
+            <p>Beste %s,</p>
+            <p>Wij hebben uw betaling voor de <strong>Snapshot Audit</strong> van <strong>%s</strong> succesvol ontvangen.</p>
+            <p><strong>Order ID:</strong> <code>%s</code></p>
+            <p><strong>Bedrag:</strong> €2.495</p>
+            <h3>Wat gebeurt er nu?</h3>
+            <ul>
+                <li>✅ Uw betaling is bevestigd</li>
+                <li>📋 Kim van LEONA Compliance ontvangt uw aanvraag</li>
+                <li>⏱️ Binnen 48 uur ontvangt u uw gedetailleerde Snapshot Audit</li>
+                <li>📧 Alle deliverables worden naar dit e-mailadres gestuurd</li>
+            </ul>
+            <p>Bij vragen kunt u altijd contact opnemen met <a href="mailto:kim@leonacompliance.be">kim@leonacompliance.be</a>.</p>
+            <p style="margin-top: 30px;">Met vriendelijke groet,<br/><strong>Team LEONA Compliance</strong></p>
+        </div>
+        <div class="footer">
+            <p><strong>LEONA Compliance</strong> | CRA Compliance Experts<br/>
+            <a href="https://leonacompliance.be">leonacompliance.be</a></p>
+        </div>
+    </div>
+</body>
+</html>
+`, customerName, productName, orderUUID)
+
+	m.SetBody("text/html", body)
+
+	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
+	d.SSL = true
+
+	if err := d.DialAndSend(m); err != nil {
+		log.Printf("[WAARSCHUWING] Confirmation email mislukt: %v", err)
+	} else {
+		log.Printf("[SUCCESS] Confirmation email verzonden naar %s", email)
+	}
 }
 
 // sendSnapshotNotification sends a detailed email to Kim with all submission data
