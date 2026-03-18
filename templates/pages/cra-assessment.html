@@ -35,8 +35,15 @@
   ],
   answerQuestion(number, answer) {
     this.answers[number] = answer;
+    console.log(`✅ Question ${number} answered: ${answer}`);
+    console.log('Current answers object:', this.answers);
+    const jsonToSave = JSON.stringify(this.answers);
+    console.log('Saving to localStorage:', jsonToSave);
     try {
-      localStorage.setItem('cra-assessment', JSON.stringify(this.answers));
+      localStorage.setItem('cra-assessment', jsonToSave);
+      // Verify it was saved
+      const verified = localStorage.getItem('cra-assessment');
+      console.log('Verified in localStorage:', verified);
     } catch (e) {
       console.error('Failed to save answer to localStorage:', e);
     }
