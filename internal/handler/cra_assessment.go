@@ -41,8 +41,33 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 		log.Printf("❌ Invalid email: '%s'", email)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Geldig e-mailadres vereist"})
+		if encErr := json.NewEncoder(w).Encode(map[string]string{"error": "Geldig e-mailadres vereist"}); encErr != nil {
+			log.Printf("Failed to encode error: %v", encErr)
+		}
 		return
+	}
+
+	// Validate business email (reject free email providers)
+	emailLower := strings.ToLower(strings.TrimSpace(email))
+	freeEmailDomains := []string{
+		"@gmail.", "@googlemail.",
+		"@outlook.", "@hotmail.", "@live.", "@msn.",
+		"@yahoo.", "@ymail.",
+		"@aol.", "@protonmail.", "@icloud.", "@me.com",
+		"@mail.com", "@gmx.", "@zoho.",
+	}
+	for _, freeDomain := range freeEmailDomains {
+		if strings.Contains(emailLower, freeDomain) {
+			log.Printf("❌ Free email provider rejected: '%s'", email)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusBadRequest)
+			if encErr := json.NewEncoder(w).Encode(map[string]string{
+				"error": "Gebruik uw zakelijk e-mailadres. Gratis e-maildiensten (Gmail, Outlook, Yahoo, etc.) zijn niet toegestaan.",
+			}); encErr != nil {
+				log.Printf("Failed to encode error: %v", encErr)
+			}
+			return
+		}
 	}
 
 	// Parse answers
