@@ -38,14 +38,6 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 		return
 	}
 
-	// Business email validation
-	if !isBusinessEmail(email) {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": getBusinessEmailError()})
-		return
-	}
-
 	// Parse answers
 	var answers map[string]string
 	if err := json.Unmarshal([]byte(answersJSON), &answers); err != nil {
@@ -122,17 +114,17 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 		riskLevel = "UITSTEKEND"
 		riskColor = "#22c55e"
 		recommendation = "Fantastisch werk! Uw systeem is al grotendeels CRA-compliant. Met enkele kleine aanpassingen bent u helemaal klaar voor de deadline."
-		encouragement = "🎉 U bent op de goede weg! De basis staat stevig en met onze hulp maakt u het af."
+		encouragement = "U bent op de goede weg! De basis staat stevig en met onze hulp maakt u het af."
 	} else if score >= 50 {
 		riskLevel = "GOED BEZIG"
 		riskColor = "#f59e0b"
 		recommendation = "U heeft al een solide basis gelegd! Er zijn nog enkele punten die aandacht nodig hebben, maar met gerichte actie bent u op tijd klaar."
-		encouragement = "💪 U heeft de juiste stappen al gezet. Laten we samen de resterende hiaten aanpakken!"
+		encouragement = "U heeft de juiste stappen al gezet. Laten we samen de resterende hiaten aanpakken!"
 	} else {
 		riskLevel = "MOGELIJKHEID VOOR GROEI"
 		riskColor = "#3b82f6"
 		recommendation = "Geen zorgen - u heeft deze assessment gedaan en dat is al een belangrijke eerste stap! We helpen bedrijven dagelijks om van nul naar volledig compliant te gaan. Samen maken we dit haalbaar."
-		encouragement = "🚀 Elke reis begint met de eerste stap - en die heeft u nu gezet! Wij begeleiden u naar volledige compliance."
+		encouragement = "Elke reis begint met de eerste stap - en die heeft u nu gezet! Wij begeleiden u naar volledige compliance."
 	}
 
 	// Build question results HTML
@@ -192,12 +184,12 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 <body>
 	<div class="container">
 		<div class="header">
-			<h1 style="margin: 0;">🎯 Uw CRA Assessment Resultaten</h1>
+			<h1 style="margin: 0;">Uw CRA Assessment Resultaten</h1>
 			<p style="margin: 10px 0 0 0; opacity: 0.9;">Bedankt voor het invullen! Hier is uw persoonlijke score.</p>
 		</div>
 		
 		<div class="score-badge">
-			<div style="font-size: 16px; opacity: 0.9;">✨ Uw Compliance Score</div>
+			<div style="font-size: 16px; opacity: 0.9;">Uw Compliance Score</div>
 			<div class="score-number">%d%%</div>
 			<div style="font-size: 18px; font-weight: bold; margin-top: 10px;">%s</div>
 			<div style="font-size: 14px; margin-top: 5px; opacity: 0.9;">%d van de 10 vragen positief beantwoord</div>
@@ -214,11 +206,11 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 			</table>
 
 			<div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0; border-radius: 4px;">
-				<strong>💡 Onze Aanbeveling</strong><br/>
+				<strong>Onze Aanbeveling</strong><br/>
 				%s
 			</div>
 
-			<h3 style="color: #1e40af;">🚀 Volgende Stappen</h3>
+			<h3 style="color: #1e40af;">Volgende Stappen</h3>
 			<ol style="line-height: 2;">
 				<li><strong>Download uw volledige assessment rapport</strong> (PDF met aanbevelingen per vraag)</li>
 				<li><strong>Plan een gratis 30-minuten consultatie</strong> met onze CRA experts</li>
@@ -230,7 +222,7 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 				<a href="https://calendly.com/leonacompliance/cra-consult" class="button" style="background: #22c55e;">Plan Gratis Consult</a>
 			</div>
 
-			<h3 style="color: #1e40af; margin-top: 40px;">📅 Belangrijke Deadline</h3>
+			<h3 style="color: #1e40af; margin-top: 40px;">Belangrijke Deadline</h3>
 			<p style="background: #fee2e2; padding: 15px; border-radius: 6px; border-left: 4px solid #ef4444;">
 				<strong>11 September 2026</strong> - vanaf deze datum moet uw embedded product volledig CRA-compliant zijn om in de EU te mogen verkopen. U heeft nog <strong>%d maanden</strong> om uw systeem compliant te maken.
 			</p>
@@ -268,7 +260,7 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", "kim@leonacompliance.be")
-	m.SetHeader("Subject", fmt.Sprintf("🎯 Nieuwe CRA Assessment: %s - %d%% Score", email, score))
+	m.SetHeader("Subject", fmt.Sprintf("Nieuwe CRA Assessment: %s - %d%% Score", email, score))
 
 	body := fmt.Sprintf(`
 <!DOCTYPE html>
@@ -288,7 +280,7 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 <body>
 	<div class="container">
 		<div class="header">
-			<h2 style="margin: 0;">🎯 Nieuwe CRA Assessment Lead!</h2>
+			<h2 style="margin: 0;">Nieuwe CRA Assessment Lead</h2>
 			<p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;">CRA Compliance Self-Assessment</p>
 		</div>
 		
@@ -341,11 +333,11 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 
 func getLeadQuality(score int) string {
 	if score >= 80 {
-		return "🟢 HOT LEAD - Bijna compliant, interesse in finishing touches"
+		return "HOT LEAD - Bijna compliant, interesse in finishing touches"
 	} else if score >= 50 {
-		return "🟡 WARM LEAD - Gap analysis + implementatie nodig"
+		return "WARM LEAD - Gap analysis + implementatie nodig"
 	} else {
-		return "🔴 URGENT LEAD - Hoog risico, noodplan vereist"
+		return "URGENT LEAD - Hoog risico, noodplan vereist"
 	}
 }
 

@@ -98,12 +98,6 @@
                 </li>
               </template>
             </ul>
-            <div class="mt-auto pt-4 border-t border-blue-900">
-              <button x-show="isComplete"
-                class="w-full rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-400">
-                Bekijk Resultaten
-              </button>
-            </div>
           </nav>
         </div>
       </div>
@@ -136,12 +130,6 @@
             </li>
           </template>
         </ul>
-        <div class="mt-auto py-4 border-t border-blue-900">
-          <button x-show="isComplete"
-            class="w-full rounded-md bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-400 shadow-sm">
-            Bekijk Resultaten
-          </button>
-        </div>
       </nav>
     </div>
   </div>
@@ -181,220 +169,220 @@
             2026.</p>
           <div class="mt-10">
             <button @click="goToQuestion(1)"
-              class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800">Start
+              class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400">Start
               Assessment</button>
           </div>
         </div>
       </div>
 
       <!-- Question 1: SBOM Generation -->
-      <div id="question-1" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-1" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 1/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Heeft u
               geautomatiseerde SBOM-generatie?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Een Software Bill of Materials (SBOM)
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Een Software Bill of Materials (SBOM)
               is verplicht onder Art. 14 van de CRA. Dit moet alle componenten, versies en afhankelijkheden
               documenteren.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(1, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[1] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[1] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(1, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[1] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[1] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 2: CVE Tracking -->
-      <div id="question-2" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-2" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 2/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Volgt u actief
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Volgt u actief
               CVE's in uw componenten?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">CRA vereist continue monitoring van
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">CRA vereist continue monitoring van
               bekende kwetsbaarheden (CVEs) en rapportage binnen 24 uur voor kritieke exploits (Art. 14).</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(2, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[2] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[2] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(2, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[2] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[2] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 3: Secure Boot -->
-      <div id="question-3" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-3" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 3/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Is Secure Boot
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Is Secure Boot
               geïmplementeerd?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Annex I vereist bescherming tegen
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Annex I vereist bescherming tegen
               ongeautoriseerde firmware-modificaties. Secure Boot verifieert cryptografische handtekeningen bij
               opstarten.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(3, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[3] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[3] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(3, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[3] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[3] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 4: OTA Updates -->
-      <div id="question-4" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-4" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 4/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u veilige
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Heeft u veilige
               OTA-updates?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Over-The-Air updates moeten encrypted,
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Over-The-Air updates moeten encrypted,
               signed en rollback-protected zijn volgens Annex I Essential Requirements voor software-updates.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(4, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[4] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[4] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(4, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[4] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[4] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 5: Cryptography -->
-      <div id="question-5" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-5" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 5/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Gebruikt u
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Gebruikt u
               goedgekeurde cryptografie?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Annex I vereist state-of-the-art
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Annex I vereist state-of-the-art
               cryptografische algoritmes (bijv. AES-256, SHA-256, RSA-2048+). Geen zwakke legacy crypto zoals MD5 of
               DES.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(5, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[5] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[5] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(5, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[5] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[5] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 6: Technical Documentation -->
-      <div id="question-6" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-6" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 6/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u een
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Heeft u een
               Technisch Constructiedossier (TCF)?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Art. 13 vereist een compleet TCF met
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Art. 13 vereist een compleet TCF met
               risicoanalyse, security-architectuur, SBOM, test-rapportage en conformiteitsverklaring.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(6, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[6] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[6] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(6, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[6] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[6] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 7: Supply Chain Validation -->
-      <div id="question-7" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-7" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 7/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Valideert u
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Valideert u
               third-party componenten?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">U bent verantwoordelijk voor de hele
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">U bent verantwoordelijk voor de hele
               supply chain. Dit betekent licentie-compliance, provenance tracking en security-validatie van alle
               dependencies.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(7, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[7] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[7] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(7, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[7] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[7] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 8: Incident Response -->
-      <div id="question-8" class="bg-gray-50 border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-8" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 8/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u een
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Heeft u een
               vulnerability disclosure proces?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Art. 14 vereist een proces om
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Art. 14 vereist een proces om
               kwetsbaarheden te melden, evalueren en patches uit te rollen. Security researchers moeten u kunnen
               contacteren.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(8, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[8] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[8] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(8, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[8] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[8] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Question 9: Support Lifecycle -->
-      <div id="question-9" class="bg-white border-b border-gray-200 h-screen flex items-center snap-start">
+      <div id="question-9" class="bg-blue-600 border-b border-blue-700 h-screen flex items-center snap-start">
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 9/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Biedt u minimaal 5
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Biedt u minimaal 5
               jaar security updates?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">CRA vereist een support periode van
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">CRA vereist een support periode van
               minimaal 5 jaar of de verwachte levensduur van het product. Dit omvat security patches en
               kwetsbaarheidsrapportage.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(9, 'ja')"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[9] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[9] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(9, 'nee')"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[9] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[9] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
@@ -405,20 +393,20 @@
         <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
           <div class="mx-auto max-w-2xl text-center">
             <div class="mb-4"><span
-                class="inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">Vraag
+                class="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 text-xs font-medium text-white">Vraag
                 10/10</span></div>
-            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Heeft u
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Heeft u
               authenticatie en access control?</h2>
-            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-gray-600">Annex I vereist identificatie en
+            <p class="mx-auto mt-6 max-w-xl text-pretty text-lg/8 text-white/90">Annex I vereist identificatie en
               authenticatiemechanismen om ongeautoriseerde toegang te voorkomen. Denk aan: secure login, role-based
               access, audit logging.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
               <button @click="answerQuestion(10, 'ja'); goToQuestion(11)"
-                class="rounded-md bg-blue-900 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 transition-all"
-                :class="answers[10] === 'ja' ? 'ring-4 ring-green-400' : ''">JA</button>
+                class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400 transition-all"
+                :class="answers[10] === 'ja' ? 'ring-4 ring-white' : ''">JA</button>
               <button @click="answerQuestion(10, 'nee'); goToQuestion(11)"
-                class="rounded-md bg-gray-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 transition-all"
-                :class="answers[10] === 'nee' ? 'ring-4 ring-red-400' : ''">NEE</button>
+                class="rounded-md bg-red-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-400 transition-all"
+                :class="answers[10] === 'nee' ? 'ring-4 ring-white' : ''">NEE</button>
             </div>
           </div>
         </div>
@@ -470,7 +458,7 @@
             <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg" x-show="!submitted">
               <!-- Stats Header -->
               <div class="text-center">
-                <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Bedankt! 🎉
+                <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Bedankt!
                 </h2>
                 <p class="mt-4 text-lg/8 text-gray-600">Vul uw e-mailadres in en ontvang de resultaten van uw assessment
                   direct in uw mailbox.</p>
@@ -480,7 +468,7 @@
               <form @submit.prevent="submitAssessment()" class="mt-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-6">
                   <div>
-                    <label for="email" class="block text-sm/6 font-semibold text-gray-900">📧 E-mailadres voor
+                    <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres voor
                       rapport</label>
                     <div class="mt-2.5">
                       <input type="email" id="email" name="email" x-model="email" required autocomplete="email"
@@ -509,11 +497,11 @@
                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 class="text-4xl font-bold text-gray-900 mb-4">Resultaten Verstuurd! ✉️</h2>
+              <h2 class="text-4xl font-bold text-gray-900 mb-4">Resultaten Verstuurd!</h2>
               <p class="text-lg text-gray-600 mb-8">Check uw inbox op <span class="font-semibold" x-text="email"></span>
               </p>
               <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
-                <h3 class="font-semibold text-blue-900 mb-3">📧 Wat ontvangt u?</h3>
+                <h3 class="font-semibold text-blue-900 mb-3">Wat ontvangt u?</h3>
                 <ul class="space-y-2 text-sm text-blue-800">
                   <li>Uw persoonlijke compliance score</li>
                   <li>Risicobeoordeling per vraag</li>
