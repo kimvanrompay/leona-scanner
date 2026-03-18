@@ -13,6 +13,82 @@
   }
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('order-uuid').value = generateUUID();
+    
+    // Form validation with Dutch messages
+    const form = document.getElementById('snapshot-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        const ndaCheckbox = document.querySelector('input[name="nda-accepted"]');
+        if (!ndaCheckbox.checked) {
+          e.preventDefault();
+          ndaCheckbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const ndaSection = ndaCheckbox.closest('.bg-orange-50');
+          ndaSection.classList.add('ring-4', 'ring-red-500');
+          setTimeout(() => ndaSection.classList.remove('ring-4', 'ring-red-500'), 3000);
+          
+          // Show error message
+          const existingError = document.getElementById('nda-error');
+          if (existingError) existingError.remove();
+          
+          const errorMsg = document.createElement('div');
+          errorMsg.id = 'nda-error';
+          errorMsg.className = 'mt-3 p-3 bg-red-50 border border-red-200 rounded text-sm text-red-800';
+          errorMsg.textContent = 'U moet akkoord gaan met de NDA voordat u verder kunt gaan.';
+          ndaCheckbox.closest('label').parentElement.appendChild(errorMsg);
+          
+          setTimeout(() => {
+            const err = document.getElementById('nda-error');
+            if (err) err.remove();
+          }, 5000);
+          
+          return false;
+        }
+      });
+      
+      // Real-time validation for required fields
+      const requiredInputs = form.querySelectorAll('[required]');
+      requiredInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+          if (this.value.trim() === '' && this.type !== 'checkbox') {
+            this.classList.add('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
+            this.classList.remove('border-gray-300');
+          } else {
+            this.classList.remove('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
+            this.classList.add('border-gray-300');
+          }
+        });
+        
+        input.addEventListener('input', function() {
+          if (this.value.trim() !== '') {
+            this.classList.remove('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
+            this.classList.add('border-gray-300');
+          }
+        });
+      });
+      
+      // Email validation
+      const emailInput = document.getElementById('email');
+      if (emailInput) {
+        emailInput.addEventListener('blur', function() {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (this.value && !emailPattern.test(this.value)) {
+            this.classList.add('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
+            
+            const existingError = this.parentElement.querySelector('.email-error');
+            if (existingError) existingError.remove();
+            
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'email-error mt-1 text-xs text-red-600';
+            errorMsg.textContent = 'Voer een geldig e-mailadres in (bijv. naam@bedrijf.be)';
+            this.parentElement.appendChild(errorMsg);
+          } else {
+            this.classList.remove('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
+            const existingError = this.parentElement.querySelector('.email-error');
+            if (existingError) existingError.remove();
+          }
+        });
+      }
+    }
   });
 </script>
 {{end}}

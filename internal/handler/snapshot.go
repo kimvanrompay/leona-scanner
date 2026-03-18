@@ -64,11 +64,14 @@ type SnapshotSubmission struct {
 //
 //nolint:funlen,gocognit,gocyclo,cyclop // Complex form processing and payment flow
 func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Request) {
-	log.Printf("📋 Snapshot Audit submission received from %s", r.RemoteAddr)
+	log.Printf("[SNAPSHOT] Submission ontvangen van %s", r.RemoteAddr)
 
 	if err := r.ParseForm(); err != nil {
-		log.Printf("❌ Failed to parse form: %v", err)
-		http.Error(w, "Invalid request", http.StatusBadRequest)
+		log.Printf("[ERROR] Formulier parsing mislukt: %v", err)
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(http.StatusBadRequest)
+		//nolint:errcheck,gosec,lll
+		w.Write([]byte(`<div class="p-4 bg-red-50 border border-red-200 rounded-lg"><p class="text-red-800 font-semibold">Ongeldige aanvraag</p><p class="text-red-700 text-sm mt-2">Het formulier kon niet worden verwerkt. Probeer de pagina te vernieuwen.</p></div>`))
 		return
 	}
 
@@ -103,28 +106,33 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 	}
 
 	// Validate required fields
-	//nolint:lll // Field validation
+	//nolint:lll,errcheck,gosec // Field validation
 	if submission.OrderUUID == "" || submission.FirstName == "" || submission.LastName == "" ||
 		submission.Email == "" || submission.Company == "" || submission.BuildSystem == "" ||
 		submission.TargetArchitecture == "" || submission.KernelVersion == "" || submission.Libc == "" ||
 		submission.ProductName == "" || submission.ProductCategory == "" ||
 		submission.AnnualVolume == "" || submission.ArtifactAccess == "" || submission.NDAAccepted != "on" {
-		log.Printf("❌ Missing fields or NDA not accepted: %s", submission.Email)
-		http.Error(w, "Alle velden verplicht + NDA acceptatie vereist", http.StatusBadRequest)
+		log.Printf("[VALIDATIE] Ontbrekende velden of NDA niet geaccepteerd: %s", submission.Email)
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`<div class="p-4 bg-red-50 border border-red-200 rounded-lg"><p class="text-red-800 font-semibold">Formulier incompleet</p><p class="text-red-700 text-sm mt-2">Vul alle verplichte velden in en accepteer de NDA om verder te gaan.</p><button onclick="window.location.reload()" class="mt-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Opnieuw proberen</button></div>`))
 		return
 	}
 
 	// Validate email
 	if !strings.Contains(submission.Email, "@") {
-		log.Printf("❌ Invalid email in snapshot submission: %s", submission.Email)
-		http.Error(w, "Geldig e-mailadres vereist", http.StatusBadRequest)
+		log.Printf("[VALIDATIE] Ongeldig e-mailadres: %s", submission.Email)
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(http.StatusBadRequest)
+		//nolint:errcheck,gosec,lll
+		w.Write([]byte(`<div class="p-4 bg-red-50 border border-red-200 rounded-lg"><p class="text-red-800 font-semibold">Ongeldig e-mailadres</p><p class="text-red-700 text-sm mt-2">Voer een geldig e-mailadres in (bijv. naam@bedrijf.be).</p><button onclick="window.location.reload()" class="mt-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Opnieuw proberen</button></div>`))
 		return
 	}
 
 	// Log full submission for debugging
 	submissionJSON, err := json.MarshalIndent(submission, "", "  ")
 	if err == nil {
-		log.Printf("📦 Full snapshot submission:\n%s", string(submissionJSON))
+		log.Printf("[DATA] Volledige snapshot aanvraag:\n%s", string(submissionJSON))
 	}
 
 	// Save to database
@@ -145,26 +153,29 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 			Status:    "pending-payment",
 		}
 		if err := db.CreateContactSubmission(r.Context(), contact); err != nil {
-			log.Printf("⚠️  Failed to save snapshot submission: %v", err)
+			log.Printf("[WAARSCHUWING] Opslaan database mislukt: %v", err)
 		}
 	}
 
 	// Send detailed notification email to Kim
 	if err := h.sendSnapshotNotification(submission); err != nil {
-		log.Printf("❌ Failed to send snapshot notification to kim@leonacompliance.be: %v", err)
+		log.Printf("[ERROR] E-mail notificatie mislukt naar kim@leonacompliance.be: %v", err)
 	} else {
-		log.Printf("✅ Snapshot notification sent to kim@leonacompliance.be")
+		log.Printf("[SUCCESS] Notificatie verzonden naar kim@leonacompliance.be")
 	}
 
 	// Create Mollie payment
 	paymentURL, err := h.createSnapshotPayment(r.Context(), submission)
 	if err != nil {
-		log.Printf("❌ Failed to create Mollie payment: %v", err)
-		http.Error(w, "Payment initialization failed", http.StatusInternalServerError)
+		log.Printf("[ERROR] Mollie betaling mislukt: %v", err)
+		w.Header().Set("Content-Type", "text/html")
+		w.WriteHeader(http.StatusInternalServerError)
+		//nolint:errcheck,gosec,lll
+		w.Write([]byte(`<div class="p-4 bg-red-50 border border-red-200 rounded-lg"><p class="text-red-800 font-semibold">Betalingsfout</p><p class="text-red-700 text-sm mt-2">De betaling kon niet worden geïnitialiseerd. Probeer het later opnieuw of neem contact op met kim@leonacompliance.be.</p><button onclick="window.location.reload()" class="mt-3 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 text-sm">Opnieuw proberen</button></div>`))
 		return
 	}
 
-	log.Printf("💳 Mollie payment created for %s %s (%s) [Order: %s] - redirecting to: %s",
+	log.Printf("[BETALING] Mollie betaling aangemaakt voor %s %s (%s) [Order: %s] -> %s",
 		submission.FirstName, submission.LastName, submission.Email, submission.OrderUUID, paymentURL)
 
 	// Return HTMX response with redirect to payment
