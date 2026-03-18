@@ -1,23 +1,24 @@
 {{define "title"}}Snapshot Audit | LEONA{{end}}
 
 {{define "meta"}}
-<meta name="description" content="LEONA Snapshot Audit - Krijg binnen 48 uur een volledig CRA compliance rapport voor uw Linux build">
+<meta name="description"
+  content="LEONA Snapshot Audit - Krijg binnen 48 uur een volledig CRA compliance rapport voor uw Linux build">
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 <script>
   // Generate UUID for order tracking
   function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('order-uuid').value = generateUUID();
-    
+
     // Form validation with Dutch messages
     const form = document.getElementById('snapshot-form');
     if (form) {
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', function (e) {
         const ndaCheckbox = document.querySelector('input[name="nda-accepted"]');
         if (!ndaCheckbox.checked) {
           e.preventDefault();
@@ -25,30 +26,30 @@
           const ndaSection = ndaCheckbox.closest('.bg-orange-50');
           ndaSection.classList.add('ring-4', 'ring-red-500');
           setTimeout(() => ndaSection.classList.remove('ring-4', 'ring-red-500'), 3000);
-          
+
           // Show error message
           const existingError = document.getElementById('nda-error');
           if (existingError) existingError.remove();
-          
+
           const errorMsg = document.createElement('div');
           errorMsg.id = 'nda-error';
           errorMsg.className = 'mt-3 p-3 bg-red-50 border border-red-200 rounded text-sm text-red-800';
           errorMsg.textContent = 'U moet akkoord gaan met de NDA voordat u verder kunt gaan.';
           ndaCheckbox.closest('label').parentElement.appendChild(errorMsg);
-          
+
           setTimeout(() => {
             const err = document.getElementById('nda-error');
             if (err) err.remove();
           }, 5000);
-          
+
           return false;
         }
       });
-      
+
       // Real-time validation for required fields
       const requiredInputs = form.querySelectorAll('[required]');
       requiredInputs.forEach(input => {
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
           if (this.value.trim() === '' && this.type !== 'checkbox') {
             this.classList.add('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
             this.classList.remove('border-gray-300');
@@ -57,26 +58,26 @@
             this.classList.add('border-gray-300');
           }
         });
-        
-        input.addEventListener('input', function() {
+
+        input.addEventListener('input', function () {
           if (this.value.trim() !== '') {
             this.classList.remove('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
             this.classList.add('border-gray-300');
           }
         });
       });
-      
+
       // Email validation
       const emailInput = document.getElementById('email');
       if (emailInput) {
-        emailInput.addEventListener('blur', function() {
+        emailInput.addEventListener('blur', function () {
           const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (this.value && !emailPattern.test(this.value)) {
             this.classList.add('border-red-300', 'focus:border-red-500', 'focus:ring-red-500');
-            
+
             const existingError = this.parentElement.querySelector('.email-error');
             if (existingError) existingError.remove();
-            
+
             const errorMsg = document.createElement('div');
             errorMsg.className = 'email-error mt-1 text-xs text-red-600';
             errorMsg.textContent = 'Voer een geldig e-mailadres in (bijv. naam@bedrijf.be)';
@@ -99,10 +100,13 @@
     <!-- LEFT PANE: Technical Deliverables -->
     <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
       <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
-        <div class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 ring-1 ring-gray-900/10 lg:w-1/2">
-          <svg aria-hidden="true" class="absolute inset-0 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]">
+        <div
+          class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-gray-100 ring-1 ring-gray-900/10 lg:w-1/2">
+          <svg aria-hidden="true"
+            class="absolute inset-0 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]">
             <defs>
-              <pattern id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527" width="200" height="200" x="100%" y="-1" patternUnits="userSpaceOnUse">
+              <pattern id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527" width="200" height="200" x="100%" y="-1"
+                patternUnits="userSpaceOnUse">
                 <path d="M130 200V.5M.5 .5H200" fill="none" />
               </pattern>
             </defs>
@@ -113,23 +117,23 @@
             <rect width="100%" height="100%" fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)" stroke-width="0" />
           </svg>
         </div>
-        
+
         <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Snapshot Audit</h2>
         <p class="mt-4 text-sm font-semibold text-blue-600 uppercase tracking-wide">Resultaat binnen 48 uur</p>
         <p class="mt-6 text-lg leading-8 text-gray-600">
-          Een complete technische analyse van uw Linux build tegen de CRA Essential Requirements. 
+          Een complete technische analyse van uw Linux build tegen de CRA Essential Requirements.
           Geen consultancy uren, geen juridisch jargon - enkel harde technische feiten.
         </p>
 
         <div class="mt-10 space-y-8">
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-4">Wat u ontvangt</h3>
-            
+
             <dl class="space-y-6 text-sm">
               <div class="border-l-4 border-blue-600 pl-4">
                 <dt class="font-bold text-gray-900">1. SBOM Extractie & Validatie</dt>
                 <dd class="mt-2 text-gray-600">
-                  Automatische generatie van SPDX 2.3 compliant Software Bill of Materials uit uw build artifacts. 
+                  Automatische generatie van SPDX 2.3 compliant Software Bill of Materials uit uw build artifacts.
                   Inclusief dependency graph analyse en license compliance check tegen CRA Annex I vereisten.
                 </dd>
               </div>
@@ -137,7 +141,7 @@
               <div class="border-l-4 border-blue-600 pl-4">
                 <dt class="font-bold text-gray-900">2. CVE Impact Analyse</dt>
                 <dd class="mt-2 text-gray-600">
-                  Contextuele kwetsbaarheidsanalyse: wij bewijzen welke CVE's niet exploiteerbaar zijn in uw specifieke 
+                  Contextuele kwetsbaarheidsanalyse: wij bewijzen welke CVE's niet exploiteerbaar zijn in uw specifieke
                   configuratie. Filtering op basis van kernel config, disabled services en build-time hardening flags.
                 </dd>
               </div>
@@ -145,7 +149,7 @@
               <div class="border-l-4 border-blue-600 pl-4">
                 <dt class="font-bold text-gray-900">3. Annex I Compliance Matrix</dt>
                 <dd class="mt-2 text-gray-600">
-                  Mapping van uw build configuratie tegen alle 14 Essential Requirements uit CRA Annex I. 
+                  Mapping van uw build configuratie tegen alle 14 Essential Requirements uit CRA Annex I.
                   Per requirement een technische gap analysis met concrete remediation paths.
                 </dd>
               </div>
@@ -153,7 +157,8 @@
               <div class="border-l-4 border-blue-600 pl-4">
                 <dt class="font-bold text-gray-900">4. Secure Boot & Attestation Check</dt>
                 <dd class="mt-2 text-gray-600">
-                  Verificatie van bootloader signing, kernel lockdown mode, TPM integration en measured boot capabilities. 
+                  Verificatie van bootloader signing, kernel lockdown mode, TPM integration en measured boot
+                  capabilities.
                   Compliance status voor CRA Article 13 supply chain security requirements.
                 </dd>
               </div>
@@ -161,7 +166,7 @@
               <div class="border-l-4 border-blue-600 pl-4">
                 <dt class="font-bold text-gray-900">5. Update Mechanism Audit</dt>
                 <dd class="mt-2 text-gray-600">
-                  Technische beoordeling van uw OTA update architectuur: signing verification, rollback protection, 
+                  Technische beoordeling van uw OTA update architectuur: signing verification, rollback protection,
                   delta update support en failure recovery mechanisms conform CRA Article 10.
                 </dd>
               </div>
@@ -169,7 +174,7 @@
               <div class="border-l-4 border-blue-600 pl-4">
                 <dt class="font-bold text-gray-900">6. Executive PDF Report</dt>
                 <dd class="mt-2 text-gray-600">
-                  Gestructureerd 25-35 pagina rapport met management samenvatting, technische bevindingen, 
+                  Gestructureerd 25-35 pagina rapport met management samenvatting, technische bevindingen,
                   priority roadmap en concrete time-to-compliance estimaties per gap.
                 </dd>
               </div>
@@ -184,8 +189,7 @@
           <div class="bg-blue-50 rounded-lg p-4">
             <p class="text-xs font-semibold text-blue-900 uppercase tracking-wide mb-2">Delivery Guarantee</p>
             <p class="text-sm text-blue-800">
-              Volledige analyse binnen 48 werkuren na ontvangst van build artifacts en configuratie data. 
-              Bij vertraging: volledige restitutie.
+              Volledige analyse binnen 48 werkuren na ontvangst van build artifacts en configuratie data.
             </p>
           </div>
         </div>
@@ -199,9 +203,9 @@
           <form hx-post="/api/snapshot/submit" hx-target="#form-container" hx-swap="innerHTML" id="snapshot-form">
             <!-- Hidden UUID field for order tracking -->
             <input type="hidden" id="order-uuid" name="order-uuid" value="">
-            
+
             <div class="space-y-8">
-              
+
               <!-- Contact Information -->
               <div class="border-t-4 border-orange-500 pt-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Contactgegevens</h3>
@@ -254,14 +258,16 @@
                   </div>
 
                   <div>
-                    <label for="build-system-version" class="block text-sm font-semibold text-gray-900">Versie / Branch</label>
-                    <input id="build-system-version" type="text" name="build-system-version" 
+                    <label for="build-system-version" class="block text-sm font-semibold text-gray-900">Versie /
+                      Branch</label>
+                    <input id="build-system-version" type="text" name="build-system-version"
                       placeholder="bijv. kirkstone, 2024.02, bookworm"
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
                   </div>
 
                   <div>
-                    <label for="target-architecture" class="block text-sm font-semibold text-gray-900">Target Architectuur</label>
+                    <label for="target-architecture" class="block text-sm font-semibold text-gray-900">Target
+                      Architectuur</label>
                     <select id="target-architecture" name="target-architecture" required
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">
                       <option value="">Selecteer architectuur</option>
@@ -276,7 +282,8 @@
                   </div>
 
                   <div>
-                    <label for="kernel-version" class="block text-sm font-semibold text-gray-900">Linux Kernel Versie</label>
+                    <label for="kernel-version" class="block text-sm font-semibold text-gray-900">Linux Kernel
+                      Versie</label>
                     <input id="kernel-version" type="text" name="kernel-version" required
                       placeholder="bijv. 6.1.38, 5.15-rt"
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
@@ -307,7 +314,8 @@
                   </div>
 
                   <div>
-                    <label for="product-category" class="block text-sm font-semibold text-gray-900">Product Categorie</label>
+                    <label for="product-category" class="block text-sm font-semibold text-gray-900">Product
+                      Categorie</label>
                     <select id="product-category" name="product-category" required
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">
                       <option value="">Selecteer categorie</option>
@@ -327,38 +335,46 @@
                     <label for="connectivity" class="block text-sm font-semibold text-gray-900">Connectiviteit</label>
                     <div class="mt-2 space-y-2">
                       <label class="flex items-center">
-                        <input type="checkbox" name="connectivity" value="ethernet" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="connectivity" value="ethernet"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Ethernet</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="connectivity" value="wifi" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="connectivity" value="wifi"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Wi-Fi</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="connectivity" value="bluetooth" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="connectivity" value="bluetooth"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Bluetooth / BLE</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="connectivity" value="cellular" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="connectivity" value="cellular"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Cellular (4G/5G)</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="connectivity" value="zigbee" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="connectivity" value="zigbee"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Zigbee / Z-Wave</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="connectivity" value="can" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="connectivity" value="can"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">CAN Bus</span>
                       </label>
                     </div>
                   </div>
 
                   <div>
-                    <label for="annual-volume" class="block text-sm font-semibold text-gray-900">Verwacht Jaarlijks Volume</label>
+                    <label for="annual-volume" class="block text-sm font-semibold text-gray-900">Verwacht Jaarlijks
+                      Volume</label>
                     <select id="annual-volume" name="annual-volume" required
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">
                       <option value="">Selecteer volume</option>
-                      <option value="prototype">< 100 (Prototype)</option>
+                      <option value="prototype">
+                        < 100 (Prototype)</option>
                       <option value="small">100 - 1.000</option>
                       <option value="medium">1.000 - 10.000</option>
                       <option value="large">10.000 - 100.000</option>
@@ -376,15 +392,18 @@
                     <label class="block text-sm font-semibold text-gray-900 mb-2">Secure Boot</label>
                     <div class="space-y-2">
                       <label class="flex items-center">
-                        <input type="radio" name="secure-boot" value="yes" class="border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="radio" name="secure-boot" value="yes"
+                          class="border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Ja, geïmplementeerd</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="radio" name="secure-boot" value="partial" class="border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="radio" name="secure-boot" value="partial"
+                          class="border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Gedeeltelijk (bijv. enkel bootloader signing)</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="radio" name="secure-boot" value="no" class="border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="radio" name="secure-boot" value="no"
+                          class="border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Nee</span>
                       </label>
                     </div>
@@ -394,15 +413,18 @@
                     <label class="block text-sm font-semibold text-gray-900 mb-2">TPM / Secure Element</label>
                     <div class="space-y-2">
                       <label class="flex items-center">
-                        <input type="radio" name="tpm" value="tpm2" class="border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="radio" name="tpm" value="tpm2"
+                          class="border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">TPM 2.0</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="radio" name="tpm" value="secure-element" class="border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="radio" name="tpm" value="secure-element"
+                          class="border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Hardware Secure Element (bijv. ATECC, SE050)</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="radio" name="tpm" value="no" class="border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="radio" name="tpm" value="no"
+                          class="border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Geen</span>
                       </label>
                     </div>
@@ -412,26 +434,31 @@
                     <label class="block text-sm font-semibold text-gray-900 mb-2">OTA Update Mechanism</label>
                     <div class="space-y-2">
                       <label class="flex items-center">
-                        <input type="checkbox" name="ota-features" value="signed-updates" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="ota-features" value="signed-updates"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Signed updates</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="ota-features" value="rollback-protection" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="ota-features" value="rollback-protection"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Rollback protection</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="ota-features" value="ab-partitions" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="ota-features" value="ab-partitions"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">A/B partition schema</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="ota-features" value="delta-updates" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="ota-features" value="delta-updates"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-sm text-gray-700">Delta updates</span>
                       </label>
                     </div>
                   </div>
 
                   <div>
-                    <label for="update-framework" class="block text-sm font-semibold text-gray-900">Update Framework</label>
+                    <label for="update-framework" class="block text-sm font-semibold text-gray-900">Update
+                      Framework</label>
                     <input id="update-framework" type="text" name="update-framework"
                       placeholder="bijv. SWUpdate, RAUC, Mender, custom"
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600" />
@@ -444,7 +471,8 @@
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Build Artifacts</h3>
                 <div class="space-y-6">
                   <div>
-                    <label for="artifact-access" class="block text-sm font-semibold text-gray-900">Hoe kunnen wij uw build artifacts ontvangen?</label>
+                    <label for="artifact-access" class="block text-sm font-semibold text-gray-900">Hoe kunnen wij uw
+                      build artifacts ontvangen?</label>
                     <select id="artifact-access" name="artifact-access" required
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">
                       <option value="">Selecteer methode</option>
@@ -457,11 +485,13 @@
                   </div>
 
                   <div>
-                    <label for="estimated-size" class="block text-sm font-semibold text-gray-900">Geschatte grootte build output</label>
+                    <label for="estimated-size" class="block text-sm font-semibold text-gray-900">Geschatte grootte
+                      build output</label>
                     <select id="estimated-size" name="estimated-size"
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">
                       <option value="">Selecteer grootte</option>
-                      <option value="small">< 500 MB</option>
+                      <option value="small">
+                        < 500 MB</option>
                       <option value="medium">500 MB - 2 GB</option>
                       <option value="large">2 GB - 10 GB</option>
                       <option value="xlarge">> 10 GB</option>
@@ -469,30 +499,37 @@
                   </div>
 
                   <div>
-                    <label class="block text-sm font-semibold text-gray-900 mb-2">Welke artifacts kunt u aanleveren?</label>
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Welke artifacts kunt u
+                      aanleveren?</label>
                     <div class="space-y-2 text-sm">
                       <label class="flex items-center">
-                        <input type="checkbox" name="available-artifacts" value="rootfs" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="available-artifacts" value="rootfs"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-gray-700">Root filesystem image</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="available-artifacts" value="kernel" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="available-artifacts" value="kernel"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-gray-700">Kernel image + config</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="available-artifacts" value="bootloader" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="available-artifacts" value="bootloader"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-gray-700">Bootloader binaries</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="available-artifacts" value="build-logs" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="available-artifacts" value="build-logs"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-gray-700">Build logs</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="available-artifacts" value="recipes" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="available-artifacts" value="recipes"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-gray-700">Build recipes / layer config</span>
                       </label>
                       <label class="flex items-center">
-                        <input type="checkbox" name="available-artifacts" value="package-manifest" class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
+                        <input type="checkbox" name="available-artifacts" value="package-manifest"
+                          class="rounded border-gray-300 text-blue-600 focus:ring-blue-600">
                         <span class="ml-2 text-gray-700">Package manifest / lockfile</span>
                       </label>
                     </div>
@@ -505,7 +542,8 @@
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Aanvullende Context</h3>
                 <div class="space-y-6">
                   <div>
-                    <label for="timeline" class="block text-sm font-semibold text-gray-900">Gewenste Market Entry (EU)</label>
+                    <label for="timeline" class="block text-sm font-semibold text-gray-900">Gewenste Market Entry
+                      (EU)</label>
                     <select id="timeline" name="timeline"
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600">
                       <option value="">Selecteer tijdlijn</option>
@@ -526,7 +564,8 @@
                   </div>
 
                   <div>
-                    <label for="additional-notes" class="block text-sm font-semibold text-gray-900">Overige opmerkingen</label>
+                    <label for="additional-notes" class="block text-sm font-semibold text-gray-900">Overige
+                      opmerkingen</label>
                     <textarea id="additional-notes" name="additional-notes" rows="3"
                       placeholder="Eventuele specifieke aandachtspunten of NDA vereisten"
                       class="mt-2 block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600"></textarea>
@@ -540,8 +579,10 @@
                   <h3 class="text-lg font-semibold text-gray-900 mb-4">Mutual Non-Disclosure Agreement</h3>
                   <div class="text-sm text-gray-700 space-y-3 mb-4">
                     <p>
-                      By proceeding with this Snapshot Audit request, both parties hereby acknowledge and agree to maintain 
-                      strict confidentiality regarding all technical specifications, build artifacts, proprietary methodologies, 
+                      By proceeding with this Snapshot Audit request, both parties hereby acknowledge and agree to
+                      maintain
+                      strict confidentiality regarding all technical specifications, build artifacts, proprietary
+                      methodologies,
                       and business information exchanged during the engagement.
                     </p>
                     <p>
@@ -552,10 +593,11 @@
                       <li>Restricting access to authorized personnel only on a need-to-know basis</li>
                       <li>Implementing industry-standard security measures for data storage and transmission</li>
                       <li>Refraining from disclosure to third parties without prior written consent</li>
-                      <li>Permanently deleting all artifacts within 90 days post-delivery unless otherwise instructed</li>
+                      <li>Permanently deleting all artifacts within 90 days post-delivery unless otherwise instructed
+                      </li>
                     </ul>
                     <p class="text-xs text-gray-600 mt-3">
-                      This mutual confidentiality obligation shall survive termination of services and remain in effect 
+                      This mutual confidentiality obligation shall survive termination of services and remain in effect
                       for a period of five (5) years from the date of disclosure.
                     </p>
                   </div>
@@ -563,8 +605,8 @@
                     <input type="checkbox" name="nda-accepted" required
                       class="mt-1 rounded border-gray-300 text-orange-600 focus:ring-orange-600 focus:ring-2">
                     <span class="text-sm text-gray-900">
-                      <strong>I hereby acknowledge and accept</strong> the terms of this Mutual Non-Disclosure Agreement 
-                      on behalf of my organization. I confirm that I am duly authorized to bind my organization to these 
+                      <strong>I hereby acknowledge and accept</strong> the terms of this Mutual Non-Disclosure Agreement
+                      on behalf of my organization. I confirm that I am duly authorized to bind my organization to these
                       confidentiality obligations.
                     </span>
                   </label>
@@ -578,7 +620,7 @@
                   Ga naar Betaling - €2.495
                 </button>
                 <p class="mt-4 text-xs text-gray-500 text-center">
-                  Na betaling ontvangt u binnen 1 werkdag een intake call om artifacts over te dragen. 
+                  Na betaling ontvangt u binnen 1 werkdag een intake call om artifacts over te dragen.
                   Volledige analyse binnen 48 werkuren.
                 </p>
               </div>

@@ -137,23 +137,73 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 
 	// Save to database
 	if db != nil {
-		//nolint:lll // Database message
-		message := fmt.Sprintf(
-			"Snapshot Audit\nOrder: %s\nBuild: %s %s\nKernel: %s\nProduct: %s (%s)\nNDA: Accepted",
-			submission.OrderUUID, submission.BuildSystem, submission.BuildSystemVersion,
-			submission.KernelVersion, submission.ProductName, submission.TargetArchitecture)
+		// Convert strings to pointers for optional fields
+		var phone, buildSystemVersion, secureBoot, tpm, updateFramework *string
+		var estimatedSize, timeline, concerns, additionalNotes *string
 
-		contact := &database.ContactSubmission{
-			FirstName: submission.FirstName,
-			LastName:  submission.LastName,
-			Email:     submission.Email,
-			Company:   submission.Company,
-			Message:   message,
-			Solution:  "snapshot-audit",
-			Status:    "pending-payment",
+		if submission.Phone != "" {
+			phone = &submission.Phone
 		}
-		if err := db.CreateContactSubmission(r.Context(), contact); err != nil {
-			log.Printf("[WAARSCHUWING] Opslaan database mislukt: %v", err)
+		if submission.BuildSystemVersion != "" {
+			buildSystemVersion = &submission.BuildSystemVersion
+		}
+		if submission.SecureBoot != "" {
+			secureBoot = &submission.SecureBoot
+		}
+		if submission.TPM != "" {
+			tpm = &submission.TPM
+		}
+		if submission.UpdateFramework != "" {
+			updateFramework = &submission.UpdateFramework
+		}
+		if submission.EstimatedSize != "" {
+			estimatedSize = &submission.EstimatedSize
+		}
+		if submission.Timeline != "" {
+			timeline = &submission.Timeline
+		}
+		if submission.Concerns != "" {
+			concerns = &submission.Concerns
+		}
+		if submission.AdditionalNotes != "" {
+			additionalNotes = &submission.AdditionalNotes
+		}
+
+		dbSubmission := &database.SnapshotSubmission{
+			OrderUUID:          submission.OrderUUID,
+			FirstName:          submission.FirstName,
+			LastName:           submission.LastName,
+			Email:              submission.Email,
+			Company:            submission.Company,
+			Phone:              phone,
+			BuildSystem:        submission.BuildSystem,
+			BuildSystemVersion: buildSystemVersion,
+			TargetArchitecture: submission.TargetArchitecture,
+			KernelVersion:      submission.KernelVersion,
+			Libc:               submission.Libc,
+			ProductName:        submission.ProductName,
+			ProductCategory:    submission.ProductCategory,
+			Connectivity:       submission.Connectivity,
+			AnnualVolume:       submission.AnnualVolume,
+			SecureBoot:         secureBoot,
+			TPM:                tpm,
+			OTAFeatures:        submission.OTAFeatures,
+			UpdateFramework:    updateFramework,
+			ArtifactAccess:     submission.ArtifactAccess,
+			EstimatedSize:      estimatedSize,
+			AvailableArtifacts: submission.AvailableArtifacts,
+			Timeline:           timeline,
+			Concerns:           concerns,
+			AdditionalNotes:    additionalNotes,
+			NDAAccepted:        true,
+			PaymentStatus:      "pending",
+			Status:             "payment-pending",
+		}
+
+		if err := db.CreateSnapshotSubmission(r.Context(), dbSubmission); err != nil {
+			log.Printf("[WAARSCHUWING] Opslaan snapshot database mislukt: %v", err)
+		} else {
+			log.Printf("[DATABASE] Snapshot opgeslagen: ID=%s, Order=%s", dbSubmission.ID, dbSubmission.OrderUUID)
 		}
 	}
 
