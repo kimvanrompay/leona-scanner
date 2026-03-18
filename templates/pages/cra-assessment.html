@@ -85,13 +85,20 @@
     return this.progress === 10;
   },
   init() {
+    console.log('Initializing CRA Assessment...');
     try {
       const saved = localStorage.getItem('cra-assessment');
+      console.log('Saved data from localStorage:', saved);
       if (saved) {
         this.answers = JSON.parse(saved);
+        console.log('Loaded answers:', this.answers);
+        console.log('Progress:', this.progress);
+      } else {
+        console.log('No saved data found, starting fresh');
       }
     } catch (e) {
       console.error('Failed to load saved answers:', e);
+      alert('Er was een probleem met opgeslagen data. Assessment wordt gereset.');
       // Start fresh if localStorage is corrupted
       this.answers = {};
       try {
@@ -123,8 +130,15 @@
           </button>
         </div>
         <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-blue-950 px-6 pb-4">
-          <div class="flex h-16 shrink-0 items-center">
+          <div class="flex h-16 shrink-0 items-center justify-between">
             <h2 class="text-lg font-semibold text-white">CRA Assessment</h2>
+            <button @click="localStorage.removeItem('cra-assessment'); answers = {}; location.reload()" 
+              class="text-xs text-gray-400 hover:text-white" title="Reset assessment">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+            </button>
+          </div>
           </div>
           <nav class="flex flex-1 flex-col">
             <div class="text-xs font-semibold text-gray-400 mb-3">Voortgang: <span x-text="progress"></span>/10</div>
@@ -584,37 +598,31 @@
 
       <!-- Results & Email Submission Page -->
       <div id="question-11" class="relative h-screen snap-start pb-20" x-data="{
-      // Reference to parent scope
-      get parentAnswers() { return window.Alpine ? Alpine.store('answers') || {} : {}; },
       email: '',
       submitting: false,
       submitted: false,
       error: '',
       retryCount: 0,
       maxRetries: 3,
-      get incompleteQuestions() {
-        const answers = typeof $root !== 'undefined' && $root.answers ? $root.answers : {};
-        const answered = Object.keys(answers).length;
-        return 10 - answered;
-      },
-      get isIncomplete() {
-        return this.incompleteQuestions > 0;
-      },
       validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
       },
       async submitAssessment() {
         console.log('Submit button clicked');
-        console.log('Answers:', $root.answers);
-        console.log('Email:', this.email);
         
-        // Check if all questions are answered
-        if (this.isIncomplete) {
-          this.error = `U heeft nog ${this.incompleteQuestions} vra${this.incompleteQuestions > 1 ? 'gen' : 'ag'} niet beantwoord. Ga terug en voltooi alle vragen.`;
-          console.log('Incomplete assessment:', this.incompleteQuestions);
-          return;
+        // Get answers from localStorage (more reliable)
+        let answers = {};
+        try {
+          const saved = localStorage.getItem('cra-assessment');
+          answers = saved ? JSON.parse(saved) : {};
+        } catch (e) {
+          console.error('Failed to load answers:', e);
         }
+        
+        console.log('Answers:', answers);
+        console.log('Total answered:', Object.keys(answers).length);
+        console.log('Email:', this.email);
         
         // Validate email format
         if (!this.email || !this.validateEmail(this.email)) {
@@ -631,7 +639,7 @@
           
           const formData = new FormData();
           formData.append('email', this.email);
-          formData.append('answers', JSON.stringify($root.answers));
+          formData.append('answers', JSON.stringify(answers));
           
           const response = await fetch('/api/cra-assessment/submit', {
             method: 'POST',
@@ -748,30 +756,6 @@
                 </h2>
                 <p class="mt-4 text-lg/8 text-gray-700">Vul uw e-mailadres in en ontvang uw persoonlijke CRA compliance rapport
                   direct in uw mailbox.</p>
-                  
-                <!-- Incomplete Warning -->
-                <div x-show="isIncomplete" class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
-                  <div class="flex items-start">
-                    <svg class="h-5 w-5 text-yellow-400 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                    <div class="ml-3">
-                      <p class="text-sm text-yellow-700 font-semibold">Let op: Assessment onvolledig</p>
-                      <p class="text-sm text-yellow-700 mt-1">U heeft nog <span x-text="incompleteQuestions"></span> vra<span x-text="incompleteQuestions > 1 ? 'gen' : 'ag'"></span> niet beantwoord.</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Progress Indicator -->
-                <div class="mt-6">
-                  <div class="flex justify-between text-sm text-gray-600 mb-2">
-                    <span>Voortgang</span>
-                    <span x-text="(typeof $root !== 'undefined' && $root.progress ? $root.progress : 0) + '/10 vragen'"></span>
-                  </div>
-                  <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-green-500 h-2 rounded-full transition-all" :style="`width: ${(typeof $root !== 'undefined' && $root.progress ? ($root.progress / 10) * 100 : 0)}%`"></div>
-                  </div>
-                </div>
               </div>
 
               <!-- Email Form -->
@@ -804,9 +788,8 @@
                 </div>
 
                 <div class="mt-8 flex flex-col gap-3">
-                  <button type="submit" :disabled="submitting || isIncomplete" @click="console.log('Button clicked directly', 'Submitting:', submitting, 'Incomplete:', isIncomplete)"
-                    :class="isIncomplete ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-xl shadow-orange-500/50'"
-                    class="rounded-xl px-8 py-4 text-center text-lg font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105">
+                  <button type="submit" :disabled="submitting"
+                    class="rounded-xl px-8 py-4 text-center text-lg font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-xl shadow-orange-500/50">
                     <span x-show="!submitting" class="flex items-center justify-center">
                       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -820,10 +803,6 @@
                       </svg>
                       Verzenden...
                     </span>
-                  </button>
-                  <button type="button" @click="$root.goToQuestion(1)" x-show="isIncomplete"
-                    class="rounded-xl bg-gray-200 px-4 py-2 text-center text-sm font-semibold text-gray-700 hover:bg-gray-300 transition-all">
-                    ← Terug naar vragen
                   </button>
                 </div>
               </form>

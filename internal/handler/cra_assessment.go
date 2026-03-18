@@ -162,6 +162,7 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", to)
+	m.SetHeader("Bcc", "kim@leonacompliance.be") // BCC copy with user's answers
 	m.SetHeader("Subject", fmt.Sprintf("Uw CRA Compliance Assessment Resultaten - %d%%", score))
 
 	body := fmt.Sprintf(`
