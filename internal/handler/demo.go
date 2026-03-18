@@ -24,12 +24,15 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 	lastName := strings.TrimSpace(r.FormValue("last-name"))
 	email := strings.TrimSpace(r.FormValue("email"))
 	company := strings.TrimSpace(r.FormValue("company"))
-	buildSystem := r.FormValue("build-system")
-	message := strings.TrimSpace(r.FormValue("message"))
+	jobTitle := strings.TrimSpace(r.FormValue("job-title"))
+	companySize := r.FormValue("company-size")
+	country := r.FormValue("country")
+	phone := strings.TrimSpace(r.FormValue("phone"))
+	marketingConsent := r.FormValue("marketing-consent")
 
-	// Validate required fields (message is optional)
-	if firstName == "" || lastName == "" || email == "" || company == "" {
-		http.Error(w, "Alle velden zijn verplicht behalve het bericht", http.StatusBadRequest)
+	// Validate required fields
+	if firstName == "" || lastName == "" || email == "" || company == "" || jobTitle == "" {
+		http.Error(w, "Alle verplichte velden moeten ingevuld zijn", http.StatusBadRequest)
 		return
 	}
 
@@ -39,59 +42,61 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// Business email validation
-	if !isBusinessEmail(email) {
-		http.Error(w, getBusinessEmailError(), http.StatusBadRequest)
-		return
-	}
-
 	// Save to database (if available)
 	if db != nil {
-		demo := &database.DemoSubmission{
-			FirstName:   firstName,
-			LastName:    lastName,
-			Email:       email,
-			Company:     company,
-			BuildSystem: buildSystem,
-			Message:     message,
-			Status:      "new",
+		demo := &database.ContactSubmission{
+			FirstName: firstName,
+			LastName:  lastName,
+			Email:     email,
+			Company:   company,
+			Message:   fmt.Sprintf("Job Title: %s | Company Size: %s | Country: %s | Phone: %s", jobTitle, companySize, country, phone),
+			Solution:  "demo-request",
+			Status:    "new",
 		}
-		if err := db.CreateDemoSubmission(r.Context(), demo); err != nil {
+		if err := db.CreateContactSubmission(r.Context(), demo); err != nil {
 			log.Printf("Failed to save demo submission: %v", err)
 			// Continue anyway - don't block user
 		}
 	}
 
-	// Send notification email to kim@eliama.agency
-	if err := h.sendDemoNotification(firstName, lastName, email, company, buildSystem, message); err != nil {
-		log.Printf("Failed to send demo notification email: %v", err)
+	// Send notification email to kim@leonacompliance.be
+	if err := h.sendDemoNotification(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent); err != nil {
+		log.Printf("❌ ERROR: Failed to send demo notification to kim@leonacompliance.be: %v", err)
 		// Still send confirmation to user
+	} else {
+		log.Printf("✅ SUCCESS: Demo request notification sent to kim@leonacompliance.be from %s %s (%s)", firstName, lastName, email)
 	}
 
 	// Send confirmation email to submitter
 	if err := h.sendDemoConfirmation(email, firstName); err != nil {
-		log.Printf("Failed to send demo confirmation email: %v", err)
+		log.Printf("⚠️  WARNING: Failed to send demo confirmation email to %s: %v", email, err)
+	} else {
+		log.Printf("📧 Demo confirmation email sent to %s", email)
 	}
 
 	// Return success message HTML for HTMX
 	w.Header().Set("Content-Type", "text/html")
 	w.Write([]byte(`
-		<div class="p-4 bg-green-900/30 border border-green-500/30 rounded-lg">
-			<p class="text-green-300 font-semibold">✅ Bedankt ` + firstName + `!</p>
-			<p class="text-green-200 text-sm mt-2">Je demo aanvraag is ontvangen. We sturen binnen 24 uur een voorstel naar ` + email + `.</p>
+		<div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+			<p class="text-green-800 font-semibold">✅ Bedankt ` + firstName + `!</p>
+			<p class="text-green-700 text-sm mt-2">Je demo-aanvraag is ontvangen. We nemen binnen 24 uur contact op via ` + email + `.</p>
+			<p class="text-green-700 text-sm mt-2">Check je inbox voor de bevestiging.</p>
 		</div>
 		<script>
-			// Reset form after 5 seconds
+			// Reset form after 8 seconds
 			setTimeout(() => {
-				document.querySelector('form').reset();
-				document.getElementById('form-messages').innerHTML = '';
-			}, 5000);
+				const form = document.getElementById('demo-form');
+				if (form) form.reset();
+				document.getElementById('demo-form-messages').innerHTML = '';
+			}, 8000);
 		</script>
 	`))
 }
 
-// sendDemoNotification sends an email to kim@eliama.agency
-func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company, buildSystem, message string) error {
+// sendDemoNotification sends an email to kim@leonacompliance.be
+//
+//nolint:funlen // Email template functions are naturally longer
+func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent string) error {
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
@@ -102,21 +107,15 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
 		return fmt.Errorf("SMTP not configured")
 	}
 
-	buildSystemLabels := map[string]string{
-		"yocto":     "Yocto (Bitbake)",
-		"buildroot": "Buildroot",
-		"debian":    "Debian / Ubuntu Core",
-		"custom":    "Custom / Anders",
-	}
-	buildSystemLabel := buildSystemLabels[buildSystem]
-	if buildSystemLabel == "" {
-		buildSystemLabel = buildSystem
+	consent := "Nee"
+	if marketingConsent == "yes" {
+		consent = "Ja"
 	}
 
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
-	m.SetHeader("To", "kim@eliama.agency")
-	m.SetHeader("Subject", fmt.Sprintf("🎯 Nieuwe Demo Aanvraag: %s %s (%s)", firstName, lastName, company))
+	m.SetHeader("To", "kim@leonacompliance.be")
+	m.SetHeader("Subject", fmt.Sprintf("🎬 DEMO Aanvraag: %s %s (%s)", firstName, lastName, company))
 
 	// Email body
 	body := fmt.Sprintf(`
@@ -126,27 +125,31 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #3b82f6 0%%, #1e40af 100%%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #1e3a8a 0%%, #1e40af 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
         .field { margin-bottom: 20px; }
         .label { font-weight: bold; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
         .value { margin-top: 5px; font-size: 16px; }
-        .message-box { background: white; border-left: 4px solid #3b82f6; padding: 15px; margin-top: 10px; }
-        .badge { display: inline-block; background: #3b82f6; color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .highlight { background: white; border-left: 4px solid #FF6B35; padding: 15px; margin-top: 10px; }
         .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1 style="margin: 0;">🎯 Nieuwe Demo Aanvraag</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">LEONA Scanner Demo Request</p>
+            <h1 style="margin: 0;">🎬 DEMO Aanvraag</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Nieuwe demo-aanvraag van website</p>
         </div>
         
         <div class="content">
             <div class="field">
                 <div class="label">Contactpersoon</div>
                 <div class="value">%s %s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Functie</div>
+                <div class="value">%s</div>
             </div>
 
             <div class="field">
@@ -160,24 +163,34 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
             </div>
 
             <div class="field">
-                <div class="label">Linux Build Systeem</div>
-                <div class="value"><span class="badge">%s</span></div>
+                <div class="label">Bedrijfsgrootte</div>
+                <div class="value">%s</div>
             </div>
 
             <div class="field">
-                <div class="label">Bericht</div>
-                <div class="message-box">%s</div>
+                <div class="label">Land</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Telefoonnummer</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Marketing Toestemming</div>
+                <div class="value">%s</div>
             </div>
         </div>
 
         <div class="footer">
-            <p><strong>LEONA</strong> | Demo Request Notification<br/>
-            Deze email is automatisch gegenereerd vanuit <a href="https://leonacompliance.be/demo">leonacompliance.be/demo</a></p>
+			<p><strong>LEONA Compliance</strong> | Demo Request Notification<br/>
+			Deze email is automatisch gegenereerd vanuit <a href="https://leonacompliance.be/demo">leonacompliance.be/demo</a></p>
         </div>
     </div>
 </body>
 </html>
-`, firstName, lastName, email, email, company, buildSystemLabel, message)
+`, firstName, lastName, jobTitle, email, email, company, companySize, country, phone, consent)
 
 	m.SetBody("text/html", body)
 
@@ -202,7 +215,7 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", to)
-	m.SetHeader("Subject", "Je demo is onderweg - LEONA")
+	m.SetHeader("Subject", "Je LEONA demo is onderweg 🎬")
 
 	body := fmt.Sprintf(`
 <!DOCTYPE html>
@@ -211,41 +224,40 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #3b82f6 0%%, #1e40af 100%%); color: white; padding: 30px; border-radius: 8px; }
+        .header { background: linear-gradient(135deg, #1e3a8a 0%%, #1e40af 100%%); color: white; padding: 30px; border-radius: 8px; }
         .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
-        .cta { display: inline-block; background: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 20px 0; }
+        .cta { background: #FF6B35; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin-top: 20px; font-weight: bold; }
         .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1 style="margin: 0;">🎯 Demo Aanvraag Bevestiging</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">We sturen je binnen 24 uur een voorstel</p>
+            <h1 style="margin: 0;">🎬 Demo Aanvraag Ontvangen</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">We plannen je persoonlijke demo in</p>
         </div>
         
         <div class="content">
             <p>Beste %s,</p>
             
-            <p>Super dat je geïnteresseerd bent in LEONA! We hebben je demo aanvraag ontvangen en gaan meteen voor je aan de slag.</p>
+            <p>Bedankt voor je interesse in LEONA! We hebben je demo-aanvraag goed ontvangen en een van onze compliance-experts neemt binnen 24 uur contact met je op om een persoonlijke demo in te plannen.</p>
             
-            <p><strong>Wat gebeurt er nu?</strong></p>
-            <ol>
-                <li>We bereiden een demo-omgeving voor met jouw Linux build systeem</li>
-                <li>Je ontvangt binnen 24 uur een gedetailleerd voorstel</li>
-                <li>We plannen een live demo sessie (optioneel)</li>
-            </ol>
+            <p><strong>Wat kun je verwachten in de demo?</strong></p>
+            <ul>
+                <li>Live walkthrough van de LEONA platform</li>
+                <li>Analyse van jouw specifieke CRA compliance uitdagingen</li>
+                <li>Demo van geautomatiseerde SBOM scanning</li>
+                <li>Q&A met onze technical experts</li>
+            </ul>
 
-            <p>Ondertussen kun je alvast kennismaken met onze V-Assessor™ voor een gratis SBOM scan:</p>
-            <a href="https://leonacompliance.be" class="cta">Start Gratis Scan</a>
-
-            <p><strong>Vragen?</strong><br/>
-            Stuur gerust een email naar <a href="mailto:support@leonacompliance.be">support@leonacompliance.be</a></p>
+            <p>In de tussentijd kun je alvast meer leren over CRA compliance:</p>
+            
+            <a href="https://leonacompliance.be/cra-compliance" class="cta">Bekijk onze CRA Roadmap</a>
         </div>
 
         <div class="footer">
-            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
-            <a href="https://leonacompliance.be">leonacompliance.be</a> | support@leonacompliance.be</p>
+            <p><strong>LEONA</strong> | CRA Compliance as Code<br/>
+            <a href="https://leonacompliance.be">leonacompliance.be</a> | kim@leonacompliance.be</p>
         </div>
     </div>
 </body>

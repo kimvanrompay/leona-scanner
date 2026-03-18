@@ -84,12 +84,13 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 
 	// Send email with results
 	if err := sendAssessmentResultsEmail(email, answers, jaCount, complianceScore); err != nil {
-		log.Printf("Failed to send assessment email: %v", err)
+		log.Printf("❌ ERROR: Failed to send assessment email to %s: %v", email, err)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Email verzenden mislukt"})
 		return
 	}
+	log.Printf("✅ SUCCESS: CRA assessment results sent to %s (Score: %d%%)", email, complianceScore)
 
 	// Send admin notification
 	go sendAssessmentNotification(email, answers, jaCount, complianceScore)
@@ -115,20 +116,23 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 		return fmt.Errorf("SMTP not configured")
 	}
 
-	// Determine risk level and recommendations
-	var riskLevel, riskColor, recommendation string
+	// Determine risk level and recommendations (uplifting tone)
+	var riskLevel, riskColor, recommendation, encouragement string
 	if score >= 80 {
-		riskLevel = "LAAG RISICO"
+		riskLevel = "UITSTEKEND"
 		riskColor = "#22c55e"
-		recommendation = "Uw systeem lijkt goed op weg naar CRA-compliance. We raden aan om de resterende punten aan te pakken en een formele audit in te plannen."
+		recommendation = "Fantastisch werk! Uw systeem is al grotendeels CRA-compliant. Met enkele kleine aanpassingen bent u helemaal klaar voor de deadline."
+		encouragement = "🎉 U bent op de goede weg! De basis staat stevig en met onze hulp maakt u het af."
 	} else if score >= 50 {
-		riskLevel = "GEMIDDELD RISICO"
+		riskLevel = "GOED BEZIG"
 		riskColor = "#f59e0b"
-		recommendation = "Er zijn nog significante hiaten in uw CRA-compliance. We adviseren dringend om een gap analysis uit te voeren en een implementatieplan op te stellen."
+		recommendation = "U heeft al een solide basis gelegd! Er zijn nog enkele punten die aandacht nodig hebben, maar met gerichte actie bent u op tijd klaar."
+		encouragement = "💪 U heeft de juiste stappen al gezet. Laten we samen de resterende hiaten aanpakken!"
 	} else {
-		riskLevel = "HOOG RISICO"
-		riskColor = "#ef4444"
-		recommendation = "Uw systeem heeft aanzienlijke compliance-hiaten. Actie is dringend vereist om blokkering op 11 september 2026 te voorkomen. Neem direct contact op voor een noodplan."
+		riskLevel = "MOGELIJKHEID VOOR GROEI"
+		riskColor = "#3b82f6"
+		recommendation = "Geen zorgen - u heeft deze assessment gedaan en dat is al een belangrijke eerste stap! We helpen bedrijven dagelijks om van nul naar volledig compliant te gaan. Samen maken we dit haalbaar."
+		encouragement = "🚀 Elke reis begint met de eerste stap - en die heeft u nu gezet! Wij begeleiden u naar volledige compliance."
 	}
 
 	// Build question results HTML
@@ -189,14 +193,18 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	<div class="container">
 		<div class="header">
 			<h1 style="margin: 0;">🎯 Uw CRA Assessment Resultaten</h1>
-			<p style="margin: 10px 0 0 0; opacity: 0.9;">Self-Assessment Compliance Score</p>
+			<p style="margin: 10px 0 0 0; opacity: 0.9;">Bedankt voor het invullen! Hier is uw persoonlijke score.</p>
 		</div>
 		
 		<div class="score-badge">
-			<div style="font-size: 16px; opacity: 0.9;">Compliance Score</div>
+			<div style="font-size: 16px; opacity: 0.9;">✨ Uw Compliance Score</div>
 			<div class="score-number">%d%%</div>
 			<div style="font-size: 18px; font-weight: bold; margin-top: 10px;">%s</div>
 			<div style="font-size: 14px; margin-top: 5px; opacity: 0.9;">%d van de 10 vragen positief beantwoord</div>
+		</div>
+		
+		<div style="background: #ecfdf5; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; border: 2px solid #10b981;">
+			<p style="margin: 0; font-size: 16px; color: #047857; font-weight: 600;">%s</p>
 		</div>
 		
 		<div class="content">
@@ -205,8 +213,8 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 				%s
 			</table>
 
-			<div class="warning">
-				<strong>⚠️ Risicobeoordeling</strong><br/>
+			<div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0; border-radius: 4px;">
+				<strong>💡 Onze Aanbeveling</strong><br/>
 				%s
 			</div>
 
@@ -235,11 +243,12 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	</div>
 </body>
 </html>
-`, riskColor, score, riskLevel, jaCount, questionResults, recommendation, calculateMonthsUntilDeadline())
+`, riskColor, score, riskLevel, jaCount, encouragement, questionResults, recommendation, calculateMonthsUntilDeadline())
 
 	m.SetBody("text/html", body)
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
+	d.SSL = true
 	return d.DialAndSend(m)
 }
 
@@ -258,7 +267,7 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
-	m.SetHeader("To", "kim@eliama.agency")
+	m.SetHeader("To", "kim@leonacompliance.be")
 	m.SetHeader("Subject", fmt.Sprintf("🎯 Nieuwe CRA Assessment: %s - %d%% Score", email, score))
 
 	body := fmt.Sprintf(`
@@ -322,10 +331,11 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 	m.SetBody("text/html", body)
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
+	d.SSL = true
 	if err := d.DialAndSend(m); err != nil {
-		log.Printf("Failed to send admin notification: %v", err)
+		log.Printf("❌ ERROR: Failed to send admin notification to kim@leonacompliance.be: %v", err)
 	} else {
-		log.Printf("✅ Admin notification sent for CRA assessment: %s (%d%% score)", email, score)
+		log.Printf("✅ SUCCESS: CRA assessment notification sent to kim@leonacompliance.be for %s (%d%% score)", email, score)
 	}
 }
 

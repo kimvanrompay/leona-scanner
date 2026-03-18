@@ -132,8 +132,8 @@ func main() {
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	// Routes - all using base layout via HandlePage (yield technique)
-	r.HandleFunc("/", h.HandlePage("index")).Methods("GET") // Uses templates/pages/index.html
-	r.HandleFunc("/demo", h.HandleDemo).Methods("GET")      // Standalone demo page (no navbar/footer)
+	r.HandleFunc("/", h.HandlePage("index")).Methods("GET")    // Uses templates/pages/index.html
+	r.HandleFunc("/demo", h.HandlePage("demo")).Methods("GET") // Demo request page with navbar/footer
 
 	// Page routes using base layout (just add file to templates/pages/)
 	r.HandleFunc("/diensten", h.HandlePage("services")).Methods("GET")
@@ -154,6 +154,7 @@ func main() {
 	r.HandleFunc("/kennis", h.HandlePage("kennis")).Methods("GET")
 	r.HandleFunc("/contact", h.HandlePage("contact")).Methods("GET")
 	r.HandleFunc("/pricing", h.HandlePage("pricing")).Methods("GET")
+	r.HandleFunc("/privacy", h.HandlePage("privacy")).Methods("GET")
 
 	// Contact form submission
 	r.HandleFunc("/api/contact/submit", h.HandleContactSubmit).Methods("POST")
