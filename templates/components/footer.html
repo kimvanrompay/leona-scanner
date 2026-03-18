@@ -1,6 +1,16 @@
 {{define "footer"}}
-<footer class="bg-blue-900">
-    <div class="mx-auto px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+<footer class="relative overflow-hidden bg-blue-900">
+    <div class="absolute inset-0 z-0">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-800/50 via-blue-900 to-blue-950">
+        </div>
+
+        <div
+            class="absolute inset-0 bg-[url('https://play.tailwindcss.com/img/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20">
+        </div>
+    </div>
+
+    <div class="relative z-10 mx-auto px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
         <div class="mt-24 border-t border-white/10 pt-16">
             <div class="mx-auto max-w-2xl text-center mb-12">
                 <h3 class="text-sm font-bold uppercase tracking-[0.2em] text-blue-400">Gevalideerde Standaarden</h3>
@@ -65,9 +75,10 @@
 
         <div class="mt-24 border-t border-white/10 pt-12 xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="flex flex-col gap-y-4">
-                <a href="/" class="flex items-center gap-2">
-                    {{template "BrandLogo" .}}
-                    <span class="text-white font-bold text-xl tracking-tight uppercase">LEONA</span>
+                <a href="/" class="-m-1.5 p-1.5 flex items-center gap-2">
+                    <span class="sr-only">LEONA</span>
+                    <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773868524/white_logo_lion_mernwn.png"
+                        alt="Leona Logo" class="h-12 w-auto">
                 </a>
                 <p class="text-sm text-gray-400 max-w-xs leading-relaxed italic">
                     Gespecialiseerd in Linux Embedded compliance voor de Cyber Resilience Act.
@@ -82,8 +93,8 @@
                                     class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Over LEONA</a>
                             </li>
                             <li><a href="/hoe-het-werkt"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">De
-                                    Methodiek</a></li>
+                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">De Methodiek</a>
+                            </li>
                             <li><a href="/pricing"
                                     class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Investering</a>
                             </li>
@@ -91,8 +102,7 @@
                                     class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CRA
                                     Kennisbank</a></li>
                             <li><a href="/contact"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Contact</a>
-                            </li>
+                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Contact</a></li>
                         </ul>
                     </div>
                     <div class="mt-10 md:mt-0">
@@ -102,8 +112,8 @@
                                     class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Snapshot
                                     Audit</a></li>
                             <li><a href="/shield"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">LEONA
-                                    Shield</a></li>
+                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">LEONA Shield</a>
+                            </li>
                             <li><a href="/pipeline"
                                     class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Compliance
                                     Pipeline</a></li>

@@ -261,7 +261,7 @@ func (h *HTTPHandlerV2) createSnapshotPayment(ctx context.Context, submission *S
 		return "", fmt.Errorf("MOLLIE_API_KEY not configured")
 	}
 
-	config := mollie.NewConfig(true, mollie.APITokenEnv)
+	config := mollie.NewConfig(true, mollieAPIKey)
 	client, err := mollie.NewClient(nil, config)
 	if err != nil {
 		return "", fmt.Errorf("failed to initialize Mollie client: %w", err)
@@ -339,7 +339,7 @@ func (h *HTTPHandlerV2) HandleMollieWebhook(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	config := mollie.NewConfig(true, mollie.APITokenEnv)
+	config := mollie.NewConfig(true, mollieAPIKey)
 	client, err := mollie.NewClient(nil, config)
 	if err != nil {
 		log.Printf("[ERROR] Failed to initialize Mollie client: %v", err)
