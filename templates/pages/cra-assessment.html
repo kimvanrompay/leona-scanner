@@ -609,26 +609,39 @@
         return re.test(email);
       },
       async submitAssessment() {
-        console.log('Submit button clicked');
+        console.log('=== SUBMIT ASSESSMENT STARTED ===');
+        console.log('this.email value:', this.email);
+        console.log('Email input field value:', document.getElementById('email')?.value);
         
         // Get answers from localStorage (more reliable)
         let answers = {};
         try {
           const saved = localStorage.getItem('cra-assessment');
+          console.log('localStorage cra-assessment:', saved);
           answers = saved ? JSON.parse(saved) : {};
         } catch (e) {
           console.error('Failed to load answers:', e);
         }
         
-        console.log('Answers:', answers);
+        console.log('Parsed answers:', answers);
         console.log('Total answered:', Object.keys(answers).length);
-        console.log('Email:', this.email);
+        console.log('Email to submit:', this.email);
         
         // Validate email format
-        if (!this.email || !this.validateEmail(this.email)) {
-          this.error = 'Voer een geldig e-mailadres in (bijv. naam@bedrijf.nl)';
+        if (!this.email || this.email.trim() === '') {
+          this.error = 'E-mailadres is verplicht';
+          console.log('❌ Email validation failed: empty');
           return;
         }
+        
+        if (!this.validateEmail(this.email)) {
+          this.error = 'Voer een geldig e-mailadres in (bijv. naam@bedrijf.nl)';
+          console.log('❌ Email validation failed: invalid format');
+          return;
+        }
+        
+        console.log('✅ Email validation passed');
+        console.log('✅ Proceeding with submission...');
         
         this.submitting = true;
         this.error = '';
