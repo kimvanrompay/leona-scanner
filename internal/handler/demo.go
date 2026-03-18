@@ -61,10 +61,10 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 
 	// Send notification email to support@leonacompliance.be
 	if err := h.sendDemoNotification(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent); err != nil {
-		log.Printf("❌ ERROR: Failed to send demo notification to support@leonacompliance.be: %v", err)
+		log.Printf("❌ ERROR: Failed to send demo notification to kim@leonacompliance.be: %v", err)
 		// Still send confirmation to user
 	} else {
-		log.Printf("✅ SUCCESS: Demo request notification sent to support@leonacompliance.be from %s %s (%s)", firstName, lastName, email)
+		log.Printf("✅ SUCCESS: Demo request notification sent to kim@leonacompliance.be from %s %s (%s)", firstName, lastName, email)
 	}
 
 	// Send confirmation email to submitter
@@ -84,11 +84,11 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 				</svg>
 			</div>
-			<h2 class="text-3xl font-bold text-gray-900 mb-4">Bedankt, ` + firstName + `! 🎉</h2>
+			<h2 class="text-3xl font-bold text-gray-900 mb-4">Bedankt, ` + firstName + `!</h2>
 			<p class="text-xl text-gray-600 mb-2">Je demo-aanvraag is ontvangen.</p>
-			<p class="text-gray-600 mb-4">We bellen je binnen 24 uur om je persoonlijke demo in te plannen.</p>
+			<p class="text-gray-600 mb-4">We contacteren je zo snel mogelijk om je persoonlijke demo in te plannen.</p>
 			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-md mx-auto">
-				<p class="text-blue-900 font-semibold mb-2">📧 Check je mailbox</p>
+				<p class="text-blue-900 font-semibold mb-2">Check je mailbox</p>
 				<p class="text-blue-700 text-sm">Je ontvangt zo een bevestigingsmail met meer informatie.</p>
 			</div>
 			<a href="https://leonacompliance.be" class="inline-block mt-8 bg-blue-900 hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
