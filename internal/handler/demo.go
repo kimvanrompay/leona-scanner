@@ -59,12 +59,12 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 		}
 	}
 
-	// Send notification email to kim@leonacompliance.be
+	// Send notification email to support@leonacompliance.be
 	if err := h.sendDemoNotification(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent); err != nil {
-		log.Printf("❌ ERROR: Failed to send demo notification to kim@leonacompliance.be: %v", err)
+		log.Printf("❌ ERROR: Failed to send demo notification to support@leonacompliance.be: %v", err)
 		// Still send confirmation to user
 	} else {
-		log.Printf("✅ SUCCESS: Demo request notification sent to kim@leonacompliance.be from %s %s (%s)", firstName, lastName, email)
+		log.Printf("✅ SUCCESS: Demo request notification sent to support@leonacompliance.be from %s %s (%s)", firstName, lastName, email)
 	}
 
 	// Send confirmation email to submitter
@@ -86,7 +86,7 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 			</div>
 			<h2 class="text-3xl font-bold text-gray-900 mb-4">Bedankt, ` + firstName + `! 🎉</h2>
 			<p class="text-xl text-gray-600 mb-2">Je demo-aanvraag is ontvangen.</p>
-			<p class="text-gray-600 mb-4">We nemen binnen 24 uur contact op via <span class="font-semibold">` + email + `</span>.</p>
+			<p class="text-gray-600 mb-4">We bellen je binnen 24 uur om je persoonlijke demo in te plannen.</p>
 			<div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-md mx-auto">
 				<p class="text-blue-900 font-semibold mb-2">📧 Check je mailbox</p>
 				<p class="text-blue-700 text-sm">Je ontvangt zo een bevestigingsmail met meer informatie.</p>
@@ -128,7 +128,8 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
 
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
-	m.SetHeader("To", "kim@leonacompliance.be")
+	m.SetHeader("To", "support@leonacompliance.be")
+	m.SetHeader("Cc", "kim@leonacompliance.be") // CC Kim for visibility
 	m.SetHeader("Subject", fmt.Sprintf("🎬 DEMO Aanvraag: %s %s (%s)", firstName, lastName, company))
 
 	// Email body
@@ -254,7 +255,9 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
         <div class="content">
             <p>Beste %s,</p>
             
-            <p>Bedankt voor je interesse in LEONA! We hebben je demo-aanvraag goed ontvangen en een van onze compliance-experts neemt binnen 24 uur contact met je op om een persoonlijke demo in te plannen.</p>
+            <p>Bedankt voor je interesse in LEONA! We hebben je demo-aanvraag goed ontvangen.</p>
+            
+            <p><strong>📞 We bellen je binnen 24 uur</strong> om je persoonlijke demo in te plannen en al je vragen te beantwoorden.</p>
             
             <p><strong>Wat kun je verwachten in de demo?</strong></p>
             <ul>
