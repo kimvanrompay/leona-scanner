@@ -17,6 +17,9 @@ import (
 
 // SnapshotSubmission contains all the data from the snapshot audit form
 type SnapshotSubmission struct {
+	// Order Tracking
+	OrderUUID string `json:"order_uuid"`
+
 	// Contact
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
@@ -52,6 +55,9 @@ type SnapshotSubmission struct {
 	Timeline        string `json:"timeline"`
 	Concerns        string `json:"concerns"`
 	AdditionalNotes string `json:"additional_notes"`
+
+	// Legal
+	NDAAccepted string `json:"nda_accepted"`
 }
 
 // HandleSnapshotSubmit processes snapshot audit submissions
@@ -68,6 +74,7 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 
 	// Extract and validate form data
 	submission := &SnapshotSubmission{
+		OrderUUID:          strings.TrimSpace(r.FormValue("order-uuid")),
 		FirstName:          strings.TrimSpace(r.FormValue("first-name")),
 		LastName:           strings.TrimSpace(r.FormValue("last-name")),
 		Email:              strings.TrimSpace(r.FormValue("email")),
@@ -92,15 +99,18 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 		Timeline:           r.FormValue("timeline"),
 		Concerns:           strings.TrimSpace(r.FormValue("concerns")),
 		AdditionalNotes:    strings.TrimSpace(r.FormValue("additional-notes")),
+		NDAAccepted:        r.FormValue("nda-accepted"),
 	}
 
 	// Validate required fields
-	if submission.FirstName == "" || submission.LastName == "" || submission.Email == "" ||
-		submission.Company == "" || submission.BuildSystem == "" || submission.TargetArchitecture == "" ||
-		submission.KernelVersion == "" || submission.Libc == "" || submission.ProductName == "" ||
-		submission.ProductCategory == "" || submission.AnnualVolume == "" || submission.ArtifactAccess == "" {
-		log.Printf("❌ Missing required fields in snapshot submission from %s", submission.Email)
-		http.Error(w, "Alle verplichte velden moeten ingevuld zijn", http.StatusBadRequest)
+	//nolint:lll // Field validation
+	if submission.OrderUUID == "" || submission.FirstName == "" || submission.LastName == "" ||
+		submission.Email == "" || submission.Company == "" || submission.BuildSystem == "" ||
+		submission.TargetArchitecture == "" || submission.KernelVersion == "" || submission.Libc == "" ||
+		submission.ProductName == "" || submission.ProductCategory == "" ||
+		submission.AnnualVolume == "" || submission.ArtifactAccess == "" || submission.NDAAccepted != "on" {
+		log.Printf("❌ Missing fields or NDA not accepted: %s", submission.Email)
+		http.Error(w, "Alle velden verplicht + NDA acceptatie vereist", http.StatusBadRequest)
 		return
 	}
 
@@ -119,11 +129,11 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 
 	// Save to database
 	if db != nil {
-		message := fmt.Sprintf("Snapshot Audit Request - %s (%s)\nBuild: %s %s\nKernel: %s\nProduct: %s (%s)",
-			submission.ProductName, submission.ProductCategory,
-			submission.BuildSystem, submission.BuildSystemVersion,
-			submission.KernelVersion,
-			submission.ProductName, submission.TargetArchitecture)
+		//nolint:lll // Database message
+		message := fmt.Sprintf(
+			"Snapshot Audit\nOrder: %s\nBuild: %s %s\nKernel: %s\nProduct: %s (%s)\nNDA: Accepted",
+			submission.OrderUUID, submission.BuildSystem, submission.BuildSystemVersion,
+			submission.KernelVersion, submission.ProductName, submission.TargetArchitecture)
 
 		contact := &database.ContactSubmission{
 			FirstName: submission.FirstName,
@@ -154,8 +164,8 @@ func (h *HTTPHandlerV2) HandleSnapshotSubmit(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	log.Printf("💳 Mollie payment created for %s %s (%s) - redirecting to: %s",
-		submission.FirstName, submission.LastName, submission.Email, paymentURL)
+	log.Printf("💳 Mollie payment created for %s %s (%s) [Order: %s] - redirecting to: %s",
+		submission.FirstName, submission.LastName, submission.Email, submission.OrderUUID, paymentURL)
 
 	// Return HTMX response with redirect to payment
 	w.Header().Set("Content-Type", "text/html")
@@ -209,6 +219,7 @@ func (h *HTTPHandlerV2) createSnapshotPayment(ctx context.Context, submission *S
 		WebhookURL:  "https://leonacompliance.be/webhook/mollie",
 		Metadata: map[string]interface{}{
 			"type":           "snapshot-audit",
+			"order_uuid":     submission.OrderUUID,
 			"customer_email": submission.Email,
 			"customer_name":  fmt.Sprintf("%s %s", submission.FirstName, submission.LastName),
 			"company":        submission.Company,
@@ -216,6 +227,7 @@ func (h *HTTPHandlerV2) createSnapshotPayment(ctx context.Context, submission *S
 			"build_system":   submission.BuildSystem,
 			"kernel_version": submission.KernelVersion,
 			"target_arch":    submission.TargetArchitecture,
+			"nda_accepted":   "yes",
 		},
 	}
 
@@ -249,7 +261,7 @@ func (h *HTTPHandlerV2) sendSnapshotNotification(s *SnapshotSubmission) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", smtpFrom)
 	m.SetHeader("To", "kim@leonacompliance.be")
-	m.SetHeader("Subject", fmt.Sprintf("💰 SNAPSHOT AUDIT: %s - %s (%s)", s.ProductName, s.Company, s.Email))
+	m.SetHeader("Subject", fmt.Sprintf("💰 SNAPSHOT AUDIT [%s]: %s - %s", s.OrderUUID, s.ProductName, s.Company))
 
 	// Build HTML email with all details
 	connectivity := strings.Join(s.Connectivity, ", ")
@@ -297,6 +309,7 @@ func (h *HTTPHandlerV2) sendSnapshotNotification(s *SnapshotSubmission) error {
         <div class="header">
             <h1>💰 SNAPSHOT AUDIT AANVRAAG</h1>
             <p style="margin: 10px 0 0 0; opacity: 0.9;">Nieuwe betaalde audit aanvraag</p>
+            <p style="margin: 5px 0 0 0; font-size: 14px; font-family: monospace; opacity: 0.8;">Order ID: %s</p>
             <div class="price">€2.495</div>
         </div>
 
@@ -425,12 +438,14 @@ func (h *HTTPHandlerV2) sendSnapshotNotification(s *SnapshotSubmission) error {
         <div class="footer">
             <p><strong>LEONA Compliance</strong> | Snapshot Audit Request<br/>
             Automatisch gegenereerd vanuit <a href="https://leonacompliance.be/snapshot">leonacompliance.be/snapshot</a></p>
-            <p style="margin-top: 16px;"><span class="badge badge-success">BETALING PENDING</span></p>
+            <p style="margin-top: 12px; font-size: 11px; color: #10b981;">✓ NDA Accepted by Customer</p>
+            <p style="margin-top: 8px;"><span class="badge badge-success">BETALING PENDING</span></p>
         </div>
     </div>
 </body>
 </html>
 `,
+		s.OrderUUID,
 		s.FirstName, s.LastName,
 		s.Email, s.Email,
 		s.Company,
