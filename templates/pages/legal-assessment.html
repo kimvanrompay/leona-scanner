@@ -1,21 +1,23 @@
 {{define "title"}}CRA Legal-Tech Gap Assessment | LEONA{{end}}
 
 {{define "meta"}}
-<meta name="description" content="Strategische audit voor IT-juristen: kan u de CRA uitvoeren zonder technische ondersteuning?">
+<meta name="description"
+    content="Strategische audit voor IT-juristen: kan u de CRA uitvoeren zonder technische ondersteuning?">
 {{end}}
 
 {{define "content"}}
 <div class="bg-white min-h-screen" x-data="assessmentWizard()">
     <!-- Header -->
-    <div class="bg-gradient-to-b from-blue-50 to-white py-16 sm:py-24">
+    <div class="bg-gradient-to-b from-blue-900 to-blue-600 py-16 sm:py-24">
         <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-            <p class="text-[10px] font-bold text-blue-600 uppercase tracking-[0.4em] mb-4">Strategische Audit</p>
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <p class="text-[10px] font-bold text-blue-100 uppercase tracking-[0.4em] mb-4">Strategische Test</p>
+            <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-5xl">
                 CRA Liability & Technical Gap Assessment
             </h1>
-            <p class="mt-6 text-xl text-gray-600 max-w-2xl mx-auto">
-                Een zelfdiagnose voor IT-juristen en Partners. Het doel is niet uw kennis van de wet te testen — die heeft u. 
-                Het doel is vast te stellen of u de <strong>wet kunt uitvoeren</strong> zonder technische ondersteuning.
+            <p class="mt-6 text-xl text-gray-100 max-w-2xl mx-auto">
+                Voor ICT-juristen en Partners. Het doel is niet uw kennis van de wet te testen — die heeft u.
+                Het doel is vast te stellen of u de <strong>CRA binnen uw kantoor kunt uitvoeren</strong> zonder externe
+                ondersteuning.
             </p>
         </div>
     </div>
@@ -24,73 +26,92 @@
     <div class="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div class="mx-auto max-w-4xl px-6 py-4">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-sm font-semibold text-gray-700">Vraag <span x-text="currentStep + 1"></span> van 10</span>
+                <span class="text-sm font-semibold text-gray-700">Vraag <span x-text="currentStep + 1"></span> van
+                    10</span>
                 <span class="text-sm text-gray-500" x-text="Math.round(((currentStep + 1) / 10) * 100) + '%'"></span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" :style="`width: ${((currentStep + 1) / 10) * 100}%`"></div>
+                <div class="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    :style="`width: ${((currentStep + 1) / 10) * 100}%`"></div>
             </div>
         </div>
     </div>
 
     <!-- Assessment Questions -->
     <div class="mx-auto max-w-4xl px-6 py-12">
-        
+
         <!-- Question 1 -->
         <div x-show="currentStep === 0" x-transition class="space-y-8">
             <div class="border-l-4 border-blue-600 pl-6">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">1. De Binaire Waarheid (Art. 10)</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Vertrouwt u bij het opstellen van het Technisch Dossier (TCF) op de handmatige componentenlijst van de CTO van uw cliënt, 
-                    of beschikt u over een <strong>geautomatiseerde binaire SBOM</strong> die ook de 'hidden dependencies' in kaart brengt?
+                    Vertrouwt u bij het opstellen van het Technisch Dossier (TCF) op de handmatige componentenlijst van
+                    de CTO van uw cliënt,
+                    of beschikt u over een <strong>geautomatiseerde binaire SBOM</strong> die ook de 'hidden
+                    dependencies' in kaart brengt?
                 </p>
             </div>
-            
+
             <div class="space-y-4">
-                <button @click="selectAnswer(0, 0)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[0] === 0 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                <button @click="selectAnswer(0, 0)" class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                    :class="answers[0] === 0 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 mt-1">
-                            <div class="w-5 h-5 rounded-full border-2" :class="answers[0] === 0 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                <svg x-show="answers[0] === 0" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                            <div class="w-5 h-5 rounded-full border-2"
+                                :class="answers[0] === 0 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                <svg x-show="answers[0] === 0" class="w-full h-full text-white" fill="currentColor"
+                                    viewBox="0 0 12 12">
+                                    <path
+                                        d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                 </svg>
                             </div>
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Handmatige lijst van de cliënt</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij vertrouwen op de componentenlijst die de CTO aanlevert</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij vertrouwen op de componentenlijst die de CTO
+                                aanlevert</p>
                         </div>
                     </div>
                 </button>
 
-                <button @click="selectAnswer(0, 5)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[0] === 5 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                <button @click="selectAnswer(0, 5)" class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                    :class="answers[0] === 5 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 mt-1">
-                            <div class="w-5 h-5 rounded-full border-2" :class="answers[0] === 5 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                <svg x-show="answers[0] === 5" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                            <div class="w-5 h-5 rounded-full border-2"
+                                :class="answers[0] === 5 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                <svg x-show="answers[0] === 5" class="w-full h-full text-white" fill="currentColor"
+                                    viewBox="0 0 12 12">
+                                    <path
+                                        d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                 </svg>
                             </div>
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Gedeeltelijke automatisering</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij gebruiken tools maar valideren niet alle hidden dependencies</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij gebruiken tools maar valideren niet alle hidden
+                                dependencies</p>
                         </div>
                     </div>
                 </button>
 
-                <button @click="selectAnswer(0, 10)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[0] === 10 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                <button @click="selectAnswer(0, 10)" class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                    :class="answers[0] === 10 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 mt-1">
-                            <div class="w-5 h-5 rounded-full border-2" :class="answers[0] === 10 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                <svg x-show="answers[0] === 10" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                            <div class="w-5 h-5 rounded-full border-2"
+                                :class="answers[0] === 10 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                <svg x-show="answers[0] === 10" class="w-full h-full text-white" fill="currentColor"
+                                    viewBox="0 0 12 12">
+                                    <path
+                                        d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                 </svg>
                             </div>
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Volledige binaire SBOM</p>
-                            <p class="text-sm text-gray-600 mt-1">Geautomatiseerde extractie inclusief kernel configs en hidden dependencies</p>
+                            <p class="text-sm text-gray-600 mt-1">Geautomatiseerde extractie inclusief kernel configs en
+                                hidden dependencies</p>
                         </div>
                     </div>
                 </button>
@@ -102,18 +123,23 @@
             <div class="border-l-4 border-blue-600 pl-6">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">2. De 24-uurs Triage (Art. 11, Lid 1)</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Indien er een kwetsbaarheid wordt gemeld, heeft u dan een technisch protocol om binnen <strong>24 uur</strong> te valideren 
+                    Indien er een kwetsbaarheid wordt gemeld, heeft u dan een technisch protocol om binnen <strong>24
+                        uur</strong> te valideren
                     of dit lek daadwerkelijk 'exploiteerbaar' is in de specifieke build van de cliënt?
                 </p>
             </div>
-            
+
             <div class="space-y-4">
-                <button @click="selectAnswer(1, 0)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[1] === 0 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                <button @click="selectAnswer(1, 0)" class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                    :class="answers[1] === 0 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 mt-1">
-                            <div class="w-5 h-5 rounded-full border-2" :class="answers[1] === 0 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                <svg x-show="answers[1] === 0" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                            <div class="w-5 h-5 rounded-full border-2"
+                                :class="answers[1] === 0 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                <svg x-show="answers[1] === 0" class="w-full h-full text-white" fill="currentColor"
+                                    viewBox="0 0 12 12">
+                                    <path
+                                        d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                 </svg>
                             </div>
                         </div>
@@ -124,34 +150,44 @@
                     </div>
                 </button>
 
-                <button @click="selectAnswer(1, 5)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[1] === 5 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                <button @click="selectAnswer(1, 5)" class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                    :class="answers[1] === 5 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 mt-1">
-                            <div class="w-5 h-5 rounded-full border-2" :class="answers[1] === 5 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                <svg x-show="answers[1] === 5" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                            <div class="w-5 h-5 rounded-full border-2"
+                                :class="answers[1] === 5 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                <svg x-show="answers[1] === 5" class="w-full h-full text-white" fill="currentColor"
+                                    viewBox="0 0 12 12">
+                                    <path
+                                        d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                 </svg>
                             </div>
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Manuele triage</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij hebben een proces maar het duurt langer dan 24 uur</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij hebben een proces maar het duurt langer dan 24 uur
+                            </p>
                         </div>
                     </div>
                 </button>
 
-                <button @click="selectAnswer(1, 10)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[1] === 10 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                <button @click="selectAnswer(1, 10)" class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                    :class="answers[1] === 10 ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 mt-1">
-                            <div class="w-5 h-5 rounded-full border-2" :class="answers[1] === 10 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                <svg x-show="answers[1] === 10" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                            <div class="w-5 h-5 rounded-full border-2"
+                                :class="answers[1] === 10 ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                <svg x-show="answers[1] === 10" class="w-full h-full text-white" fill="currentColor"
+                                    viewBox="0 0 12 12">
+                                    <path
+                                        d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                 </svg>
                             </div>
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Geautomatiseerd real-time triage</p>
-                            <p class="text-sm text-gray-600 mt-1">Binaire CVE-matching met exploitability validation binnen 24 uur</p>
+                            <p class="text-sm text-gray-600 mt-1">Binaire CVE-matching met exploitability validation
+                                binnen 24 uur</p>
                         </div>
                     </div>
                 </button>
@@ -165,15 +201,20 @@
                     <h2 class="text-2xl font-bold text-gray-900 mb-4" x-text="`${index + 3}. ${question.title}`"></h2>
                     <p class="text-lg text-gray-700 leading-relaxed mb-6" x-html="question.question"></p>
                 </div>
-                
+
                 <div class="space-y-4">
                     <template x-for="(option, optIndex) in question.options" :key="optIndex">
-                        <button @click="selectAnswer(index + 2, option.score)" class="w-full text-left p-6 rounded-lg border-2 transition-all" :class="answers[index + 2] === option.score ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
+                        <button @click="selectAnswer(index + 2, option.score)"
+                            class="w-full text-left p-6 rounded-lg border-2 transition-all"
+                            :class="answers[index + 2] === option.score ? 'border-blue-600 bg-blue-50' : 'border-gray-200 hover:border-gray-300'">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 mt-1">
-                                    <div class="w-5 h-5 rounded-full border-2" :class="answers[index + 2] === option.score ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
-                                        <svg x-show="answers[index + 2] === option.score" class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
-                                            <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"/>
+                                    <div class="w-5 h-5 rounded-full border-2"
+                                        :class="answers[index + 2] === option.score ? 'border-blue-600 bg-blue-600' : 'border-gray-300'">
+                                        <svg x-show="answers[index + 2] === option.score"
+                                            class="w-full h-full text-white" fill="currentColor" viewBox="0 0 12 12">
+                                            <path
+                                                d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z" />
                                         </svg>
                                     </div>
                                 </div>
@@ -191,12 +232,13 @@
         <!-- Results Screen -->
         <div x-show="currentStep === 10" x-transition class="space-y-8">
             <div class="text-center py-12">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6" :class="getScoreColor()">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6"
+                    :class="getScoreColor()">
                     <span class="text-3xl font-bold text-white" x-text="totalScore"></span>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Uw CRA Readiness Score</h2>
                 <p class="text-xl text-gray-600 mb-8" x-text="getScoreLabel()"></p>
-                
+
                 <div class="max-w-2xl mx-auto text-left bg-white border border-gray-200 rounded-lg p-8 mb-8">
                     <h3 class="font-bold text-gray-900 mb-4" x-text="getScoreTitle()"></h3>
                     <p class="text-gray-700 leading-relaxed" x-html="getScoreDescription()"></p>
@@ -206,12 +248,14 @@
                 <div class="max-w-xl mx-auto">
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
                         <h3 class="font-bold text-gray-900 mb-4">Ontvang uw volledige analyse</h3>
-                        <p class="text-sm text-gray-600 mb-6">Wij sturen u een gedetailleerd rapport met aanbevelingen per vraag.</p>
-                        
-                        <form hx-post="/api/legal-assessment/submit" hx-target="#assessment-result" hx-swap="innerHTML" class="space-y-4">
+                        <p class="text-sm text-gray-600 mb-6">Wij sturen u een gedetailleerd rapport met aanbevelingen
+                            per vraag.</p>
+
+                        <form hx-post="/api/legal-assessment/submit" hx-target="#assessment-result" hx-swap="innerHTML"
+                            class="space-y-4">
                             <input type="hidden" name="score" :value="totalScore">
                             <input type="hidden" name="answers" :value="JSON.stringify(answers)">
-                            
+
                             <div>
                                 <input type="text" name="name" required placeholder="Uw naam"
                                     class="block w-full rounded-md border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500">
@@ -224,7 +268,8 @@
                                 <input type="email" name="email" required placeholder="Zakelijk e-mailadres"
                                     class="block w-full rounded-md border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500">
                             </div>
-                            <button type="submit" class="w-full rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white hover:bg-blue-700">
+                            <button type="submit"
+                                class="w-full rounded-md bg-blue-600 px-6 py-3 text-base font-semibold text-white hover:bg-blue-700">
                                 Stuur Mij Het Rapport
                             </button>
                         </form>
@@ -236,21 +281,21 @@
 
         <!-- Navigation Buttons -->
         <div class="flex items-center justify-between mt-12 pt-8 border-t border-gray-200">
-            <button @click="previousStep()" x-show="currentStep > 0 && currentStep < 10" 
+            <button @click="previousStep()" x-show="currentStep > 0 && currentStep < 10"
                 class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg text-base font-semibold text-gray-700 hover:bg-gray-50">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
                 Vorige
             </button>
-            <button @click="nextStep()" x-show="currentStep < 9 && answers[currentStep] !== null" 
+            <button @click="nextStep()" x-show="currentStep < 9 && answers[currentStep] !== null"
                 class="ml-auto inline-flex items-center px-6 py-3 border border-transparent rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-700">
                 Volgende
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
             </button>
-            <button @click="showResults()" x-show="currentStep === 9 && answers[9] !== null" 
+            <button @click="showResults()" x-show="currentStep === 9 && answers[9] !== null"
                 class="ml-auto inline-flex items-center px-6 py-3 border border-transparent rounded-lg text-base font-semibold text-white bg-green-600 hover:bg-green-700">
                 Bekijk Resultaten
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,146 +307,146 @@
 </div>
 
 <script>
-function assessmentWizard() {
-    return {
-        currentStep: 0,
-        answers: Array(10).fill(null),
-        
-        remainingQuestions: [
-            {
-                title: "Bewijs van 'Vulnerability Handling' (Art. 11, Lid 2)",
-                question: "Kunt u juridisch aantonen dat uw cliënt een beleid voert voor het systematisch testen en pluggen van lekken, gestaafd door <strong>historische binaire scandata</strong>?",
-                risk: "Zonder technische logging is 'zorgvuldigheid' (Duty of Care) bij een incident niet bewijsbaar.",
-                options: [
-                    { score: 0, label: "Geen logging", description: "Wij vertrouwen op schriftelijke verklaringen" },
-                    { score: 5, label: "Beperkte documentatie", description: "Er is logging maar geen historische binaire data" },
-                    { score: 10, label: "Complete audit trail", description: "Historische binaire scandata met timestamps en hashes" }
-                ]
+    function assessmentWizard() {
+        return {
+            currentStep: 0,
+            answers: Array(10).fill(null),
+
+            remainingQuestions: [
+                {
+                    title: "Bewijs van 'Vulnerability Handling' (Art. 11, Lid 2)",
+                    question: "Kunt u juridisch aantonen dat uw cliënt een beleid voert voor het systematisch testen en pluggen van lekken, gestaafd door <strong>historische binaire scandata</strong>?",
+                    risk: "Zonder technische logging is 'zorgvuldigheid' (Duty of Care) bij een incident niet bewijsbaar.",
+                    options: [
+                        { score: 0, label: "Geen logging", description: "Wij vertrouwen op schriftelijke verklaringen" },
+                        { score: 5, label: "Beperkte documentatie", description: "Er is logging maar geen historische binaire data" },
+                        { score: 10, label: "Complete audit trail", description: "Historische binaire scandata met timestamps en hashes" }
+                    ]
+                },
+                {
+                    title: "Annex I: Default Security Mapping",
+                    question: "Hoe verifieert u of de 14 essentiële veiligheidseisen (zoals het uitschakelen van onnodige interfaces) feitelijk zijn doorgevoerd in de firmware, buiten de schriftelijke bevestiging van de engineer om?",
+                    risk: "Contractuele garanties zijn waardeloos als de binaire realiteit in de rechtszaal anders blijkt te zijn.",
+                    options: [
+                        { score: 0, label: "Schriftelijke bevestiging", description: "Wij vertrouwen op engineeringdocumentatie" },
+                        { score: 5, label: "Steekproefcontroles", description: "Wij doen incidentele technische checks" },
+                        { score: 10, label: "Binaire verificatie", description: "Geautomatiseerde scans op misconfigurations" }
+                    ]
+                },
+                {
+                    title: "De 10-jarige Bewaarplicht (Art. 10, Lid 8)",
+                    question: "Heeft u voor uw cliënten een onveranderlijk digitaal archief ingericht dat <strong>binaire artifacts en compliance-snapshots</strong> 10 jaar lang 'audit-ready' bewaart?",
+                    risk: "Het niet kunnen overleggen van de exacte softwareversie van 7 jaar geleden is een directe inbreuk op de CRA.",
+                    options: [
+                        { score: 0, label: "Geen archief", description: "De cliënt bewaart eigen data" },
+                        { score: 5, label: "Documentarchief", description: "Wij bewaren PDFs en rapporten" },
+                        { score: 10, label: "Binair archief", description: "Onveranderlijk archief met binaries en snapshots" }
+                    ]
+                },
+                {
+                    title: "Supply Chain Liability (Art. 13)",
+                    question: "Hoe controleert u de 'due diligence' van upstream leveranciers (open-source bibliotheken)? Is er een proces om de integriteit van binaire componenten van derden te valideren?",
+                    risk: "De fabrikant is aansprakelijk voor het eindproduct, inclusief de fouten van derden.",
+                    options: [
+                        { score: 0, label: "Geen controle", description: "Wij vertrouwen op open source reputatie" },
+                        { score: 5, label: "Licentie-audit", description: "Wij controleren licenties maar geen binaire integriteit" },
+                        { score: 10, label: "Binaire validatie", description: "Volledige supply chain verification met hashes" }
+                    ]
+                },
+                {
+                    title: "Security Updates & Transparantie (Art. 10, Lid 6)",
+                    question: "Kan uw cliënt technisch garanderen dat security-updates de integriteit van het systeem niet aantasten, en wordt dit proces gedocumenteerd voor toezichthouders?",
+                    risk: "Updates zonder integriteitscontrole kunnen nieuwe liability-risico's creëren.",
+                    options: [
+                        { score: 0, label: "Geen proces", description: "Updates worden ad-hoc uitgerold" },
+                        { score: 5, label: "Testprotocol", description: "Er is testing maar geen binaire integriteitscontrole" },
+                        { score: 10, label: "Gedocumenteerd proces", description: "Volledige update verification met voor/na scans" }
+                    ]
+                },
+                {
+                    title: "De 'Appropriate Level' Toets (Art. 4)",
+                    question: "De wet eist een 'gepast veiligheidsniveau'. Beschikt u over een <strong>benchmark-rapport</strong> dat de binaire staat van het product afzet tegen de huidige 'state-of-the-art' standaarden?",
+                    risk: "Zonder objectieve data is 'gepast' een rekbaar en gevaarlijk begrip in een rechtszaak.",
+                    options: [
+                        { score: 0, label: "Geen benchmark", description: "'Gepast' is een juridische interpretatie" },
+                        { score: 5, label: "Industrie vergelijking", description: "Wij vergelijken met concurrenten" },
+                        { score: 10, label: "Technisch benchmark", description: "Objectieve binaire benchmark tegen NIST/CIS standards" }
+                    ]
+                },
+                {
+                    title: "Product Lifecycle Support (Art. 10)",
+                    question: "Wordt de verwachte levensduur van het product technisch gemonitord op nieuwe kwetsbaarheden, zodat de juridische support-belofte in de SLA ook daadwerkelijk nagekomen kan worden?",
+                    risk: "Een SLA die technisch niet gemonitord wordt, is een openstaande factuur voor toekomstige schadeclaims.",
+                    options: [
+                        { score: 0, label: "Geen monitoring", description: "De SLA is een contractueel document zonder technical backing" },
+                        { score: 5, label: "Periodieke checks", description: "Wij doen jaarlijkse reviews" },
+                        { score: 10, label: "Real-time monitoring", description: "Continue CVE monitoring gedurende productlevensduur" }
+                    ]
+                },
+                {
+                    title: "Persoonlijke Bestuurdersaansprakelijkheid",
+                    question: "Zijn de bestuurders van uw cliënt op de hoogte dat zij persoonlijk aansprakelijk kunnen worden gesteld bij het ontbreken van <strong>technische verificatieprocessen</strong> onder de nieuwe CRA-regels?",
+                    risk: "Juridisch advies dat de technische controle negeert, laat bestuurders onbeschermd achter.",
+                    options: [
+                        { score: 0, label: "Niet besproken", description: "Wij focussen op juridische aspecten" },
+                        { score: 5, label: "Algemene waarschuwing", description: "Wij wijzen op risico's maar zonder technisch plan" },
+                        { score: 10, label: "Volledige disclosure", description: "Bestuurders zijn geïnformeerd met technisch mitigatieplan" }
+                    ]
+                }
+            ],
+
+            get totalScore() {
+                return this.answers.reduce((sum, answer) => sum + (answer || 0), 0);
             },
-            {
-                title: "Annex I: Default Security Mapping",
-                question: "Hoe verifieert u of de 14 essentiële veiligheidseisen (zoals het uitschakelen van onnodige interfaces) feitelijk zijn doorgevoerd in de firmware, buiten de schriftelijke bevestiging van de engineer om?",
-                risk: "Contractuele garanties zijn waardeloos als de binaire realiteit in de rechtszaal anders blijkt te zijn.",
-                options: [
-                    { score: 0, label: "Schriftelijke bevestiging", description: "Wij vertrouwen op engineeringdocumentatie" },
-                    { score: 5, label: "Steekproefcontroles", description: "Wij doen incidentele technische checks" },
-                    { score: 10, label: "Binaire verificatie", description: "Geautomatiseerde scans op misconfigurations" }
-                ]
+
+            selectAnswer(questionIndex, score) {
+                this.answers[questionIndex] = score;
             },
-            {
-                title: "De 10-jarige Bewaarplicht (Art. 10, Lid 8)",
-                question: "Heeft u voor uw cliënten een onveranderlijk digitaal archief ingericht dat <strong>binaire artifacts en compliance-snapshots</strong> 10 jaar lang 'audit-ready' bewaart?",
-                risk: "Het niet kunnen overleggen van de exacte softwareversie van 7 jaar geleden is een directe inbreuk op de CRA.",
-                options: [
-                    { score: 0, label: "Geen archief", description: "De cliënt bewaart eigen data" },
-                    { score: 5, label: "Documentarchief", description: "Wij bewaren PDFs en rapporten" },
-                    { score: 10, label: "Binair archief", description: "Onveranderlijk archief met binaries en snapshots" }
-                ]
+
+            nextStep() {
+                if (this.currentStep < 9) {
+                    this.currentStep++;
+                }
             },
-            {
-                title: "Supply Chain Liability (Art. 13)",
-                question: "Hoe controleert u de 'due diligence' van upstream leveranciers (open-source bibliotheken)? Is er een proces om de integriteit van binaire componenten van derden te valideren?",
-                risk: "De fabrikant is aansprakelijk voor het eindproduct, inclusief de fouten van derden.",
-                options: [
-                    { score: 0, label: "Geen controle", description: "Wij vertrouwen op open source reputatie" },
-                    { score: 5, label: "Licentie-audit", description: "Wij controleren licenties maar geen binaire integriteit" },
-                    { score: 10, label: "Binaire validatie", description: "Volledige supply chain verification met hashes" }
-                ]
+
+            previousStep() {
+                if (this.currentStep > 0) {
+                    this.currentStep--;
+                }
             },
-            {
-                title: "Security Updates & Transparantie (Art. 10, Lid 6)",
-                question: "Kan uw cliënt technisch garanderen dat security-updates de integriteit van het systeem niet aantasten, en wordt dit proces gedocumenteerd voor toezichthouders?",
-                risk: "Updates zonder integriteitscontrole kunnen nieuwe liability-risico's creëren.",
-                options: [
-                    { score: 0, label: "Geen proces", description: "Updates worden ad-hoc uitgerold" },
-                    { score: 5, label: "Testprotocol", description: "Er is testing maar geen binaire integriteitscontrole" },
-                    { score: 10, label: "Gedocumenteerd proces", description: "Volledige update verification met voor/na scans" }
-                ]
+
+            showResults() {
+                this.currentStep = 10;
             },
-            {
-                title: "De 'Appropriate Level' Toets (Art. 4)",
-                question: "De wet eist een 'gepast veiligheidsniveau'. Beschikt u over een <strong>benchmark-rapport</strong> dat de binaire staat van het product afzet tegen de huidige 'state-of-the-art' standaarden?",
-                risk: "Zonder objectieve data is 'gepast' een rekbaar en gevaarlijk begrip in een rechtszaak.",
-                options: [
-                    { score: 0, label: "Geen benchmark", description: "'Gepast' is een juridische interpretatie" },
-                    { score: 5, label: "Industrie vergelijking", description: "Wij vergelijken met concurrenten" },
-                    { score: 10, label: "Technisch benchmark", description: "Objectieve binaire benchmark tegen NIST/CIS standards" }
-                ]
+
+            getScoreColor() {
+                if (this.totalScore <= 40) return 'bg-red-600';
+                if (this.totalScore <= 80) return 'bg-orange-500';
+                return 'bg-green-600';
             },
-            {
-                title: "Product Lifecycle Support (Art. 10)",
-                question: "Wordt de verwachte levensduur van het product technisch gemonitord op nieuwe kwetsbaarheden, zodat de juridische support-belofte in de SLA ook daadwerkelijk nagekomen kan worden?",
-                risk: "Een SLA die technisch niet gemonitord wordt, is een openstaande factuur voor toekomstige schadeclaims.",
-                options: [
-                    { score: 0, label: "Geen monitoring", description: "De SLA is een contractueel document zonder technical backing" },
-                    { score: 5, label: "Periodieke checks", description: "Wij doen jaarlijkse reviews" },
-                    { score: 10, label: "Real-time monitoring", description: "Continue CVE monitoring gedurende productlevensduur" }
-                ]
+
+            getScoreLabel() {
+                if (this.totalScore <= 40) return 'Technisch Blind';
+                if (this.totalScore <= 80) return 'Juridisch Sterk, Technisch Kwetsbaar';
+                return 'CRA-Ready';
             },
-            {
-                title: "Persoonlijke Bestuurdersaansprakelijkheid",
-                question: "Zijn de bestuurders van uw cliënt op de hoogte dat zij persoonlijk aansprakelijk kunnen worden gesteld bij het ontbreken van <strong>technische verificatieprocessen</strong> onder de nieuwe CRA-regels?",
-                risk: "Juridisch advies dat de technische controle negeert, laat bestuurders onbeschermd achter.",
-                options: [
-                    { score: 0, label: "Niet besproken", description: "Wij focussen op juridische aspecten" },
-                    { score: 5, label: "Algemene waarschuwing", description: "Wij wijzen op risico's maar zonder technisch plan" },
-                    { score: 10, label: "Volledige disclosure", description: "Bestuurders zijn geïnformeerd met technisch mitigatieplan" }
-                ]
+
+            getScoreTitle() {
+                if (this.totalScore <= 40) return '0-40 punten: Technisch Blind';
+                if (this.totalScore <= 80) return '41-80 punten: Juridisch Sterk, Technisch Kwetsbaar';
+                return '81-100 punten: CRA-Ready';
+            },
+
+            getScoreDescription() {
+                if (this.totalScore <= 40) {
+                    return 'Uw juridische expertise is uitstekend, maar de <strong>technische executie van CRA-compliance</strong> vraagt om gespecialiseerde tooling. De wet vereist immers niet alleen juridische kennis, maar ook <strong>binaire verificatie</strong> en <strong>geautomatiseerde monitoring</strong>. Wij helpen u graag om uw adviespraktijk te versterken met de nodige technische onderbouwing.';
+                }
+                if (this.totalScore <= 80) {
+                    return 'U heeft een <strong>solide juridisch framework</strong> ontwikkeld en begrijpt de CRA-vereisten goed. Om de strikte <strong>24-uurs deadlines</strong> en <strong>10-jarige bewaarplicht</strong> consistent na te komen, adviseren wij aanvullende automatisering. Dit versterkt uw dienstverlening en beschermt zowel u als uw cliënten tegen compliance-risico\'s.';
+                }
+                return 'Uitstekend! U beschikt over een <strong>robuuste technisch-juridische infrastructuur</strong> die voldoet aan de CRA-eisen. Uw adviezen zijn onderbouwd met binaire bewijslast en uw processen zijn audit-ready. Dit positioneert u als <strong>trusted advisor</strong> voor complexe product compliance-vraagstukken.';
             }
-        ],
-        
-        get totalScore() {
-            return this.answers.reduce((sum, answer) => sum + (answer || 0), 0);
-        },
-        
-        selectAnswer(questionIndex, score) {
-            this.answers[questionIndex] = score;
-        },
-        
-        nextStep() {
-            if (this.currentStep < 9) {
-                this.currentStep++;
-            }
-        },
-        
-        previousStep() {
-            if (this.currentStep > 0) {
-                this.currentStep--;
-            }
-        },
-        
-        showResults() {
-            this.currentStep = 10;
-        },
-        
-        getScoreColor() {
-            if (this.totalScore <= 40) return 'bg-red-600';
-            if (this.totalScore <= 80) return 'bg-orange-500';
-            return 'bg-green-600';
-        },
-        
-        getScoreLabel() {
-            if (this.totalScore <= 40) return 'Technisch Blind';
-            if (this.totalScore <= 80) return 'Juridisch Sterk, Technisch Kwetsbaar';
-            return 'CRA-Ready';
-        },
-        
-        getScoreTitle() {
-            if (this.totalScore <= 40) return '0-40 punten: Technisch Blind';
-            if (this.totalScore <= 80) return '41-80 punten: Juridisch Sterk, Technisch Kwetsbaar';
-            return '81-100 punten: CRA-Ready';
-        },
-        
-        getScoreDescription() {
-            if (this.totalScore <= 40) {
-                return 'Uw juridische expertise is uitstekend, maar de <strong>technische executie van CRA-compliance</strong> vraagt om gespecialiseerde tooling. De wet vereist immers niet alleen juridische kennis, maar ook <strong>binaire verificatie</strong> en <strong>geautomatiseerde monitoring</strong>. Wij helpen u graag om uw adviespraktijk te versterken met de nodige technische onderbouwing.';
-            }
-            if (this.totalScore <= 80) {
-                return 'U heeft een <strong>solide juridisch framework</strong> ontwikkeld en begrijpt de CRA-vereisten goed. Om de strikte <strong>24-uurs deadlines</strong> en <strong>10-jarige bewaarplicht</strong> consistent na te komen, adviseren wij aanvullende automatisering. Dit versterkt uw dienstverlening en beschermt zowel u als uw cliënten tegen compliance-risico\'s.';
-            }
-            return 'Uitstekend! U beschikt over een <strong>robuuste technisch-juridische infrastructuur</strong> die voldoet aan de CRA-eisen. Uw adviezen zijn onderbouwd met binaire bewijslast en uw processen zijn audit-ready. Dit positioneert u als <strong>trusted advisor</strong> voor complexe product compliance-vraagstukken.';
         }
     }
-}
 </script>
 {{end}}

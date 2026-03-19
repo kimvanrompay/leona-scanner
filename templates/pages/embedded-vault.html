@@ -1,0 +1,265 @@
+{{ define "content" }}
+<div class="bg-[#0a192f]">
+    <!-- Hero Section -->
+    <div class="relative isolate overflow-hidden">
+        <div aria-hidden="true" class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" 
+                 class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#3b82f6] to-[#1d4ed8] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+        </div>
+
+        <div class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:px-8 lg:py-40">
+            <div class="mx-auto max-w-3xl text-center">
+                <p class="text-xs font-bold text-blue-400 uppercase tracking-[0.3em] mb-6">10-Jarige Bewaarplicht</p>
+                <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-7xl uppercase leading-none">
+                    CRA Embedded Vault
+                </h1>
+                <p class="mt-8 text-xl font-medium text-blue-300/80 leading-relaxed italic">
+                    Binaire onweerlegbaarheid voor de 10-jarige bewaarplicht (Art. 10.8 CRA). Gemaakt voor firmware, niet voor documenten.
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6">
+                    <a href="#pricing" class="rounded-lg bg-blue-600 px-6 py-4 text-sm font-bold text-white shadow-lg shadow-blue-500/40 hover:bg-blue-500 uppercase tracking-[0.2em] transition-all">
+                        Start Snapshot Audit
+                    </a>
+                    <a href="#comparison" class="text-sm font-bold text-white uppercase tracking-widest border-b-2 border-blue-500 pb-1 hover:border-blue-400 transition-colors">
+                        Bekijk Liability Risk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparison Section -->
+    <div id="comparison" class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 border-t border-white/5">
+        <div class="mx-auto max-w-2xl text-center mb-16">
+            <h2 class="text-xs font-bold text-blue-400 uppercase tracking-[0.3em]">The Audit Reality</h2>
+            <p class="mt-4 text-4xl font-bold tracking-tight text-white uppercase leading-tight">Waarom Dropbox uw grootste risico is</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-2">
+            <!-- Generic Storage -->
+            <div class="relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-sm p-10 ring-1 ring-red-500/20">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-950/5 to-transparent"></div>
+                <div class="relative">
+                    <h3 class="text-xl font-bold text-red-400 uppercase mb-8 border-b border-red-500/20 pb-4 tracking-tight">
+                        Generieke Opslag (Dropbox / Eigen Server)
+                    </h3>
+                    <ul class="space-y-6 text-sm text-red-200/60">
+                        <li class="flex items-start gap-x-4">
+                            <span class="text-red-500 font-bold text-lg">✕</span>
+                            <p><strong class="text-red-300">Geen Bewijs van Integriteit:</strong> Bestanden kunnen ongemerkt worden gewijzigd (Tampering risk). Geen juridische "chain of custody".</p>
+                        </li>
+                        <li class="flex items-start gap-x-4">
+                            <span class="text-red-500 font-bold text-lg">✕</span>
+                            <p><strong class="text-red-300">Geen Trusted Timestamp:</strong> Geen onafhankelijk bewijs dat de firmware bestond op de datum van release. De datumstempel op uw server is niet audit-proof.</p>
+                        </li>
+                        <li class="flex items-start gap-x-4">
+                            <span class="text-red-500 font-bold text-lg">✕</span>
+                            <p><strong class="text-red-300">Bit-Rot Liability:</strong> Generieke opslag garandeert geen 10-jarige binaire leesbaarheid. Corrupte files in 2030 betekenen een direct compliance-falen.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- LEONA Vault -->
+            <div class="relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-sm p-10 ring-2 ring-blue-500/50 shadow-2xl shadow-blue-500/10">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent"></div>
+                <div class="relative">
+                    <h3 class="text-xl font-bold text-blue-400 uppercase mb-8 border-b border-blue-500/20 pb-4 tracking-tight">
+                        LEONA Embedded Vault
+                    </h3>
+                    <ul class="space-y-6 text-sm text-blue-100/80">
+                        <li class="flex items-start gap-x-4">
+                            <span class="text-blue-500 font-bold text-lg">✓</span>
+                            <p><strong class="text-blue-300">WORM-Protocol:</strong> Write Once, Read Many. Data-modificatie is fysiek onmogelijk na opslag. Dit is de legale "Gold Standard".</p>
+                        </li>
+                        <li class="flex items-start gap-x-4">
+                            <span class="text-blue-500 font-bold text-lg">✓</span>
+                            <p><strong class="text-blue-300">RFC 3161 Timestamping:</strong> Cryptografisch verzegeld door een onafhankelijke Trusted Third Party (TTP). Onweerlegbaar bewijs van bestaan.</p>
+                        </li>
+                        <li class="flex items-start gap-x-4">
+                            <span class="text-blue-500 font-bold text-lg">✓</span>
+                            <p><strong class="text-blue-300">Binaire Fingerprinting:</strong> Wij archiveren de SHA-256 hashes die direct mappen aan de hardware op de markt.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tech Specs Section -->
+    <div id="specs" class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 border-t border-white/5">
+        <div class="grid grid-cols-1 gap-x-12 gap-y-16 lg:grid-cols-2 items-center">
+            <div>
+                <h2 class="text-xs font-bold text-blue-400 uppercase tracking-widest">Deep Tech Compliance</h2>
+                <p class="mt-4 text-4xl font-bold tracking-tight text-white uppercase leading-none">Embedded Linux Optimized</p>
+                <p class="mt-6 text-lg text-blue-100/60 leading-relaxed font-light">
+                    De Vault is specifiek ontwikkeld voor de binaire realiteit van Yocto, Debian en custom Linux-stacks. Wij begrijpen firmware-artifacts.
+                </p>
+                <dl class="mt-10 space-y-8">
+                    <div>
+                        <dt class="font-bold text-white uppercase tracking-tight mb-2 italic text-lg">01. Kernel Snapshots</dt>
+                        <dd class="text-sm text-blue-200/60 leading-relaxed">Archivering van volledige kernel-configuratie en toolchain-informatie om "Duty of Care" op OS-niveau aan te tonen.</dd>
+                    </div>
+                    <div>
+                        <dt class="font-bold text-white uppercase tracking-tight mb-2 italic text-lg">02. V-Assessor™ Bridge</dt>
+                        <dd class="text-sm text-blue-200/60 leading-relaxed">Geadresseerde firmware in de Vault wordt continu gemonitord op nieuwe CVE's (Art. 11), ook jaren na productie.</dd>
+                    </div>
+                    <div>
+                        <dt class="font-bold text-white uppercase tracking-tight mb-2 italic text-lg">03. Notified Body Export</dt>
+                        <dd class="text-sm text-blue-200/60 leading-relaxed">Genereer met één klik dossiers in het specifieke format vereist door EU-toezichthouders zoals het BIPT.</dd>
+                    </div>
+                </dl>
+            </div>
+            <div class="relative overflow-hidden rounded-3xl bg-white/[0.02] backdrop-blur-sm p-4 ring-1 ring-white/10">
+                <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773871167/CRA_COMPLIANT_LINUX_SYSTEM-5_shs5we.png" 
+                     alt="Binary Vault Dashboard" 
+                     class="rounded-2xl shadow-2xl ring-1 ring-white/10">
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 border-t border-white/5">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-extrabold text-white uppercase tracking-tighter">Investering in Bewijslast</h2>
+            <p class="mt-4 text-blue-300/60">Borg uw binaire dossier. De Vault is uw verzekering tegen toekomstige audits.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:gap-x-8 items-stretch">
+            <!-- Essential Vault -->
+            <div class="relative overflow-hidden flex flex-col justify-between rounded-3xl bg-white/[0.02] backdrop-blur-sm p-10 ring-1 ring-white/10">
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase tracking-widest">Essential Vault</h3>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold text-white">€49</span>
+                        <span class="text-sm text-blue-400">/maand</span>
+                    </p>
+                    <ul class="mt-8 space-y-4 text-sm text-blue-100/60 italic">
+                        <li>✓ 1 Productlijn</li>
+                        <li>✓ WORM-Compliance</li>
+                        <li>✓ Jaarlijks Audit-Log Export</li>
+                    </ul>
+                </div>
+                <p class="mt-8 text-[10px] font-bold text-blue-400 uppercase tracking-widest border-t border-white/10 pt-4">
+                    Setup: €1.450 eenmalig
+                </p>
+            </div>
+
+            <!-- Professional Vault -->
+            <div class="relative overflow-hidden flex flex-col justify-between rounded-3xl bg-white/[0.02] backdrop-blur-sm p-10 ring-2 ring-blue-500 shadow-2xl shadow-blue-500/20 scale-105 bg-blue-600/10">
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-bold text-white uppercase tracking-widest">Professional Vault</h3>
+                        <span class="bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">Audit Standard</span>
+                    </div>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold text-white">€149</span>
+                        <span class="text-sm text-blue-200">/maand</span>
+                    </p>
+                    <ul class="mt-8 space-y-4 text-sm text-blue-50 font-medium">
+                        <li class="flex gap-x-3">✓ Tot 5 Productlijnen</li>
+                        <li class="flex gap-x-3">✓ Inclusief V-Assessor™ Monitoring</li>
+                        <li class="flex gap-x-3">✓ Real-time Triage meldingen</li>
+                        <li class="flex gap-x-3">✓ Priority TCF Support</li>
+                    </ul>
+                </div>
+                <div class="mt-8">
+                    <p class="text-[10px] font-bold text-blue-300 uppercase tracking-widest border-t border-white/10 pt-4 mb-4">
+                        Setup: €2.950 eenmalig
+                    </p>
+                    <a href="/contact" class="block w-full rounded-lg bg-blue-500 px-4 py-3 text-center text-sm font-bold text-white shadow-lg hover:bg-blue-400 uppercase tracking-widest transition-all italic">
+                        Start Snapshot Audit
+                    </a>
+                </div>
+            </div>
+
+            <!-- Enterprise Legal -->
+            <div class="relative overflow-hidden flex flex-col justify-between rounded-3xl bg-white/[0.02] backdrop-blur-sm p-10 ring-1 ring-white/10">
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase tracking-widest">Enterprise Legal</h3>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold text-white">€499</span>
+                        <span class="text-sm text-blue-400">/maand</span>
+                    </p>
+                    <ul class="mt-8 space-y-4 text-sm text-blue-100/60 italic">
+                        <li>✓ Onbeperkt aantal Vaults</li>
+                        <li>✓ White-label cliënt rapporten</li>
+                        <li>✓ Multi-partner Login</li>
+                    </ul>
+                </div>
+                <p class="mt-8 text-[10px] font-bold text-blue-400 uppercase tracking-widest border-t border-white/10 pt-4">
+                    Setup: €7.500 eenmalig
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 border-t border-white/5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-5">
+                <h2 class="text-xs font-bold text-blue-400 uppercase tracking-[0.3em]">Ondersteuning</h2>
+                <p class="mt-4 text-4xl font-extrabold tracking-tight text-white uppercase leading-none">Veelgestelde Vragen</p>
+                <p class="mt-6 text-lg text-blue-100/60 font-light italic">
+                    Specifieke antwoorden over binaire bewijslast en juridische integratie.
+                </p>
+            </div>
+            
+            <div class="lg:col-span-7 divide-y divide-white/10">
+                <div class="py-8 first:pt-0">
+                    <dt class="text-base font-bold text-white uppercase tracking-tight mb-4">Waarom volstaat onze eigen server of Dropbox niet?</dt>
+                    <dd class="text-sm text-blue-200/60 leading-relaxed font-light">
+                        De CRA eist onafhankelijke bewijsvoering. Bij generieke opslag behoudt de beheerder (de cliënt) de mogelijkheid om bestanden te wijzigen of te verwijderen. De <strong class="text-blue-300">LEONA Vault</strong> gebruikt WORM-storage en RFC 3161 tijdstempels van een Trusted Third Party. Dit zorgt ervoor dat de bewijslast in een rechtszaak niet als "vervuild" of "gemanipuleerd" kan worden bestempeld.
+                    </dd>
+                </div>
+
+                <div class="py-8">
+                    <dt class="text-base font-bold text-white uppercase tracking-tight mb-4">Hoe zit het met GDPR en de opslag van firmware?</dt>
+                    <dd class="text-sm text-blue-200/60 leading-relaxed font-light">
+                        Onze Vault is geoptimaliseerd voor binaire artifacts en technische metadata. Wij slaan geen persoonsgegevens van eindgebruikers op. De firmware-hashes en SBOM-data zijn puur technisch van aard, waardoor de GDPR-compliance voor uw cliënt aanzienlijk eenvoudiger is dan bij traditionele database-opslag.
+                    </dd>
+                </div>
+
+                <div class="py-8">
+                    <dt class="text-base font-bold text-white uppercase tracking-tight mb-4">Is de 10-jarige termijn gegarandeerd?</dt>
+                    <dd class="text-sm text-blue-200/60 leading-relaxed font-light">
+                        Ja. Onze infrastructuur is ontworpen op basis van data-retentie standaarden die "bit-rot" voorkomen. Bovendien bieden wij bij het <strong class="text-blue-300">Enterprise Legal</strong> pakket de mogelijkheid tot een "escrow-regeling", zodat de bewijslast altijd toegankelijk blijft voor het advocatenkantoor, ongeacht de status van de cliënt.
+                    </dd>
+                </div>
+
+                <div class="py-8">
+                    <dt class="text-base font-bold text-white uppercase tracking-tight mb-4">Hoe ondersteunt de Vault de 24-uurs meldplicht (Art. 11)?</dt>
+                    <dd class="text-sm text-blue-200/60 leading-relaxed font-light">
+                        Dit is de kracht van de <strong class="text-blue-300">Professional Tier</strong>. Omdat de firmware reeds in de Vault staat, kan onze V-Assessor™ engine bij een nieuwe CVE direct een "diff-analyse" uitvoeren op de binaire code. U weet binnen minuten of een lek daadwerkelijk exploiteerbaar is in de build van uw cliënt, wat cruciaal is voor de wettelijke deadline.
+                    </dd>
+                </div>
+
+                <div class="py-8">
+                    <dt class="text-base font-bold text-white uppercase tracking-tight mb-4">Kan de Vault worden gebruikt als bewijs bij de Notified Body?</dt>
+                    <dd class="text-sm text-blue-200/60 leading-relaxed font-light">
+                        Exact. De rapportages die uit de Vault komen zijn geformatteerd volgens de technische standaarden die toezichthouders (zoals het BIPT) verwachten. Het vervangt vage CTO-verklaringen door harde, cryptografisch onderbouwde feiten.
+                    </dd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24">
+        <div class="relative overflow-hidden rounded-[3rem] bg-white/[0.02] backdrop-blur-sm p-16 text-center border border-white/10 shadow-2xl ring-1 ring-white/20">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent"></div>
+            <div class="relative">
+                <h2 class="text-5xl font-extrabold text-white uppercase tracking-tighter leading-none mb-6">
+                    Veranker uw bewijslast NU
+                </h2>
+                <p class="text-blue-100/60 max-w-xl mx-auto mb-10 text-lg font-light leading-relaxed">
+                    Stop met hopen dat uw cliënten hun back-ups op orde hebben. Neem de regie over de binaire data.
+                </p>
+                <a href="/contact" class="inline-block rounded-lg bg-blue-500 px-10 py-5 text-sm font-bold text-white shadow-2xl hover:bg-blue-400 uppercase tracking-[0.2em] transition-all scale-110">
+                    Start Technical Audit
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}
