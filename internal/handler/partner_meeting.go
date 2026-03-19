@@ -262,53 +262,60 @@ func (h *HTTPHandlerV2) sendPartnerMeetingConfirmation(to, firstName, lawFirm st
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #003366 0%%, #1e40af 100%%); color: white; padding: 30px; border-radius: 8px; }
-        .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
-        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #1a202c; margin: 0; padding: 0; background-color: #ffffff; }
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .hero-image { width: 100%; height: auto; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e2e8f0; }
+        .content { padding: 0 10px; }
+        h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; color: #0f172a; margin-bottom: 24px; text-transform: uppercase; }
+        p { font-size: 15px; color: #475569; margin-bottom: 16px; }
+        .legal-box { background: #f8fafc; border-left: 4px solid #0f172a; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0; }
+        .legal-box h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; tracking: 0.1em; color: #1e293b; margin: 0 0 10px 0; }
+        ul { padding-left: 20px; margin: 0; }
+        li { font-size: 14px; color: #475569; margin-bottom: 8px; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; font-size: 12px; color: #94a3b8; }
+        .signature { margin-top: 30px; border-left: 1px solid #e2e8f0; padding-left: 15px; }
+        a { color: #0f172a; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1 style="margin: 0;">✅ Partner Overleg Ingepland</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">We nemen binnen 24 uur contact op</p>
-        </div>
+        <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773860997/CRA_COMPLIANT_LINUX_SYSTEM-2_mglczu.png" 
+             alt="CRA Compliant Linux System" class="hero-image">
         
         <div class="content">
-            <p>Beste %s,</p>
+            <h1>Bevestiging: Strategisch Overleg</h1>
             
-            <p>Bedankt voor uw interesse in een juridische samenwerking met LEONA. We hebben uw aanvraag voor een partner-overleg ontvangen en waarderen het vertrouwen van %s.</p>
+            <p>%s,</p>
             
-            <p><strong>Wat gebeurt er nu?</strong></p>
-            <ol>
-                <li>We nemen binnen 24 uur contact op om een 30-minuten overleg in te plannen</li>
-                <li>We bespreken uw praktijk, cliëntbestand en revenue-sharing mogelijkheden</li>
-                <li>We demonstreren live hoe de V-Assessor™ werkt</li>
-                <li>U krijgt een partnerschapsvoorstel op maat</li>
-            </ol>
+            <p>Hartelijk dank voor uw aanvraag met betrekking tot het Legal Partnership Programma van LEONA. Wij hebben uw interesse in een structurele samenwerking namens %s goed ontvangen.</p>
+            
+            <p>In het kader van de Cyber Resilience Act (CRA) is het onze doelstelling om de kloof tussen juridische zorgplicht en binaire bewijslast te dichten. Wij kijken ernaar uit om te verkennen hoe onze technische validatie-engine uw huidige juridische advisering kan versterken.</p>
+            
+            <div class="legal-box">
+                <h2>Agenda voor het overleg:</h2>
+                <ul>
+                    <li>Evaluatie van de technische 'CRA blind spots' binnen uw huidige cliëntportefeuille.</li>
+                    <li>Integratie van binaire SBOM-data in het Technisch Constructiedossier (TCF).</li>
+                    <li>Automatisering van de 24-uurs meldplicht (Art. 11) ter beperking van beroepsaansprakelijkheid.</li>
+                    <li>Structurering van het partnerschapsmodel (Referral vs. Integrated Service).</li>
+                </ul>
+            </div>
 
-            <p><strong>Voorbereiding:</strong><br/>
-            Om het overleg zo efficiënt mogelijk te maken, kunt u alvast nadenken over:</p>
-            <ul>
-                <li>Hoeveel tech-cliënten u momenteel adviseert</li>
-                <li>Welk percentage IoT/embedded systemen gebruikt</li>
-                <li>Of u interesse heeft in Integrated of Referral partnership</li>
-            </ul>
+            <p>Wij nemen binnen 24 uur contact met u op om een tijdstip vast te leggen voor een verkennend gesprek.</p>
 
-            <p>We kijken ernaar uit om de mogelijkheden te verkennen!</p>
-
-            <p>Met vriendelijke groet,<br/>
-            <strong>Kim Van Rompay</strong><br/>
-            Founder & Technical Lead<br/>
-            LEONA Compliance</p>
+            <div class="signature">
+                <p style="margin: 0; color: #0f172a; font-weight: 700;">Kim Van Rompay</p>
+                <p style="margin: 0; font-size: 13px;">Founder & Technical Lead</p>
+                <p style="margin: 0; font-size: 13px; color: #64748b;">LEONA Compliance</p>
+            </div>
         </div>
 
         <div class="footer">
-            <p><strong>LEONA</strong> | Legal Partnership Program<br/>
-            <a href="https://leonacompliance.be">leonacompliance.be</a> | kim@leonacompliance.be</p>
+            <p><strong>LEONA</strong> | Compliance as Code<br/>
+            <a href="https://leonacompliance.be">leonacompliance.be</a></p>
+            <p style="margin-top: 10px;">Dit bericht bevat vertrouwelijke informatie bedoeld voor partnerschap-evaluatie.</p>
         </div>
     </div>
 </body>

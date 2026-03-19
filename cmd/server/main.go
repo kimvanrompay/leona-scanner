@@ -167,6 +167,7 @@ func main() {
 	r.HandleFunc("/privacy", h.HandlePage("privacy")).Methods("GET")
 	r.HandleFunc("/legal-partners", h.HandlePage("legal-partners")).Methods("GET")
 	r.HandleFunc("/partner-overleg", h.HandlePage("partner-overleg")).Methods("GET")
+	r.HandleFunc("/specs", h.HandlePage("specs")).Methods("GET")
 
 	// Contact form submission
 	r.HandleFunc("/api/contact/submit", h.HandleContactSubmit).Methods("POST")
