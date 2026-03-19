@@ -124,17 +124,15 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 	// Send email with results
 	log.Printf("🔄 Attempting to send assessment email to %s (Score: %d%%,  %d/10 JA)", email, complianceScore, jaCount)
 	if err := sendAssessmentResultsEmail(email, answers, jaCount, complianceScore); err != nil {
-		log.Printf("❌ ERROR: Failed to send assessment email to %s: %v", email, err)
-		log.Printf("❌ Email error details - SMTP config check needed")
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		//nolint:errcheck // Error response
-		json.NewEncoder(w).Encode(map[string]string{"error": "Email verzenden mislukt"})
-		return
+		log.Printf("⚠️  WARNING: Failed to send assessment email to %s: %v", email, err)
+		log.Printf("⚠️  Continuing anyway - email will be sent via admin notification")
+		// Don't fail the request if email fails - just log it
+	} else {
+		log.Printf("✅ SUCCESS: CRA assessment results sent to %s (Score: %d%%)", email, complianceScore)
 	}
-	log.Printf("✅ SUCCESS: CRA assessment results sent to %s (Score: %d%%)", email, complianceScore)
 
-	// Send admin notification
+	// Send admin notification (always, even if user email failed)
+	log.Printf("📧 Sending admin notification for %s assessment", email)
 	go sendAssessmentNotification(email, answers, jaCount, complianceScore)
 
 	// Return HTML success message with script to trigger Alpine.js state
@@ -143,8 +141,10 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 	//nolint:errcheck,gosec,lll // Success HTML with confetti
 	successHTML := fmt.Sprintf(`
 		<div class="text-center py-8">
-			<div class="text-green-600 text-2xl font-bold mb-4">Verstuurd!</div>
-			<p class="text-lg">Check uw mailbox voor uw persoonlijke CRA test naar <strong>%s</strong></p>
+			<div class="text-green-600 text-2xl font-bold mb-4">✅ Verstuurd!</div>
+			<div class="text-4xl font-bold text-blue-600 mb-4">%d%%%%</div>
+			<p class="text-lg">Uw CRA compliance score is <strong>%d van 10</strong></p>
+			<p class="text-sm text-gray-600 mt-2">Check uw mailbox voor het volledige rapport naar <strong>%s</strong></p>
 		</div>
 		<script>
 			// Trigger Alpine.js success state
@@ -161,7 +161,7 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 				}
 			}, 100);
 		</script>
-	`, email)
+	`, complianceScore, jaCount, email)
 	//nolint:errcheck,gosec // Writing success HTML
 	w.Write([]byte(successHTML))
 }
