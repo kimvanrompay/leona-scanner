@@ -361,20 +361,17 @@ function assessmentWizard() {
         nextStep() {
             if (this.currentStep < 9) {
                 this.currentStep++;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         },
         
         previousStep() {
             if (this.currentStep > 0) {
                 this.currentStep--;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         },
         
         showResults() {
             this.currentStep = 10;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         
         getScoreColor() {
