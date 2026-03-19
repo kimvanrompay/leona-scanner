@@ -13,6 +13,7 @@ import (
 
 	"leona-scanner/internal/i18n"
 	"leona-scanner/internal/scanner"
+	"leona-scanner/internal/services"
 	"leona-scanner/internal/usecase"
 
 	"github.com/stripe/stripe-go/v74"
@@ -46,6 +47,7 @@ type HTTPHandlerV2 struct {
 	scannerService *usecase.ScannerService
 	pdfService     *usecase.PDFService
 	i18nManager    *i18n.I18n
+	mailgunService *services.MailgunService
 }
 
 // getTemplateFuncs returns the standard template function map
@@ -130,11 +132,18 @@ func (h *HTTPHandlerV2) HandlePage(pageName string) http.HandlerFunc {
 	}
 }
 
-func NewHTTPHandlerV2(scannerService *usecase.ScannerService, pdfService *usecase.PDFService, i18nManager *i18n.I18n) *HTTPHandlerV2 {
+// NewHTTPHandlerV2 creates a new HTTP handler with all services
+func NewHTTPHandlerV2(
+	scannerService *usecase.ScannerService,
+	pdfService *usecase.PDFService,
+	i18nManager *i18n.I18n,
+	mailgunService *services.MailgunService,
+) *HTTPHandlerV2 {
 	return &HTTPHandlerV2{
 		scannerService: scannerService,
 		pdfService:     pdfService,
 		i18nManager:    i18nManager,
+		mailgunService: mailgunService,
 	}
 }
 

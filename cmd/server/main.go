@@ -116,11 +116,20 @@ func main() {
 		log.Printf("   ✅ i18n ready - Default: %s, Supported: %v", i18nManager.DefaultLang(), i18nManager.SupportedLangs())
 	}
 
+	// Initialize Mailgun email service
+	log.Println("   📧 Creating Mailgun email service...")
+	mailgunService := services.NewMailgunService()
+	if mailgunService != nil {
+		log.Println("   ✅ Mailgun service ready")
+	} else {
+		log.Println("   ⚠️  Mailgun not configured - emails will not be sent")
+	}
+
 	// Initialize PDF handler with dedicated directory
 	pdfHandler := handler.NewPDFHandler(scannerService, "./pdf-reports")
 
 	// Initialize HTTP handler v2 (with Gap Analysis & multi-tier checkout)
-	h := handler.NewHTTPHandlerV2(scannerService, pdfService, i18nManager)
+	h := handler.NewHTTPHandlerV2(scannerService, pdfService, i18nManager, mailgunService)
 
 	// Setup router
 	r := mux.NewRouter()

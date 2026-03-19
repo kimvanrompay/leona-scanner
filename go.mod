@@ -17,14 +17,20 @@ require (
 require (
 	github.com/boombuler/barcode v1.0.1 // indirect
 	github.com/f-amaral/go-async v0.3.0 // indirect
+	github.com/go-chi/chi/v5 v5.2.1 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/hhrutter/lzw v1.0.0 // indirect
 	github.com/hhrutter/tiff v1.0.1 // indirect
 	github.com/johnfercher/go-tree v1.0.5 // indirect
+	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/jung-kurt/gofpdf v1.16.2 // indirect
 	github.com/kr/text v0.2.0 // indirect
+	github.com/mailgun/errors v0.4.0 // indirect
+	github.com/mailgun/mailgun-go/v4 v4.23.0 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
+	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pdfcpu/pdfcpu v0.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
