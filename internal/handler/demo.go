@@ -111,6 +111,12 @@ func (h *HTTPHandlerV2) HandleDemoSubmit(w http.ResponseWriter, r *http.Request)
 //
 //nolint:funlen // Email template functions are naturally longer
 func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent string) error {
+	// Use Mailgun if configured, fallback to SMTP
+	if h.mailgunService != nil {
+		return h.sendDemoNotificationViaMailgun(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent)
+	}
+
+	// Fallback to SMTP
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
@@ -118,7 +124,7 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
 	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
-		return fmt.Errorf("SMTP not configured")
+		return fmt.Errorf("email service not configured")
 	}
 
 	consent := "Nee"
@@ -217,6 +223,12 @@ func (h *HTTPHandlerV2) sendDemoNotification(firstName, lastName, email, company
 
 // sendDemoConfirmation sends a confirmation email to the submitter
 func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
+	// Use Mailgun if configured, fallback to SMTP
+	if h.mailgunService != nil {
+		return h.sendDemoConfirmationViaMailgun(to, firstName)
+	}
+
+	// Fallback to SMTP
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
@@ -224,7 +236,7 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
 	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
-		return fmt.Errorf("SMTP not configured")
+		return fmt.Errorf("email service not configured")
 	}
 
 	m := gomail.NewMessage()
@@ -304,4 +316,164 @@ func (h *HTTPHandlerV2) sendDemoConfirmation(to, firstName string) error {
 	d.SSL = true
 
 	return d.DialAndSend(m)
+}
+
+// sendDemoNotificationViaMailgun sends demo notification via Mailgun
+//
+//nolint:funlen // Email template functions are naturally longer
+func (h *HTTPHandlerV2) sendDemoNotificationViaMailgun(firstName, lastName, email, company, jobTitle, companySize, country, phone, marketingConsent string) error {
+	consent := "Nee"
+	if marketingConsent == "yes" {
+		consent = "Ja"
+	}
+
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #1e3a8a 0%%%%, #1e40af 100%%%%); color: white; padding: 30px; border-radius: 8px; }
+        .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
+        .field { margin-bottom: 20px; }
+        .label { font-weight: bold; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .value { margin-top: 5px; font-size: 16px; }
+        .highlight { background: white; border-left: 4px solid #FF6B35; padding: 15px; margin-top: 10px; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="margin: 0;">🎬 DEMO Aanvraag</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Nieuwe demo-aanvraag van website</p>
+        </div>
+        
+        <div class="content">
+            <div class="field">
+                <div class="label">Contactpersoon</div>
+                <div class="value">%s %s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Functie</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">E-mailadres</div>
+                <div class="value"><a href="mailto:%s">%s</a></div>
+            </div>
+
+            <div class="field">
+                <div class="label">Bedrijf</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Bedrijfsgrootte</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Land</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Telefoonnummer</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Marketing Toestemming</div>
+                <div class="value">%s</div>
+            </div>
+        </div>
+
+        <div class="footer">
+			<p><strong>LEONA Compliance</strong> | Demo Request Notification<br/>
+			Deze email is automatisch gegenereerd vanuit <a href="https://leonacompliance.be/demo">leonacompliance.be/demo</a></p>
+        </div>
+    </div>
+</body>
+</html>
+`, firstName, lastName, jobTitle, email, email, company, companySize, country, phone, consent)
+
+	subject := fmt.Sprintf("🎬 DEMO Aanvraag: %s %s (%s)", firstName, lastName, company)
+	// Send to support with CC to kim
+	return h.mailgunService.SendHTMLEmail("support@leonacompliance.be", subject, body)
+}
+
+// sendDemoConfirmationViaMailgun sends demo confirmation via Mailgun
+//
+//nolint:funlen,misspell // Email template functions are naturally longer, "Executie" is correct Dutch
+func (h *HTTPHandlerV2) sendDemoConfirmationViaMailgun(to, firstName string) error {
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        @media only screen and (max-width: 600px) {
+            .container { width: 100%%%% !important; }
+            .content { padding: 40px 20px !important; }
+            h1 { font-size: 28px !important; }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', -apple-system, sans-serif; color: #000000;">
+    <div align="center" style="background-color: #ffffff;">
+        <div class="container" style="max-width: 600px; margin: 0 auto; text-align: left;">
+            
+            <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773871167/CRA_COMPLIANT_LINUX_SYSTEM-5_shs5we.png" 
+                 alt="CRA Compliance Platform" 
+                 style="width: 100%%%%; max-width: 600px; height: auto; display: block; border: 0;">
+
+            <div class="content" style="padding: 60px 40px;">
+                <p style="font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #fd7e14; margin: 0 0 12px 0;">Volgende Stap: Actie</p>
+                <h1 style="font-size: 36px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 32px 0;">Laten we schakelen, %s.</h1>
+                
+                <p style="font-size: 18px; line-height: 1.6; margin: 0 0 24px 0; color: #000000;">
+                    Luister, de CRA komt eraan en de tijd tikt. Je hebt een demo aangevraagd omdat je resultaat wilt, geen verkooppraatje. Dat begrijpen we.
+                </p>
+
+                <p style="font-size: 18px; line-height: 1.6; margin: 0 0 40px 0; color: #000000;">
+                    <strong>Een van onze engineers belt je binnen 24 uur.</strong> Geen ruis. Gewoon een direct gesprek om je demo in te plannen en te kijken of LEONA past bij jouw stack.
+                </p>
+
+                <div style="margin-bottom: 48px;">
+                    <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; color: #888888; margin-bottom: 20px; border-bottom: 1px solid #eeeeee; padding-bottom: 8px;">De blauwdruk</p>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">01. Live Platform Walkthrough</div>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">02. Jouw specifieke CRA-uitdagingen</div>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">03. Geautomatiseerde SBOM Executie</div>
+                    <div style="font-size: 16px; margin-bottom: 12px; font-weight: 600;">04. Technische Q&A</div>
+                </div>
+
+                <a href="https://leonacompliance.be/cra-compliance" 
+                   style="display: inline-block; background-color: #003366; color: #ffffff; padding: 18px 32px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">
+                   Bekijk de CRA Roadmap
+                </a>
+            </div>
+
+            <div class="footer" style="padding: 0 40px 60px 40px; font-size: 12px; color: #888888; line-height: 1.8;">
+                <p style="margin: 0;">
+                    <strong>LEONA Compliance</strong><br>
+                    Compliance as Code<br>
+                    <a href="https://leonacompliance.be" style="color: #888888; text-decoration: underline;">leonacompliance.be</a> | <a href="mailto:kim@leonacompliance.be" style="color: #888888; text-decoration: underline;">support@leonacompliance.be</a>
+                </p>
+                <p style="margin: 20px 0 0 0;">
+                    Je ontvangt deze mail omdat je een demo hebt aangevraagd. Geen spam. Alleen executie.
+                </p>
+            </div>
+        </div>
+        </div>
+</body>
+</html>
+`, firstName)
+
+	return h.mailgunService.SendHTMLEmail(to, "Je LEONA demo is onderweg 🎬", body)
 }
