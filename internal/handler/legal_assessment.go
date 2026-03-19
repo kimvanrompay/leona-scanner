@@ -219,6 +219,8 @@ func buildNotificationEmail(name, lawFirm, email, score string, answers []int) s
 
 func buildConfirmationEmail(name, score string, answers []int) string {
 	detailedAnalysis := buildDetailedAnalysis(answers)
+	riskDomains := buildRiskDomains(answers)
+	liabilityScorecard := buildLiabilityScorecard(answers)
 
 	return fmt.Sprintf(`
 <!DOCTYPE html>
@@ -268,6 +270,26 @@ func buildConfirmationEmail(name, score string, answers []int) string {
 						</td>
 					</tr>
 
+					<!-- Risk Domain Analysis -->
+					<tr>
+						<td style="padding: 0 40px 40px 40px;">
+							<h2 style="margin: 0 0 20px 0; font-size: 18px; color: #111827; font-weight: bold;">
+								Risicodomeinen op basis van uw antwoorden
+							</h2>
+							%s
+						</td>
+					</tr>
+
+					<!-- Liability Scorecard -->
+					<tr>
+						<td style="padding: 0 40px 40px 40px;">
+							<h2 style="margin: 0 0 20px 0; font-size: 18px; color: #111827; font-weight: bold;">
+								Uw Liability Scorecard
+							</h2>
+							%s
+						</td>
+					</tr>
+
 					<!-- CTA Section -->
 					<tr>
 						<td style="padding: 30px 40px; background-color: #eff6ff; border-top: 1px solid #dbeafe; border-bottom: 1px solid #dbeafe;">
@@ -309,7 +331,8 @@ func buildConfirmationEmail(name, score string, answers []int) string {
 	</table>
 </body>
 </html>
-	`, name, getScoreColorHex(score), score, getScoreLabel(score), getScoreDescription(score), detailedAnalysis)
+	`, name, getScoreColorHex(score), score, getScoreLabel(score), getScoreDescription(score),
+		detailedAnalysis, riskDomains, liabilityScorecard)
 }
 
 func buildAnswerSummary(answers []int) string {
@@ -470,4 +493,185 @@ func getScoreDescription(score string) string {
 		return "U heeft een solide juridisch framework ontwikkeld en begrijpt de CRA-vereisten goed. Om de strikte 24-uurs deadlines en 10-jarige bewaarplicht consistent na te komen, adviseren wij aanvullende automatisering. Dit versterkt uw dienstverlening en beschermt zowel u als uw cliënten tegen compliance-risico's."
 	}
 	return "Uitstekend! U beschikt over een robuuste technisch-juridische infrastructuur die voldoet aan de CRA-eisen. Uw adviezen zijn onderbouwd met binaire bewijslast en uw processen zijn audit-ready. Dit positioneert u als trusted advisor voor complexe product compliance-vraagstukken."
+}
+
+func buildRiskDomains(answers []int) string {
+	var domains strings.Builder
+	domains.WriteString(buildTriageRisk(answers))
+	domains.WriteString(buildValidationRisk(answers))
+	domains.WriteString(buildArchivingRisk(answers))
+	return domains.String()
+}
+
+func buildTriageRisk(answers []int) string {
+	triageScore := answers[1] + answers[6]
+	triageAvg := float64(triageScore) / 2.0
+	color, status, message := getTriageRiskDetails(triageAvg)
+
+	return fmt.Sprintf(`
+		<div style="margin-bottom: 20px; padding: 20px; background-color: #f9fafb; `+
+		`border-left: 6px solid %s; border-radius: 4px;">
+			<h3 style="margin: 0 0 10px 0; font-size: 16px; color: #111827; font-weight: bold;">`+
+		`🚨 Triage Risk</h3>
+			<p style="margin: 0 0 8px 0; font-size: 14px; color: %s; font-weight: 600;">`+
+		`Status: %s (%.1f/10 gemiddeld)</p>
+			<p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280;">`+
+		`<strong>Gebaseerd op:</strong> Q2 (24-uurs Triage) + Q7 (Security Updates)</p>
+			<p style="margin: 0; font-size: 14px; color: #4b5563; line-height: 1.6;">%s</p>
+		</div>
+	`, color, color, status, triageAvg, message)
+}
+
+func getTriageRiskDetails(avg float64) (string, string, string) {
+	if avg >= 10.0 {
+		return "#059669", "Laag Risico",
+			"Uitstekend: Uw processen voor 24-uurs triage en security updates zijn robuust " +
+				"ingericht met geautomatiseerde monitoring en binaire verificatie. Dit voldoet aan " +
+				"de CRA-vereisten en beschermt uw juridische positie."
+	}
+	if avg >= 5.0 {
+		return "#f59e0b", "Gemiddeld Risico",
+			"Uw triage processen zijn gedeeltelijk ingericht, maar missen de binaire " + //nolint:misspell
+				"automatisering die nodig is om consistent binnen de wettelijke 24-uurs deadline te " +
+				"blijven. Versterking met real-time CVE-matching en exploitability validation wordt aanbevolen."
+	}
+	//nolint:misspell
+	return "#dc2626", "Hoog Risico",
+		"Uw organisatie heeft momenteel geen geautomatiseerde real-time CVE-triage en " +
+			"24-uurs compliance monitoring. Dit brengt u in conflict met Art. 11, Lid 1 " +
+			"(24-uurs deadline) en creëert significante aansprakelijkheidsrisico's voor u en uw cliënten."
+}
+
+func buildValidationRisk(answers []int) string {
+	validationScore := answers[0] + answers[3] + answers[7]
+	validationAvg := float64(validationScore) / 3.0
+	color, status, message := getValidationRiskDetails(validationAvg)
+
+	return fmt.Sprintf(`
+		<div style="margin-bottom: 20px; padding: 20px; background-color: #f9fafb; `+
+		`border-left: 6px solid %s; border-radius: 4px;">
+			<h3 style="margin: 0 0 10px 0; font-size: 16px; color: #111827; font-weight: bold;">`+
+		`⚖️ Validation Risk</h3>
+			<p style="margin: 0 0 8px 0; font-size: 14px; color: %s; font-weight: 600;">`+
+		`Status: %s (%.1f/10 gemiddeld)</p>
+			<p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280;">`+
+		`<strong>Gebaseerd op:</strong> Q1 (Binaire Waarheid) + Q4 (Annex I Mapping) + `+
+		`Q8 (Appropriate Level Toets)</p>
+			<p style="margin: 0; font-size: 14px; color: #4b5563; line-height: 1.6;">%s</p>
+		</div>
+	`, color, color, status, validationAvg, message)
+}
+
+func getValidationRiskDetails(avg float64) (string, string, string) {
+	if avg >= 10.0 {
+		return "#059669", "Laag Risico",
+			"Uitstekend: Uw technische validatie is goed ingericht met binaire verificatie " +
+				"van SBOM's, security defaults en benchmark compliance. Dit maakt uw juridische " +
+				"adviezen objectief meetbaar en audit-ready."
+	}
+	if avg >= 5.0 {
+		return "#f59e0b", "Gemiddeld Risico",
+			"Uw validatie-processen zijn aanwezig maar gedeeltelijk manueel. Voor juridische " +
+				"bewijslast onder de CRA adviseren wij binaire automatisering van SBOM's, security " +
+				"defaults en benchmark-rapporten tegen NIST/CIS standaarden."
+	}
+	return "#dc2626", "Hoog Risico",
+		"Uw adviezen missen momenteel de binaire technische onderbouwing die nodig is voor " + //nolint:misspell
+			"juridisch verdedigbare compliance statements. Zonder geautomatiseerde SBOM-extractie, " +
+			"default security mapping en appropriate level benchmarking loopt u aanzienlijke " +
+			"beroepsaansprakelijkheidsrisico's."
+}
+
+func buildArchivingRisk(answers []int) string {
+	archivingScore := answers[4] + answers[8]
+	archivingAvg := float64(archivingScore) / 2.0
+	color, status, message := getArchivingRiskDetails(archivingAvg)
+
+	return fmt.Sprintf(`
+		<div style="margin-bottom: 20px; padding: 20px; background-color: #f9fafb; `+
+		`border-left: 6px solid %s; border-radius: 4px;">
+			<h3 style="margin: 0 0 10px 0; font-size: 16px; color: #111827; font-weight: bold;">`+
+		`📦 Archiving Risk</h3>
+			<p style="margin: 0 0 8px 0; font-size: 14px; color: %s; font-weight: 600;">`+
+		`Status: %s (%.1f/10 gemiddeld)</p>
+			<p style="margin: 0 0 8px 0; font-size: 13px; color: #6b7280;">`+
+		`<strong>Gebaseerd op:</strong> Q5 (10-jarige Bewaarplicht) + `+
+		`Q9 (Product Lifecycle Support)</p>
+			<p style="margin: 0; font-size: 14px; color: #4b5563; line-height: 1.6;">%s</p>
+		</div>
+	`, color, color, status, archivingAvg, message)
+}
+
+func getArchivingRiskDetails(avg float64) (string, string, string) {
+	if avg >= 10.0 {
+		return "#059669", "Laag Risico",
+			"Uitstekend: Uw archivering en lifecycle monitoring voldoen aan de CRA-vereisten " +
+				"met onveranderlijke storage, timestamps en continue CVE-monitoring gedurende de " +
+				"productlevensduur."
+	}
+	if avg >= 5.0 {
+		return "#f59e0b", "Gemiddeld Risico",
+			"Uw archivering is gedeeltelijk ingericht, maar mist de immutable storage en " +
+				"cryptografische integriteitsgaranties die nodig zijn voor de wettelijke 10-jarige " +
+				"bewaarplicht en continue lifecycle monitoring."
+	}
+	return "#dc2626", "Hoog Risico",
+		"Zonder een onveranderlijk archief met binaire artifacts en compliance snapshots " +
+			"overtreedt u Art. 10, Lid 8 (10-jarige bewaarplicht). Dit creëert significante " + //nolint:misspell
+			"juridische risico's bij toekomstige audits of security incidents."
+}
+
+func buildLiabilityScorecard(answers []int) string {
+	// Compute normalized total liability score (0-10 scale)
+	totalScore := 0
+	for _, answer := range answers {
+		totalScore += answer
+	}
+	normalizedScore := float64(totalScore) / float64(len(answers))
+
+	scorecardColor := "#dc2626"
+	tier := "Hoog Aansprakelijkheidsrisico"
+	message := "Uw huidige processen bieden onvoldoende technische onderbouwing voor juridisch " +
+		"verdedigbare CRA-compliance. Dit creëert significante beroepsaansprakelijkheidsrisico's. " + //nolint:misspell
+		"Wij raden aan om prioriteit te geven aan automatisering van binaire verificatie, " +
+		"real-time monitoring en immutable archiving."
+	upsellCTA := "Plan een strategisch overleg om uw juridische positie te versterken met " + //nolint:misspell
+		"LEONA's binaire compliance platform."
+
+	if normalizedScore >= 5.0 && normalizedScore < 8.0 {
+		scorecardColor = "#f59e0b"
+		tier = "Gemiddeld Aansprakelijkheidsrisico"
+		message = "U heeft een solide juridisch framework, maar de technische executie is nog " + //nolint:misspell
+			"gedeeltelijk manueel. Om consistent binnen de CRA-deadlines te blijven en uw " +
+			"beroepsaansprakelijkheid te beperken, adviseren wij aanvullende automatisering " +
+			"van triage, validatie en archivering."
+		upsellCTA = "Ontdek hoe LEONA uw bestaande processen kan versterken met binaire bewijslast " +
+			"en geautomatiseerde compliance-monitoring."
+	}
+	if normalizedScore >= 8.0 {
+		scorecardColor = "#059669"
+		tier = "Laag Aansprakelijkheidsrisico"
+		message = "Uitstekend! Uw technisch-juridische infrastructuur is robuust en voldoet aan de " + //nolint:misspell
+			"CRA-eisen. U bent goed gepositioneerd als trusted advisor voor complexe product " +
+			"compliance-vraagstukken. LEONA kan uw dienstverlening verder differentiëren met " +
+			"geavanceerde forensische analyse en supply chain verification."
+		upsellCTA = "Verken hoe LEONA's enterprise features uw premium dienstverlening kunnen " +
+			"versterken met white-label rapportage en multi-tenant workflows."
+	}
+
+	return fmt.Sprintf(`
+		<div style="padding: 25px; background: linear-gradient(135deg, %s 0%%, #1e40af 100%%); `+
+		`border-radius: 8px; color: #ffffff;">
+			<div style="text-align: center; margin-bottom: 20px;">
+				<div style="display: inline-block; background-color: rgba(255,255,255,0.2); `+
+		`color: white; font-size: 42px; font-weight: bold; width: 100px; height: 100px; `+
+		`border-radius: 50px; line-height: 100px; margin-bottom: 10px;">
+					%.1f
+				</div>
+				<p style="margin: 0; font-size: 18px; font-weight: bold;">%s</p>
+			</div>
+			<p style="margin: 0 0 15px 0; font-size: 14px; line-height: 1.6; color: #dbeafe;">%s</p>
+			<p style="margin: 0; font-size: 14px; font-weight: 600; color: #ffffff;">💼 %s</p>
+		</div>
+	`, scorecardColor, normalizedScore, tier, message, upsellCTA)
 }
