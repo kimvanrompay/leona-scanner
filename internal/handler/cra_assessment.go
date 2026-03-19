@@ -169,7 +169,7 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 // sendAssessmentResultsEmail sends the assessment results to the user
 func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount int, score int) error {
 	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := 465
+	smtpPort := getSMTPPort()
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
 	smtpFrom := "support@leonacompliance.be"
@@ -263,7 +263,11 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 	m.SetBody("text/html", body)
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
-	d.SSL = true
+	if smtpPort == 465 {
+		d.SSL = true
+	} else {
+		d.SSL = false
+	}
 
 	return d.DialAndSend(m)
 }
@@ -271,7 +275,7 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 // sendAssessmentNotification sends admin notification
 func sendAssessmentNotification(email string, answers map[string]string, jaCount int, score int) {
 	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := 465
+	smtpPort := getSMTPPort()
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
 	smtpFrom := "support@leonacompliance.be"
@@ -347,7 +351,11 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 	m.SetBody("text/html", body)
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
-	d.SSL = true
+	if smtpPort == 465 {
+		d.SSL = true
+	} else {
+		d.SSL = false
+	}
 
 	if err := d.DialAndSend(m); err != nil {
 		log.Printf("❌ ERROR: Failed to send admin notification to kim@leonacompliance.be: %v", err)

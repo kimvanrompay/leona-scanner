@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"leona-scanner/internal/database"
@@ -74,7 +75,7 @@ func (h *HTTPHandlerV2) HandleSampleReportDownload(w http.ResponseWriter, r *htt
 // sendSampleReportEmail sends the gold standard sample TCF
 func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
 	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := 465
+	smtpPort := getSMTPPort()
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
 	smtpFrom := "support@leonacompliance.be"
@@ -221,14 +222,19 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
 	}
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
-	d.SSL = true
+	// Use SSL for port 465, STARTTLS for 587
+	if smtpPort == 465 {
+		d.SSL = true
+	} else {
+		d.SSL = false // Use STARTTLS for port 587
+	}
 	return d.DialAndSend(m)
 }
 
 // sendSampleDownloadNotification notifies admin
 func (h *HTTPHandlerV2) sendSampleDownloadNotification(email, companyName string) {
 	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := 465
+	smtpPort := getSMTPPort()
 	smtpUser := os.Getenv("SMTP_USER")
 	smtpPass := os.Getenv("SMTP_PASS")
 	smtpFrom := "support@leonacompliance.be"
@@ -265,9 +271,28 @@ func (h *HTTPHandlerV2) sendSampleDownloadNotification(email, companyName string
 	m.SetBody("text/html", body)
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
+	if smtpPort == 465 {
+		d.SSL = true
+	} else {
+		d.SSL = false
+	}
 	if err := d.DialAndSend(m); err != nil {
 		log.Printf("Failed to send sample download notification: %v", err)
 	} else {
 		log.Printf("✅ Sample download notification sent: %s", email)
 	}
+}
+
+// getSMTPPort reads SMTP_PORT from env, defaults to 465 if not set
+func getSMTPPort() int {
+	portStr := os.Getenv("SMTP_PORT")
+	if portStr == "" {
+		return 465 // Default to SSL
+	}
+	port, err := strconv.Atoi(portStr)
+	if err != nil {
+		log.Printf("⚠️  Invalid SMTP_PORT %s, using default 465", portStr)
+		return 465
+	}
+	return port
 }
