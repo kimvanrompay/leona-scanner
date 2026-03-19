@@ -44,9 +44,6 @@
                     Vertrouwt u bij het opstellen van het Technisch Dossier (TCF) op de handmatige componentenlijst van de CTO van uw cliënt, 
                     of beschikt u over een <strong>geautomatiseerde binaire SBOM</strong> die ook de 'hidden dependencies' in kaart brengt?
                 </p>
-                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <p class="text-sm text-red-800"><strong>Risico:</strong> Een onvolledige SBOM in het TCF maakt de conformiteitsverklaring juridisch aanvechtbaar.</p>
-                </div>
             </div>
             
             <div class="space-y-4">
@@ -61,7 +58,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Handmatige lijst van de cliënt</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij vertrouwen op de componentenlijst die de CTO aanlevert (0 punten)</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij vertrouwen op de componentenlijst die de CTO aanlevert</p>
                         </div>
                     </div>
                 </button>
@@ -77,7 +74,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Gedeeltelijke automatisering</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij gebruiken tools maar valideren niet alle hidden dependencies (5 punten)</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij gebruiken tools maar valideren niet alle hidden dependencies</p>
                         </div>
                     </div>
                 </button>
@@ -93,7 +90,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Volledige binaire SBOM</p>
-                            <p class="text-sm text-gray-600 mt-1">Geautomatiseerde extractie inclusief kernel configs en hidden dependencies (10 punten)</p>
+                            <p class="text-sm text-gray-600 mt-1">Geautomatiseerde extractie inclusief kernel configs en hidden dependencies</p>
                         </div>
                     </div>
                 </button>
@@ -108,9 +105,6 @@
                     Indien er een kwetsbaarheid wordt gemeld, heeft u dan een technisch protocol om binnen <strong>24 uur</strong> te valideren 
                     of dit lek daadwerkelijk 'exploiteerbaar' is in de specifieke build van de cliënt?
                 </p>
-                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <p class="text-sm text-red-800"><strong>Risico:</strong> Te laat melden bij ENISA/BIPT leidt tot boetes; onterecht melden leidt tot reputatieschade.</p>
-                </div>
             </div>
             
             <div class="space-y-4">
@@ -125,7 +119,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Geen technisch protocol</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij vertrouwen op de inschatting van de cliënt (0 punten)</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij vertrouwen op de inschatting van de cliënt</p>
                         </div>
                     </div>
                 </button>
@@ -141,7 +135,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Manuele triage</p>
-                            <p class="text-sm text-gray-600 mt-1">Wij hebben een proces maar het duurt langer dan 24 uur (5 punten)</p>
+                            <p class="text-sm text-gray-600 mt-1">Wij hebben een proces maar het duurt langer dan 24 uur</p>
                         </div>
                     </div>
                 </button>
@@ -157,7 +151,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="font-semibold text-gray-900">Geautomatiseerd real-time triage</p>
-                            <p class="text-sm text-gray-600 mt-1">Binaire CVE-matching met exploitability validation binnen 24 uur (10 punten)</p>
+                            <p class="text-sm text-gray-600 mt-1">Binaire CVE-matching met exploitability validation binnen 24 uur</p>
                         </div>
                     </div>
                 </button>
@@ -170,9 +164,6 @@
                 <div class="border-l-4 border-blue-600 pl-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4" x-text="`${index + 3}. ${question.title}`"></h2>
                     <p class="text-lg text-gray-700 leading-relaxed mb-6" x-html="question.question"></p>
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                        <p class="text-sm text-red-800"><strong>Risico:</strong> <span x-text="question.risk"></span></p>
-                    </div>
                 </div>
                 
                 <div class="space-y-4">
@@ -282,9 +273,9 @@ function assessmentWizard() {
                 question: "Kunt u juridisch aantonen dat uw cliënt een beleid voert voor het systematisch testen en pluggen van lekken, gestaafd door <strong>historische binaire scandata</strong>?",
                 risk: "Zonder technische logging is 'zorgvuldigheid' (Duty of Care) bij een incident niet bewijsbaar.",
                 options: [
-                    { score: 0, label: "Geen logging", description: "Wij vertrouwen op schriftelijke verklaringen (0 punten)" },
-                    { score: 5, label: "Beperkte documentatie", description: "Er is logging maar geen historische binaire data (5 punten)" },
-                    { score: 10, label: "Complete audit trail", description: "Historische binaire scandata met timestamps en hashes (10 punten)" }
+                    { score: 0, label: "Geen logging", description: "Wij vertrouwen op schriftelijke verklaringen" },
+                    { score: 5, label: "Beperkte documentatie", description: "Er is logging maar geen historische binaire data" },
+                    { score: 10, label: "Complete audit trail", description: "Historische binaire scandata met timestamps en hashes" }
                 ]
             },
             {
@@ -292,9 +283,9 @@ function assessmentWizard() {
                 question: "Hoe verifieert u of de 14 essentiële veiligheidseisen (zoals het uitschakelen van onnodige interfaces) feitelijk zijn doorgevoerd in de firmware, buiten de schriftelijke bevestiging van de engineer om?",
                 risk: "Contractuele garanties zijn waardeloos als de binaire realiteit in de rechtszaal anders blijkt te zijn.",
                 options: [
-                    { score: 0, label: "Schriftelijke bevestiging", description: "Wij vertrouwen op engineeringdocumentatie (0 punten)" },
-                    { score: 5, label: "Steekproefcontroles", description: "Wij doen incidentele technische checks (5 punten)" },
-                    { score: 10, label: "Binaire verificatie", description: "Geautomatiseerde scans op misconfigurations (10 punten)" }
+                    { score: 0, label: "Schriftelijke bevestiging", description: "Wij vertrouwen op engineeringdocumentatie" },
+                    { score: 5, label: "Steekproefcontroles", description: "Wij doen incidentele technische checks" },
+                    { score: 10, label: "Binaire verificatie", description: "Geautomatiseerde scans op misconfigurations" }
                 ]
             },
             {
@@ -302,9 +293,9 @@ function assessmentWizard() {
                 question: "Heeft u voor uw cliënten een onveranderlijk digitaal archief ingericht dat <strong>binaire artifacts en compliance-snapshots</strong> 10 jaar lang 'audit-ready' bewaart?",
                 risk: "Het niet kunnen overleggen van de exacte softwareversie van 7 jaar geleden is een directe inbreuk op de CRA.",
                 options: [
-                    { score: 0, label: "Geen archief", description: "De cliënt bewaart eigen data (0 punten)" },
-                    { score: 5, label: "Documentarchief", description: "Wij bewaren PDFs en rapporten (5 punten)" },
-                    { score: 10, label: "Binair archief", description: "Onveranderlijk archief met binaries en snapshots (10 punten)" }
+                    { score: 0, label: "Geen archief", description: "De cliënt bewaart eigen data" },
+                    { score: 5, label: "Documentarchief", description: "Wij bewaren PDFs en rapporten" },
+                    { score: 10, label: "Binair archief", description: "Onveranderlijk archief met binaries en snapshots" }
                 ]
             },
             {
@@ -312,9 +303,9 @@ function assessmentWizard() {
                 question: "Hoe controleert u de 'due diligence' van upstream leveranciers (open-source bibliotheken)? Is er een proces om de integriteit van binaire componenten van derden te valideren?",
                 risk: "De fabrikant is aansprakelijk voor het eindproduct, inclusief de fouten van derden.",
                 options: [
-                    { score: 0, label: "Geen controle", description: "Wij vertrouwen op open source reputatie (0 punten)" },
-                    { score: 5, label: "Licentie-audit", description: "Wij controleren licenties maar geen binaire integriteit (5 punten)" },
-                    { score: 10, label: "Binaire validatie", description: "Volledige supply chain verification met hashes (10 punten)" }
+                    { score: 0, label: "Geen controle", description: "Wij vertrouwen op open source reputatie" },
+                    { score: 5, label: "Licentie-audit", description: "Wij controleren licenties maar geen binaire integriteit" },
+                    { score: 10, label: "Binaire validatie", description: "Volledige supply chain verification met hashes" }
                 ]
             },
             {
@@ -322,9 +313,9 @@ function assessmentWizard() {
                 question: "Kan uw cliënt technisch garanderen dat security-updates de integriteit van het systeem niet aantasten, en wordt dit proces gedocumenteerd voor toezichthouders?",
                 risk: "Updates zonder integriteitscontrole kunnen nieuwe liability-risico's creëren.",
                 options: [
-                    { score: 0, label: "Geen proces", description: "Updates worden ad-hoc uitgerold (0 punten)" },
-                    { score: 5, label: "Testprotocol", description: "Er is testing maar geen binaire integriteitscontrole (5 punten)" },
-                    { score: 10, label: "Gedocumenteerd proces", description: "Volledige update verification met voor/na scans (10 punten)" }
+                    { score: 0, label: "Geen proces", description: "Updates worden ad-hoc uitgerold" },
+                    { score: 5, label: "Testprotocol", description: "Er is testing maar geen binaire integriteitscontrole" },
+                    { score: 10, label: "Gedocumenteerd proces", description: "Volledige update verification met voor/na scans" }
                 ]
             },
             {
@@ -332,9 +323,9 @@ function assessmentWizard() {
                 question: "De wet eist een 'gepast veiligheidsniveau'. Beschikt u over een <strong>benchmark-rapport</strong> dat de binaire staat van het product afzet tegen de huidige 'state-of-the-art' standaarden?",
                 risk: "Zonder objectieve data is 'gepast' een rekbaar en gevaarlijk begrip in een rechtszaak.",
                 options: [
-                    { score: 0, label: "Geen benchmark", description: "'Gepast' is een juridische interpretatie (0 punten)" },
-                    { score: 5, label: "Industrie vergelijking", description: "Wij vergelijken met concurrenten (5 punten)" },
-                    { score: 10, label: "Technisch benchmark", description: "Objectieve binaire benchmark tegen NIST/CIS standards (10 punten)" }
+                    { score: 0, label: "Geen benchmark", description: "'Gepast' is een juridische interpretatie" },
+                    { score: 5, label: "Industrie vergelijking", description: "Wij vergelijken met concurrenten" },
+                    { score: 10, label: "Technisch benchmark", description: "Objectieve binaire benchmark tegen NIST/CIS standards" }
                 ]
             },
             {
@@ -342,9 +333,9 @@ function assessmentWizard() {
                 question: "Wordt de verwachte levensduur van het product technisch gemonitord op nieuwe kwetsbaarheden, zodat de juridische support-belofte in de SLA ook daadwerkelijk nagekomen kan worden?",
                 risk: "Een SLA die technisch niet gemonitord wordt, is een openstaande factuur voor toekomstige schadeclaims.",
                 options: [
-                    { score: 0, label: "Geen monitoring", description: "De SLA is een contractueel document zonder technical backing (0 punten)" },
-                    { score: 5, label: "Periodieke checks", description: "Wij doen jaarlijkse reviews (5 punten)" },
-                    { score: 10, label: "Real-time monitoring", description: "Continue CVE monitoring gedurende productlevensduur (10 punten)" }
+                    { score: 0, label: "Geen monitoring", description: "De SLA is een contractueel document zonder technical backing" },
+                    { score: 5, label: "Periodieke checks", description: "Wij doen jaarlijkse reviews" },
+                    { score: 10, label: "Real-time monitoring", description: "Continue CVE monitoring gedurende productlevensduur" }
                 ]
             },
             {
@@ -352,9 +343,9 @@ function assessmentWizard() {
                 question: "Zijn de bestuurders van uw cliënt op de hoogte dat zij persoonlijk aansprakelijk kunnen worden gesteld bij het ontbreken van <strong>technische verificatieprocessen</strong> onder de nieuwe CRA-regels?",
                 risk: "Juridisch advies dat de technische controle negeert, laat bestuurders onbeschermd achter.",
                 options: [
-                    { score: 0, label: "Niet besproken", description: "Wij focussen op juridische aspecten (0 punten)" },
-                    { score: 5, label: "Algemene waarschuwing", description: "Wij wijzen op risico's maar zonder technisch plan (5 punten)" },
-                    { score: 10, label: "Volledige disclosure", description: "Bestuurders zijn geïnformeerd met technisch mitigatieplan (10 punten)" }
+                    { score: 0, label: "Niet besproken", description: "Wij focussen op juridische aspecten" },
+                    { score: 5, label: "Algemene waarschuwing", description: "Wij wijzen op risico's maar zonder technisch plan" },
+                    { score: 10, label: "Volledige disclosure", description: "Bestuurders zijn geïnformeerd met technisch mitigatieplan" }
                 ]
             }
         ],
@@ -406,12 +397,12 @@ function assessmentWizard() {
         
         getScoreDescription() {
             if (this.totalScore <= 40) {
-                return 'Uw juridische dossiers rusten op <strong>ongeteste aannames</strong>. U heeft geen technische verificatie van de conformiteitsverklaringen die u opstelt. Dit creëert een <strong>hoog risico op beroepsaansprakelijkheid</strong> wanneer een incident de binaire realiteit blootlegt.';
+                return 'Uw juridische expertise is uitstekend, maar de <strong>technische executie van CRA-compliance</strong> vraagt om gespecialiseerde tooling. De wet vereist immers niet alleen juridische kennis, maar ook <strong>binaire verificatie</strong> en <strong>geautomatiseerde monitoring</strong>. Wij helpen u graag om uw adviespraktijk te versterken met de nodige technische onderbouwing.';
             }
             if (this.totalScore <= 80) {
-                return 'U begrijpt de CRA-kaders en heeft processen ingericht, maar <strong>mist de automatisering</strong> om de 24-uurs deadlines en 10-jarige bewaarplicht te borgen. Uw cliënten zijn kwetsbaar voor compliance-inbreuken die juridisch correct lijken maar technisch niet haalbaar zijn.';
+                return 'U heeft een <strong>solide juridisch framework</strong> ontwikkeld en begrijpt de CRA-vereisten goed. Om de strikte <strong>24-uurs deadlines</strong> en <strong>10-jarige bewaarplicht</strong> consistent na te komen, adviseren wij aanvullende automatisering. Dit versterkt uw dienstverlening en beschermt zowel u als uw cliënten tegen compliance-risico\'s.';
             }
-            return 'U beschikt over een <strong>volledige technische infrastructuur</strong> om de CRA uit te voeren. Uw juridische adviezen zijn onderbouwd met binaire bewijslast. (Dit niveau haalt niemand zonder gespecialiseerde legal-tech zoals LEONA.)';
+            return 'Uitstekend! U beschikt over een <strong>robuuste technisch-juridische infrastructuur</strong> die voldoet aan de CRA-eisen. Uw adviezen zijn onderbouwd met binaire bewijslast en uw processen zijn audit-ready. Dit positioneert u als <strong>trusted advisor</strong> voor complexe product compliance-vraagstukken.';
         }
     }
 }

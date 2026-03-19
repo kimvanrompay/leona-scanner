@@ -404,19 +404,19 @@ func buildDetailedAnalysis(answers []int) string {
 	var analysis strings.Builder
 
 	for i, answer := range answers {
-		status := "❌ Hoog Risico"
+		status := "💡 Versterking Aanbevolen"
 		statusColor := "#dc2626"
-		recommendation := "Direct actie vereist: " + questions[i].recommendation
+		recommendation := "Aanbeveling: " + questions[i].recommendation
 
 		if answer >= 5 {
-			status = "⚠️ Gedeeltelijke Dekking"
+			status = "🔧 Optimalisatie Mogelijk"
 			statusColor = "#f59e0b"
-			recommendation = "Verbetering mogelijk: " + questions[i].recommendation
+			recommendation = "Versterking: " + questions[i].recommendation
 		}
 		if answer >= 10 {
-			status = "✅ Compliant"
+			status = "✅ Sterk Proces"
 			statusColor = "#059669"
-			recommendation = "Uitstekend: Uw proces voldoet aan CRA-vereisten."
+			recommendation = "Uitstekend: Uw proces is goed ingericht en voldoet aan de CRA-vereisten."
 		}
 
 		analysis.WriteString(fmt.Sprintf(`
@@ -464,10 +464,10 @@ func getScoreDescription(score string) string {
 	fmt.Sscanf(score, "%d", &scoreInt)
 
 	if scoreInt <= 40 {
-		return "Uw juridische dossiers rusten op ongeteste aannames. U heeft geen technische verificatie van de conformiteitsverklaringen die u opstelt. Dit creëert een hoog risico op beroepsaansprakelijkheid wanneer een incident de binaire realiteit blootlegt."
+		return "Uw juridische expertise is uitstekend, maar de technische executie van CRA-compliance vraagt om gespecialiseerde tooling. De wet vereist immers niet alleen juridische kennis, maar ook binaire verificatie en geautomatiseerde monitoring. Wij helpen u graag om uw adviespraktijk te versterken met de nodige technische onderbouwing."
 	}
 	if scoreInt <= 80 {
-		return "U begrijpt de CRA-kaders en heeft processen ingericht, maar mist de automatisering om de 24-uurs deadlines en 10-jarige bewaarplicht te borgen. Uw cliënten zijn kwetsbaar voor compliance-inbreuken die juridisch correct lijken maar technisch niet haalbaar zijn."
+		return "U heeft een solide juridisch framework ontwikkeld en begrijpt de CRA-vereisten goed. Om de strikte 24-uurs deadlines en 10-jarige bewaarplicht consistent na te komen, adviseren wij aanvullende automatisering. Dit versterkt uw dienstverlening en beschermt zowel u als uw cliënten tegen compliance-risico's."
 	}
-	return "U beschikt over een volledige technische infrastructuur om de CRA uit te voeren. Uw juridische adviezen zijn onderbouwd met binaire bewijslast. (Dit niveau haalt niemand zonder gespecialiseerde legal-tech zoals LEONA.)"
+	return "Uitstekend! U beschikt over een robuuste technisch-juridische infrastructuur die voldoet aan de CRA-eisen. Uw adviezen zijn onderbouwd met binaire bewijslast en uw processen zijn audit-ready. Dit positioneert u als trusted advisor voor complexe product compliance-vraagstukken."
 }
