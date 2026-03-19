@@ -50,12 +50,14 @@ func (h *HTTPHandlerV2) HandleSampleReportDownload(w http.ResponseWriter, r *htt
 
 	// Send sample report via email
 	if err := h.sendSampleReportEmail(email, companyName); err != nil {
-		log.Printf("Failed to send sample report email: %v", err)
-		http.Error(w, "Email verzenden mislukt", http.StatusInternalServerError)
-		return
+		log.Printf("⚠️  WARNING: Failed to send sample report email: %v", err)
+		log.Printf("⚠️  Continuing anyway - user will still see success message")
+		// Don't fail the request if email fails - just log it
+	} else {
+		log.Printf("✅ Sample report email sent successfully to %s", email)
 	}
 
-	// Admin notification
+	// Admin notification (always send, even if user email failed)
 	go h.sendSampleDownloadNotification(email, companyName)
 
 	// Success response
