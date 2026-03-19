@@ -851,3 +851,8 @@ func (h *HTTPHandlerV2) HandleSuccess(w http.ResponseWriter, r *http.Request) {
 </html>
 	`, tierName, scanID)
 }
+
+// HandleLegalAssessmentSubmit processes legal assessment form submissions
+func (h *HTTPHandlerV2) HandleLegalAssessmentSubmit(w http.ResponseWriter, r *http.Request) {
+	LegalAssessmentSubmit(db)(w, r)
+}

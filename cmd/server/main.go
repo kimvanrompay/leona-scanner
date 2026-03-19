@@ -168,12 +168,16 @@ func main() {
 	r.HandleFunc("/legal-partners", h.HandlePage("legal-partners")).Methods("GET")
 	r.HandleFunc("/partner-overleg", h.HandlePage("partner-overleg")).Methods("GET")
 	r.HandleFunc("/specs", h.HandlePage("specs")).Methods("GET")
+	r.HandleFunc("/legal-assessment", h.HandlePage("legal-assessment")).Methods("GET")
 
 	// Contact form submission
 	r.HandleFunc("/api/contact/submit", h.HandleContactSubmit).Methods("POST")
 
 	// Partner meeting submission
 	r.HandleFunc("/api/partner-meeting/submit", h.HandlePartnerMeetingSubmit).Methods("POST")
+
+	// Legal assessment submission
+	r.HandleFunc("/api/legal-assessment/submit", h.HandleLegalAssessmentSubmit).Methods("POST")
 
 	// Demo request submission
 	r.HandleFunc("/api/demo/submit", h.HandleDemoSubmit).Methods("POST")
