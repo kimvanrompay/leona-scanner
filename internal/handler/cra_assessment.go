@@ -122,10 +122,13 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 	}
 
 	// Send email with results
+	log.Printf("🔄 Attempting to send assessment email to %s (Score: %d%%,  %d/10 JA)", email, complianceScore, jaCount)
 	if err := sendAssessmentResultsEmail(email, answers, jaCount, complianceScore); err != nil {
 		log.Printf("❌ ERROR: Failed to send assessment email to %s: %v", email, err)
+		log.Printf("❌ Email error details - SMTP config check needed")
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusInternalServerError)
+		//nolint:errcheck // Error response
 		json.NewEncoder(w).Encode(map[string]string{"error": "Email verzenden mislukt"})
 		return
 	}
