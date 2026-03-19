@@ -1,0 +1,567 @@
+{{ define "content" }}
+<div class="bg-white">
+    <!-- Header Section -->
+    <div class="relative isolate overflow-hidden bg-gradient-to-b from-blue-50/20">
+        <div class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-32">
+            <div class="mx-auto max-w-4xl flex-shrink-0 lg:mx-0 lg:max-w-3xl lg:pt-8">
+                <p class="text-xs font-bold text-blue-600 uppercase tracking-[0.3em] mb-4">Strategic Alliance</p>
+                <h1 class="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl uppercase">
+                    U beheerst de wet.<br/>
+                    <span class="text-blue-600">Wij de binaire bewijslast.</span>
+                </h1>
+                <p class="mt-8 text-xl text-gray-600 font-normal leading-relaxed">
+                    U definieert de contractuele zorgplicht, wij leveren de binaire bewijslast. 
+                    LEONA fungeert als uw Technical Back-office voor embedded Linux en firmware-validatie.
+                </p>
+                
+                <div class="mt-10 flex items-center gap-x-6">
+                    <a href="/partner-overleg" 
+                       class="rounded-lg bg-gray-900 px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 transition-all">
+                        Plan Partner-overleg
+                    </a>
+                    <a href="/specs" 
+                       class="rounded-lg bg-white px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-gray-900 ring-1 ring-inset ring-gray-200 hover:ring-gray-300 transition-all">
+                        Technische Specs voor Juristen
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content - Two Column Grid -->
+    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+        <div class="grid grid-cols-1 gap-x-20 gap-y-24 lg:grid-cols-2">
+            
+            <!-- Left Column: Target Partners -->
+            <div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-10">De juiste partners</h2>
+                <div class="space-y-16">
+                    <div class="border-l-4 border-blue-600 pl-6">
+                        <h3 class="text-lg font-bold uppercase tracking-tight text-gray-900">
+                            IP / ICT & Privacy Advocaten
+                        </h3>
+                        <p class="mt-4 text-base text-gray-600 leading-relaxed">
+                            U focust op software-compliance en escrow-contracten. LEONA levert een levend technisch dossier 
+                            dat verder gaat dan statische verklaringen. Elk SBOM wordt binair geverifieerd en gekoppeld aan real-time CVE-monitoring.
+                        </p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-start gap-3">
+                                <svg class="h-6 w-6 flex-none text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-gray-600">Automated SBOM generation & validation</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="h-6 w-6 flex-none text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-gray-600">Real-time CVE vulnerability monitoring</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="h-6 w-6 flex-none text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-gray-600">Audit-ready compliance documentation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-6">
+                        <h3 class="text-lg font-bold uppercase tracking-tight text-gray-900">
+                            Ondernemingsrecht & Product Liability
+                        </h3>
+                        <p class="mt-4 text-base text-gray-600 leading-relaxed">
+                            U focust op distributie en aansprakelijkheid. LEONA bewijst dat de fabrikant state-of-the-art methoden 
+                            gebruikt, cruciaal in schadeclaims. Wij monitoren de embedded stack gedurende de volledige 10-jarige levensduur.
+                        </p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-start gap-3">
+                                <svg class="h-6 w-6 flex-none text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-gray-600">10-year compliance data retention</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="h-6 w-6 flex-none text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-gray-600">Lifecycle vulnerability tracking</span>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg class="h-6 w-6 flex-none text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm text-gray-600">Liability evidence documentation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Why Partner -->
+            <div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-10">Waarom partneren?</h2>
+                <div class="space-y-16">
+                    <div>
+                        <div class="rounded-2xl bg-blue-50 p-8">
+                            <h3 class="text-lg font-bold uppercase tracking-tight text-gray-900">
+                                Sluit de kenniskloof
+                            </h3>
+                            <p class="mt-4 text-base text-gray-600 leading-relaxed">
+                                Embedded systemen (Yocto, Buildroot) zijn voor u een black box. LEONA vertaalt complexe 
+                                build-metadata naar gestandaardiseerde rapportages die u direct als bijlage bij uw advies voegt. 
+                                Geen wachten meer op vage input van de technici van uw cliënt.
+                            </p>
+                            <div class="mt-6 rounded-lg bg-white p-4 border border-blue-100">
+                                <p class="text-sm font-semibold text-blue-900">Typische vraag van uw cliënt:</p>
+                                <p class="mt-2 text-sm text-gray-600 italic">
+                                    "Hoe bewijs ik dat mijn IoT-device voldoet aan CRA Annex I zonder een dedicated firmware-engineer in huis?"
+                                </p>
+                                <p class="mt-3 text-sm font-semibold text-gray-900">→ Uw antwoord met LEONA:</p>
+                                <p class="mt-1 text-sm text-gray-600">
+                                    Upload de firmware naar onze V-Assessor™. Binnen 60 seconden krijgt u een compleet Technical Construction File 
+                                    met SBOM, CVE-analyse en Annex I mapping. Klaar voor notified body audit.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="rounded-2xl bg-orange-50 p-8">
+                            <h3 class="text-lg font-bold uppercase tracking-tight text-gray-900">
+                                Gedekte eigen aansprakelijkheid
+                            </h3>
+                            <p class="mt-4 text-base text-gray-600 leading-relaxed">
+                                Baseer uw juridische conclusies op binaire validatie via de V-Assessor™ engine, niet op 
+                                cliënt-verklaringen. Hiermee voorkomt u beroepsfouten door onjuiste technische aannames 
+                                en borgt u uw Duty of Care met feitelijke bewijslast.
+                            </p>
+                            <div class="mt-6 space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <div class="rounded-full bg-orange-100 p-1">
+                                        <svg class="h-5 w-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Binary-level verification</p>
+                                        <p class="text-xs text-gray-600 mt-1">Geen vertrouwen op cliënt-verklaringen</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="rounded-full bg-orange-100 p-1">
+                                        <svg class="h-5 w-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">Audit trail documentation</p>
+                                        <p class="text-xs text-gray-600 mt-1">Volledige traceability voor latere verificatie</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="rounded-full bg-orange-100 p-1">
+                                        <svg class="h-5 w-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-gray-900">NDA-protected analysis</p>
+                                        <p class="text-xs text-gray-600 mt-1">End-to-end encryptie van firmware data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Value Proposition Section -->
+    <div class="bg-gray-50 py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:max-w-none">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-12 text-center">What is in it for you</h2>
+                <dl class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="flex flex-col rounded-2xl bg-white p-10 ring-1 ring-gray-200">
+                        <dt class="flex items-center gap-x-3 text-lg font-semibold leading-7 text-gray-900">
+                            <div class="rounded-lg bg-blue-600 p-3">
+                                <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        </dt>
+                        <dd class="mt-6 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                            <p class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">Hogere Facturabiliteit</p>
+                            <p class="flex-auto text-sm leading-relaxed">
+                                Lever hoogwaardigere TCF-dossiers in een fractie van de tijd. Geen handmatige coördinatie met 
+                                de technici van uw cliënt. LEONA automatiseert de technische bewijslast, zodat u focust op 
+                                juridische strategie en uw uurtarief verhoogt met complexe compliance-trajecten.
+                            </p>
+                            <p class="mt-4 text-xs font-semibold text-blue-600">
+                                → Gemiddeld 40% tijdsbesparing per dossier
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="flex flex-col rounded-2xl bg-white p-10 ring-1 ring-gray-200">
+                        <dt class="flex items-center gap-x-3 text-lg font-semibold leading-7 text-gray-900">
+                            <div class="rounded-lg bg-green-600 p-3">
+                                <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                                </svg>
+                            </div>
+                        </dt>
+                        <dd class="mt-6 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                            <p class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">50% Subsidie-Hefboom</p>
+                            <p class="flex-auto text-sm leading-relaxed">
+                                Maak uw factuur acceptabeler voor KMO-cliënten. Het SECURE-traject (CCB) dekt tot 50% van de 
+                                gecombineerde kosten (juridisch + technisch). Dit maakt het voor u makkelijker om uw eigen uren 
+                                te verkopen, omdat de cliënt een totaalpakket met korting krijgt.
+                            </p>
+                            <p class="mt-4 text-xs font-semibold text-green-600">
+                                → Tot €50.000 subsidie per project
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="flex flex-col rounded-2xl bg-white p-10 ring-1 ring-gray-200">
+                        <dt class="flex items-center gap-x-3 text-lg font-semibold leading-7 text-gray-900">
+                            <div class="rounded-lg bg-orange-500 p-3">
+                                <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                </svg>
+                            </div>
+                        </dt>
+                        <dd class="mt-6 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                            <p class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">Lange-termijn Retentie</p>
+                            <p class="flex-auto text-sm leading-relaxed">
+                                De 10-jarige bewaarplicht (CRA Art. 21) is voor u een kans op een cliënt voor het leven. 
+                                LEONA borgt de data, u borgt de relatie. Recurring revenue via update-monitoring en 
+                                lifecycle vulnerability tracking.
+                            </p>
+                            <p class="mt-4 text-xs font-semibold text-orange-500">
+                                → Gegarandeerde 10-jaar cliëntbinding
+                            </p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Study / Example Section -->
+    <div class="overflow-hidden bg-white py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
+            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
+                <div class="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
+                    <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Voorbeeld uit de praktijk</h2>
+                    <p class="mt-6 text-xl/8 text-gray-700">
+                        Een KMO-cliënt met een embedded IoT-device krijgt vragen van hun distributeur over CRA-compliance. 
+                        Zonder LEONA zou dit maanden duren en tienduizenden euro's kosten aan technische consultancy.
+                    </p>
+                    <p class="mt-6 text-base/7 text-gray-600">
+                        Met LEONA upload uw cliënt de firmware naar onze V-Assessor™. Binnen 60 seconden krijgt u een compleet 
+                        Technical Construction File met SBOM, CVE-analyse en Annex I mapping. U voegt dit toe aan uw juridisch advies 
+                        en de cliënt heeft een audit-ready dossier. Totale doorlooptijd: 1 week in plaats van 3 maanden.
+                    </p>
+                    <div class="mt-10 flex">
+                        <a href="/contact" 
+                           class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                            Bespreek uw case
+                            <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
+                    <div class="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1152&q=80" 
+                             alt="Advocaat analyseert technisch rapport" 
+                             class="aspect-[7/5] w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover max-sm:w-[30rem]" />
+                    </div>
+                    <div class="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
+                        <div class="order-first flex w-64 flex-none justify-end self-end max-sm:w-40 lg:w-auto">
+                            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=768&h=604&q=80" 
+                                 alt="Compliance documentatie" 
+                                 class="aspect-[4/3] w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover" />
+                        </div>
+                        <div class="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1152&h=842&q=80" 
+                                 alt="Partner-overleg" 
+                                 class="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover max-sm:w-[30rem]" />
+                        </div>
+                        <div class="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
+                            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=768&h=604&q=80" 
+                                 alt="Technische analyse" 
+                                 class="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-white">
+        <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+            <div class="mx-auto max-w-4xl">
+                <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Veelgestelde vragen</h2>
+                <p class="mt-6 text-lg text-gray-600">Juridische en technische bezwaren die we vaak horen van advocatenkantoren.</p>
+                <dl class="mt-16 divide-y divide-gray-900/10">
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Hoe kan ik mijn cliënt adviseren over technische zaken waar ik zelf geen expert in ben? Loopt mijn beroepsaansprakelijkheid niet op?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                Exact daarom bestaat LEONA. U adviseert niet over de techniek zelf, maar over de <strong>juridische interpretatie</strong> van de CRA-verplichtingen. 
+                                LEONA levert de technische bewijslast (SBOM, CVE-analyse, Annex I mapping) via binaire validatie. U baseert uw juridisch advies op deze objectieve, 
+                                geautomatiseerde rapporten in plaats van op verklaringen van de cliënt of diens technici. Uw Duty of Care is gedekt omdat u werkt met third-party 
+                                verification door een gespecialiseerde tool, vergelijkbaar met hoe u een accountant inschakelt voor fiscale berekeningen.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Waarom zou mijn cliënt betalen voor LEONA als ze al een technisch team hebben?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                Het technisch team van uw cliënt bouwt het product, maar heeft vaak geen diepgaande kennis van <strong>embedded Linux build systems</strong> 
+                                (Yocto, Buildroot) en statutaire compliance-rapportage. LEONA levert drie dingen die hun team niet kan: (1) <strong>Geautomatiseerde SBOM-extractie</strong> 
+                                rechtstreeks uit de binaries zonder manuelelijsten, (2) <strong>Real-time CVE-monitoring</strong> gekoppeld aan NVD met severity-triage, en 
+                                (3) <strong>Pre-formatted Technical Construction Files</strong> die voldoen aan de exacte structuur die notified bodies verwachten. Hun technici 
+                                kunnen dit handmatig doen, maar dat kost 40+ uren per product. LEONA doet dit in 60 seconden. U verkoopt dus efficiëntie én juridische zekerheid.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Hoe weet ik dat de output van LEONA juridisch houdbaar is voor een notified body audit?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                LEONA's V-Assessor™ volgt de <strong>officiële CRA Annex I requirements</strong> en genereert rapporten volgens de 
+                                <strong>NTIA Minimum Elements for SBOM</strong> standaard, die geaccepteerd wordt door Europese notified bodies. Elk rapport bevat:
+                                (1) Component-level vulnerability mapping naar <strong>NVD CVE database</strong>, (2) Traceability matrix tussen firmware-componenten en 
+                                CRA Artikel 10/11 eisen, en (3) Timestamp + hash van de geanalyseerde binary voor audit trail. Dit is geen black-box: u krijgt de volledige 
+                                methodologie en kunt deze in uw juridisch advies citeren. Notified bodies accepteren dit omdat het <strong>reproduceerbaar</strong> en 
+                                <strong>tool-agnostisch</strong> is—ze kunnen de analyse zelf herhalen met dezelfde firmware.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Wat als de firmware van mijn cliënt vertrouwelijk is? Kunnen jullie garanties geven over data privacy?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                Ja. LEONA werkt met <strong>end-to-end encryptie</strong> en NDA-protected analysis. Firmware-uploads worden verwerkt in 
+                                <strong>geïsoleerde containers</strong> die na analyse automatisch vernietigd worden. We slaan geen proprietary code op—alleen de SBOM-metadata 
+                                en CVE-status. Voor extra gevoelige projecten bieden we <strong>on-premise deployment</strong> waarbij de V-Assessor™ binnen uw cliënt's 
+                                eigen infrastructuur draait. Juridisch kunt u dit vastleggen in een <strong>Data Processing Agreement (DPA)</strong> conform GDPR Art. 28, 
+                                waarin wij als data processor optreden. Dit is standaard voor ons—u hoeft het wiel niet opnieuw uit te vinden.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Hoe zit het met de 10-jarige bewaarplicht? Wie is verantwoordelijk als LEONA over 5 jaar niet meer bestaat?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                Uitstekende vraag. De <strong>bewaarplicht ligt altijd bij de fabrikant</strong> (uw cliënt), niet bij LEONA. Wat wij doen: we bieden 
+                                <strong>escrow-achtige garanties</strong> waarbij de volledige technische documentatie (SBOM, TCF, analyse-logs) wordt opgeslagen in een 
+                                <strong>third-party archief</strong> (bijv. Amazon S3 Glacier met lifecycle policies). Uw cliënt krijgt bij elke scan een 
+                                <strong>exporteerbaar archief</strong> dat ze zelf kunnen bewaren. Mocht LEONA ooit stoppen, dan blijft de data toegankelijk. Juridisch 
+                                modelleert u dit als een <strong>service agreement met data portability clause</strong>—vergelijkbaar met cloud backup-diensten. U borgt dus 
+                                de relatie met uw cliënt, terwijl wij de technische infrastructuur leveren.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Wat is het verschil tussen een Referral-model en een Integrated Partnership? Welk model verdient het meest?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                <strong>Referral-model:</strong> U stuurt uw cliënt naar LEONA, wij factureren rechtstreeks, u krijgt 15-20% commissie. Voordeel: geen overhead, 
+                                u factureert alleen uw eigen juridische uren. <strong>Integrated Partnership:</strong> U koopt LEONA-licenties in bulk, integreert onze rapporten 
+                                in uw advies, en factureert een totaalpakket (juridisch + technisch) aan uw cliënt met eigen markup (vaak 30-40%). Voordeel: hogere marge én u 
+                                behoudt volledige controle over de cliëntrelatie. Meeste partners kiezen voor Integrated omdat het hun <strong>perceived value</strong> verhoogt—de 
+                                cliënt ziet u als de one-stop-shop, niet als doorverwijzer. Wij ondersteunen beide modellen, en u kunt halverwege switchen.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">De CRA is pas verplicht vanaf 2027. Waarom zou ik nu al investeren in een partnership?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                Drie redenen: (1) <strong>First-mover advantage</strong>—uw concurrenten zullen in 2027 massaal CRA-diensten aanbieden. Door nu te starten, 
+                                bouwt u expertise en referenties op. (2) <strong>SECURE-subsidie is nú beschikbaar</strong>—het CCB-programma loopt tot eind 2026, met budgetten 
+                                die snel opraken. Uw cliënten kunnen dus nu al 50% korting krijgen op compliance-trajecten. (3) <strong>Contractuele voorbereiding</strong>—veel 
+                                van uw cliënten sluiten nú al distributieveroveringen met Amerikaanse of Aziatische partners die CRA-compliance eisen. Zij hebben geen tijd om te 
+                                wachten tot 2027. Door nu te partneren, positioneert u zich als de go-to expert wanneer de wetgeving live gaat.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Hoe kan een geautomatiseerde tool juridische nuance begrijpen? De CRA vereist toch menselijke interpretatie?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                Correct—LEONA doet <strong>geen juridische interpretatie</strong>. Dat is uw rol. Wat LEONA wel doet: de <strong>technische onderbouwing</strong> 
+                                leveren die u nodig heeft om uw juridische conclusies te trekken. Bijvoorbeeld: de CRA zegt "u moet kwetsbaarheden binnen 24 uur adresseren" 
+                                (Artikel 11). LEONA detecteert welke componenten kwetsbaar zijn en wat de severity is (CVSS score). <strong>U</strong> interpreteert of die specifieke 
+                                kwetsbaarheid onder de 24-uurs plicht valt (afhankelijk van context, exploitability, etc.). LEONA = de thermometer, u = de arts die de diagnose stelt. 
+                                Deze scheiding is cruciaal: wij claimen geen juridisch advies te geven, waardoor uw toegevoegde waarde behouden blijft.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+                        <dt>
+                            <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
+                                <span class="text-base/7 font-semibold">Wat als mijn cliënt hardware verkoopt zonder embedded Linux (bijvoorbeeld pure hardware of Windows-gebaseerd)? Werkt LEONA dan ook?</span>
+                                <span class="ml-6 flex h-7 items-center">
+                                    <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                                        <path d="M18 12H6" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd x-show="open" x-collapse class="mt-2 pr-12">
+                            <p class="text-base/7 text-gray-600">
+                                LEONA is gespecialiseerd in <strong>embedded Linux firmware</strong> (Yocto, Buildroot, OpenWrt), omdat dat de meest complexe use case is. 
+                                Voor Windows-gebaseerde systemen of pure hardware zonder firmware zijn er andere tools (bijv. Dependency-Track voor Windows DLLs). <strong>Echter:</strong> 
+                                de CRA geldt voor alle "products with digital elements"—dus ook Windows-based IoT. Als uw cliënt in die categorie valt, kunt u LEONA's methodologie 
+                                gebruiken als <strong>referentiekader</strong> en parallel tools inzetten. Wij bieden ook <strong>consultancy</strong> voor hybride scenarios (bijv. 
+                                Linux-based gateway + Windows HMI). De juridische principes blijven hetzelfde: SBOM, vulnerability tracking, Annex I mapping. Alleen de tooling verschilt.
+                            </p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-white">
+        <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Klaar om samen<br/>
+                    <span class="text-blue-600">CRA-dossiers te bouwen?</span>
+                </h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl">
+                    Plan een 30-minuten partner-overleg waarin we uw praktijk en cliëntbestand bespreken. 
+                    We tonen live hoe de V-Assessor™ werkt en bespreken revenue-sharing modellen.
+                </p>
+            </div>
+            <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
+                <a href="/contact" 
+                   class="rounded-lg bg-blue-600 px-6 py-4 text-base font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                    Plan Partner-overleg
+                </a>
+                <a href="mailto:kim@leonacompliance.be" class="text-base font-semibold leading-6 text-gray-900">
+                    Direct contact <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

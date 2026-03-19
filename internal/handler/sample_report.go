@@ -111,15 +111,15 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
         body { font-family: 'Inter', -apple-system, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         .wrapper { padding: 40px 20px; }
         .container { max-width: 650px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
-        .hero-image { width: 100%; height: auto; display: block; border: 0; }
+        .hero-image { width: 100%%; height: auto; display: block; border: 0; }
         .content-padding { padding: 40px 60px 60px 60px; }
         
         .sub-header { text-transform: uppercase; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; color: #fd7e14; margin-bottom: 12px; display: block; }
         h1 { font-size: 32px; font-weight: 800; color: #0f172a; line-height: 1.2; margin: 0 0 24px 0; letter-spacing: -0.02em; }
         
         /* Stats Grid */
-        .stats-grid { margin: 40px 0; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; padding: 24px 0; display: table; width: 100%; }
-        .stat-item { display: table-cell; text-align: center; width: 25%; }
+        .stats-grid { margin: 40px 0; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; padding: 24px 0; display: table; width: 100%%; }
+        .stat-item { display: table-cell; text-align: center; width: 25%%; }
         .stat-number { display: block; font-size: 20px; font-weight: 800; color: #003366; }
         .stat-label { display: block; font-size: 9px; text-transform: uppercase; font-weight: 700; color: #64748b; letter-spacing: 0.05em; }
 
@@ -137,7 +137,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
         
         @media (max-width: 600px) {
             .content-padding { padding: 30px; }
-            .stat-item { width: 50%; display: inline-block; margin-bottom: 20px; }
+            .stat-item { width: 50%%; display: inline-block; margin-bottom: 20px; }
         }
     </style>
 </head>
