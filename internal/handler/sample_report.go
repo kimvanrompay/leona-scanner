@@ -120,7 +120,7 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
         <div class="content">
             <p style="font-size: 18px; margin-bottom: 25px;">Beste %s,</p>
             
-            <p>Bedankt voor uw interesse in professionele CRA compliance documentatie. Bijgevoegd treft u ons <strong>Sample Technical Construction File</strong> - de standaard die wij hanteren voor notified body audits.</p>
+            <p>Bedankt voor uw interesse in professionele CRA compliance documentatie. <strong>Bijgevoegd als PDF-attachment</strong> treft u ons Sample Technical Construction File - de standaard die wij hanteren voor notified body audits.</p>
 
             <div class="highlight-box" style="text-align: center;">
                 <h2 style="color: #1428A0; margin-top: 0;">📄 Wat zit in dit voorbeeldrapport?</h2>
@@ -210,7 +210,16 @@ func (h *HTTPHandlerV2) sendSampleReportEmail(to, companyName string) error {
 
 	m.SetBody("text/html", body)
 
+	// Attach the sample PDF
+	pdfPath := "./static/downloads/Sample_TCF_Report_LEONA.pdf"
+	if _, err := os.Stat(pdfPath); err == nil {
+		m.Attach(pdfPath)
+	} else {
+		log.Printf("⚠️  Warning: Sample PDF not found at %s", pdfPath)
+	}
+
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
+	d.SSL = true
 	return d.DialAndSend(m)
 }
 
