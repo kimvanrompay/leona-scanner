@@ -72,6 +72,22 @@ func getTemplateFuncs() template.FuncMap {
 	}
 }
 
+// HandleNotFound serves custom branded 404 page
+func (h *HTTPHandlerV2) HandleNotFound(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	tmpl, err := template.ParseFiles("templates/pages/404.html")
+	if err != nil {
+		http.Error(w, "404 - Page not found", http.StatusNotFound)
+		log.Printf("404 template parse error: %v", err)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "404 - Page not found", http.StatusNotFound)
+		log.Printf("404 template execute error: %v", err)
+	}
+}
+
 // HandlePage serves any page from templates/pages/ using the base layout
 // URL /about → templates/pages/about.html
 func (h *HTTPHandlerV2) HandlePage(pageName string) http.HandlerFunc {

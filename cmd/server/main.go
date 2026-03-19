@@ -133,6 +133,7 @@ func main() {
 
 	// Setup router
 	r := mux.NewRouter()
+	r.NotFoundHandler = http.HandlerFunc(h.HandleNotFound)
 
 	// Add logging middleware (controlled by LOG_VERBOSE env var)
 	r.Use(middleware.LoggingMiddleware)
