@@ -264,6 +264,7 @@ func sendAssessmentResultsEmail(to string, answers map[string]string, jaCount in
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
 	d.SSL = true
+
 	return d.DialAndSend(m)
 }
 
@@ -347,6 +348,7 @@ func sendAssessmentNotification(email string, answers map[string]string, jaCount
 
 	d := gomail.NewDialer(smtpHost, smtpPort, smtpUser, smtpPass)
 	d.SSL = true
+
 	if err := d.DialAndSend(m); err != nil {
 		log.Printf("❌ ERROR: Failed to send admin notification to kim@leonacompliance.be: %v", err)
 	} else {
