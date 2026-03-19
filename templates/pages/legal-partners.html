@@ -387,7 +387,7 @@
                     <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
                         <dt>
                             <button type="button" @click="open = !open" class="flex w-full items-start justify-between text-left text-gray-900">
-                                <span class="text-base/7 font-semibold">Wat als de firmware van mijn cliënt vertrouwelijk is? Kunnen jullie garanties geven over data privacy?</span>
+                                <span class="text-base/7 font-semibold">Wat als de firmware van mijn cliënt vertrouwelijk is? Hoe waarborgen jullie data privacy?</span>
                                 <span class="ml-6 flex h-7 items-center">
                                     <svg x-show="!open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
                                         <path d="M12 6v12m6-6H6" stroke-linecap="round" stroke-linejoin="round" />
@@ -400,11 +400,11 @@
                         </dt>
                         <dd x-show="open" x-collapse class="mt-2 pr-12">
                             <p class="text-base/7 text-gray-600">
-                                Ja. LEONA werkt met <strong>end-to-end encryptie</strong> en NDA-protected analysis. Firmware-uploads worden verwerkt in 
+                                LEONA werkt met <strong>end-to-end encryptie</strong> en NDA-protected analysis. Firmware-uploads worden verwerkt in 
                                 <strong>geïsoleerde containers</strong> die na analyse automatisch vernietigd worden. We slaan geen proprietary code op—alleen de SBOM-metadata 
                                 en CVE-status. Voor extra gevoelige projecten bieden we <strong>on-premise deployment</strong> waarbij de V-Assessor™ binnen uw cliënt's 
                                 eigen infrastructuur draait. Juridisch kunt u dit vastleggen in een <strong>Data Processing Agreement (DPA)</strong> conform GDPR Art. 28, 
-                                waarin wij als data processor optreden. Dit is standaard voor ons—u hoeft het wiel niet opnieuw uit te vinden.
+                                waarin wij als data processor optreden. Dit biedt een solide basis voor vertrouwelijke samenwerking.
                             </p>
                         </dd>
                     </div>
@@ -425,11 +425,11 @@
                         </dt>
                         <dd x-show="open" x-collapse class="mt-2 pr-12">
                             <p class="text-base/7 text-gray-600">
-                                Uitstekende vraag. De <strong>bewaarplicht ligt altijd bij de fabrikant</strong> (uw cliënt), niet bij LEONA. Wat wij doen: we bieden 
-                                <strong>escrow-achtige garanties</strong> waarbij de volledige technische documentatie (SBOM, TCF, analyse-logs) wordt opgeslagen in een 
+                                Uitstekende vraag. De <strong>bewaarplicht ligt altijd bij de fabrikant</strong> (uw cliënt), niet bij LEONA. Wat wij doen: we ondersteunen 
+                                bij langetermijnopslag waarbij de volledige technische documentatie (SBOM, TCF, analyse-logs) wordt opgeslagen in een 
                                 <strong>third-party archief</strong> (bijv. Amazon S3 Glacier met lifecycle policies). Uw cliënt krijgt bij elke scan een 
-                                <strong>exporteerbaar archief</strong> dat ze zelf kunnen bewaren. Mocht LEONA ooit stoppen, dan blijft de data toegankelijk. Juridisch 
-                                modelleert u dit als een <strong>service agreement met data portability clause</strong>—vergelijkbaar met cloud backup-diensten. U borgt dus 
+                                <strong>exporteerbaar archief</strong> dat ze zelf kunnen bewaren. Mocht LEONA ooit stoppen, dan blijft de data toegankelijk via deze export. Juridisch 
+                                modelleert u dit als een <strong>service agreement met data portability clause</strong>—vergelijkbaar met cloud backup-diensten. U ondersteunt dus 
                                 de relatie met uw cliënt, terwijl wij de technische infrastructuur leveren.
                             </p>
                         </dd>
