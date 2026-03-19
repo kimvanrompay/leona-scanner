@@ -37,7 +37,9 @@ func NewMailgunService() *MailgunService {
 	// If using EU domain, set EU endpoint
 	region := os.Getenv("MAILGUN_REGION")
 	if region == "EU" {
-		mg.SetAPIBase("https://api.eu.mailgun.net")
+		mg.SetAPIBase("https://api.eu.mailgun.net/v3")
+	} else {
+		mg.SetAPIBase("https://api.mailgun.net/v3")
 	}
 
 	log.Printf("✅ Mailgun service initialized (domain: %s, region: %s)", domain, region)
