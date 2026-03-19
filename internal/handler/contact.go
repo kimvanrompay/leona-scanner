@@ -97,6 +97,12 @@ func (h *HTTPHandlerV2) HandleContactSubmit(w http.ResponseWriter, r *http.Reque
 
 // sendContactNotification sends an email to kim@eliama.agency
 func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, company, message, solution string) error {
+	// Use Mailgun if configured, fallback to SMTP
+	if h.mailgunService != nil {
+		return h.sendContactNotificationViaMailgun(firstName, lastName, email, company, message, solution)
+	}
+
+	// Fallback to SMTP
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := 465 // SSL/TLS for Netim
 	smtpUser := os.Getenv("SMTP_USER")
@@ -104,7 +110,7 @@ func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, comp
 	smtpFrom := "support@leonacompliance.be"
 
 	if smtpHost == "" || smtpUser == "" || smtpPass == "" {
-		return fmt.Errorf("SMTP not configured")
+		return fmt.Errorf("email service not configured")
 	}
 
 	solutionLabels := map[string]string{
@@ -193,6 +199,12 @@ func (h *HTTPHandlerV2) sendContactNotification(firstName, lastName, email, comp
 
 // sendContactConfirmation sends a confirmation email to the submitter
 func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
+	// Use Mailgun if configured, fallback to SMTP
+	if h.mailgunService != nil {
+		return h.sendContactConfirmationViaMailgun(to, firstName)
+	}
+
+	// Fallback to SMTP
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := 465
 	smtpUser := os.Getenv("SMTP_USER")
@@ -258,4 +270,127 @@ func (h *HTTPHandlerV2) sendContactConfirmation(to, firstName string) error {
 	d.SSL = true
 
 	return d.DialAndSend(m)
+}
+
+// sendContactNotificationViaMailgun sends contact notification via Mailgun
+func (h *HTTPHandlerV2) sendContactNotificationViaMailgun(firstName, lastName, email, company, message, solution string) error {
+	solutionLabels := map[string]string{
+		"snapshot": "Snapshot Audit (€999)",
+		"shield":   "LEONA Shield (€2.499)",
+		"pipeline": "Compliance Pipeline (Vanaf €499/m)",
+	}
+	solutionLabel := solutionLabels[solution]
+	if solutionLabel == "" {
+		solutionLabel = solution
+	}
+
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%%%%, #764ba2 100%%%%); color: white; padding: 30px; border-radius: 8px; }
+        .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
+        .field { margin-bottom: 20px; }
+        .label { font-weight: bold; color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .value { margin-top: 5px; font-size: 16px; }
+        .message-box { background: white; border-left: 4px solid #667eea; padding: 15px; margin-top: 10px; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="margin: 0;">🔔 Nieuw Contact Formulier</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Audit-Aanvraag van website</p>
+        </div>
+        
+        <div class="content">
+            <div class="field">
+                <div class="label">Contactpersoon</div>
+                <div class="value">%s %s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">E-mailadres</div>
+                <div class="value"><a href="mailto:%s">%s</a></div>
+            </div>
+
+            <div class="field">
+                <div class="label">Bedrijf</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Gewenste Oplossing</div>
+                <div class="value">%s</div>
+            </div>
+
+            <div class="field">
+                <div class="label">Bericht</div>
+                <div class="message-box">%s</div>
+            </div>
+        </div>
+
+        <div class="footer">
+			<p><strong>LEONA Compliance</strong> | Contact Form Notification<br/>
+			 Deze email is automatisch gegenereerd vanuit <a href="https://leonacompliance.be/contact">leonacompliance.be/contact</a></p>
+        </div>
+    </div>
+</body>
+</html>
+`, firstName, lastName, email, email, company, solutionLabel, message)
+
+	subject := fmt.Sprintf("🔔 Nieuw Contact: %s %s (%s)", firstName, lastName, company)
+	return h.mailgunService.SendHTMLEmail("kim@leonacompliance.be", subject, body)
+}
+
+// sendContactConfirmationViaMailgun sends confirmation email via Mailgun
+func (h *HTTPHandlerV2) sendContactConfirmationViaMailgun(to, firstName string) error {
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; color: #1a1a1a; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%%%%, #764ba2 100%%%%); color: white; padding: 30px; border-radius: 8px; }
+        .content { background: #f9f9f9; padding: 30px; margin-top: 20px; border-radius: 8px; }
+        .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="margin: 0;">✅ Aanvraag Ontvangen</h1>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">We nemen zo snel mogelijk contact op</p>
+        </div>
+        
+        <div class="content">
+            <p>Beste %s,</p>
+            
+            <p>Bedankt voor je interesse in LEONA. We hebben je aanvraag goed ontvangen en een van onze compliance-experts neemt binnen 24 uur contact met je op.</p>
+            
+            <p><strong>Wat gebeurt er nu?</strong></p>
+            <ol>
+                <li>We bekijken je specifieke situatie</li>
+                <li>We stellen een passende oplossing voor</li>
+                <li>Je ontvangt een offerte op maat</li>
+            </ol>
+
+            <p>In de tussentijd kun je alvast een gratis scan doen van je SBOM via onze <a href="https://leonacompliance.be">V-Assessor™</a>.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>LEONA</strong> | CRA Compliance Engineering<br/>
+            <a href="https://leonacompliance.be">leonacompliance.be</a> | support@leonacompliance.be</p>
+        </div>
+    </div>
+</body>
+</html>
+`, firstName)
+
+	return h.mailgunService.SendHTMLEmail(to, "Bedankt voor je aanvraag - LEONA", body)
 }
