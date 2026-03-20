@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"leona-scanner/internal/database"
 	"leona-scanner/internal/i18n"
 	"leona-scanner/internal/scanner"
 	"leona-scanner/internal/services"
@@ -870,5 +871,190 @@ func (h *HTTPHandlerV2) HandleSuccess(w http.ResponseWriter, r *http.Request) {
 
 // HandleLegalAssessmentSubmit processes legal assessment form submissions
 func (h *HTTPHandlerV2) HandleLegalAssessmentSubmit(w http.ResponseWriter, r *http.Request) {
-	LegalAssessmentSubmit(db)(w, r)
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "Invalid form data", http.StatusBadRequest)
+		return
+	}
+
+	// Parse form data
+	name := strings.TrimSpace(r.FormValue("name"))
+	lawFirm := strings.TrimSpace(r.FormValue("law-firm"))
+	emailAddr := strings.TrimSpace(r.FormValue("email"))
+	scoreStr := r.FormValue("score")
+	answersJSON := r.FormValue("answers")
+
+	// Validate required fields
+	if name == "" || lawFirm == "" || emailAddr == "" || scoreStr == "" {
+		http.Error(w, "Missing required fields", http.StatusBadRequest)
+		return
+	}
+
+	// Parse answers
+	var answers []int
+	if err := json.Unmarshal([]byte(answersJSON), &answers); err != nil {
+		http.Error(w, "Invalid answers format", http.StatusBadRequest)
+		return
+	}
+
+	// Store in database as lead (if db is available)
+	if db != nil {
+		notes := fmt.Sprintf("CRA Legal Assessment - Score: %s/100", scoreStr)
+		lead := &database.Lead{
+			Email:       emailAddr,
+			FirstName:   &name,
+			CompanyName: &lawFirm,
+			Notes:       &notes,
+			LeadType:    "legal-assessment",
+			Source:      "website",
+			Status:      "new",
+		}
+
+		if err := db.CreateLead(r.Context(), lead); err != nil {
+			log.Printf("Error saving assessment lead: %v\n", err)
+			// Continue anyway - don't block user
+		}
+	}
+
+	// Send emails via Mailgun
+	if h.mailgunService != nil {
+		// Send notification to admin
+		go h.sendLegalAssessmentNotificationViaMailgun(name, lawFirm, emailAddr, scoreStr, answers)
+
+		// Send confirmation to user
+		go h.sendLegalAssessmentConfirmationViaMailgun(emailAddr, name, scoreStr, answers)
+	} else {
+		log.Println("⚠️  Mailgun not configured - legal assessment emails not sent")
+	}
+
+	// Return success message
+	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(`
+		<div class="rounded-lg bg-green-50 border border-green-200 p-4">
+			<p class="text-sm font-semibold text-green-800">✓ Rapport verzonden!</p>
+			<p class="text-sm text-green-700 mt-1">U ontvangt uw volledige analyse binnen enkele minuten op ` + emailAddr + `</p>
+		</div>
+		<script>
+			// Reset form after 5 seconds
+			setTimeout(() => {
+				const form = document.querySelector('form');
+				if (form) form.reset();
+			}, 5000);
+		</script>
+	`))
+}
+
+// sendLegalAssessmentNotificationViaMailgun sends admin notification via Mailgun
+func (h *HTTPHandlerV2) sendLegalAssessmentNotificationViaMailgun(name, lawFirm, email, score string, answers []int) {
+	getScoreColor := func(score string) string {
+		var scoreInt int
+		fmt.Sscanf(score, "%d", &scoreInt)
+		if scoreInt <= 40 {
+			return "#dc2626"
+		}
+		if scoreInt <= 80 {
+			return "#f59e0b"
+		}
+		return "#059669"
+	}
+
+	getScoreLabel := func(score string) string {
+		var scoreInt int
+		fmt.Sscanf(score, "%d", &scoreInt)
+		if scoreInt <= 40 {
+			return "Technisch Blind"
+		}
+		if scoreInt <= 80 {
+			return "Juridisch Sterk, Technisch Kwetsbaar"
+		}
+		return "CRA-Ready"
+	}
+
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+		body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
+		.container { max-width: 600px; margin: 0 auto; padding: 20px; }
+		.header { background: linear-gradient(135deg, #1e40af 0%%%%, #3b82f6 100%%%%); color: white; padding: 30px; border-radius: 8px; }
+		.score-badge { display: inline-block; background-color: %s; color: white; font-size: 48px; font-weight: bold; width: 120px; height: 120px; border-radius: 60px; line-height: 120px; margin: 20px 0; }
+		.info { background: #f9fafb; padding: 15px; margin: 10px 0; border-left: 4px solid #3b82f6; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>🎯 Nieuwe CRA Legal Assessment</h1>
+		</div>
+		<div style="text-align: center;">
+			<div class="score-badge">%s</div>
+			<p><strong>%s</strong></p>
+		</div>
+		<div class="info"><strong>Naam:</strong> %s</div>
+		<div class="info"><strong>Advocatenkantoor:</strong> %s</div>
+		<div class="info"><strong>Email:</strong> <a href="mailto:%s">%s</a></div>
+	</div>
+</body>
+</html>
+`, getScoreColor(score), score, getScoreLabel(score), name, lawFirm, email, email)
+
+	subject := fmt.Sprintf("🎯 Nieuwe CRA Legal Assessment - %s/100 punten", score)
+	if err := h.mailgunService.SendHTMLEmail("kim@leonacompliance.be", subject, body); err != nil {
+		log.Printf("❌ ERROR: Failed to send legal assessment notification: %v", err)
+	} else {
+		log.Printf("✅ SUCCESS: Legal assessment notification sent for %s (%s)", name, lawFirm)
+	}
+}
+
+// sendLegalAssessmentConfirmationViaMailgun sends confirmation email to user
+func (h *HTTPHandlerV2) sendLegalAssessmentConfirmationViaMailgun(email, name, score string, answers []int) {
+	getScoreColor := func(score string) string {
+		var scoreInt int
+		fmt.Sscanf(score, "%d", &scoreInt)
+		if scoreInt <= 40 {
+			return "#dc2626"
+		}
+		if scoreInt <= 80 {
+			return "#f59e0b"
+		}
+		return "#059669"
+	}
+
+	body := fmt.Sprintf(`
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<style>
+		body { font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; }
+		.container { max-width: 600px; margin: 0 auto; padding: 20px; }
+		.header { background: linear-gradient(135deg, #1e40af 0%%%%, #3b82f6 100%%%%); color: white; padding: 30px; border-radius: 8px; }
+		.score-badge { display: inline-block; background-color: %s; color: white; font-size: 48px; font-weight: bold; width: 120px; height: 120px; border-radius: 60px; line-height: 120px; margin: 20px 0; }
+		.cta { display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 6px; font-weight: 600; margin: 20px 0; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>Uw CRA Legal-Tech Gap Assessment</h1>
+			<p>Persoonlijk rapport voor %s</p>
+		</div>
+		<div style="text-align: center;">
+			<div class="score-badge">%s</div>
+			<p style="font-size: 18px; margin: 20px 0;">Dank u voor het invullen van de assessment. We nemen zo snel mogelijk contact met u op.</p>
+			<a href="https://leonacompliance.be/partner-overleg" class="cta">Plan een Partner Overleg</a>
+		</div>
+	</div>
+</body>
+</html>
+`, getScoreColor(score), name, score)
+
+	subject := "Uw CRA Legal-Tech Gap Assessment Rapport"
+	if err := h.mailgunService.SendHTMLEmail(email, subject, body); err != nil {
+		log.Printf("⚠️  WARNING: Failed to send confirmation email to %s: %v", email, err)
+	} else {
+		log.Printf("📧 Confirmation email sent to %s", email)
+	}
 }

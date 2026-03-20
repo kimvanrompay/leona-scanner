@@ -780,7 +780,6 @@ func (h *HTTPHandlerV2) sendSnapshotNotification(s *SnapshotSubmission) error {
 	return d.DialAndSend(m)
 }
 
-
 // sendSnapshotPaymentConfirmationViaMailgun sends payment confirmation via Mailgun
 func (h *HTTPHandlerV2) sendSnapshotPaymentConfirmationViaMailgun(email, orderUUID string, metadata map[string]interface{}) {
 	customerName := "Geachte klant"
@@ -861,10 +860,9 @@ func (h *HTTPHandlerV2) sendSnapshotNotificationViaMailgun(s *SnapshotSubmission
 	<p>Volledige details in database - Order UUID: %s</p>
 </body>
 </html>
-`, s.OrderUUID, s.ProductName, s.Company, s.FirstName, s.LastName, s.Email, 
-   s.BuildSystem, s.BuildSystemVersion, s.TargetArchitecture, s.KernelVersion, s.OrderUUID)
+`, s.OrderUUID, s.ProductName, s.Company, s.FirstName, s.LastName, s.Email,
+		s.BuildSystem, s.BuildSystemVersion, s.TargetArchitecture, s.KernelVersion, s.OrderUUID)
 
 	subject := fmt.Sprintf("💰 SNAPSHOT AUDIT [%s]: %s - %s", s.OrderUUID, s.ProductName, s.Company)
 	return h.mailgunService.SendHTMLEmail("kim@leonacompliance.be", subject, body)
 }
-
