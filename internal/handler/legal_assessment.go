@@ -143,7 +143,7 @@ func buildNotificationEmail(name, lawFirm, email, score string, answers []int) s
 					<tr>
 						<td style="background: linear-gradient(135deg, #1e40af 0%%, #3b82f6 100%%); padding: 40px 40px 30px 40px; text-align: center;">
 							<h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">
-								🎯 Nieuwe CRA Legal Assessment
+							  Nieuwe CRA Legal Assessment
 							</h1>
 						</td>
 					</tr>
