@@ -6,27 +6,13 @@
         <div class="flex items-center gap-x-10">
             {{template "BrandLogo" .}}
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="/wie-zijn-we" class="text-base/6 {{if eq .ActivePage " wie-zijn-we"}}text-blue-600 border-b-2
-                    border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Wie zijn
-                    we?</a>
-                <a href="/hoe-het-werkt" class="text-base/6 {{if eq .ActivePage " hoe-het-werkt"}}text-blue-600
-                    border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors
-                    pb-1">Hoe werkt
-                    het?</a>
-                <a href="/pricing" class="text-base/6 {{if eq .ActivePage " pricing"}}text-blue-600 border-b-2
-                    border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Prijzen</a>
-                <a href="/kennis" class="text-base/6 {{if eq .ActivePage " kennis"}}text-blue-600 border-b-2
-                    border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors
-                    pb-1">Kennisbank</a>
-                <a href="/cra-compliance" class="text-base/6 {{if eq .ActivePage " cra-compliance"}}text-blue-600
-                    border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors
-                    pb-1">CRA
-                    Compliance</a>
-                <a href="/legal-partners" class="text-base/6 {{if eq .ActivePage " legal-partners"}}text-blue-600
-                    border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors
-                    pb-1">Legal Partners</a>
-                <a href="/contact" class="text-base/6 {{if eq .ActivePage " contact"}}text-blue-600 border-b-2
-                    border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Contact</a>
+                <a href="/wie-zijn-we" class="text-base/6 {{if eq .ActivePage "wie-zijn-we"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Wie zijn we?</a>
+                <a href="/hoe-het-werkt" class="text-base/6 {{if eq .ActivePage "hoe-het-werkt"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Hoe werkt het?</a>
+                <a href="/pricing" class="text-base/6 {{if eq .ActivePage "pricing"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Prijzen</a>
+                <a href="/kennis" class="text-base/6 {{if eq .ActivePage "kennis"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Kennisbank</a>
+                <a href="/cra-compliance" class="text-base/6 {{if eq .ActivePage "cra-compliance"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">CRA Compliance</a>
+                <a href="/legal-partners" class="text-base/6 {{if eq .ActivePage "legal-partners"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Legal Partners</a>
+                <a href="/contact" class="text-base/6 {{if eq .ActivePage "contact"}}text-blue-600 border-b-2 border-blue-600{{else}}text-gray-900 hover:text-blue-600{{end}} transition-colors pb-1">Contact</a>
             </div>
         </div>
         <div class="flex lg:hidden">
@@ -69,37 +55,23 @@
                         <div class="-my-6 divide-y divide-gray-500/10">
                             <div class="space-y-2 py-6">
                                 <a href="/wie-zijn-we"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    wie-zijn-we"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900
-                                    ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Wie
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "wie-zijn-we"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Wie
                                     zijn we</a>
                                 <a href="/hoe-het-werkt"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    hoe-het-werkt"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900
-                                    ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Hoe
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "hoe-het-werkt"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Hoe
                                     werkt het</a>
                                 <a href="/pricing"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    pricing"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300
-                                    hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Prijzen</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "pricing"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Prijzen</a>
                                 <a href="/kennis"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    kennis"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300
-                                    hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Kennisbank</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "kennis"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Kennisbank</a>
                                 <a href="/cra-compliance"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    cra-compliance"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900
-                                    ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">CRA
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "cra-compliance"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">CRA
                                     Compliance</a>
                                 <a href="/legal-partners"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    legal-partners"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900
-                                    ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Legal
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "legal-partners"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Legal
                                     Partners</a>
                                 <a href="/contact"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "
-                                    contact"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300
-                                    hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Contact</a>
+                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-center text-base/7 font-semibold {{if eq .ActivePage "contact"}}bg-blue-600 text-white ring-blue-600{{else}}text-gray-900 ring-gray-300 hover:bg-gray-50{{end}} shadow-sm ring-1 ring-inset">Contact</a>
                             </div>
                             <div class="py-6 space-y-2">
                                 <a href="/demo"
