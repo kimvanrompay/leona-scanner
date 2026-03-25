@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is LEONA geschikt voor uw product? | LEONA</title>
+  <meta name="description" content="Ontdek in 5 vragen of LEONA uw embedded Linux product kan helpen met CRA compliance. Wij specialiseren in Yocto, Buildroot en embedded systemen.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="h-full bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900" x-data="leonaApp()">
+
+  <!-- Logo Header -->
+  <div class="fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-900 to-blue-800 z-50 shadow-lg">
+    <div class="flex flex-col items-center justify-center py-4 px-4">
+      <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773868524/white_logo_lion_mernwn.png" alt="LEONA Logo" class="h-10 mb-3">
+      <!-- Progress Bar -->
+      <div class="w-full max-w-md">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold text-white uppercase tracking-wide" x-text="progressText"></span>
+          <span class="text-xs font-medium text-blue-200" x-text="Math.round(progress) + '%% voltooid'"></span>
+        </div>
+        <div class="w-full bg-blue-950/50 rounded-full h-2 overflow-hidden">
+          <div class="bg-white h-full rounded-full transition-all duration-300" :style="'width: ' + progress + '%%'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8 pt-32">
+    <div class="w-full max-w-6xl">
+      
+      <!-- Question View -->
+      <div x-show="!showResult" class="grid lg:grid-cols-2 gap-8 items-start">
+        
+        <!-- Left Column: Question -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-12">
+          <!-- Header -->
+          <div class="mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Is LEONA geschikt voor uw product?</h1>
+            <p class="text-gray-600">Ontdek in 5 vragen of LEONA uw embedded Linux product kan helpen met CRA compliance.</p>
+          </div>
+
+          <!-- Question -->
+          <template x-if="currentQ">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-3" x-text="currentQ.question"></h2>
+              <p class="text-sm text-gray-600 mb-6" x-text="currentQ.explanation"></p>
+
+              <!-- Options -->
+              <div class="space-y-3">
+                <template x-for="option in currentQ.options" :key="option.value">
+                  <button @click="answerQuestion(option.value)"
+                    :class="answers[currentQ.id] === option.value ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-900 border-gray-300 hover:border-blue-500 hover:bg-blue-50'"
+                    class="w-full text-left px-6 py-4 rounded-xl border-2 font-semibold transition-all transform hover:scale-105"
+                    x-text="option.label">
+                  </button>
+                </template>
+              </div>
+
+              <!-- Navigation -->
+              <div class="mt-8 flex justify-between">
+                <button @click="currentQuestion > 0 ? currentQuestion-- : null" 
+                  x-show="currentQuestion > 0"
+                  class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                  ← Vorige vraag
+                </button>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Right Column: LEONA Info -->
+        <div class="hidden lg:block">
+          <template x-if="currentQ">
+            <div class="bg-blue-950/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-400/30 shadow-xl">
+              <div class="mb-4">
+                <span class="inline-block bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide" x-text="currentQ.category"></span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-4">LEONA Expertise</h3>
+              <blockquote class="text-white/90 text-base leading-relaxed border-l-4 border-orange-500 pl-4" x-text="currentQ.expertise">
+              </blockquote>
+              
+              <div class="mt-8 pt-6 border-t border-blue-400/30">
+                <p class="text-xs text-blue-200">
+                  🛠️ Gespecialiseerd in embedded Linux compliance engineering
+                </p>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Result View -->
+      <div x-show="showResult" x-cloak class="grid lg:grid-cols-2 gap-8 items-start">
+        
+        <!-- Left Column: Result -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8 sm:p-12">
+          <!-- Result Header -->
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+              :class="isSuitable ? 'bg-green-100' : 'bg-orange-100'">
+              <template x-if="isSuitable">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </template>
+              <template x-if="!isSuitable">
+                <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </template>
+            </div>
+            
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+              <span x-show="isSuitable">Perfect! LEONA is ideaal voor uw product.</span>
+              <span x-show="!isSuitable">LEONA is mogelijk niet geschikt voor dit product.</span>
+            </h2>
+          </div>
+
+          <!-- Suitable Result -->
+          <div x-show="isSuitable">
+            <p class="text-gray-700 mb-6">
+              Uw embedded Linux product valt precies binnen onze specialisatie. LEONA biedt u:
+            </p>
+            
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700"><strong>Yocto/Buildroot expertise</strong> - Native support voor uw build systeem</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700"><strong>Geautomatiseerde SBOM generatie</strong> - Direct uit uw build pipeline</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700"><strong>CRA compliance roadmap</strong> - Vanaf ontwikkeling tot certificering</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-700"><strong>TCF documentatie</strong> - Complete Technical Construction File voor audits</span>
+              </li>
+            </ul>
+
+            <div class="bg-green-50 border-l-4 border-green-600 p-4 mb-6">
+              <p class="text-sm text-green-900">
+                <strong>Volgende stap:</strong> Vraag een gratis SNAPSHOT audit aan en ontvang binnen 48 uur een volledig compliance rapport van uw embedded systeem.
+              </p>
+            </div>
+
+            <a href="/snapshot" 
+              class="block w-full text-center bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:from-green-600 hover:to-green-700 transition-all transform hover:scale-105 mb-3">
+              📊 Start SNAPSHOT Audit (€2.495)
+            </a>
+            
+            <a href="/cra-assessment" 
+              class="block w-full text-center bg-white text-blue-600 border-2 border-blue-600 font-semibold py-3 px-6 rounded-xl hover:bg-blue-50 transition-colors">
+              Of doe eerst de technische readiness check →
+            </a>
+          </div>
+
+          <!-- Not Suitable Result -->
+          <div x-show="!isSuitable">
+            <p class="text-gray-700 mb-6">
+              LEONA is gespecialiseerd in <strong>embedded Linux systemen</strong> zoals Yocto, Buildroot, en aangepaste Linux distributies. Uw product lijkt niet in deze categorie te vallen.
+            </p>
+            
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
+              <p class="text-sm text-orange-900 mb-3">
+                <strong>Geen embedded Linux?</strong> LEONA is mogelijk niet de juiste oplossing als u:
+              </p>
+              <ul class="space-y-2 text-sm text-orange-800">
+                <li>• Pure web/cloud applicaties ontwikkelt (geen hardware component)</li>
+                <li>• Windows of macOS desktop software maakt</li>
+                <li>• Mobiele apps ontwikkelt (iOS/Android)</li>
+                <li>• Alleen firmware voor microcontrollers schrijft (geen Linux)</li>
+              </ul>
+            </div>
+
+            <p class="text-gray-700 mb-6">
+              <strong>Heeft u toch embedded Linux?</strong> Neem contact op voor een persoonlijk adviesgesprek. We kijken graag naar uw specifieke situatie.
+            </p>
+
+            <a href="/contact" 
+              class="block w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 mb-3">
+              📧 Neem Contact Op
+            </a>
+            
+            <a href="/cra-applicability" 
+              class="block w-full text-center bg-white text-gray-700 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl hover:bg-gray-50 transition-colors">
+              ← Check eerst of CRA op u van toepassing is
+            </a>
+          </div>
+
+          <!-- Disclaimer -->
+          <div class="mt-8 pt-6 border-t border-gray-200">
+            <p class="text-xs text-gray-500">
+              <strong>Over LEONA:</strong> Wij zijn gespecialiseerd in CRA compliance voor embedded Linux producten. Voor andere technologieën kunnen wij u doorverwijzen naar partners.
+            </p>
+          </div>
+
+          <!-- Restart Button -->
+          <button @click="restart()" 
+            class="mt-6 w-full text-center bg-gray-100 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:bg-gray-200 transition-colors">
+            🔄 Herstart check
+          </button>
+        </div>
+
+        <!-- Right Column: Summary -->
+        <div class="hidden lg:block">
+          <div class="bg-blue-950/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-400/30 shadow-xl">
+            <h3 class="text-xl font-bold text-white mb-6">Uw Antwoorden</h3>
+            
+            <div class="space-y-4">
+              <template x-for="(question, index) in questions" :key="question.id">
+                <div class="bg-blue-900/50 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-2">
+                    <span class="text-sm font-semibold text-blue-300" x-text="`Vraag ${index + 1}`"></span>
+                    <template x-if="answers[question.id]">
+                      <span class="text-xs px-2 py-1 rounded-full bg-green-500 text-white">Beantwoord</span>
+                    </template>
+                  </div>
+                  <p class="text-sm text-white/90 mb-2" x-text="question.question"></p>
+                  <template x-if="answers[question.id]">
+                    <p class="text-sm font-semibold text-green-400" 
+                      x-text="question.options.find(opt => opt.value === answers[question.id])?.label">
+                    </p>
+                  </template>
+                </div>
+              </template>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-blue-400/30">
+              <p class="text-xs text-blue-200">
+                💡 LEONA = <strong>L</strong>inux <strong>E</strong>mbedded <strong>O</strong>perating System <strong>N</strong>etwork <strong>A</strong>nalysis
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+
+  <script>
+    function leonaApp() {
+      return {
+        currentQuestion: 0,
+        answers: {},
+        showResult: false,
+        questions: [
+          {
+            id: 1,
+            question: 'Gebruikt uw product embedded Linux?',
+            explanation: 'Bijvoorbeeld Yocto, Buildroot, OpenWrt, of een aangepaste Linux distributie.',
+            options: [
+              { value: 'yes', label: 'Ja, we gebruiken embedded Linux', suitable: true },
+              { value: 'no', label: 'Nee, we gebruiken geen Linux', suitable: false },
+              { value: 'unsure', label: 'Niet zeker / Andere OS', suitable: false }
+            ],
+            category: 'Operating System',
+            expertise: 'LEONA is gespecialiseerd in Linux-based embedded systemen. We ondersteunen Yocto, Buildroot, Debian-based, en custom Linux distributies.'
+          },
+          {
+            id: 2,
+            question: 'Is uw Linux embedded in hardware?',
+            explanation: 'Draait uw Linux op fysieke hardware (IoT device, industriële computer, medical device, etc.)?',
+            options: [
+              { value: 'yes', label: 'Ja, embedded in hardware', suitable: true },
+              { value: 'vm', label: 'Nee, alleen virtuele machines / cloud', suitable: false },
+              { value: 'both', label: 'Beide - hardware én cloud', suitable: true }
+            ],
+            category: 'Deployment',
+            expertise: 'LEONA focust op embedded hardware producten. We analyseren bootloaders (U-Boot), kernels, root filesystems, en alle firmware componenten.'
+          },
+          {
+            id: 3,
+            question: 'Gebruikt u Yocto of Buildroot voor uw builds?',
+            explanation: 'Of een vergelijkbaar build systeem voor embedded Linux?',
+            options: [
+              { value: 'yocto', label: 'Ja, Yocto Project', suitable: true },
+              { value: 'buildroot', label: 'Ja, Buildroot', suitable: true },
+              { value: 'other', label: 'Nee, we gebruiken Debian/Ubuntu packages', suitable: true },
+              { value: 'none', label: 'Nee, we builden niet zelf', suitable: false }
+            ],
+            category: 'Build System',
+            expertise: 'LEONA integreert direct met Yocto (bitbake layers) en Buildroot. We genereren automatisch SBOMs uit uw build artifacts.'
+          },
+          {
+            id: 4,
+            question: 'Heeft u kernel modules of custom drivers?',
+            explanation: 'Gebruikt u aangepaste kernel componenten, out-of-tree modules, of vendor BSPs?',
+            options: [
+              { value: 'yes', label: 'Ja, we hebben custom kernel code', suitable: true },
+              { value: 'bsp', label: 'Ja, we gebruiken vendor BSP', suitable: true },
+              { value: 'no', label: 'Nee, alleen standaard kernel', suitable: true }
+            ],
+            category: 'Kernel',
+            expertise: 'LEONA scant kernel modules, out-of-tree drivers, en BSP componenten op CVEs, licenties, en CRA compliance vereisten (LTS support, secure boot, etc.).'
+          },
+          {
+            id: 5,
+            question: 'Moet uw product voldoen aan CRA (Cyber Resilience Act)?',
+            explanation: 'Of andere embedded compliance frameworks zoals IEC 62443, Medical Device Regulation, etc.?',
+            options: [
+              { value: 'cra', label: 'Ja, CRA compliance vereist', suitable: true },
+              { value: 'other', label: 'Ja, andere compliance (medical, industrial)', suitable: true },
+              { value: 'unsure', label: 'Niet zeker', suitable: true },
+              { value: 'no', label: 'Nee, geen compliance vereist', suitable: false }
+            ],
+            category: 'Compliance',
+            expertise: 'LEONA genereert CRA-conforme Technical Construction Files (TCF), inclusief SBOM, CVE tracking, secure boot verificatie, en update mechanisme documentatie.'
+          }
+        ],
+        get currentQ() {
+          return this.questions[this.currentQuestion] || null;
+        },
+        get progress() {
+          return ((this.currentQuestion + 1) / this.questions.length) * 100;
+        },
+        get progressText() {
+          return `Vraag ${this.currentQuestion + 1} van ${this.questions.length}`;
+        },
+        answerQuestion(value) {
+          this.answers[this.currentQ.id] = value;
+          
+          setTimeout(() => {
+            if (this.currentQuestion < this.questions.length - 1) {
+              this.currentQuestion++;
+            } else {
+              this.showResult = true;
+            }
+          }, 300);
+        },
+        get isSuitable() {
+          // Count how many "suitable" answers were given
+          let suitableCount = 0;
+          for (let qid in this.answers) {
+            const question = this.questions.find(q => q.id == qid);
+            const selectedOption = question.options.find(opt => opt.value === this.answers[qid]);
+            
+            if (selectedOption.suitable) {
+              suitableCount++;
+            }
+          }
+          
+          // LEONA is suitable if at least 3 out of 5 answers are suitable
+          return suitableCount >= 3;
+        },
+        restart() {
+          this.currentQuestion = 0;
+          this.answers = {};
+          this.showResult = false;
+        }
+      };
+    }
+  </script>
+
+</body>
+</html>

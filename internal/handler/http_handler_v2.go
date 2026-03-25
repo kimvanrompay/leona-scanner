@@ -232,6 +232,38 @@ func (h *HTTPHandlerV2) HandleCRAAssessment(w http.ResponseWriter, r *http.Reque
 	}
 }
 
+// HandleCRAApplicability serves the standalone CRA applicability check (no navbar/footer)
+func (h *HTTPHandlerV2) HandleCRAApplicability(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/cra-applicability.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	// Standalone applicability page - no base layout
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
+// HandleLEONAApplicability serves the standalone LEONA applicability check (no navbar/footer)
+func (h *HTTPHandlerV2) HandleLEONAApplicability(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/leona-applicability.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	// Standalone LEONA applicability page - no base layout
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
 // HandleServices serves the enterprise services page
 func (h *HTTPHandlerV2) HandleServices(w http.ResponseWriter, r *http.Request) {
 	// Create template set with FuncMap before parsing

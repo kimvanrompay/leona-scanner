@@ -158,6 +158,8 @@ func main() {
 	r.HandleFunc("/cra", h.HandlePage("cra")).Methods("GET")
 	r.HandleFunc("/cra-compliance", h.HandlePage("cra-compliance")).Methods("GET")
 	r.HandleFunc("/cra-assessment", h.HandleCRAAssessment).Methods("GET")
+	r.HandleFunc("/cra-applicability", h.HandleCRAApplicability).Methods("GET")
+	r.HandleFunc("/leona-applicability", h.HandleLEONAApplicability).Methods("GET")
 
 	// Navigation pages
 	r.HandleFunc("/wie-zijn-we", h.HandlePage("wie-zijn-we")).Methods("GET")
