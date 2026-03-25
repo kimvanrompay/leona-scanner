@@ -53,10 +53,10 @@ The platform is purpose-built for companies shipping Linux-based products in har
 **Target users:** Engineering teams, CTOs, compliance managers
 
 **Technology:**
-- Alpine.js-powered single-page questionnaire
-- LocalStorage-based progress tracking
-- Server-side validation (Go handlers)
-- Email delivery of results (Mailgun integration)
+- Interactive single-page questionnaire
+- Browser-based progress tracking
+- Server-side validation
+- Automated email delivery of results
 
 **Unique features:**
 - Questions tailored to embedded Linux (Yocto/Buildroot, U-Boot, dm-verity, TPM/TEE)
@@ -125,27 +125,27 @@ Think of your product like a cake made from many ingredients (software libraries
   - *Technical detail:* Produces VEX documents per CISA VEX specification, containing: CVE identifier, product identifier, vulnerability status (NOT_AFFECTED, AFFECTED, FIXED, UNDER_INVESTIGATION), impact statement, action statement, and timestamp. Complies with Article 14(2) vulnerability documentation requirements for market surveillance authorities.
 
 **Key technology:**
-- Go-based SBOM parser (`internal/scanner/`)
-  - *Technical detail:* Implements CycloneDX and SPDX schema validators using Go structs with JSON/XML unmarshalling. Handles malformed SBOMs with graceful error recovery. Supports compressed formats (gzip, bzip2). Processes SBOMs up to 50MB containing 10,000+ components in <5 seconds.
+- Proprietary SBOM parser supporting CycloneDX and SPDX formats
+  - *Technical detail:* Implements CycloneDX and SPDX schema validators with JSON/XML parsing. Handles malformed SBOMs with graceful error recovery. Supports compressed formats (gzip, bzip2). Processes SBOMs up to 50MB containing 10,000+ components in <5 seconds.
   
 - NVD API integration with rate limiting (50 req/30s with key, 5 req/30s free tier)
   - *Technical detail:* Implements token bucket algorithm for API rate limiting per NVD API 2.0 requirements. Uses exponential backoff (2^n seconds) for 429 HTTP errors. Batches CVE queries using CPE match strings. Falls back to CVE JSON data feeds (annual 8GB archive) if API unavailable.
   
 - 24-hour CVE cache to reduce API load
-  - *Technical detail:* Redis-compatible caching layer storing CVE records as JSON with TTL=86400 seconds. Cache key format: `cve:{CVE-ID}:{timestamp}`. Implements cache warming for common CPEs (Linux kernel, OpenSSL, glibc, BusyBox). Cache hit rate typically >75% in production workloads.
+  - *Technical detail:* Caching layer storing CVE records as JSON with TTL=86400 seconds. Implements cache warming for common CPEs (Linux kernel, OpenSSL, glibc, BusyBox). Cache hit rate typically >75% in production workloads.
   
-- Supabase PostgreSQL for scan result storage
-  - *Technical detail:* Schema design: `scans` table (UUID primary key, timestamp, SBOM metadata, scan status), `vulnerabilities` table (CVE ID, CVSS scores, affected components, remediation status), `components` table (package name, version, license, CPE). Uses PostgreSQL full-text search (tsvector) for CVE description queries. Row-level security (RLS) policies enforce multi-tenant isolation.
+- Enterprise-grade database for scan result storage
+  - *Technical detail:* Secure database schema with UUID-based scan tracking, CVE records with CVSS scores, component inventory with licensing information. Includes full-text search for CVE description queries and multi-tenant isolation for security.
 
 **Compliance output:**
 - Technical Construction File (TCF) - 42-page PDF report
-  - *Technical detail:* Annex VII-compliant PDF generated using Go `gofpdf` library. Sections include: Executive Summary (Article VII.1), Product Description, Cybersecurity Risk Assessment (Article VII.2), SBOM with Component Inventory (Article VII.6), Vulnerability Assessment (Article VII.7), Secure Development Lifecycle (Article VII.3), Instructions for Secure Use (Article VII.4), and Post-Market Monitoring Plan (Article VII.9). Digitally signed with X.509 certificate for document integrity.
+  - *Technical detail:* Annex VII-compliant PDF with sections including: Executive Summary (Article VII.1), Product Description, Cybersecurity Risk Assessment (Article VII.2), SBOM with Component Inventory (Article VII.6), Vulnerability Assessment (Article VII.7), Secure Development Lifecycle (Article VII.3), Instructions for Secure Use (Article VII.4), and Post-Market Monitoring Plan (Article VII.9). Digitally signed with X.509 certificate for document integrity.
   
 - SBOM with CVE annotations
   - *Technical detail:* Enriched SBOM in CycloneDX 1.5 format with `vulnerabilities` component containing CVE references, CVSS vectors, VEX statements, and remediation recommendations. Includes licensing information (SPDX license identifiers) per Article 10(11) open-source disclosure requirements.
   
 - Evidence retention (10-year archive guarantee per CRA Article 21)
-  - *Technical detail:* Article 21(1) requires manufacturers retain Technical Construction Files for 10 years after product last placed on market. LEONA stores scan results, SBOMs, VEX reports, and TCF PDFs in Supabase with immutable audit log (tamper-proof). Implements WORM (Write Once Read Many) storage pattern. Provides evidence export in standardized formats (JSON, XML, PDF) for Notified Body audits.
+  - *Technical detail:* Article 21(1) requires manufacturers retain Technical Construction Files for 10 years after product last placed on market. LEONA stores scan results, SBOMs, VEX reports, and TCF PDFs with immutable audit log (tamper-proof). Implements WORM (Write Once Read Many) storage pattern. Provides evidence export in standardized formats (JSON, XML, PDF) for Notified Body audits.
   
 - Ready for Notified Body (NoBo) audits
   - *Technical detail:* Notified Bodies designated under Article 43 conduct conformity assessments for Class I and Class II products. LEONA's TCF format aligns with Notified Body checklists, including: CE marking documentation (Article 24), EU Declaration of Conformity (Article 25), cybersecurity attestation, and post-market surveillance records (Article 29). Facilitates Module A (internal production control) and Module H (full quality assurance) certification paths.
@@ -208,7 +208,7 @@ Think of your product like a cake made from many ingredients (software libraries
 - Target: Engineering leaders drowning in false-positive CVE reports
 
 **Email automation:**
-- User confirmation email (Mailgun HTML email)
+- User confirmation email (HTML email with 24-hour guarantee)
 - LEONA team notification (lead capture)
 - Instructions for SBOM/firmware upload
 
@@ -655,8 +655,8 @@ Based on CRA assessment score:
 - ✅ CRA Applicability Check (5 questions)
 - ✅ LEONA Match Check (5 questions)
 - ✅ Shield March promotion (5 free audits)
-- ✅ Email automation (Mailgun)
-- ✅ Lead capture (Supabase)
+- ✅ Email automation
+- ✅ Lead capture and tracking
 
 ### Q3 2026 (Pre-CRA Deadline)
 - 🔄 SBOM upload portal (secure file upload)
@@ -778,8 +778,6 @@ LEONA coordinates with law firms specializing in:
 **Differentiation:** Yocto/Buildroot specialization + binary reachability analysis + speed + fixed pricing.
 
 **Business Model:** Freemium assessments → Paid audits → Subscription monitoring → Enterprise custom solutions.
-
-**Tech Stack:** Go backend + Tailwind/Alpine.js frontend + Supabase PostgreSQL + Mailgun email + NVD API CVE scanning.
 
 **Timeline:** CRA deadline September 11, 2026 → LEONA positioning as last-minute compliance lifeline for unprepared companies.
 
