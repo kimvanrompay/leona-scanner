@@ -160,6 +160,7 @@ func main() {
 	r.HandleFunc("/cra-assessment", h.HandleCRAAssessment).Methods("GET")
 	r.HandleFunc("/cra-applicability", h.HandleCRAApplicability).Methods("GET")
 	r.HandleFunc("/leona-applicability", h.HandleLEONAApplicability).Methods("GET")
+	r.HandleFunc("/shield-march", h.HandleShieldMarch).Methods("GET")
 
 	// Navigation pages
 	r.HandleFunc("/wie-zijn-we", h.HandlePage("wie-zijn-we")).Methods("GET")
@@ -207,6 +208,7 @@ func main() {
 	r.HandleFunc("/api/lead/risk-assessment", h.HandleRiskAssessment).Methods("POST")
 	r.HandleFunc("/api/lead/sample-report", h.HandleSampleReportDownload).Methods("POST")
 	r.HandleFunc("/api/cra-assessment/submit", h.HandleCRAAssessmentSubmit).Methods("POST")
+	r.HandleFunc("/api/shield-march/submit", h.HandleShieldMarchSubmit).Methods("POST")
 	r.HandleFunc("/checklists", h.HandleChecklistPage).Methods("GET")
 	r.HandleFunc("/success", h.HandleSuccess).Methods("GET")
 

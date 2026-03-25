@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shield March: Gratis Binaire Snapshot | LEONA</title>
+  <meta name="description" content="Behaal 100% binaire CRA-compliance in 24 uur. Gratis Snapshot ter waarde van €2.495 voor de eerste 5 aanmeldingen.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body class="h-full bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900" x-data="shieldMarchApp()">
+  
+  <!-- Hero Section -->
+  <div class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="w-full max-w-5xl">
+      
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773868524/white_logo_lion_mernwn.png" alt="LEONA Logo" class="h-16 mx-auto mb-8">
+      </div>
+
+      <!-- Main Headline - Rotating -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" x-text="currentHeadline"></h1>
+        
+        <!-- Headline Dots Indicator -->
+        <div class="flex justify-center gap-2 mb-8">
+          <template x-for="(headline, index) in headlines" :key="index">
+            <button @click="currentHeadlineIndex = index" 
+              :class="currentHeadlineIndex === index ? 'bg-white w-8' : 'bg-white/40 w-2'"
+              class="h-2 rounded-full transition-all duration-300">
+            </button>
+          </template>
+        </div>
+      </div>
+
+      <!-- Two Column Layout -->
+      <div class="grid lg:grid-cols-5 gap-8 items-start">
+        
+        <!-- Left Column: Shield March Info (3 cols) -->
+        <div class="lg:col-span-3 bg-blue-950/50 backdrop-blur-sm rounded-2xl p-8 border border-blue-400/30 shadow-xl">
+          
+          <div class="mb-8">
+            <span class="inline-block bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-4">🛡️ Exclusieve Maart Actie</span>
+            <h2 class="text-3xl font-bold text-white mb-4">Operationalize Cyber Resilience & Continuous Compliance</h2>
+            <p class="text-white/90 text-lg leading-relaxed mb-6">
+              EU Cyber Resilience Act Platform met SBOM Intelligence. Unified assessments, real-time vulnerability intelligence, automated evidence en risk remediation, aangedreven door een adaptive compliance engine.
+            </p>
+          </div>
+
+          <div class="bg-orange-500/20 border-l-4 border-orange-500 p-6 rounded-r-xl mb-8">
+            <h3 class="text-xl font-bold text-white mb-3">Exclusieve Maart Actie</h3>
+            <p class="text-white/90 mb-4">
+              Deze week geven wij <strong>5 gratis snapshots</strong> weg ter waarde van <strong class="text-orange-400">€2.495</strong> per stuk. Wij geloven in binaire feiten boven administratieve beloftes.
+            </p>
+            <p class="text-white/90">
+              Lever binnen 24 uur een officieel CRA-statusrapport af bij uw directie en voorkom engineering-verspilling.
+            </p>
+            <div class="mt-4 inline-block bg-white text-blue-900 font-mono font-bold px-4 py-2 rounded-lg text-lg">
+              Code: SHIELDMARCH5
+            </div>
+          </div>
+
+          <!-- Why Today Section -->
+          <div class="border-t border-blue-400/30 pt-8">
+            <h3 class="text-2xl font-bold text-white mb-4">⏰ Waarom Vandaag?</h3>
+            <h4 class="text-lg font-semibold text-orange-400 mb-3">De Kosten van Uitstel: Binaire Schuld</h4>
+            <p class="text-white/90 mb-4">
+              Elke regel code die vandaag wordt geschreven zonder binaire validatie, is een potentieel risico van <strong class="text-orange-400">15 miljoen euro</strong> in 2026. De Cyber Resilience Act (CRA) is geen eenmalige check, maar een continu proces.
+            </p>
+
+            <ul class="space-y-3 text-white/90">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                </svg>
+                <span><strong>24-Uur Deadline:</strong> De wet eist dat u significante lekken binnen 24 uur meldt. Zonder geautomatiseerde binaire triage is dit fysiek onmogelijk.</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span><strong>Engineering Lock-in:</strong> Hoe langer u wacht, hoe dieper kwetsbaarheden zich nestelen in uw architectuur.</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                </svg>
+                <span><strong>Markttoegang:</strong> Klanten eisen nu al SBOMs en beveiligingsgaranties. Zonder officieel binaire dossier staat u buitenspel bij grote aanbestedingen.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Financial Reality Section -->
+          <div class="mt-8 bg-red-900/30 border border-red-500/50 rounded-xl p-6">
+            <h3 class="text-xl font-bold text-white mb-3">⚖️ De Financiële Realiteit van Non-Compliance</h3>
+            <p class="text-white/90 mb-4">
+              De Cyber Resilience Act is geen suggestie, maar een wettelijke verplichting met zware sancties. Vanaf september 2026 bent u verplicht om actief geëxploiteerde kwetsbaarheden binnen 24 uur te melden.
+            </p>
+            <ul class="space-y-2 text-white/90 text-sm">
+              <li class="flex items-start">
+                <span class="text-red-400 font-bold mr-2">•</span>
+                <span><strong>Niet melden van kwetsbaarheden:</strong> Boete tot €15 miljoen of 2,5% van de wereldwijde jaaromzet</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-400 font-bold mr-2">•</span>
+                <span><strong>Niet voldoen aan essentiële eisen:</strong> Boete tot €10 miljoen of 2% van de wereldwijde jaaromzet</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-400 font-bold mr-2">•</span>
+                <span><strong>Onjuiste informatie verstrekken:</strong> Boete tot €5 miljoen of 1% van de wereldwijde jaaromzet</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Operationalize Section -->
+          <div class="mt-8 border-t border-blue-400/30 pt-8">
+            <h3 class="text-2xl font-bold text-white mb-4">🛠️ Operationaliseer Uw Compliance</h3>
+            <p class="text-white/90 mb-4">
+              LEONA Assessor™ is gebouwd voor real-world engineering teams. Terwijl traditionele GRC-tools u dwingen tot honderden uren handmatige triage, automatiseert onze engine de bewijslast via binaire reachability analyse.
+            </p>
+            
+            <div class="grid sm:grid-cols-3 gap-4">
+              <div class="bg-blue-900/50 rounded-lg p-4">
+                <h4 class="text-white font-bold mb-2">Outcome-driven compliance</h4>
+                <p class="text-white/80 text-sm">Geen vinkjes zetten, maar binaire integriteit bewijzen.</p>
+              </div>
+              <div class="bg-blue-900/50 rounded-lg p-4">
+                <h4 class="text-white font-bold mb-2">Risk-first intelligence</h4>
+                <p class="text-white/80 text-sm">Ingesteer SBOMs en identificeer direct wat daadwerkelijk een risico vormt in uw machinecode.</p>
+              </div>
+              <div class="bg-blue-900/50 rounded-lg p-4">
+                <h4 class="text-white font-bold mb-2">Audit-ready bewijs</h4>
+                <p class="text-white/80 text-sm">Genereer een Document of Conformity dat standhoudt bij inspecties door notified bodies.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Form (2 cols) -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-2xl shadow-2xl p-8 sticky top-8">
+            
+            <!-- Success State -->
+            <div x-show="submitted" x-cloak class="text-center">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Aanvraag Ontvangen! 🎉</h3>
+              <p class="text-gray-700 mb-4">
+                Controleer uw inbox voor de beveiligde upload-instructies. Binnen 24 uur ontvangt u uw binaire snapshot.
+              </p>
+              <button @click="submitted = false; resetForm()" 
+                class="text-blue-600 hover:text-blue-700 font-semibold">
+                ← Terug naar formulier
+              </button>
+            </div>
+
+            <!-- Form State -->
+            <div x-show="!submitted">
+              <div class="mb-6">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Claim uw gratis Binaire Snapshot</h3>
+                <p class="text-sm text-orange-600 font-semibold" x-text="spotsRemaining + ' beschikbaar voor deze week'"></p>
+              </div>
+
+              <form @submit.prevent="submitForm" class="space-y-4">
+                
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-1">Naam *</label>
+                  <input type="text" x-model="formData.name" required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="Jan Jansen">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-1">E-mailadres *</label>
+                  <input type="email" x-model="formData.email" required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="jan@bedrijf.nl">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-1">Bedrijfsnaam *</label>
+                  <input type="text" x-model="formData.company" required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="Bedrijf BV">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-1">Productnaam *</label>
+                  <input type="text" x-model="formData.product" required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="IoT Gateway v2.0">
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-700 mb-1">Actiecode</label>
+                  <input type="text" x-model="formData.code" readonly
+                    class="w-full px-4 py-3 border-2 border-green-300 bg-green-50 rounded-lg font-mono font-bold text-green-700"
+                    value="SHIELDMARCH5">
+                </div>
+
+                <button type="submit" :disabled="loading"
+                  class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:from-orange-600 hover:to-orange-700 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                  <span x-show="!loading">🚀 ACTIVEER NU MIJN GRATIS SCAN</span>
+                  <span x-show="loading">Verwerken...</span>
+                </button>
+
+                <p class="text-xs text-gray-500 text-center">
+                  Door te verzenden gaat u akkoord met onze voorwaarden en privacy policy. Uw gegevens worden versleuteld opgeslagen.
+                </p>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-12 text-center text-white/60 text-sm">
+        <p>&copy; 2026 LEONA - Operationalizing Binary Integrity</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function shieldMarchApp() {
+      return {
+        headlines: [
+          'Behaal 100% binaire CRA-compliance in 24 uur, zelfs als uw firmware 7.500 onbekende componenten bevat.',
+          'Verzegel uw officieel CE-dossier binnen 24 uur, zelfs als uw huidige beveiliging uit papieren checklists bestaat.',
+          'Dood 90% van uw kritieke kwetsbaarheden binnen 24 uur, zelfs als uw developers verzuipen in 400 valse meldingen.',
+          'Genereer een sluitend VEX-rapport binnen 24 uur, zelfs als u geen idee heeft welke binaire functies reachable zijn.',
+          'Stop 200 uur aan engineering-verspilling binnen 24 uur, zelfs als uw team zweert bij handmatige Excel-triage.',
+          'Krijg binaire bewijslast voor de toezichthouder binnen 24 uur, zelfs als u nog nooit een ELF-header hebt geanalyseerd.',
+          'Elimineer alle 15M-euro CRA-risico\'s binnen 24 uur, zelfs als uw supply chain een ondoorzichtige puinhoop is.',
+          'Transformeer een vuile SBOM naar een schoon audit-rapport binnen 24 uur, zelfs als uw kernel vol zit met legacy-drivers.',
+          'Vervang drie maanden consultancy-werk binnen 24 uur, zelfs als uw CTO denkt dat alles handmatig moet.',
+          'Claim uw binaire integriteit binnen 24 uur, zelfs als u momenteel alleen hoopt dat uw firmware veilig is.'
+        ],
+        currentHeadlineIndex: 0,
+        spotsRemaining: 5,
+        submitted: false,
+        loading: false,
+        formData: {
+          name: '',
+          email: '',
+          company: '',
+          product: '',
+          code: 'SHIELDMARCH5'
+        },
+
+        get currentHeadline() {
+          return this.headlines[this.currentHeadlineIndex];
+        },
+
+        init() {
+          // Rotate headlines every 5 seconds
+          setInterval(() => {
+            this.currentHeadlineIndex = (this.currentHeadlineIndex + 1) % this.headlines.length;
+          }, 5000);
+        },
+
+        async submitForm() {
+          this.loading = true;
+
+          try {
+            const response = await fetch('/api/shield-march/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(this.formData)
+            });
+
+            if (response.ok) {
+              this.submitted = true;
+              this.spotsRemaining = Math.max(0, this.spotsRemaining - 1);
+            } else {
+              alert('Er ging iets mis. Probeer het opnieuw of neem contact op via kim@eliama.agency');
+            }
+          } catch (error) {
+            alert('Er ging iets mis. Probeer het opnieuw of neem contact op via kim@eliama.agency');
+          } finally {
+            this.loading = false;
+          }
+        },
+
+        resetForm() {
+          this.formData = {
+            name: '',
+            email: '',
+            company: '',
+            product: '',
+            code: 'SHIELDMARCH5'
+          };
+        }
+      }
+    }
+  </script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+
+</body>
+</html>

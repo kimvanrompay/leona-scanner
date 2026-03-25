@@ -74,8 +74,9 @@
             </div>
         </div>
 
-        <div class="mt-24 border-t border-white/10 pt-12 xl:grid xl:grid-cols-3 xl:gap-8">
-            <div class="flex flex-col gap-y-4">
+        <div class="mt-24 border-t border-white/10 pt-12">
+            <!-- Logo and Description -->
+            <div class="flex flex-col gap-y-4 mb-12">
                 <a href="/" class="-m-1.5 p-1.5 flex items-center gap-2">
                     <span class="sr-only">LEONA</span>
                     <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773868524/white_logo_lion_mernwn.png"
@@ -85,76 +86,85 @@
                     Gespecialiseerd in Linux Embedded compliance voor de Cyber Resilience Act.
                 </p>
             </div>
-            <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-                <div class="md:grid md:grid-cols-2 md:gap-8">
-                    <div>
-                        <h3 class="text-sm font-bold text-white uppercase tracking-widest">Navigatie</h3>
-                        <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="/wie-zijn-we"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Over LEONA</a>
-                            </li>
-                            <li><a href="/hoe-het-werkt"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">De Methodiek</a>
-                            </li>
-                            <li><a href="/pricing"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Investering</a>
-                            </li>
-                            <li><a href="/kennis"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CRA
-                                    Kennisbank</a></li>
-                            <li><a href="/cra-compliance"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CRA Compliance</a></li>
-                            <li><a href="/legal-partners"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Legal Partners</a></li>
-                            <li><a href="/legal-assessment"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Legal Assessment</a></li>
-                            <li><a href="/contact"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="mt-10 md:mt-0">
-                        <h3 class="text-sm font-bold text-white uppercase tracking-widest">Oplossingen</h3>
-                        <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="/snapshot"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Snapshot
-                                    Audit</a></li>
-                            <li><a href="/shield"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">LEONA Shield</a>
-                            </li>
-                            <li><a href="/pipeline"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Compliance
-                                    Pipeline</a></li>
-                            <li><a href="/embedded-vault"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Embedded Vault</a>
-                            </li>
-                        </ul>
-                    </div>
+
+            <!-- Main Footer Grid -->
+            <div class="grid grid-cols-2 gap-8 lg:grid-cols-5">
+                <!-- For Engineers -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-1">Voor Engineers</h3>
+                    <p class="text-xs text-gray-500 mb-4">Technical Solutions</p>
+                    <ul role="list" class="space-y-3">
+                        <li><a href="/snapshot"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Snapshot Audit</a></li>
+                        <li><a href="/embedded-vault"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Embedded Vault</a></li>
+                        <li><a href="/pipeline"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CI/CD Pipeline</a></li>
+                        <li><a href="/hoe-het-werkt"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">De Methodiek</a></li>
+                    </ul>
                 </div>
-                <div class="md:grid md:grid-cols-2 md:gap-8">
-                    <div>
-                        <h3 class="text-sm font-bold text-white uppercase tracking-widest">Resources</h3>
-                        <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="/blog"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Blog</a></li>
-                            <li><a href="/contact"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Sales
-                                    support</a></li>
-                        </ul>
-                    </div>
-                    <div class="mt-10 md:mt-0">
-                        <h3 class="text-sm font-bold text-white uppercase tracking-widest">Legal</h3>
-                        <ul role="list" class="mt-6 space-y-4">
-                            <li><a href="/legal-disclaimer"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Legal
-                                    Disclaimer</a></li>
-                            <li><a href="/privacy"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Privacy
-                                    policy</a></li>
-                            <li><a href="/terms"
-                                    class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Terms of
-                                    service</a></li>
-                        </ul>
-                    </div>
+
+                <!-- For Legal/Compliance -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-1">Voor Legal & Compliance</h3>
+                    <p class="text-xs text-gray-500 mb-4">Regulatory Guidance</p>
+                    <ul role="list" class="space-y-3">
+                        <li><a href="/shield"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">LEONA Shield</a></li>
+                        <li><a href="/legal-partners"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Legal Partners</a></li>
+                        <li><a href="/cra-compliance"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CRA Compliance</a></li>
+                        <li><a href="/kennis"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Kennisbank</a></li>
+                    </ul>
+                </div>
+
+                <!-- Assessments -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-1">Gratis Assessments</h3>
+                    <p class="text-xs text-gray-500 mb-4">Start vandaag</p>
+                    <ul role="list" class="space-y-3">
+                        <li><a href="/cra-assessment"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CRA Readiness Check</a></li>
+                        <li><a href="/cra-applicability"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">CRA Toepasbaarheid</a></li>
+                        <li><a href="/leona-applicability"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">LEONA Match Check</a></li>
+                        <li><a href="/legal-assessment"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Legal Assessment</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-1">Bedrijf</h3>
+                    <p class="text-xs text-gray-500 mb-4">Meer over ons</p>
+                    <ul role="list" class="space-y-3">
+                        <li><a href="/wie-zijn-we"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Over LEONA</a></li>
+                        <li><a href="/pricing"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Investering</a></li>
+                        <li><a href="/contact"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Contact</a></li>
+                        <li><a href="/partner-overleg"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Partner Overleg</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-widest mb-1">Juridisch</h3>
+                    <p class="text-xs text-gray-500 mb-4">Voorwaarden</p>
+                    <ul role="list" class="space-y-3">
+                        <li><a href="/legal-disclaimer"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Legal Disclaimer</a></li>
+                        <li><a href="/privacy"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms"
+                                class="text-sm text-gray-400 hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

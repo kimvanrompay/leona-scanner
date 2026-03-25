@@ -45,13 +45,13 @@
 
           <!-- Question -->
           <template x-if="currentQ">
-            <div>
+            <div :key="currentQ.id">
               <h2 class="text-xl font-bold text-gray-900 mb-3" x-text="currentQ.question"></h2>
               <p class="text-sm text-gray-600 mb-6" x-text="currentQ.explanation"></p>
 
               <!-- Options -->
-              <div class="space-y-3">
-                <template x-for="option in currentQ.options" :key="option.value">
+              <div class="space-y-3" :key="'options-' + currentQ.id">
+                <template x-for="option in currentQ.options" :key="currentQ.id + '-' + option.value">
                   <button @click="answerQuestion(option.value)"
                     :class="answers[currentQ.id] === option.value ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-900 border-gray-300 hover:border-blue-500 hover:bg-blue-50'"
                     class="w-full text-left px-6 py-4 rounded-xl border-2 font-semibold transition-all transform hover:scale-105"

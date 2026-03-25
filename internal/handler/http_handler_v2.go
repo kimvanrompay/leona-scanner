@@ -97,6 +97,7 @@ func (h *HTTPHandlerV2) HandlePage(pageName string) http.HandlerFunc {
 		tmpl := template.New("").Funcs(getTemplateFuncs())
 		tmpl, err := tmpl.ParseFiles(
 			"templates/layouts/base.html",
+			"templates/components/ai-banner.html",
 			"templates/components/navbar.html",
 			"templates/components/footer.html",
 			"templates/components/hero.html",
@@ -264,12 +265,158 @@ func (h *HTTPHandlerV2) HandleLEONAApplicability(w http.ResponseWriter, r *http.
 	}
 }
 
+// HandleShieldMarch serves the Shield March promotional landing page (no navbar/footer)
+func (h *HTTPHandlerV2) HandleShieldMarch(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/shield-march.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	// Standalone promotional page - no base layout
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
+// ShieldMarchSubmission represents the form data from Shield March campaign
+type ShieldMarchSubmission struct {
+	Name    string `json:"name"`
+	Email   string `json:"email"`
+	Company string `json:"company"`
+	Product string `json:"product"`
+	Code    string `json:"code"`
+}
+
+// HandleShieldMarchSubmit processes the Shield March form submission and sends confirmation email
+func (h *HTTPHandlerV2) HandleShieldMarchSubmit(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var submission ShieldMarchSubmission
+	if err := json.NewDecoder(r.Body).Decode(&submission); err != nil {
+		log.Printf("Shield March submission decode error: %v", err)
+		http.Error(w, "Invalid request", http.StatusBadRequest)
+		return
+	}
+
+	// Validate promo code
+	if submission.Code != "SHIELDMARCH5" {
+		log.Printf("Shield March invalid code: %s", submission.Code)
+		http.Error(w, "Invalid promo code", http.StatusBadRequest)
+		return
+	}
+
+	// Log submission
+	log.Printf(
+		"Shield March: %s (%s) - %s / %s",
+		submission.Name, submission.Email, submission.Company, submission.Product,
+	)
+
+	// Send confirmation email via Mailgun
+	if h.mailgunService != nil {
+		h.sendShieldMarchEmails(submission)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(map[string]string{"status": "success"}); err != nil {
+		log.Printf("Shield March response encode error: %v", err)
+	}
+}
+
+// sendShieldMarchEmails sends confirmation and notification emails for Shield March submissions
+func (h *HTTPHandlerV2) sendShieldMarchEmails(submission ShieldMarchSubmission) {
+	emailSubject := "Actie vereist: Uw Binaire Snapshot (Code: SHIELDMARCH5) staat klaar 🛡️"
+	emailBody := fmt.Sprintf(`Beste %s,
+
+Bedankt voor uw aanvraag voor een gratis Binaire Snapshot ter waarde van 2.495 euro.
+U heeft hiermee de eerste stap gezet om uw organisatie te beschermen tegen de binaire
+risico's van de Cyber Resilience Act.
+
+Omdat wij een **24-uurs garantie** hanteren voor onze rapportages, hebben we uw input
+direct nodig om de Assessor™ te activeren.
+
+**Uw volgende stappen:**
+
+1. **Beveiligde Upload:** Antwoord op deze e-mail met uw SBOM (CycloneDX/SPDX)
+   of een download link naar uw firmware binaries. Alle uploads worden versleuteld
+   opgeslagen.
+
+2. **Binaire Analyse:** Zodra de upload is voltooid, start onze adaptive compliance
+   engine de Triple-Check op uw machinecode.
+
+3. **Uw Rapport:** Binnen 24 uur ontvangt u uw officiële CRA-statusrapport, inclusief
+   de eliminatie van valse meldingen en een overzicht van de binaire reachability.
+
+**Waarom dit vandaag moet gebeuren:**
+Onder de nieuwe EU-wetgeving is "we wisten het niet" geen juridisch verweer meer.
+Met dit rapport heeft u zwart-op-wit bewijs van uw binaire integriteit voor uw
+directie en toezichthouders.
+
+Heeft u vragen over het exportformat van uw SBOM? Antwoord direct op deze e-mail,
+ons engineering team staat klaar.
+
+Relentless regards,
+
+LEONA Team
+LEONA Compliance - Operationalizing Binary Integrity
+
+---
+
+**Uw gegevens:**
+Bedrijf: %s
+Product: %s
+Actiecode: %s
+`, submission.Name, submission.Company, submission.Product, submission.Code)
+
+	// Convert plain text email body to simple HTML
+	emailBodyHTML := "<html><body><pre style='font-family: system-ui, sans-serif; " +
+		"white-space: pre-wrap;'>" + emailBody + "</pre></body></html>"
+
+	if err := h.mailgunService.SendHTMLEmail(
+		submission.Email,
+		emailSubject,
+		emailBodyHTML,
+	); err != nil {
+		log.Printf("Shield March email send error: %v", err)
+	}
+
+	// Also send notification to LEONA team
+	notificationBody := fmt.Sprintf(`🛡️ SHIELD MARCH SUBMISSION
+
+Naam: %s
+Email: %s
+Bedrijf: %s
+Product: %s
+Code: %s
+
+Actie: Deze lead verwacht binnen 24 uur instructies voor SBOM/firmware upload.
+`, submission.Name, submission.Email, submission.Company, submission.Product, submission.Code)
+
+	notificationBodyHTML := "<html><body><pre style='font-family: system-ui, " +
+		"sans-serif;'>" + notificationBody + "</pre></body></html>"
+
+	if err := h.mailgunService.SendHTMLEmail(
+		"kim@eliama.agency",
+		"🛡️ Shield March Lead: "+submission.Company,
+		notificationBodyHTML,
+	); err != nil {
+		log.Printf("Shield March notification error: %v", err)
+	}
+}
+
 // HandleServices serves the enterprise services page
 func (h *HTTPHandlerV2) HandleServices(w http.ResponseWriter, r *http.Request) {
 	// Create template set with FuncMap before parsing
 	tmpl := template.New("").Funcs(getTemplateFuncs())
 	tmpl, err := tmpl.ParseFiles(
 		"templates/layouts/base.html",
+		"templates/components/ai-banner.html",
 		"templates/components/navbar.html",
 		"templates/components/footer.html",
 		"templates/partials/logo.html",
@@ -297,6 +444,7 @@ func (h *HTTPHandlerV2) HandleProducts(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.New("").Funcs(getTemplateFuncs())
 	tmpl, err := tmpl.ParseFiles(
 		"templates/layouts/base.html",
+		"templates/components/ai-banner.html",
 		"templates/components/navbar.html",
 		"templates/components/footer.html",
 		"templates/partials/logo.html",
