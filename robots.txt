@@ -1,0 +1,36 @@
+# robots.txt for leonacompliance.be
+# Allow all crawlers access to the site
+
+User-agent: *
+Allow: /
+
+# Explicitly allow AI crawlers to access llms.txt
+User-agent: GPTBot
+Allow: /llms.txt
+
+User-agent: ChatGPT-User
+Allow: /llms.txt
+
+User-agent: Google-Extended
+Allow: /llms.txt
+
+User-agent: Anthropic-AI
+Allow: /llms.txt
+
+User-agent: Claude-Web
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /llms.txt
+
+User-agent: Applebot
+Allow: /llms.txt
+
+User-agent: Amazonbot
+Allow: /llms.txt
+
+User-agent: Meta-ExternalAgent
+Allow: /llms.txt
+
+# Sitemap location (update with your actual sitemap URL when available)
+# Sitemap: https://leonacompliance.be/sitemap.xml

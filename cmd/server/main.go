@@ -141,6 +141,18 @@ func main() {
 	// Serve static files
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
+	// Serve llms.txt at root level for AI assistants
+	r.HandleFunc("/llms.txt", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		http.ServeFile(w, r, "./llms.txt")
+	}).Methods("GET", "HEAD")
+
+	// Serve robots.txt for web crawlers
+	r.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+		http.ServeFile(w, r, "./robots.txt")
+	}).Methods("GET", "HEAD")
+
 	// Routes - all using base layout via HandlePage (yield technique)
 	r.HandleFunc("/", h.HandlePage("index")).Methods("GET")    // Uses templates/pages/index.html
 	r.HandleFunc("/demo", h.HandlePage("demo")).Methods("GET") // Demo request page with navbar/footer
