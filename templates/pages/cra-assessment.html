@@ -251,8 +251,9 @@
             2026.</p>
           <div class="mt-10">
             <button @click="goToQuestion(1)"
-              class="rounded-md bg-green-500 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-400">Start
-              Assessment</button>
+              class="rounded-xl bg-gradient-to-r from-green-500 to-green-600 px-12 py-4 text-lg font-bold text-white shadow-xl hover:from-green-600 hover:to-green-700 transition-all transform hover:scale-105 hover:shadow-2xl">
+              Start Assessment →
+            </button>
           </div>
         </div>
       </div>
@@ -1023,6 +1024,42 @@
   <script>
     // Simple form validation and submission
     document.addEventListener('DOMContentLoaded', function() {
+      // Check for success parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('success') === 'true') {
+        const score = urlParams.get('score');
+        const total = urlParams.get('total');
+        const email = urlParams.get('email');
+        
+        // Clear localStorage
+        localStorage.removeItem('cra-assessment');
+        
+        // Scroll to results section and show success
+        setTimeout(function() {
+          const resultsSection = document.getElementById('question-11');
+          if (resultsSection) {
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          
+          // Show success message using Alpine
+          const bodyEl = document.body;
+          if (bodyEl && bodyEl.__x) {
+            const alpineData = bodyEl.__x.$data;
+            if (alpineData) {
+              alpineData.submitted = true;
+              alpineData.email = email;
+            }
+          }
+          
+          // Trigger confetti
+          if (typeof confetti !== 'undefined') {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            setTimeout(function() { confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } }); }, 250);
+            setTimeout(function() { confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } }); }, 400);
+          }
+        }, 500);
+        return;
+      }
       const form = document.getElementById('assessment-form');
       const answersInput = document.getElementById('answers');
       const submitBtn = document.getElementById('submit-btn');

@@ -135,35 +135,8 @@ func (h *HTTPHandlerV2) HandleCRAAssessmentSubmit(w http.ResponseWriter, r *http
 	log.Printf("📧 Sending admin notification for %s assessment", email)
 	go h.sendAssessmentNotification(email, answers, jaCount, complianceScore)
 
-	// Return HTML success message with script to trigger Alpine.js state
-	w.Header().Set("Content-Type", "text/html")
-	w.WriteHeader(http.StatusOK)
-	//nolint:errcheck,gosec,lll // Success HTML with confetti
-	successHTML := fmt.Sprintf(`
-		<div class="text-center py-8">
-			<div class="text-green-600 text-2xl font-bold mb-4">✅ Verstuurd!</div>
-			<div class="text-4xl font-bold text-blue-600 mb-4">%d%%%%</div>
-			<p class="text-lg">Uw CRA compliance score is <strong>%d van 10</strong></p>
-			<p class="text-sm text-gray-600 mt-2">Check uw mailbox voor het volledige rapport naar <strong>%s</strong></p>
-		</div>
-		<script>
-			// Trigger Alpine.js success state
-			setTimeout(() => {
-				const emailInput = document.getElementById('email');
-				if (emailInput) {
-					window.dispatchEvent(new CustomEvent('cra-success', { detail: { email: emailInput.value } }));
-				}
-				// Trigger confetti
-				if (typeof confetti !== 'undefined') {
-					confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-					setTimeout(() => confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 } }), 250);
-					setTimeout(() => confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 } }), 400);
-				}
-			}, 100);
-		</script>
-	`, complianceScore, jaCount, email)
-	//nolint:errcheck,gosec // Writing success HTML
-	w.Write([]byte(successHTML))
+	// Redirect to success page with score and email
+	http.Redirect(w, r, fmt.Sprintf("/cra-assessment?success=true&score=%d&total=%d&email=%s", complianceScore, jaCount, email), http.StatusSeeOther)
 }
 
 // sendAssessmentResultsEmail sends the assessment results to the user
