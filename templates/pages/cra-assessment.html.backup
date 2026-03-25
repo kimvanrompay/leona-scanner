@@ -899,14 +899,13 @@
               </div>
 
               <!-- Email Form -->
-              <form id="assessment-form" action="/api/cra-assessment/submit" method="POST" class="mt-8">
+              <form @submit.prevent="submitAssessment()" class="mt-8">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-6">
-                  <input type="hidden" id="answers" name="answers" value="" />
                   <div>
                     <label for="email" class="block text-sm/6 font-semibold text-gray-900">E-mailadres voor
                       rapport</label>
                     <div class="mt-2.5">
-                      <input type="email" id="email" name="email" required autocomplete="email"
+                      <input type="email" id="email" name="email" x-model="email" required autocomplete="email"
                         class="block w-full rounded-xl bg-white px-3.5 py-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 shadow-sm"
                         placeholder="uw.email@bedrijf.be" />
                     </div>
@@ -931,9 +930,11 @@
                 </div>
 
                 <div class="mt-8 flex flex-col gap-3">
-                  <button id="submit-btn" type="submit"
-                    class="rounded-xl px-8 py-4 text-center text-lg font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-xl shadow-orange-500/50">
-                    <span class="flex items-center justify-center">
+                  <button type="submit" :disabled="submitting || isIncomplete"
+                    @click="console.log('Button clicked directly', 'Submitting:', submitting, 'Incomplete:', isIncomplete)"
+                    :class="isIncomplete ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-xl shadow-orange-500/50'"
+                    class="rounded-xl px-8 py-4 text-center text-lg font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105">
+                    <span x-show="!submitting" class="flex items-center justify-center">
                       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
@@ -941,8 +942,18 @@
                       </svg>
                       Ontvang Resultaten
                     </span>
+                    <span x-show="submitting" class="flex items-center justify-center">
+                      <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                      </svg>
+                      Verzenden...
+                    </span>
                   </button>
-                  <button id="back-btn" type="button" style="display: none;"
+                  <button type="button" @click="$root.goToQuestion(1)" x-show="isIncomplete"
                     class="rounded-xl bg-gray-200 px-4 py-2 text-center text-sm font-semibold text-gray-700 hover:bg-gray-300 transition-all">
                     ← Terug naar vragen
                   </button>
@@ -1019,98 +1030,6 @@
       display: none !important;
     }
   </style>
-
-  <script>
-    // Simple form validation and submission
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('assessment-form');
-      const answersInput = document.getElementById('answers');
-      const submitBtn = document.getElementById('submit-btn');
-      const backBtn = document.getElementById('back-btn');
-      const warningDiv = document.querySelector('[x-show="isIncomplete"]');
-      const progressText = document.querySelectorAll('[x-text="(10 - incompleteQuestions) + \'/10 vragen\'"]');
-      const incompleteText = document.querySelectorAll('[x-text="incompleteQuestions"]');
-      const progressBar = document.querySelector('.bg-green-500');
-      
-      function getAnswers() {
-        try {
-          const saved = localStorage.getItem('cra-assessment');
-          return saved ? JSON.parse(saved) : {};
-        } catch (e) {
-          console.error('Failed to load answers:', e);
-          return {};
-        }
-      }
-      
-      function updateProgress() {
-        const answers = getAnswers();
-        const answered = Object.keys(answers).length;
-        const incomplete = 10 - answered;
-        
-        console.log('Progress update:', answered, 'answered,', incomplete, 'incomplete');
-        
-        // Update progress texts
-        progressText.forEach(el => el.textContent = answered + '/10 vragen');
-        incompleteText.forEach(el => el.textContent = incomplete);
-        
-        // Update progress bar width
-        if (progressBar) {
-          progressBar.style.width = ((answered / 10) * 100) + '%';
-        }
-        
-        // Show/hide warning
-        if (incomplete > 0) {
-          warningDiv?.removeAttribute('style');
-          backBtn.style.display = 'block';
-          submitBtn.disabled = true;
-          submitBtn.classList.add('bg-gray-500/50', 'cursor-not-allowed');
-          submitBtn.classList.remove('bg-gradient-to-r', 'from-orange-500', 'to-orange-600', 'hover:from-orange-600', 'hover:to-orange-700', 'shadow-xl', 'shadow-orange-500/50');
-        } else {
-          warningDiv?.setAttribute('style', 'display: none');
-          backBtn.style.display = 'none';
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('bg-gray-500/50', 'cursor-not-allowed');
-          submitBtn.classList.add('bg-gradient-to-r', 'from-orange-500', 'to-orange-600', 'hover:from-orange-600', 'hover:to-orange-700', 'shadow-xl', 'shadow-orange-500/50');
-        }
-        
-        return incomplete;
-      }
-      
-      // Update progress on page load
-      updateProgress();
-      
-      // Update progress when localStorage changes (e.g., when answering questions)
-      window.addEventListener('storage', updateProgress);
-      setInterval(updateProgress, 500); // Poll every 500ms
-      
-      // Back button handler
-      backBtn.addEventListener('click', function() {
-        const firstQuestion = document.getElementById('question-1');
-        if (firstQuestion) {
-          firstQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-      
-      // Form submission
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const answers = getAnswers();
-        const incomplete = updateProgress();
-        
-        if (incomplete > 0) {
-          alert('U heeft nog ' + incomplete + ' vra' + (incomplete > 1 ? 'gen' : 'ag') + ' niet beantwoord.');
-          return false;
-        }
-        
-        // Populate hidden input
-        answersInput.value = JSON.stringify(answers);
-        
-        // Submit form
-        form.submit();
-      });
-    });
-  </script>
 
 </body>
 
