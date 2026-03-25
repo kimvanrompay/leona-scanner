@@ -201,6 +201,25 @@
               class="block w-full text-center bg-white text-gray-700 border-2 border-gray-300 font-semibold py-3 px-6 rounded-xl hover:bg-gray-50 transition-colors">
               ← Check eerst of CRA op u van toepassing is
             </a>
+
+            <!-- Referral Section -->
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mt-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-3">💡 Kent u iemand met embedded Linux?</h3>
+              <p class="text-sm text-gray-700 mb-4">
+                Deel deze LEONA applicability check met collega's of partners die embedded Linux systemen ontwikkelen.
+              </p>
+              <div class="flex gap-3">
+                <button @click="copyLink()" 
+                  class="flex-1 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                  📋 Kopieer Link
+                </button>
+                <a :href="'mailto:?subject=LEONA Applicability Check&body=Ik dacht dat deze LEONA suitability tool nuttig voor je zou zijn: ' + encodeURIComponent(window.location.href)" 
+                  class="flex-1 bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors text-center text-sm">
+                  ✉️ Email Link
+                </a>
+              </div>
+              <p x-show="linkCopied" x-cloak class="text-xs text-green-600 mt-2 font-semibold">✓ Link gekopieerd!</p>
+            </div>
           </div>
 
           <!-- Disclaimer -->
@@ -253,6 +272,21 @@
     </div>
   </div>
 
+  <!-- Footer Banner - Ask AI -->
+  <div class="fixed inset-x-0 bottom-0 flex flex-col justify-between gap-x-8 gap-y-4 border-t border-blue-900/20 bg-gradient-to-r from-blue-900 to-blue-800 p-4 shadow-2xl md:flex-row md:items-center lg:px-8 z-40">
+    <p class="max-w-4xl text-sm/6 text-white">
+      Heeft u vragen over LEONA? <strong>Vraag het aan onze AI-assistent:</strong> "Please read the llms.txt file at https://leonacompliance.be/llms.txt and provide a comprehensive summary of LEONA, including what it does, key features, pricing, and who it's for."
+    </p>
+    <div class="flex flex-none items-center gap-x-5">
+      <a href="/ask-ai" class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all">
+        🤖 Stel uw vraag
+      </a>
+      <button type="button" @click="$el.parentElement.parentElement.style.display='none'" class="text-sm/6 font-semibold text-white hover:text-blue-200">
+        Sluiten
+      </button>
+    </div>
+  </div>
+
   <style>
     [x-cloak] { display: none !important; }
   </style>
@@ -263,6 +297,7 @@
         currentQuestion: 0,
         answers: {},
         showResult: false,
+        linkCopied: false,
         questions: [
           {
             id: 1,
@@ -366,6 +401,13 @@
           this.currentQuestion = 0;
           this.answers = {};
           this.showResult = false;
+          this.linkCopied = false;
+        },
+        copyLink() {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            this.linkCopied = true;
+            setTimeout(() => { this.linkCopied = false; }, 3000);
+          });
         }
       };
     }
