@@ -691,8 +691,8 @@
       retryCount: 0,
       maxRetries: 3,
       get incompleteQuestions() {
-        // Access parent Alpine component directly
-        const rootData = document.querySelector('[x-data]')?.__x?.$data;
+        // Access parent Alpine component directly via body element
+        const rootData = document.body?.__x?.$data;
         const answers = rootData?.answers || {};
         const answered = Object.keys(answers).length;
         console.log('Checking incomplete:', answered, 'questions answered out of 10');
@@ -707,7 +707,7 @@
       },
       async submitAssessment() {
         console.log('Submit button clicked');
-        const rootData = document.querySelector('[x-data]')?.__x?.$data;
+        const rootData = document.body?.__x?.$data;
         const answers = rootData?.answers || {};
         console.log('Answers:', answers);
         console.log('Total answered:', Object.keys(answers).length);
@@ -733,7 +733,7 @@
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
           
-          const rootData = document.querySelector('[x-data]')?.__x?.$data;
+          const rootData = document.body?.__x?.$data;
           const answers = rootData?.answers || {};
           
           const formData = new FormData();
