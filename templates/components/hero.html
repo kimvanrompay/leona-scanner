@@ -64,7 +64,7 @@
                     }, 20);
                 }
             }" x-init="startScroll()">
-                <div class="flex gap-4" x-ref="track" :style="`transform: translateX(${scrollPosition}px)`">
+                <div class="flex gap-4" x-ref="track" :style="'transform: translateX(' + scrollPosition + 'px)'">
                     <!-- Card 1 -->
                     <article
                         class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-800 px-8 pb-8 pt-56 sm:pt-48 lg:pt-56 flex-shrink-0 w-96 ring-2 ring-transparent"
