@@ -31,6 +31,8 @@ WORKDIR /root/
 COPY --from=builder /app/leona-scanner .
 COPY --from=builder /app/templates ./templates
 COPY --from=builder /app/static ./static
+COPY --from=builder /app/llms.txt ./llms.txt
+COPY --from=builder /app/robots.txt ./robots.txt
 
 # Security: Non-root execution
 RUN adduser -D -h /home/leonauser leonauser && \
