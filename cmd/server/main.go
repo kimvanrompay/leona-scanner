@@ -173,6 +173,7 @@ func main() {
 	r.HandleFunc("/cra-applicability", h.HandleCRAApplicability).Methods("GET")
 	r.HandleFunc("/leona-applicability", h.HandleLEONAApplicability).Methods("GET")
 	r.HandleFunc("/shield-march", h.HandleShieldMarch).Methods("GET")
+	r.HandleFunc("/ask-ai", h.HandlePage("ask-ai")).Methods("GET")
 
 	// Navigation pages
 	r.HandleFunc("/wie-zijn-we", h.HandlePage("wie-zijn-we")).Methods("GET")
