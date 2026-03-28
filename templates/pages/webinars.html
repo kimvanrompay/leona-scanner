@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRA Compliance Webinars | Linux Embedded | LEONA</title>
+    <meta name="description"
+        content="Gratis webinars over EU Cyber Resilience Act compliance voor embedded Linux systemen. Leer hoe u CRA-compliant wordt in 24 uur.">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://leonacompliance.be/webinars">
+    <meta property="og:title" content="CRA Compliance Webinars voor Embedded Linux">
+    <meta property="og:description"
+        content="Leer hoe Linux Embedded Systemen 100% CRA compliant krijgen zonder uw developers te belasten.">
+    <meta property="og:image" content="https://leonacompliance.be/static/og-webinars.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#1e0a8a',
+                        'brand-blue-light': '#4169E1',
+                    },
+                    fontFamily: {
+                        'display': ['Funnel Display', 'sans-serif'],
+                        'sans': ['IBM Plex Mono', 'monospace'],
+                        'mono': ['IBM Plex Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .ibm-plex-mono-regular {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-semibold {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .ibm-plex-mono-bold {
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 700;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body class="bg-white antialiased">
+    <!-- Navigation -->
+    <!-- Main Content -->
+    <div class="bg-white px-4 sm:px-6 pb-20 pt-12 sm:pt-16 lg:px-8 lg:pb-28 lg:pt-24">
+        <div class="relative mx-auto max-w-lg divide-y-2 divide-gray-200 lg:max-w-7xl">
+            <div>
+                <h2 class="text-5xl sm:text-5xl tracking-tight text-gray-900 sm:text-7xl font-display">Leona
+                    Webinars</h2>
+                <div class="mt-3 sm:mt-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-5">
+                    <p class="text-lg sm:text-xl text-gray-500">Leer hoe Linux Embedded Systemen 100% CRA compliant
+                        worden zonder uw developers te belasten.</p>
+                    <form class="mt-6 flex flex-col sm:flex-row lg:mt-0 lg:items-center lg:justify-end"
+                        action="/api/webinar-notify" method="POST">
+                        <div>
+                            <label for="email-address" class="sr-only">Email address</label>
+                            <input id="email-address" type="email" name="email" required placeholder="Vul uw email in"
+                                autocomplete="email"
+                                class="w-full appearance-none rounded-md bg-white px-4 py-2 text-base text-gray-900 placeholder-gray-500 outline outline-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-1 focus:outline-brand-blue lg:max-w-xs" />
+                        </div>
+                        <div
+                            class="mt-2 flex w-full shrink-0 rounded-md shadow-sm sm:ml-3 sm:mt-0 sm:inline-flex sm:w-auto">
+                            <button type="submit"
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-brand-blue px-4 py-2 text-base font-medium text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:ring-offset-2 sm:inline-flex sm:w-auto">Breng
+                                me op de hoogte</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-6 grid gap-8 sm:gap-16 pt-6 sm:pt-10 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
+                <!-- Webinar 1: CRA 24-Hour Compliance (Executive/Management) -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border border-blue-100">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span
+                            class="px-3 py-1 bg-brand-blue text-white text-xs font-bold rounded-full uppercase">Recurring</span>
+                        <span
+                            class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full uppercase">Voor
+                            Management</span>
+                    </div>
+                    <a href="/webinar/cra-24-uur-compliance" class="block">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 font-display">Hoe Linux Embedded Systemen 100%
+                            CRA compliant krijgen in 24 uur</h3>
+                        <p class="text-base text-gray-600 mb-4">Gereserveerd voor hardware-fabrikanten die binaire
+                            feiten boven papieren beloftes stellen. Ontdek de gaten die miljoenenboetes triggeren,
+                            terwijl developers gewoon blijven bouwen.</p>
+
+                        <div class="mb-4 space-y-2">
+                            <p class="text-sm font-semibold text-gray-700">De 3 topics:</p>
+                            <ul class="text-sm text-gray-600 space-y-1 ml-4">
+                                <li>1. Wat is CRA en waarom?</li>
+                                <li>2. Hoe compliant worden in 24u?</li>
+                                <li>3. Hoe compliant blijven gedurende 10 jaar?</li>
+                            </ul>
+                        </div>
+
+                        <div class="border-t border-blue-100 pt-4 mt-4">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Komende sessies:
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-03-30" class="text-gray-700 font-medium">MA 30 Mrt •
+                                        11:00u</time>
+                                    <span class="text-green-600 text-xs font-semibold">14 plaatsen</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-03-31" class="text-gray-700 font-medium">DI 31 Mrt •
+                                        11:00u</time>
+                                    <span class="text-green-600 text-xs font-semibold">20 plaatsen</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-04-01" class="text-gray-700 font-medium">WO 1 Apr •
+                                        11:00u</time>
+                                    <span class="text-green-600 text-xs font-semibold">16 plaatsen</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-04-02" class="text-gray-700 font-medium">DO 2 Apr •
+                                        11:00u</time>
+                                    <span class="text-green-600 text-xs font-semibold">19 plaatsen</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-04-03" class="text-gray-700 font-medium">VR 3 Apr •
+                                        11:00u</time>
+                                    <span class="text-green-600 text-xs font-semibold">11 plaatsen</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="mt-6">
+                        <a href="/webinar/cra-24-uur-compliance"
+                            class="block w-full text-center bg-brand-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors">
+                            Inschrijven →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Webinar 2: Technical Implementation (Engineers) -->
+                <div class="bg-gradient-to-br from-emerald-50 to-white p-8 rounded-2xl border border-emerald-100">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span
+                            class="px-3 py-1 bg-emerald-600 text-white text-xs font-bold rounded-full uppercase">Recurring</span>
+                        <span
+                            class="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full uppercase">Voor
+                            Engineers</span>
+                    </div>
+                    <a href="/webinar/yocto-buildroot-implementation" class="block">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 font-display">Technical Implementation: SBOM,
+                            CVE Scanning & TCF voor Yocto/Buildroot</h3>
+                        <p class="text-base text-gray-600 mb-4">Praktische hands-on sessie voor embedded engineers. Leer
+                            hoe u automatisch CycloneDX/SPDX SBOMs genereert, CVE scanning integreert, en TCF
+                            documentatie produceert zonder uw workflow te verstoren.</p>
+
+                        <div class="mb-4 space-y-2">
+                            <p class="text-sm font-semibold text-gray-700">Wat u leert:</p>
+                            <ul class="text-sm text-gray-600 space-y-1 ml-4">
+                                <li>• SBOM generatie in Yocto (BitBake integratie)</li>
+                                <li>• Buildroot manifest naar SPDX conversie</li>
+                                <li>• CVE scanning met binary reachability analysis</li>
+                                <li>• Kernel EOL detectie & BusyBox security audit</li>
+                                <li>• TCF generation & 10-jaar archivering</li>
+                            </ul>
+                        </div>
+
+                        <div class="border-t border-emerald-100 pt-4 mt-4">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Komende sessies:
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-04-22" class="text-gray-700 font-medium">Di 22 Apr • 10:00
+                                        CEST</time>
+                                    <span class="text-green-600 text-xs font-semibold">18 plaatsen</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-05-13" class="text-gray-700 font-medium">Di 13 Mei • 10:00
+                                        CEST</time>
+                                    <span class="text-green-600 text-xs font-semibold">30 plaatsen</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <time datetime="2026-05-27" class="text-gray-700 font-medium">Di 27 Mei • 10:00
+                                        CEST</time>
+                                    <span class="text-green-600 text-xs font-semibold">30 plaatsen</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="mt-6">
+                        <a href="/webinar/yocto-buildroot-implementation"
+                            class="block w-full text-center bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors">
+                            Kies uw datum →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="bg-gradient-to-r from-brand-blue to-blue-900 py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <h3 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+                Klaar om CRA-compliant te worden?
+            </h3>
+            <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                Start met een gratis Snapshot Audit of plan een persoonlijke demo om te zien hoe LEONA werkt voor uw
+                embedded Linux systeem.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/snapshot"
+                    class="inline-flex items-center justify-center px-8 py-4 bg-white text-brand-blue font-bold rounded-xl hover:bg-gray-100 transition-all shadow-xl">
+                    Gratis Snapshot Audit
+                </a>
+                <a href="/demo"
+                    class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white/10 transition-all">
+                    Plan een Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">VERKEN</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/kennisbank" class="hover:text-white transition-colors">Kennisbank</a></li>
+                        <li><a href="/insights" class="hover:text-white transition-colors">Inzichten</a></li>
+                        <li><a href="/webinars" class="hover:text-white transition-colors">Webinars</a></li>
+                        <li><a href="/#scanner" class="hover:text-white transition-colors">Scanner</a></li>
+                        <li><a href="/#pricing" class="hover:text-white transition-colors">Tarieven</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">CONNECT</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/#contact" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="mailto:kim@leonacompliance.be" class="hover:text-white transition-colors">Email</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">LEGAL</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="/legal-disclaimer" class="hover:text-white transition-colors">Legal Disclaimer</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">LEONA</h3>
+                    <p class="text-gray-400 text-sm">
+                        Gespecialiseerd in Linux Embedded compliance voor de Cyber Resilience Act.
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">
+                    © 2026 LEONA is powered by <span class="text-white font-semibold">ELIAMA AGENCY</span>. All rights
+                    reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

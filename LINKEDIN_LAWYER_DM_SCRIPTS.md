@@ -35,7 +35,7 @@ Wij hebben hier een geautomatiseerde oplossing voor ontwikkeld. Interesse om dit
 
 ## Phase 2: Follow-Up Message (After Connection Accepted)
 
-### Wait 24-48 hours, then send this:
+### Wait 24 hours, then send this:
 
 ```
 Beste [Voornaam],

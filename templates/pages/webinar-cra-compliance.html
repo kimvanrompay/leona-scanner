@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRA 24-Uur Compliance Webinar | LEONA</title>
+    <meta name="description"
+        content="Leer hoe Linux Embedded Systemen 100% CRA compliant krijgen in 24 uur zonder eigen developers te belasten.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#1e0a8a',
+                    },
+                    fontFamily: {
+                        'display': ['Funnel Display', 'sans-serif'],
+                        'sans': ['IBM Plex Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white">
+    <!-- Navigation -->
+
+    <!-- Hero Section -->
+    <div class="relative isolate overflow-hidden bg-white py-24 sm:py-32">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=1e0a8a&sat=-100&exp=15&blend-mode=multiply"
+            alt="" class="absolute inset-0 -z-10 size-full object-cover opacity-20" />
+        <div aria-hidden="true"
+            class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl">
+            <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+                class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#1e0a8a] to-[#4169E1] opacity-20"></div>
+        </div>
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:mx-0">
+                <div class="flex items-center gap-3 mb-6">
+                    <span
+                        class="px-4 py-2 bg-brand-blue text-white text-xs font-bold rounded-full uppercase">Webinar</span>
+                    <span class="px-4 py-2 bg-orange-100 text-orange-700 text-xs font-bold rounded-full uppercase">Voor
+                        Management</span>
+                </div>
+                <h1 class="text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl font-display">Hoe Linux
+                    Embedded Systemen 100% CRA compliant krijgen in 24 uur</h1>
+                <p class="mt-8 text-pretty text-lg font-medium text-gray-700 sm:text-xl/8">Gereserveerd voor
+                    hardware-fabrikanten die binaire feiten boven papieren beloftes stellen. Ontdek de gaten die
+                    miljoenenboetes triggeren, terwijl developers gewoon blijven bouwen.</p>
+                <div class="mt-8 flex items-center gap-4 text-sm text-gray-600">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>60 minuten</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                        <span>Max 30 deelnemers</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span>Online via Zoom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Who This Is For -->
+    <div class="bg-gray-50 py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:text-center">
+                <h2 class="text-base font-semibold text-brand-blue uppercase tracking-wide">Exclusief Voor</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl font-display">Deze webinar is
+                    bedoeld voor:</p>
+            </div>
+            <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                    <div class="flex flex-col">
+                        <dt class="flex items-center gap-x-3 text-base font-semibold text-gray-900">
+                            <svg class="h-5 w-5 flex-none text-brand-blue" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            CTOs & VPs of Engineering
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base text-gray-600">
+                            <p class="flex-auto">Verantwoordelijk voor CRA compliance strategie en budget. Moet €15M
+                                boetes voorkomen zonder development te blokkeren.</p>
+                        </dd>
+                    </div>
+                    <div class="flex flex-col">
+                        <dt class="flex items-center gap-x-3 text-base font-semibold text-gray-900">
+                            <svg class="h-5 w-5 flex-none text-brand-blue" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Product Owners & Managers
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base text-gray-600">
+                            <p class="flex-auto">Brengt embedded Linux producten op de EU markt. Moet CE marking krijgen
+                                voor September 2026 deadline.</p>
+                        </dd>
+                    </div>
+                    <div class="flex flex-col">
+                        <dt class="flex items-center gap-x-3 text-base font-semibold text-gray-900">
+                            <svg class="h-5 w-5 flex-none text-brand-blue" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Legal & Compliance Officers
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base text-gray-600">
+                            <p class="flex-auto">Moet Technical Construction Files (TCF) documentatie verzamelen voor
+                                Notified Body audits en market surveillance.</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- What We Will Cover -->
+    <div class="overflow-hidden bg-white py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div
+                class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+                <div class="lg:pr-8 lg:pt-4">
+                    <div class="lg:max-w-lg">
+                        <h2 class="text-base/7 font-semibold text-brand-blue uppercase tracking-wide">Programma</h2>
+                        <p
+                            class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl font-display">
+                            Wat u leert in 60 minuten</p>
+                        <p class="mt-6 text-lg/8 text-gray-700">Van CRA wetgeving tot binaire implementatie. Geen
+                            theoretische compliance frameworks, maar concrete engineering acties.</p>
+                        <dl class="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
+                            <div class="relative pl-9">
+                                <dt class="inline font-semibold text-gray-900">
+                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                        class="absolute left-1 top-1 size-5 text-brand-blue">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Wat is CRA en waarom?
+                                </dt>
+                                <dd class="inline">De 3 CRA Articles die embedded Linux treffen: Article 10 (SBOM),
+                                    Article 14 (24-hour reporting), Article 21 (10-year archivering). €15M boetes
+                                    uitgelegd.</dd>
+                            </div>
+                            <div class="relative pl-9">
+                                <dt class="inline font-semibold text-gray-900">
+                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                        class="absolute left-1 top-1 size-5 text-brand-blue">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Hoe compliant worden in 24u?
+                                </dt>
+                                <dd class="inline">LEONA Snapshot Audit workflow: Upload Yocto SBOM → Binary
+                                    reachability analysis → TCF generation. Van 200 uur handmatig werk naar 24-hour
+                                    geautomatiseerd proces.</dd>
+                            </div>
+                            <div class="relative pl-9">
+                                <dt class="inline font-semibold text-gray-900">
+                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                        class="absolute left-1 top-1 size-5 text-brand-blue">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Hoe compliant blijven gedurende 10 jaar?
+                                </dt>
+                                <dd class="inline">Continuous compliance via CI/CD integration. Automated CVE
+                                    monitoring. ENISA reporting templates. Notified Body audit preparation zonder
+                                    consultant retainers.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <img src="https://res.cloudinary.com/dg0qxqj4a/image/upload/v1773868927/Gemini_Generated_Image_hycf85hycf85hycf-2_as1vpn.png"
+                    alt="CRA Compliance Dashboard"
+                    class="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Section with Calendar -->
+    <div class="bg-white py-24">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl font-display">Kies uw sessie</h2>
+                <p class="mt-4 text-lg text-gray-600">Beschikbare data in maart en april 2026. Alle sessies om 11:00 -
+                    12:00 CEST.</p>
+            </div>
+
+            <div class="lg:grid lg:grid-cols-12 lg:gap-x-16">
+                <div class="lg:col-span-7 xl:col-span-8">
+                    <ol class="divide-y divide-gray-100">
+                        <!-- Session 1 -->
+                        <li class="group hover:bg-gray-50 rounded-lg px-6 py-6 transition-colors">
+                            <div class="flex items-center gap-x-6">
+                                <div class="flex-none">
+                                    <div
+                                        class="flex size-16 items-center justify-center rounded-full bg-brand-blue text-white font-bold">
+                                        <div class="text-center">
+                                            <div class="text-xs">MRT</div>
+                                            <div class="text-xl">30</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-auto">
+                                    <h3 class="font-semibold text-gray-900">Maandag 30 Maart 2026</h3>
+                                    <p class="mt-1 text-gray-600">11:00 - 12:00</p>
+                                    <p class="mt-2 text-sm text-green-600 font-semibold">24 plaatsen beschikbaar</p>
+                                </div>
+                                <div class="flex-none">
+                                    <a href="/webinar/register?session=2026-03-30"
+                                        class="rounded-md bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 transition-colors">
+                                        Registreer nu
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Session 2 -->
+                        <li class="group hover:bg-gray-50 rounded-lg px-6 py-6 transition-colors">
+                            <div class="flex items-center gap-x-6">
+                                <div class="flex-none">
+                                    <div
+                                        class="flex size-16 items-center justify-center rounded-full bg-brand-blue text-white font-bold">
+                                        <div class="text-center">
+                                            <div class="text-xs">MRT</div>
+                                            <div class="text-xl">31</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-auto">
+                                    <h3 class="font-semibold text-gray-900">Dinsdag 31 Maart 2026</h3>
+                                    <p class="mt-1 text-gray-600">11:00 - 12:00</p>
+                                    <p class="mt-2 text-sm text-green-600 font-semibold">19 plaatsen beschikbaar</p>
+                                </div>
+                                <div class="flex-none">
+                                    <a href="/webinar/register?session=2026-03-31"
+                                        class="rounded-md bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 transition-colors">
+                                        Registreer nu
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Session 3 -->
+                        <li class="group hover:bg-gray-50 rounded-lg px-6 py-6 transition-colors">
+                            <div class="flex items-center gap-x-6">
+                                <div class="flex-none">
+                                    <div
+                                        class="flex size-16 items-center justify-center rounded-full bg-brand-blue text-white font-bold">
+                                        <div class="text-center">
+                                            <div class="text-xs">APR</div>
+                                            <div class="text-xl">2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-auto">
+                                    <h3 class="font-semibold text-gray-900">Woensdag 1 April 2026</h3>
+                                    <p class="mt-1 text-gray-600">11:00 - 12:00</p>
+                                    <p class="mt-2 text-sm text-green-600 font-semibold">16 plaatsen beschikbaar</p>
+                                </div>
+                                <div class="flex-none">
+                                    <a href="/webinar/register?session=2026-04-01"
+                                        class="rounded-md bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 transition-colors">
+                                        Registreer nu
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Session 4 -->
+                        <li class="group hover:bg-gray-50 rounded-lg px-6 py-6 transition-colors">
+                            <div class="flex items-center gap-x-6">
+                                <div class="flex-none">
+                                    <div
+                                        class="flex size-16 items-center justify-center rounded-full bg-brand-blue text-white font-bold">
+                                        <div class="text-center">
+                                            <div class="text-xs">APR</div>
+                                            <div class="text-xl">2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-auto">
+                                    <h3 class="font-semibold text-gray-900">Donderdag 2 April 2026</h3>
+                                    <p class="mt-1 text-gray-600">11:00 - 12:00</p>
+                                    <p class="mt-2 text-sm text-green-600 font-semibold">16 plaatsen beschikbaar</p>
+                                </div>
+                                <div class="flex-none">
+                                    <a href="/webinar/register?session=2026-04-02"
+                                        class="rounded-md bg-brand-blue px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-900 transition-colors">
+                                        Registreer nu
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Info Box -->
+                <div class="mt-12 lg:col-span-5 lg:mt-0 xl:col-span-4">
+                    <div class="rounded-2xl bg-gray-50 p-8 border border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Wat u ontvangt:</h3>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>CRA Summary Sheet</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>CRA Compliance Checklist</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>PROMOCODE 50% korting op Snapshot Audit</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                <span>Q&A met LEONA compliance experts</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-8 pt-8 border-t border-gray-200">
+                            <p class="text-sm font-semibold text-gray-900 mb-2">Vragen?</p>
+                            <p class="text-sm text-gray-600">Contact: <a href="mailto:support@leonacompliance.be"
+                                    class="text-brand-blue hover:underline">support@leonacompliance.be</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Form Section -->
+    <div id="registration-section" class="bg-white py-24">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Registreer voor de Webinar</h2>
+                <p class="mt-2 text-lg leading-8 text-gray-600">Vul het formulier in om uw plaats te reserveren</p>
+            </div>
+            <form id="webinar-registration-form" class="mx-auto mt-16 max-w-xl">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                    <div class="sm:col-span-2">
+                        <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Naam *</label>
+                        <div class="mt-2.5">
+                            <input type="text" name="name" id="name" required
+                                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-blue sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email *</label>
+                        <div class="mt-2.5">
+                            <input type="email" name="email" id="email" required
+                                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-blue sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="company" class="block text-sm font-semibold leading-6 text-gray-900">Bedrijf *</label>
+                        <div class="mt-2.5">
+                            <input type="text" name="company" id="company" required
+                                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-blue sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="job_title" class="block text-sm font-semibold leading-6 text-gray-900">Functie *</label>
+                        <div class="mt-2.5">
+                            <input type="text" name="job_title" id="job_title" required
+                                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-blue sm:text-sm sm:leading-6">
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="session" class="block text-sm font-semibold leading-6 text-gray-900">Kies een sessie *</label>
+                        <div class="mt-2.5">
+                            <select name="session" id="session" required
+                                class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-brand-blue sm:text-sm sm:leading-6">
+                                <option value="">Selecteer een datum...</option>
+                                <option value="2026-03-30">Zondag 30 Maart 2026 - 11:00</option>
+                                <option value="2026-03-31">Dinsdag 31 Maart 2026 - 11:00</option>
+                                <option value="2026-04-01">Woensdag 1 April 2026 - 11:00</option>
+                                <option value="2026-04-02">Donderdag 2 April 2026 - 11:00</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <button type="submit"
+                        class="block w-full rounded-md bg-brand-blue px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue">
+                        Bevestig Registratie
+                    </button>
+                </div>
+                <div id="registration-status" class="mt-4 hidden">
+                    <div class="rounded-md p-4">
+                        <p class="text-sm"></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm text-center">
+                    © 2026 LEONA</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Handle registration button clicks to scroll to form
+        document.querySelectorAll('a[href^="/webinar/register"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = new URL(this.href, window.location.origin);
+                const session = url.searchParams.get('session');
+                if (session) {
+                    document.getElementById('session').value = session;
+                }
+                document.getElementById('registration-section').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Handle form submission
+        document.getElementById('webinar-registration-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                job_title: document.getElementById('job_title').value,
+                session: document.getElementById('session').value,
+                webinar_type: 'management'
+            };
+
+            const statusDiv = document.getElementById('registration-status');
+            const statusText = statusDiv.querySelector('p');
+            
+            try {
+                const response = await fetch('/api/webinar/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    statusDiv.className = 'mt-4 rounded-md bg-green-50 p-4';
+                    statusText.className = 'text-sm text-green-800';
+                    statusText.textContent = '✅ Registratie succesvol! U ontvangt een bevestigingsmail met alle details.';
+                    this.reset();
+                } else {
+                    throw new Error('Registration failed');
+                }
+            } catch (error) {
+                statusDiv.className = 'mt-4 rounded-md bg-red-50 p-4';
+                statusText.className = 'text-sm text-red-800';
+                statusText.textContent = '❌ Er is iets misgegaan. Probeer het opnieuw of neem contact op.';
+            }
+            
+            statusDiv.classList.remove('hidden');
+        });
+    </script>
+</body>
+
+</html>

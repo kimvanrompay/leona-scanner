@@ -281,6 +281,237 @@ func (h *HTTPHandlerV2) HandleShieldMarch(w http.ResponseWriter, r *http.Request
 	}
 }
 
+// HandleWebinars serves the webinars index page
+func (h *HTTPHandlerV2) HandleWebinars(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/webinars.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
+// HandleWebinarCRA serves the CRA 24-hour compliance webinar detail page
+func (h *HTTPHandlerV2) HandleWebinarCRA(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/webinar-cra-compliance.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
+// HandleWebinarTechnical serves the technical implementation webinar detail page
+func (h *HTTPHandlerV2) HandleWebinarTechnical(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/pages/webinar-technical-implementation.html")
+	if err != nil {
+		http.Error(w, "Template fout", http.StatusInternalServerError)
+		log.Printf("Template parse error: %v", err)
+		return
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		http.Error(w, "Template uitvoer fout", http.StatusInternalServerError)
+		log.Printf("Template execute error: %v", err)
+	}
+}
+
+// WebinarRegistration represents the form data from webinar registration
+type WebinarRegistration struct {
+	Name        string `json:"name"`
+	Email       string `json:"email"`
+	Company     string `json:"company"`
+	JobTitle    string `json:"job_title"`
+	Session     string `json:"session"`      // e.g., "2026-03-31"
+	WebinarType string `json:"webinar_type"` // "management" or "technical"
+}
+
+// HandleWebinarRegistration processes webinar registration submissions
+func (h *HTTPHandlerV2) HandleWebinarRegistration(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var registration WebinarRegistration
+	if err := json.NewDecoder(r.Body).Decode(&registration); err != nil {
+		log.Printf("Webinar registration decode error: %v", err)
+		http.Error(w, "Invalid request", http.StatusBadRequest)
+		return
+	}
+
+	// Log registration
+	log.Printf(
+		"Webinar Registration: %s (%s) - %s at %s - %s webinar",
+		registration.Name, registration.Email, registration.Company,
+		registration.Session, registration.WebinarType,
+	)
+
+	// Send confirmation emails via Mailgun
+	if h.mailgunService != nil {
+		h.sendWebinarRegistrationEmails(registration)
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(map[string]string{"status": "success"}); err != nil {
+		log.Printf("Webinar registration response encode error: %v", err)
+	}
+}
+
+// sendWebinarRegistrationEmails sends confirmation to attendee and notification to Kim
+func (h *HTTPHandlerV2) sendWebinarRegistrationEmails(reg WebinarRegistration) {
+	// Determine webinar title
+	webinarTitle := "CRA 24-Uur Compliance Webinar"
+	if reg.WebinarType == "technical" {
+		webinarTitle = "Technical Implementation: SBOM, CVE Scanning & TCF voor Yocto/Buildroot"
+	}
+
+	// Parse session date for formatting
+	sessionDate := reg.Session // e.g., "2026-03-31"
+	sessionTime := "11:00 - 12:00 CEST"
+
+	// Attendee confirmation email
+	attendeeSubject := "✅ Bevestiging: Uw Webinar Registratie - LEONA"
+	attendeeBody := fmt.Sprintf(`<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: 'IBM Plex Mono', monospace, system-ui, -apple-system, sans-serif; background-color: #f3f4f6;">
+	<table width="100%%" cellpadding="0" cellspacing="0" style="background-color: #f3f4f6; padding: 40px 20px;">
+		<tr>
+			<td align="center">
+				<table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+					<!-- Header -->
+					<tr>
+						<td style="background: linear-gradient(135deg, #1e0a8a 0%%, #4169E1 100%%); padding: 40px 30px; text-align: center;">
+							<h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700;">🎓 Webinar Registratie Bevestigd</h1>
+						</td>
+					</tr>
+					
+					<!-- Content -->
+					<tr>
+						<td style="padding: 40px 30px;">
+							<p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">Beste %s,</p>
+							
+							<p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">Bedankt voor uw registratie! We kijken ernaar uit u te ontvangen bij onze webinar.</p>
+							
+							<!-- Webinar Details Box -->
+							<table width="100%%" cellpadding="0" cellspacing="0" style="background-color: #f9fafb; border-left: 4px solid #1e0a8a; margin: 30px 0; border-radius: 4px;">
+								<tr>
+									<td style="padding: 20px;">
+										<p style="margin: 0 0 10px 0; color: #1e0a8a; font-weight: 600; font-size: 14px;">WEBINAR DETAILS</p>
+										<p style="margin: 0 0 8px 0; color: #111827; font-size: 18px; font-weight: 700;">%s</p>
+										<p style="margin: 0 0 5px 0; color: #4b5563; font-size: 14px;">📅 <strong>Datum:</strong> %s</p>
+										<p style="margin: 0 0 5px 0; color: #4b5563; font-size: 14px;">🕐 <strong>Tijd:</strong> %s</p>
+										<p style="margin: 0; color: #4b5563; font-size: 14px;">💻 <strong>Platform:</strong> Online via Zoom (link volgt 1 dag voor aanvang)</p>
+									</td>
+								</tr>
+							</table>
+							
+							<p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0;"><strong>Wat u ontvangt:</strong></p>
+							<ul style="color: #374151; font-size: 14px; line-height: 1.8; margin: 0 0 20px 0; padding-left: 20px;">
+								<li>Zoom link (24 uur voor de webinar)</li>
+								<li>Opname van de sessie (48u toegang)</li>
+								<li>Downloadbare materialen en checklists</li>
+								<li>Q&A met LEONA compliance experts</li>
+							</ul>
+							
+							<p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">Tot binnenkort!</p>
+							
+							<p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 10px 0 0 0;">Met vriendelijke groet,<br><strong>LEONA Team</strong></p>
+						</td>
+					</tr>
+					
+					<!-- Footer -->
+					<tr>
+						<td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
+							<p style="color: #6b7280; font-size: 12px; margin: 0 0 10px 0;">© 2026 LEONA is powered by ELIAMA AGENCY</p>
+							<p style="color: #6b7280; font-size: 12px; margin: 0;">Gespecialiseerd in Linux Embedded compliance voor de Cyber Resilience Act</p>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>`, reg.Name, webinarTitle, sessionDate, sessionTime)
+
+	if err := h.mailgunService.SendHTMLEmail(
+		reg.Email,
+		attendeeSubject,
+		attendeeBody,
+	); err != nil {
+		log.Printf("Webinar attendee email send error: %v", err)
+	}
+
+	// Notification to Kim
+	notificationSubject := "🎓 Nieuwe Webinar Registratie: " + webinarTitle
+	notificationBody := fmt.Sprintf(`<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+<body style="font-family: 'IBM Plex Mono', monospace, system-ui, sans-serif; padding: 20px; background-color: #f3f4f6;">
+	<div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+		<h2 style="color: #1e0a8a; margin: 0 0 20px 0;">🎓 Nieuwe Webinar Registratie</h2>
+		
+		<table style="width: 100%%; border-collapse: collapse;">
+			<tr>
+				<td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Webinar:</td>
+				<td style="padding: 8px 0; color: #111827;">%s</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Naam:</td>
+				<td style="padding: 8px 0; color: #111827;">%s</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Email:</td>
+				<td style="padding: 8px 0; color: #111827;"><a href="mailto:%s" style="color: #1e0a8a;">%s</a></td>
+			</tr>
+			<tr>
+				<td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Bedrijf:</td>
+				<td style="padding: 8px 0; color: #111827;">%s</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Functie:</td>
+				<td style="padding: 8px 0; color: #111827;">%s</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Sessie:</td>
+				<td style="padding: 8px 0; color: #111827;">%s om %s</td>
+			</tr>
+		</table>
+		
+		<div style="margin-top: 30px; padding: 15px; background-color: #eff6ff; border-left: 4px solid #1e0a8a; border-radius: 4px;">
+			<p style="margin: 0; color: #1e3a8a; font-weight: 600;">📋 Actie vereist:</p>
+			<p style="margin: 5px 0 0 0; color: #1e40af; font-size: 14px;">Zoom link sturen 24 uur voor de webinar aan %s</p>
+		</div>
+	</div>
+</body>
+</html>`, webinarTitle, reg.Name, reg.Email, reg.Email, reg.Company, reg.JobTitle, sessionDate, sessionTime, reg.Email)
+
+	if err := h.mailgunService.SendHTMLEmail(
+		"kim@leonacompliance.be",
+		notificationSubject,
+		notificationBody,
+	); err != nil {
+		log.Printf("Webinar notification email error: %v", err)
+	}
+}
+
 // ShieldMarchSubmission represents the form data from Shield March campaign
 type ShieldMarchSubmission struct {
 	Name    string `json:"name"`

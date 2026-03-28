@@ -189,6 +189,12 @@ func main() {
 	r.HandleFunc("/legal-assessment", h.HandlePage("legal-assessment")).Methods("GET")
 	r.HandleFunc("/embedded-vault", h.HandlePage("embedded-vault")).Methods("GET")
 
+	// Webinar pages (standalone)
+	r.HandleFunc("/webinars", h.HandleWebinars).Methods("GET")
+	r.HandleFunc("/webinar/cra-24-uur-compliance", h.HandleWebinarCRA).Methods("GET")
+	r.HandleFunc("/webinar/yocto-buildroot-implementation", h.HandleWebinarTechnical).Methods("GET")
+	r.HandleFunc("/api/webinar/register", h.HandleWebinarRegistration).Methods("POST")
+
 	// Contact form submission
 	r.HandleFunc("/api/contact/submit", h.HandleContactSubmit).Methods("POST")
 
